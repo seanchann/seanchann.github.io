@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>seanchann's blog</title><link href="/" rel="alternate"></link><link href="/feeds%5Call-cn.atom.xml" rel="self"></link><id>/</id><updated>2015-05-24T10:02:00+08:00</updated><entry><title>article</title><link href="/article" rel="alternate"></link><updated>2015-05-24T10:02:00+08:00</updated><author><name>seanchann</name></author><id>tag:,2015-05-24:article</id><summary type="html">&lt;p&gt;&lt;code&gt;a link relative to content root &amp;lt;{filename}/go/reflect.md&amp;gt;&lt;/code&gt;_&lt;/p&gt;</summary></entry><entry><title>go-reflect</title><link href="/go-reflect" rel="alternate"></link><updated>2015-05-24T00:00:00+08:00</updated><author><name>Seanchann Zhou</name></author><id>tag:,2015-05-24:go-reflect</id><summary type="html">&lt;p&gt;本章节主要是对go reflect的基本概念以及使用做一个记录。
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>seanchann's blog</title><link>http://seanchann.github.io/</link><description></description><atom:link href="http://seanchann.github.io/feeds/go.rss.xml" rel="self"></atom:link><lastBuildDate>Sun, 24 May 2015 00:00:00 +0800</lastBuildDate><item><title>go-reflect</title><link>http://seanchann.github.io/go-reflect-cn.html</link><description>&lt;p&gt;本章节主要是对go reflect的基本概念以及使用做一个记录。
 译文地址：http://blog.golang.org/laws-of-reflection&lt;/p&gt;
 &lt;p&gt;反射规则
 介绍：
@@ -148,4 +148,4 @@
   1. 反射是从interface value到反射对象
   2. 反射是从反射对象到interface value
   3. 修改一个反射对象，value必须是可设置的。
-  一旦你了解这些反射的规则，它们会变得更加的容易使用，但是它们仍然是很微妙的。因此应该小心的使用，除非你特别需要它才去使用它。&lt;/p&gt;</summary><category term="go"></category></entry></feed>
+  一旦你了解这些反射的规则，它们会变得更加的容易使用，但是它们仍然是很微妙的。因此应该小心的使用，除非你特别需要它才去使用它。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Seanchann Zhou</dc:creator><pubDate>Sun, 24 May 2015 00:00:00 +0800</pubDate><guid>tag:seanchann.github.io,2015-05-24:go-reflect-cn.html</guid><category>go</category></item></channel></rss>

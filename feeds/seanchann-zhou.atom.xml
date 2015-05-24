@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>seanchann's blog</title><link href="/" rel="alternate"></link><link href="/feeds%5Cseanchann-zhou.atom.xml" rel="self"></link><id>/</id><updated>2015-05-24T00:00:00+08:00</updated><entry><title>go-reflect</title><link href="/go-reflect" rel="alternate"></link><updated>2015-05-24T00:00:00+08:00</updated><author><name>Seanchann Zhou</name></author><id>tag:,2015-05-24:go-reflect</id><summary type="html">&lt;p&gt;本章节主要是对go reflect的基本概念以及使用做一个记录。
+<feed xmlns="http://www.w3.org/2005/Atom"><title>seanchann's blog</title><link href="http://seanchann.github.io/" rel="alternate"></link><link href="http://seanchann.github.io/feeds%5Cseanchann-zhou.atom.xml" rel="self"></link><id>http://seanchann.github.io/</id><updated>2015-05-24T00:00:00+08:00</updated><entry><title>go-reflect</title><link href="http://seanchann.github.io/go-reflect-cn.html" rel="alternate"></link><updated>2015-05-24T00:00:00+08:00</updated><author><name>Seanchann Zhou</name></author><id>tag:seanchann.github.io,2015-05-24:go-reflect-cn.html</id><summary type="html">&lt;p&gt;本章节主要是对go reflect的基本概念以及使用做一个记录。
 译文地址：http://blog.golang.org/laws-of-reflection&lt;/p&gt;
 &lt;p&gt;反射规则
 介绍：
