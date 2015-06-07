@@ -4,37 +4,37 @@
 &lt;p&gt;本文的安装是采用docker的方式，而不是在os上安装package的方式。
 &lt;a href="http://docs.mongoing.com/manual/tutorial/"&gt;package的安装方式&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;在开始前，假定用户已经完成了基础环境的配置，这里主要是指docker的运行环境&lt;/p&gt;
-&lt;h2 id="_1"&gt;安装&lt;/h2&gt;
-&lt;h3 id="mongodb"&gt;运行一个mongodb&lt;/h3&gt;
+&lt;h2&gt;安装&lt;/h2&gt;
+&lt;h3&gt;运行一个mongodb&lt;/h3&gt;
 &lt;p&gt;docker hub上官方的mongodb image，我们直接使用此image来运行mongodb：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;docker run --name some-mongo -d mongo
+&lt;div class="codehilite"&gt;&lt;pre&gt;docker run --name some-mongo -d mongo
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;上面这个命令会自动拉取在github上的latest tag的mongodb&lt;/p&gt;
-&lt;h3 id="run-mongodb-with-volume"&gt;run mongodb with volume&lt;/h3&gt;
+&lt;h3&gt;run mongodb with volume&lt;/h3&gt;
 &lt;p&gt;直接指定绑定host上的文件夹：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;docker run -v /data/db:/data/db --name mongodb -d mongo
+&lt;div class="codehilite"&gt;&lt;pre&gt;docker run -v /data/db:/data/db --name mongodb -d mongo
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;或者我们也可以这样做：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;docker run -v /opt/dockershare/mongo/conf/:/conf/  -v /opt/dockershare/mongo/data/db:/data/db --name mongodb_data centos &lt;span class="nb"&gt;true&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;docker run -v /opt/dockershare/mongo/conf/:/conf/  -v /opt/dockershare/mongo/data/db:/data/db --name mongodb_data centos &lt;span class="nb"&gt;true&lt;/span&gt;
 
 docker run --volumes-from&lt;span class="o"&gt;=&lt;/span&gt;mongodb_data --name mongodb -d mongo
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;上面的镜像文件，根据自己的情况替换&lt;/p&gt;
-&lt;h3 id="_2"&gt;自定义参数启动&lt;/h3&gt;
+&lt;h3&gt;自定义参数启动&lt;/h3&gt;
 &lt;p&gt;docker hub上提供的官方镜像支持自定义参数启动mongodb：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;docker run  --name mongodb-t -d mongo  --auth
+&lt;div class="codehilite"&gt;&lt;pre&gt;docker run  --name mongodb-t -d mongo  --auth
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;如上所示，我们传入了--auth给run命令做为参数，相当于我们执行mongod --auth&lt;/p&gt;
 &lt;p&gt;截取一段代码看看：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#!/bin/bash&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c"&gt;#!/bin/bash&lt;/span&gt;
 &lt;span class="nb"&gt;set&lt;/span&gt; -e
 
 &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;1&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="nv"&gt;0&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="nv"&gt;1&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;-&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;then&lt;/span&gt;
@@ -65,13 +65,13 @@ docker run --volumes-from&lt;span class="o"&gt;=&lt;/span&gt;mongodb_data --name
 &lt;p&gt;最后，我们执行压入参数列表中的命令。&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id="_3"&gt;完整的启动命令&lt;/h3&gt;
+&lt;h3&gt;完整的启动命令&lt;/h3&gt;
 &lt;p&gt;经过上面的推敲，通过docker启动mongodb的完整命令应该是：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;docker run --volumes-from=mongodb_data --name mongodb -d mongo --auth
+&lt;div class="codehilite"&gt;&lt;pre&gt;docker run --volumes-from=mongodb_data --name mongodb -d mongo --auth
 &lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Seanchann Zhou</dc:creator><pubDate>Sun, 07 Jun 2015 00:00:00 +0800</pubDate><guid>tag:seanchann.github.io,2015-06-07:mongodb-install-cn.html</guid><category>mongodb</category></item><item><title>mongodb---Problems Summary</title><link>http://seanchann.github.io/mongodb-problems-summary-cn.html</link><description>&lt;p&gt;&lt;strong&gt;系统：CentOS7 + docker 1.6&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;mongodb版本： 3.0.2&lt;/strong&gt;&lt;/p&gt;
-&lt;h3 id="warningsyskernelmmtransparent_hugepageenabled-or-syskernelmmtransparent_hugepagedefrag-is-always"&gt;WARNING:/sys/kernel/mm/transparent_hugepage/enabled or /sys/kernel/mm/transparent_hugepage/defrag is 'always'.&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;    这个问题的原因是由于内核的某些参数的配置造成的mongodb产生了警告，基于docker环境，在docker运行的host主机上：
+&lt;h3&gt;WARNING:/sys/kernel/mm/transparent_hugepage/enabled or /sys/kernel/mm/transparent_hugepage/defrag is 'always'.&lt;/h3&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;    这个问题的原因是由于内核的某些参数的配置造成的mongodb产生了警告，基于docker环境，在docker运行的host主机上：
 
     1. echo never &amp;gt; /sys/kernel/mm/transparent_hugepage/enabled
     2. echo never &amp;gt; /sys/kernel/mm/transparent_hugepage/defrag
@@ -84,22 +84,22 @@ docker run --volumes-from&lt;span class="o"&gt;=&lt;/span&gt;mongodb_data --name
 &lt;p&gt;&lt;strong&gt;mongodb版本： 3.0.2&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;安装工作完成后，整个的mongodb运行起来后，在开始工作前，首先应该为我们的mongodb配置适当的用户以及其权限。&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;注意下，网上大多数的直接进入命令行,执行：&lt;/em&gt;&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;use admin
+&lt;div class="codehilite"&gt;&lt;pre&gt;use admin
 db.adduser(&amp;quot;test&amp;quot;,&amp;quot;123&amp;quot;)
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;&lt;em&gt;上面这种方式在3.0的版本上是行不通的&lt;/em&gt;&lt;/p&gt;
-&lt;h2 id="_1"&gt;添加管理员用户&lt;/h2&gt;
+&lt;h2&gt;添加管理员用户&lt;/h2&gt;
 &lt;p&gt;通过docker首先启动不带--auth的mongodb：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;docker run --volumes-from=mongodb_data --name mongodb -d mongo
+&lt;div class="codehilite"&gt;&lt;pre&gt;docker run --volumes-from=mongodb_data --name mongodb -d mongo
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;&lt;a href="http://seanchann.github.io/mongodb-install-cn.html"&gt;更详细的对安装的描述&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id="mongo-shell"&gt;进入mongo shell&lt;/h3&gt;
-&lt;h3 id="_2"&gt;添加管理员用户：&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;use admin
+&lt;h3&gt;进入mongo shell&lt;/h3&gt;
+&lt;h3&gt;添加管理员用户：&lt;/h3&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;use admin
 db.createUser(
 {
       user: &amp;quot;admin&amp;quot;,
@@ -135,14 +135,14 @@ db.createUser(
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id="_3"&gt;检查创建的用户&lt;/h3&gt;
+&lt;h3&gt;检查创建的用户&lt;/h3&gt;
 &lt;p&gt;根据前面的命令，我们的应该有了一个admin的用户，执行命令检查下：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;show users
+&lt;div class="codehilite"&gt;&lt;pre&gt;show users
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;我们得到的输出是：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="p"&gt;{&lt;/span&gt;
         &lt;span class="nt"&gt;&amp;quot;_id&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;admin.admin&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
         &lt;span class="nt"&gt;&amp;quot;user&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;admin&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
         &lt;span class="nt"&gt;&amp;quot;db&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;admin&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
@@ -157,47 +157,47 @@ db.createUser(
 
 
 &lt;p&gt;同样的，我们也可以使用命令：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;  db.system.users.find()
+&lt;div class="codehilite"&gt;&lt;pre&gt;  db.system.users.find()
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3 id="mongodb-with-auth-parameter"&gt;重新启动mongodb with auth parameter&lt;/h3&gt;
+&lt;h3&gt;重新启动mongodb with auth parameter&lt;/h3&gt;
 &lt;p&gt;接下来，我们重新启动一个mongodb，使用--auth：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;docker run --volumes-from&lt;span class="o"&gt;=&lt;/span&gt;mongodb_data --name mongodb -d mongo --auth
+&lt;div class="codehilite"&gt;&lt;pre&gt;docker run --volumes-from&lt;span class="o"&gt;=&lt;/span&gt;mongodb_data --name mongodb -d mongo --auth
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;执行下面的命令，检查鉴权是否可以成功：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;use admin
+&lt;div class="codehilite"&gt;&lt;pre&gt;use admin
 db.auth(&amp;quot;admin&amp;quot;,&amp;quot;admin&amp;quot;)
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;执行后返回的结果是：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;1
+&lt;div class="codehilite"&gt;&lt;pre&gt;1
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;这表示我们的执行用户鉴权是成功的&lt;/p&gt;
 &lt;p&gt;到此，管理数据库用户的用户admin创建成功，接下来就是创建针对每个数据库的用户&lt;/p&gt;
-&lt;h3 id="_4"&gt;创建数据库用户&lt;/h3&gt;
+&lt;h3&gt;创建数据库用户&lt;/h3&gt;
 &lt;p&gt;我们先来执行下面的命令，创建一个数据库test：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;use test
+&lt;div class="codehilite"&gt;&lt;pre&gt;use test
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;创建test数据库的用户test,这里给的role是readWrite：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;db.createUser({user:&amp;quot;test&amp;quot;, pwd:&amp;quot;test&amp;quot;, roles:[{role:&amp;quot;readWrite&amp;quot;,db:&amp;quot;test&amp;quot;}]})
+&lt;div class="codehilite"&gt;&lt;pre&gt;db.createUser({user:&amp;quot;test&amp;quot;, pwd:&amp;quot;test&amp;quot;, roles:[{role:&amp;quot;readWrite&amp;quot;,db:&amp;quot;test&amp;quot;}]})
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;我们对用户进行下鉴权：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;db.auth(&amp;quot;test&amp;quot;,&amp;quot;test&amp;quot;)
+&lt;div class="codehilite"&gt;&lt;pre&gt;db.auth(&amp;quot;test&amp;quot;,&amp;quot;test&amp;quot;)
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;如果返回为：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;1
+&lt;div class="codehilite"&gt;&lt;pre&gt;1
 &lt;/pre&gt;&lt;/div&gt;
 
 
