@@ -1,151 +1,254 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>seanchann's blog</title><link>http://seanchann.github.io/</link><description></description><atom:link href="http://seanchann.github.io/feeds/go.rss.xml" rel="self"></atom:link><lastBuildDate>Sun, 24 May 2015 00:00:00 +0800</lastBuildDate><item><title>go-reflect</title><link>http://seanchann.github.io/go-reflect-cn.html</link><description>&lt;p&gt;本章节主要是对go reflect的基本概念以及使用做一个记录。
-译文地址：http://blog.golang.org/laws-of-reflection&lt;/p&gt;
-&lt;p&gt;反射规则
-介绍：
-反射规则的第一条：
-1.反射从interface的value到reflection object
-  在底层，反射仅仅是一个机制，来检查存储在内部的一个interface变量中的type和value的对。首先，在包reflect中有两种类型我们必须知晓：Type 以及 Value。这两个类型可以让我们访问到interface变量的内容，并且提供了两个简单的函数，reflect.TypeOf以及reflect.ValueOf,通过对这两个函数的调用就可以获取到interface变量的值。（此外，调用reflect.Value也非常容易获取到reflect.Type,但是在概念上Value以及Type是完全不同的）
-  让我们先开始使用下TypeOf：
-  package main&lt;/p&gt;
-&lt;p&gt;import (
-    "fmt"
-    "reflect"
-  )&lt;/p&gt;
-&lt;p&gt;func main() {
-    var x float64 = 3.4
-    fmt.Println("type:", reflect.TypeOf(x))
-  }
-  这个程序会打印：
-  type: float64
-  你可能会想知道我们的interface在哪里，因为上面的程序看上去就像是它传递了float64给变量x，而不是一个interface的value，传递给我们的reflect.TypeOf。但是它确实是存在的；在godoc文档中，reflect.TypeOf的签名包含一个空的interface：&lt;/p&gt;
-&lt;p&gt;// TypeOf returns the reflection Type of the value in the interface{}.
-  func TypeOf(i interface{}) Type&lt;/p&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>seanchann's blog</title><link>http://seanchann.github.io/</link><description></description><atom:link href="http://seanchann.github.io/feeds/go.rss.xml" rel="self"></atom:link><lastBuildDate>Sun, 07 Jun 2015 00:00:00 +0800</lastBuildDate><item><title>go-reflect</title><link>http://seanchann.github.io/go-reflect-cn.html</link><description>&lt;p&gt;&lt;a href="http://blog.golang.org/laws-of-reflection"&gt;原文地址&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="_1"&gt;反射规则&lt;/h2&gt;
+&lt;h3 id="_2"&gt;反射规则的第一条：&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;1.反射从interface的value到reflection object
+  在底层，反射仅仅是一个机制，来检查存储在内部的一个interface变量中的type和value的对。首先，在包reflect中有两种类型我们必须知晓：Type 以及 Value。这两个类型可以让我们访问到interface变量的内容，并且提供了两个简单的函数，reflect.TypeOf以及reflect.ValueOf,通过对这两个函数的调用就可以获取到interface变量的值。（此外，调用reflect.Value也非常容易获取到reflect.Type,但是在概念上Value以及Type是完全不同的）&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;让我们先开始使用下TypeOf:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;package&lt;/span&gt; &lt;span class="nx"&gt;main&lt;/span&gt;
+  &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+    &lt;span class="s"&gt;&amp;quot;fmt&amp;quot;&lt;/span&gt;
+    &lt;span class="s"&gt;&amp;quot;reflect&amp;quot;&lt;/span&gt;
+  &lt;span class="p"&gt;)&lt;/span&gt;
+
+  &lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nx"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt; &lt;span class="kt"&gt;float64&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="mf"&gt;3.4&lt;/span&gt;
+    &lt;span class="nx"&gt;fmt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Println&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;type:&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;reflect&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;TypeOf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;这个程序会打印：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;  type: float64
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;你可能会想知道我们的interface在哪里，因为上面的程序看上去就像是它传递了float64给变量x，而不是一个interface的value，传递给我们的reflect.TypeOf。但是它确实是存在的；在godoc文档中，reflect.TypeOf的签名包含一个空的interface：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;  &lt;span class="c1"&gt;// TypeOf returns the reflection Type of the value in the interface{}.&lt;/span&gt;
+  &lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nx"&gt;TypeOf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;i&lt;/span&gt; &lt;span class="kd"&gt;interface&lt;/span&gt;&lt;span class="p"&gt;{})&lt;/span&gt; &lt;span class="nx"&gt;Type&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;p&gt;当我们调用reflect.TypeOf(x),x是第一个被存储在空interface中，然后传入作为参数；reflect.TypeOf打开这个空的interface，然后重新获取type的信息。&lt;/p&gt;
 &lt;p&gt;reflect.Valueof 函数，当然，也重新获取value&lt;/p&gt;
-&lt;p&gt;var x float64 = 3.4
-  fmt.Println("value:", reflect.ValueOf(x))
-  打印：
-  value: &lt;float64 Value&gt;&lt;/p&gt;
-&lt;p&gt;reflect.Type以及reflect.Value两个都提供了很多的方法让我们去检查和操作它们。一个重要的例子是Value有一个Type的方法来返回一个reflect.Value的Type。还有Type以及Value都有一个Kind的方法，这个方法返回一个恒量，这个恒量是按照一定的顺序被存储：Unit，Float64，Slice，等等。另外Value提供了一些方法，这些方法名类似Int以及Float，可以让我们获取在这些对象的内部存储的值：（就像int64以及float64）：
-  var x float64 = 3.4
-  v := reflect.ValueOf(x)
-  fmt.Println("type:", v.Type())
-  fmt.Println("kind is float64:", v.Kind() == reflect.Float64)
-  fmt.Println("value:", v.Float())
-  输出：
-  type: float64
+&lt;div class="highlight"&gt;&lt;pre&gt;  &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt; &lt;span class="kt"&gt;float64&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="mf"&gt;3.4&lt;/span&gt;
+  &lt;span class="nx"&gt;fmt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Println&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;value:&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;reflect&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ValueOf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;程序输出：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;  value: &amp;lt;float64 Value&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;reflect.Type以及reflect.Value两个都提供了很多的方法让我们去检查和操作它们。一个重要的例子是Value有一个Type的方法来返回一个reflect.Value的Type。还有Type以及Value都有一个Kind的方法，这个方法返回一个恒量，这个恒量是按照一定的顺序被存储：Unit，Float64，Slice，等等。另外Value提供了一些方法，这些方法名类似Int以及Float，可以让我们获取在这些对象的内部存储的值：（就像int64以及float64）：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;  &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt; &lt;span class="kt"&gt;float64&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="mf"&gt;3.4&lt;/span&gt;
+  &lt;span class="nx"&gt;v&lt;/span&gt; &lt;span class="o"&gt;:=&lt;/span&gt; &lt;span class="nx"&gt;reflect&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ValueOf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="nx"&gt;fmt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Println&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;type:&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;v&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Type&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
+  &lt;span class="nx"&gt;fmt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Println&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;kind is float64:&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;v&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Kind&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="nx"&gt;reflect&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Float64&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="nx"&gt;fmt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Println&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;value:&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;v&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Float&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;输出：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;  type: float64
   kind is float64: true
   value: 3.4
-  这里也有一些方法类似于SetInt以及SetFloat，使用它们的时候，我们必须理解reflect的设置能力，下面的内容将会讲到。
-  反射库有一些比较有用的属性。首先，保持API的简单，Value的方法“getter”以及“setter”操作，可以容纳比较大的类型的值：例如,针对所有的有符号整型int64。也就是说，Value的Int方法返回一个int64的值，以及SetInt可以接受int64的参数；那么可能我们需要将它们转换为实际的所需要的类型。
-  var x uint8 = 'x'
-  v := reflect.ValueOf(x)
-  fmt.Println("type:", v.Type())           // uint8.
-  fmt.Println("kind is uint8: ", v.Kind() == reflect.Uint8) // true.
-  x = uint8(v.Uint())      // v.Uint returns a uint64.&lt;/p&gt;
-&lt;p&gt;第二个属相就是reflect对象的Kind描述的是最基本的类型，而不是静态类型。如果一个反射对象包含了用户自定义的integer类型，就像：
-  type MyInt int
-  var x MyInt = 7
-  v := reflect.ValueOf(x)
-  v的kind将会是reflect.Int，即使我们x的类型是MyInt，而不是int。换句话说，Kind不能区分从一个MyInt到Int，即使在类型上看它们是不同的。&lt;/p&gt;
-&lt;p&gt;反射的第二条规则
-  2.反射从反射的对象到interface的值
-  类似于物理反射，反射在Go中生成它自己的反面&lt;/p&gt;
-&lt;p&gt;给出一个reflect.Value我们可以获取到interface的值使用Interface的方法；实际上，此方法打包了type以及value的信息以一个interface的来表现并且返回结果。
-  // Interface returns v's value as an interface{}.
-  func (v Value) Interface() interface{}
-  作为一个推论我们可以：
-  y := v.Interface().(float64) // y will have type float64.
-  fmt.Println(y)
-  通过反射对象v来打印float64值的表现&lt;/p&gt;
-&lt;p&gt;我们可以做的更好。fmt.Println,fmt.Printf的参数都是一个空的interface的值，然后在fmt包的内部做解包，就跟我们前面讲的例子一样。因此，我们可以打印出reflect.Value：
-  fmt.Println(v.Interface())&lt;/p&gt;
-&lt;p&gt;（为什么不直接fmt.Println(v)?因为v是一个reflect.Value的类型。我们想要它保存的正确的值。）由于我们的值是一个float64，我们可以格式化float的输出：
-  fmt.Printf("value is %7.1e\n", v.Interface())
-  输出：
-  3.4e+00
-  再次，这里不需要v.Interface()到float64的类型的断言；空的interface的值在里面有具体的类型信息，并且Printf会重新恢复它。
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;这里也有一些方法类似于SetInt以及SetFloat，使用它们的时候，我们必须理解reflect的设置能力，下面的内容将会讲到。
+  反射库有一些比较有用的属性。首先，保持API的简单，Value的方法“getter”以及“setter”操作，可以容纳比较大的类型的值：例如,针对所有的有符号整型int64。也就是说，Value的Int方法返回一个int64的值，以及SetInt可以接受int64的参数；那么可能我们需要将它们转换为实际的所需要的类型。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;  &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt; &lt;span class="kt"&gt;uint8&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="sc"&gt;&amp;#39;x&amp;#39;&lt;/span&gt;
+  &lt;span class="nx"&gt;v&lt;/span&gt; &lt;span class="o"&gt;:=&lt;/span&gt; &lt;span class="nx"&gt;reflect&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ValueOf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="nx"&gt;fmt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Println&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;type:&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;v&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Type&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;           &lt;span class="c1"&gt;// uint8.&lt;/span&gt;
+  &lt;span class="nx"&gt;fmt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Println&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;kind is uint8: &amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;v&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Kind&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="nx"&gt;reflect&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Uint8&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;// true.&lt;/span&gt;
+  &lt;span class="nx"&gt;x&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;uint8&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;v&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Uint&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;      &lt;span class="c1"&gt;// v.Uint returns a uint64.&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;第二个属性就是reflect对象的Kind描述的是最基本的类型，而不是静态类型。如果一个反射对象包含了用户自定义的integer类型，就像：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;  &lt;span class="kd"&gt;type&lt;/span&gt; &lt;span class="nx"&gt;MyInt&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt;
+  &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt; &lt;span class="nx"&gt;MyInt&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;7&lt;/span&gt;
+  &lt;span class="nx"&gt;v&lt;/span&gt; &lt;span class="o"&gt;:=&lt;/span&gt; &lt;span class="nx"&gt;reflect&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ValueOf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;v的kind将会是reflect.Int，即使我们x的类型是MyInt，而不是int。换句话说，Kind不能区分从一个MyInt到Int，即使在类型上看它们是不同的。&lt;/p&gt;
+&lt;h3 id="_3"&gt;反射的第二条规则&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;2.反射从反射的对象到interface的值
+  类似于物理反射，反射在Go中生成它自己的反面&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;给出一个reflect.Value我们可以获取到interface的值使用Interface的方法；实际上，此方法打包了type以及value的信息以一个interface的来表现并且返回结果。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;  &lt;span class="c1"&gt;// Interface returns v&amp;#39;s value as an interface{}.&lt;/span&gt;
+  &lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;v&lt;/span&gt; &lt;span class="nx"&gt;Value&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="nx"&gt;Interface&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="kd"&gt;interface&lt;/span&gt;&lt;span class="p"&gt;{}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;作为一个推论我们可以有：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;  &lt;span class="nx"&gt;y&lt;/span&gt; &lt;span class="o"&gt;:=&lt;/span&gt; &lt;span class="nx"&gt;v&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Interface&lt;/span&gt;&lt;span class="p"&gt;().(&lt;/span&gt;&lt;span class="kt"&gt;float64&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;// y will have type float64.&lt;/span&gt;
+  &lt;span class="nx"&gt;fmt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Println&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;通过反射对象v来打印float64值的表现&lt;/p&gt;
+&lt;p&gt;我们可以做的更好。fmt.Println,fmt.Printf的参数都是一个空的interface的值，然后在fmt包的内部做解包，就跟我们前面讲的例子一样。因此，我们可以打印出reflect.Value：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;  &lt;span class="nx"&gt;fmt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Println&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;v&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Interface&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;（为什么不直接fmt.Println(v)?因为v是一个reflect.Value的类型。我们想要它保存的正确的值。）由于我们的值是一个float64，我们可以格式化float的输出：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;  &lt;span class="nx"&gt;fmt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;value is %7.1e\n&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;v&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Interface&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;输出：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;  3.4e+00
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;再次，这里不需要v.Interface()到float64的类型的断言；空的interface的值在里面有具体的类型信息，并且Printf会重新恢复它。
   总之，Interface的方法是ValueOf函数的逆操作，不同的地方就是它的结果始终是静态类型interface{}
   重申：反射从interface的值到反射的对象，并且也可以返回。&lt;/p&gt;
-&lt;p&gt;反射的第三个规则
-  3.修改一个反射对象，值必须是可修改的。
-  第三条规则非常的让人困惑并且难以理解，但是也是很容易理解的，如果我们是从第一个原理开始的学习。
-  这里有一些代码不能工作，但是它对学习很有用：
-  var x float64 = 3.4
-  v := reflect.ValueOf(x)
-  v.SetFloat(7.1) // Error: will panic.
-  如果你运行这个代码，程序将会panic：
-  panic: reflect.Value.SetFloat using unaddressable value
-  这个问题不在于值7.1，而在于这个值无法寻址。它的v是不可设置的。设置能力是反射的Value的属性，但是不是所有的反射Values都有此能力。
-  Value的CanSet的方法可以报告Value的设置能力。在我们的例子里：
-  var x float64 = 3.4
-  v := reflect.ValueOf(x)
-  fmt.Println("settability of v:", v.CanSet())
-  打印：
-  settability of v: false
-  不能对不具有设置能力的Value调用Set方法。但是什么是设置能力那？
-  设置能力有点像寻址能力，但是它更严格。它是一个反射对象的属性，可以用来修改被创建这个反射对象的实际的存储的数据。设置能力通过是否反射对象保存了原始的条目来确定。那么：
-  var x float64 = 3.4
-  v := reflect.ValueOf(x)
-  我们传入了一个x的copy给reflect.ValueOf,因此对传入给relfect.ValueOf的x的copy的参数，创建了一个interface，这里不是x自己。因此，语句：
-  v.SetFloat(7.1)
-  是可以成功的，它不会去更新x，即使看上去它是从x创建的。相反，它将会更新存在在反射的值的x的copy，x本身不会受到影响。这将会引起混乱，因此它是非法的，设置能力就是为了避免类似的问题。
-  如果这个看上去比较奇怪，实际上不是。实际上这是一个我们熟悉的情况，但是有不寻常的表述。考虑一个传入x参数的函数：
-  f(x)
-  我们不期望f可以去修改我们的x，因为我们传递的是x的值拷贝，而不是x自己。如果我们想要修改x，那么我们必须传递的是对x的引用：
-  f(&amp;amp;x)
-  这是比较简单和熟悉的，并且反射的工作原理与这个类似。如果我们想要通过反射来修改x，我们必须给反射库提供一个指向我们想要修改的变量的指针。
-  让我们来实践下。首先初始化x，然后创建一个reflect的value指向它，称它为p：
-  var x float64 = 3.4
-  p := reflect.ValueOf(&amp;amp;x) // Note: take the address of x.
-  fmt.Println("type of p:", p.Type())
-  fmt.Println("settability of p:", p.CanSet())
-  那么输出是：
-  type of p: &lt;em&gt;float64
+&lt;h3 id="_4"&gt;反射的第三个规则&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;3.修改一个反射对象，值必须是可修改的。
+  第三条规则非常的让人困惑并且难以理解，但是也是很容易理解的，如果我们是从第一个原理开始的学习。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;这里有一些代码不能工作，但是它对学习此规则很有用：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;  &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt; &lt;span class="kt"&gt;float64&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="mf"&gt;3.4&lt;/span&gt;
+  &lt;span class="nx"&gt;v&lt;/span&gt; &lt;span class="o"&gt;:=&lt;/span&gt; &lt;span class="nx"&gt;reflect&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ValueOf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="nx"&gt;v&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;SetFloat&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;7.1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;// Error: will panic.&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;如果你运行这个代码，程序将会panic：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;  panic: reflect.Value.SetFloat using unaddressable value
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;这个问题不在于值7.1，而在于这个值无法寻址。它的v是不可设置的。设置能力是反射的Value的属性，但是不是所有的反射Values都有此能力。
+  Value的CanSet的方法可以给出Value的设置能力。在我们的例子里：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;  &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt; &lt;span class="kt"&gt;float64&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="mf"&gt;3.4&lt;/span&gt;
+  &lt;span class="nx"&gt;v&lt;/span&gt; &lt;span class="o"&gt;:=&lt;/span&gt; &lt;span class="nx"&gt;reflect&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ValueOf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="nx"&gt;fmt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Println&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;settability of v:&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;v&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;CanSet&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;打印：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;  settability of v: false
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;不能对不具有设置能力的Value调用Set方法。但是什么是设置能力那？
+  设置能力有点像寻址能力，但是它更严格。它是一个反射对象的属性，可以用来修改被创建这个反射对象的实际的存储的数据。设置能力通过是否反射对象保存了原始的条目来确定。那么：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;  &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt; &lt;span class="kt"&gt;float64&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="mf"&gt;3.4&lt;/span&gt;
+  &lt;span class="nx"&gt;v&lt;/span&gt; &lt;span class="o"&gt;:=&lt;/span&gt; &lt;span class="nx"&gt;reflect&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ValueOf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;我们传入了一个x的copy给reflect.ValueOf,因此对传入给relfect.ValueOf的x的copy的参数，创建了一个interface，这里不是x自己。因此，语句：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;  &lt;span class="nx"&gt;v&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;SetFloat&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;7.1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;是可以成功的，它不会去更新x，即使看上去它是从x创建的。相反，它将会更新存在在反射的值的x的copy，x本身不会受到影响。这将会引起混乱，因此它是非法的，设置能力就是为了避免类似的问题。
+  如果这个看上去比较奇怪，实际上不是。实际上这是一个我们熟悉的情况，但是有不寻常的表述。考虑一个传入x参数的函数：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;  &lt;span class="nx"&gt;f&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;我们不期望f可以去修改我们的x，因为我们传递的是x的值拷贝，而不是x自己。如果我们想要修改x，那么我们必须传递的是对x的引用：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;  &lt;span class="nx"&gt;f&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;这是比较简单和熟悉的，并且反射的工作原理与这个类似。如果我们想要通过反射来修改x，我们必须给反射库提供一个指向我们想要修改的变量的指针。
+  让我们来实践下。首先初始化x，然后创建一个reflect的value指向它，称它为p：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;  &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt; &lt;span class="kt"&gt;float64&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="mf"&gt;3.4&lt;/span&gt;
+  &lt;span class="nx"&gt;p&lt;/span&gt; &lt;span class="o"&gt;:=&lt;/span&gt; &lt;span class="nx"&gt;reflect&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ValueOf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;// Note: take the address of x.&lt;/span&gt;
+  &lt;span class="nx"&gt;fmt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Println&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;type of p:&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;p&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Type&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
+  &lt;span class="nx"&gt;fmt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Println&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;settability of p:&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;p&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;CanSet&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;那么输出是：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;  type of p: *float64
   settability of p: false
-  反射对象p是不可修改的，但是这个不是我们修改的p。它是&lt;/em&gt;p。获取到p指向哪里，我们调用Value的Elem的方法，它直接获取到指针，并且保存结果再反射的Value，我们称之为v：
-  v := p.Elem()
-  fmt.Println("settability of v:", v.CanSet())
-  现在v是一个可以设置修改的反射对象了：
-  settability of v: true
-  由于它就是指向x的，我们最终调用v.SetFloat来修改x的值：
-  v.SetFloat(7.1)
-  fmt.Println(v.Interface())
-  fmt.Println(x)
-  输出是：
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;反射对象p是不可修改的，但是这个不是我们修改的p。它是*p。获取到p指向哪里，我们调用Value的Elem的方法，它直接获取到指针，并且保存结果再反射的Value，我们称之为v：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;  &lt;span class="nx"&gt;v&lt;/span&gt; &lt;span class="o"&gt;:=&lt;/span&gt; &lt;span class="nx"&gt;p&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Elem&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+  &lt;span class="nx"&gt;fmt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Println&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;settability of v:&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;v&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;CanSet&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;现在v是一个可以设置修改的反射对象了：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;  settability of v: true
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;由于它就是指向x的，我们最终调用v.SetFloat来修改x的值：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;  &lt;span class="nx"&gt;v&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;SetFloat&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;7.1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="nx"&gt;fmt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Println&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;v&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Interface&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
+  &lt;span class="nx"&gt;fmt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Println&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;输出是：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;  7.1
   7.1
-  7.1
-  反射可能难以理解，但是它是语言层面实现的，这些掩饰了反射的Types以及Values背后的逻辑。我们只需记住，反射的Values需要想要修改的对象的地址来进行修改它们的值。
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;反射可能难以理解，但是它是语言层面实现的，这些掩饰了反射的Types以及Values背后的逻辑。我们只需记住，反射的Values需要想要修改的对象的地址来进行修改它们的值。
   structs
   在我们的前面的例子中v本身不是一个指针，它只是由一个指针创建。使用反射去修改结构的字段的常用方法。只要我们有结构实例的地址，我们就可以修改它的字段。
-  这里有一个简单的分析结构值的例子，t。我们创建一个结构，用它的地址创建反射对象，因为我们随后要修改它。然后我们设置typeOfT给它的类型，使用straightforward方法来迭代它的字段。请注意，我们从数据结构类型中提取字段的名字，但是字段本身是一个reflect.Value对象。
-  type T struct {
-    A int
-    B string
-  }
-  t := T{23, "skidoo"}
-  s := reflect.ValueOf(&amp;amp;t).Elem()
-  typeOfT := s.Type()
-  for i := 0; i &amp;lt; s.NumField(); i++ {
-    f := s.Field(i)
-    fmt.Printf("%d: %s %s = %v\n", i,
-    typeOfT.Field(i).Name, f.Type(), f.Interface())
-  }
-  这个程序的输出是：
-  0: A int = 23
+  这里有一个简单的分析结构值的例子，t。我们创建一个结构，用它的地址创建反射对象，因为我们随后要修改它。然后我们设置typeOfT给它的类型，使用straightforward方法来迭代它的字段。请注意，我们从数据结构类型中提取字段的名字，但是字段本身是一个reflect.Value对象。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;  &lt;span class="kd"&gt;type&lt;/span&gt; &lt;span class="nx"&gt;T&lt;/span&gt; &lt;span class="kd"&gt;struct&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;A&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt;
+    &lt;span class="nx"&gt;B&lt;/span&gt; &lt;span class="kt"&gt;string&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="nx"&gt;t&lt;/span&gt; &lt;span class="o"&gt;:=&lt;/span&gt; &lt;span class="nx"&gt;T&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="mi"&gt;23&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;skidoo&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="nx"&gt;s&lt;/span&gt; &lt;span class="o"&gt;:=&lt;/span&gt; &lt;span class="nx"&gt;reflect&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ValueOf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nx"&gt;t&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;Elem&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+  &lt;span class="nx"&gt;typeOfT&lt;/span&gt; &lt;span class="o"&gt;:=&lt;/span&gt; &lt;span class="nx"&gt;s&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Type&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+  &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="nx"&gt;i&lt;/span&gt; &lt;span class="o"&gt;:=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="nx"&gt;i&lt;/span&gt; &lt;span class="p"&gt;&amp;lt;&lt;/span&gt; &lt;span class="nx"&gt;s&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;NumField&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt; &lt;span class="nx"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;f&lt;/span&gt; &lt;span class="o"&gt;:=&lt;/span&gt; &lt;span class="nx"&gt;s&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Field&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="nx"&gt;fmt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;%d: %s %s = %v\n&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;i&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nx"&gt;typeOfT&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Field&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;i&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;Name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;f&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Type&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt; &lt;span class="nx"&gt;f&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Interface&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;这个程序的输出是：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;  0: A int = 23
   1: B string = skidoo
-  还有一个关于可设置的在这里介绍：T的字段名是大写的（导出特性），因为只有数据结构中导出的字段是可设置的。
-  因为S包含一个可设置的反射对象，所以我们可以修改该结构的字段值。
-  s.Field(0).SetInt(77)
-  s.Field(1).SetString("Sunset Strip")
-  fmt.Println("t is now", t)
-  那么这里的结果就是：
-  t is now {77 Sunset Strip}
-  如果我们修改程序，s从t创建而不是&amp;amp;t，那么调用SetInt以及SetString将会失败，因为t的字段不似乎可设置的。
-  结论：
-  这里重新罗列下反射的规则：
-  1. 反射是从interface value到反射对象
-  2. 反射是从反射对象到interface value
-  3. 修改一个反射对象，value必须是可设置的。
-  一旦你了解这些反射的规则，它们会变得更加的容易使用，但是它们仍然是很微妙的。因此应该小心的使用，除非你特别需要它才去使用它。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Seanchann Zhou</dc:creator><pubDate>Sun, 24 May 2015 00:00:00 +0800</pubDate><guid>tag:seanchann.github.io,2015-05-24:go-reflect-cn.html</guid><category>go</category></item></channel></rss>
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;还有一个关于可设置的在这里介绍：T的字段名是大写的（导出特性），因为只有数据结构中导出的字段是可设置的。
+  因为S包含一个可设置的反射对象，所以我们可以修改该结构的字段值。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;  &lt;span class="nx"&gt;s&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Field&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;SetInt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;77&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="nx"&gt;s&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Field&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;SetString&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Sunset Strip&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="nx"&gt;fmt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Println&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;t is now&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;那么这里的结果就是：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;  t is now {77 Sunset Strip}
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;如果我们修改程序，s从t创建而不是&amp;amp;t，那么调用SetInt以及SetString将会失败，因为t的字段不似乎可设置的。&lt;/p&gt;
+&lt;h2 id="_5"&gt;结论：&lt;/h2&gt;
+&lt;p&gt;这里重新罗列下反射的规则：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;反射是从interface value到反射对象&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;反射是从反射对象到interface value&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;修改一个反射对象，value必须是可设置的。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;一旦你了解这些反射的规则，它们会变得更加的容易使用，但是它们仍然是很微妙的。因此应该小心的使用，除非你特别需要它才去使用它。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Seanchann Zhou</dc:creator><pubDate>Sun, 07 Jun 2015 00:00:00 +0800</pubDate><guid>tag:seanchann.github.io,2015-06-07:go-reflect-cn.html</guid><category>go</category></item></channel></rss>
