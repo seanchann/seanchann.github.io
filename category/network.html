@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>mongodb - seanchann's blog</title>
+    <title>network - seanchann's blog</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -11,7 +11,7 @@
 
 
     <meta name="author" content="seanchann" />
-    <meta name="keywords" content="mongodb" />
+    <meta name="keywords" content="network" />
 
     <!-- Open Graph tags -->
         <meta property="og:site_name" content="seanchann's blog" />
@@ -67,76 +67,34 @@ seanchann's blog            </a>
     <div class="row">
         <div class="col-sm-9">
             <article>
-                <h2><a href="http://seanchann.github.io/mongodb-install-cn.html">mongodb---install</a></h2>
-                <div class="summary"><p><strong>系统：CentOS7 + docker 1.6</strong></p>
-<p><strong>mongodb版本： 3.0.2</strong></p>
-<p>本文的安装是采用docker的方式，而不是在os上安装package的方式。
-<a href="http://docs.mongoing.com/manual/tutorial/">package的安装方式</a></p>
-<p>在开始前，假定用户已经完成了基础环境的配置，这里主要是指docker的运行环境</p>
-<h2>安装</h2>
-<h3>运行一个mongodb</h3>
-<p>docker hub上官方的mongodb image，我们直接使用此image来运行mongodb：</p>
-<div class="codehilite"><pre>docker pull mongo
+                <h2><a href="http://seanchann.github.io/httpproxy2socket-cn.html">httpproxy2socket</a></h2>
+                <div class="summary"><p><strong>系统：Fedora 22</strong></p>
+<p>这个需求的来源是无法通过shadowsocket的方式给其他的应用提供http proxy。大量的程序目前都是可以配置http proxy，而不是socket4或者socket5的方式。因此促使我做了一下这方面的工作，把我的经验分享给大家。</p>
+<p>前提条件：</p>
+<ul>
+<li>shadowsocket已经配置完成并可用</li>
+</ul>
+<h2>方案描述</h2>
+<p>我的方案就是搭建socket5代理、http代理，最终通过proxychains将这个两个代理连接。</p>
+<p>socket5的代理就是我们需要提前配置好的shadowsocket的环境，它给本地提供了一个默认端口为1080的socket5的代理。这个代理是可以让我们自由的畅享Internet的。。。</p>
+<p>http proxy我们通过squid来实现</p>
+<p>proxychains主要用组装我们的代理链条。</p>
+<h2>squid</h2>
+<p>squid可以配置为一个http proxy server，并且有相关的权限控制。我们用它来作为本地的http proxy。</p>
+<p>安装squid：</p>
+<div class="codehilite"><pre>dnf install squid
 </pre></div>
 
 
-<p>创建一个volume容器，保存mongo的数据以及配置：</p>
-<div class="codehilite"><pre>docker create -v /yourdir/mongo/data/db:/data/db -v /yourdir/mongo/conf/:/conf/ --name<span class="o">=</span>mongo-dv mongo
+<p>配置squid：</p>
+<div class="codehilite"><pre>vi /etc/squid/squid.conf
 </pre></div>
 
 
-<h3>run mongodb with volume</h3>
-<p>直接指定绑定host上的文件夹：</p>
-<div class="codehilite"><pre>docker create ...</pre></div>
-                    <a class="btn btn-default btn-xs" href="http://seanchann.github.io/mongodb-install-cn.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://seanchann.github.io/mongodb-problems-summary-cn.html">mongodb---Problems Summary</a></h2>
-                <div class="summary"><p><strong>系统：CentOS7 + docker 1.6</strong></p>
-<p><strong>mongodb版本： 3.0.2</strong></p>
-<h2>WARNING:/sys/kernel/mm/transparent_hugepage/enabled or /sys/kernel/mm/transparent_hugepage/defrag is 'always'.</h2>
-<div class="codehilite"><pre>    这个问题的原因是由于内核的某些参数的配置造成的mongodb产生了警告，基于docker环境，在docker运行的host主机上：
-
-    1. echo never &gt; /sys/kernel/mm/transparent_hugepage/enabled
-    2. echo never &gt; /sys/kernel/mm/transparent_hugepage/defrag
-
-    or
-
-    1. echo never | sudo tee /sys/kernel ...</pre></div>
-                    <a class="btn btn-default btn-xs" href="http://seanchann.github.io/mongodb-problems-summary-cn.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://seanchann.github.io/mongodb-user-cn.html">mongodb---user</a></h2>
-                <div class="summary"><p><strong>系统：CentOS7 + docker 1.6</strong></p>
-<p><strong>mongodb版本： 3.0.2</strong></p>
-<p>安装工作完成后，整个的mongodb运行起来后，在开始工作前，首先应该为我们的mongodb配置适当的用户以及其权限。</p>
-<p><em>注意下，网上大多数的直接进入命令行,执行：</em></p>
-<div class="codehilite"><pre>use admin
-db.adduser(&quot;test&quot;,&quot;123&quot;)
-</pre></div>
-
-
-<p><em>上面这种方式在3.0的版本上是行不通的</em></p>
-<h2>添加管理员用户</h2>
-<p>通过docker首先启动不带--auth的mongodb：</p>
-<div class="codehilite"><pre>docker run --volumes-from=mongodb-dv --name mongodb -d mongo
-</pre></div>
-
-
-<p><a href="http://seanchann.github.io/mongodb-install-cn.html">更详细的对安装的描述</a></p>
-<h3>进入mongo shell</h3>
-<h3>添加管理员用户：</h3>
-<div class="codehilite"><pre>use admin
-db.createUser(
-{
-      user: &quot;admin&quot;,
-      pwd: &quot;admin&quot;,
-      roles: [ { role: &quot;userAdminAnyDatabase&quot;, db ...</pre></div>
-                    <a class="btn btn-default btn-xs" href="http://seanchann.github.io/mongodb-user-cn.html">more ...</a>
+<p>我们增加一些必要的基本配置：</p>
+<div class="codehilite"><pre>acl http_proxy src 192.168.1.0/24
+http_access allow ...</pre></div>
+                    <a class="btn btn-default btn-xs" href="http://seanchann.github.io/httpproxy2socket-cn.html">more ...</a>
                 </div>
             </article>
             <hr/>
@@ -158,18 +116,8 @@ db.createUser(
             <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
                 <ul class="list-group" id="recentposts">
                     <li class="list-group-item">
-                        <a href="http://seanchann.github.io/mongodb-install-cn.html">
-                            mongodb---install
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="http://seanchann.github.io/mongodb-problems-summary-cn.html">
-                            mongodb---Problems Summary
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="http://seanchann.github.io/mongodb-user-cn.html">
-                            mongodb---user
+                        <a href="http://seanchann.github.io/httpproxy2socket-cn.html">
+                            httpproxy2socket
                         </a>
                     </li>
                 </ul>

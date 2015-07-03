@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>seanchann's blog</title><link>http://seanchann.github.io/</link><description></description><atom:link href="http://seanchann.github.io/feeds/network.rss.xml" rel="self"></atom:link><lastBuildDate>Fri, 03 Jul 2015 00:00:00 +0800</lastBuildDate><item><title>httpproxy2socket</title><link>http://seanchann.github.io/httpproxy2socket-cn.html</link><description>&lt;p&gt;&lt;strong&gt;系统：Fedora 22&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;这个需求的来源是无法通过shadowsocket的方式给其他的应用提供http proxy。大量的程序目前都是可以配置http proxy，而不是socket4或者socket5的方式。因此促使我做了一下这方面的工作，把我的经验分享给大家。&lt;/p&gt;
+&lt;p&gt;前提条件：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;shadowsocket已经配置完成并可用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;方案描述&lt;/h2&gt;
+&lt;p&gt;我的方案就是搭建socket5代理、http代理，最终通过proxychains将这个两个代理连接。&lt;/p&gt;
+&lt;p&gt;socket5的代理就是我们需要提前配置好的shadowsocket的环境，它给本地提供了一个默认端口为1080的socket5的代理。这个代理是可以让我们自由的畅享Internet的。。。&lt;/p&gt;
+&lt;p&gt;http proxy我们通过squid来实现&lt;/p&gt;
+&lt;p&gt;proxychains主要用组装我们的代理链条。&lt;/p&gt;
+&lt;h2&gt;squid&lt;/h2&gt;
+&lt;p&gt;squid可以配置为一个http proxy server，并且有相关的权限控制。我们用它来作为本地的http proxy。&lt;/p&gt;
+&lt;p&gt;安装squid：&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;dnf install squid
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;配置squid：&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;vi /etc/squid/squid.conf
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;我们增加一些必要的基本配置：&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;acl http_proxy src 192.168.1.0/24
+http_access allow http_proxy
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;上面的这个配置许可192.168.1.0/24网络内对此http proxy的访问。
+在配置文件中，也可以看到默认的监听端口是3182&lt;/p&gt;
+&lt;p&gt;使能开机启动以及启动服务：&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;systemctl &lt;span class="nb"&gt;enable &lt;/span&gt;squid.service
+systemctl start squid.service
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;em&gt;注意：如果你使能了iptables，那么配置3128端口的路由规则&lt;/em&gt;&lt;/p&gt;
+&lt;h2&gt;proxychains&lt;/h2&gt;
+&lt;p&gt;proxychains可以为我们提供强大的代理链条。我们来配置我们的http proxy再连接到socket5。完成我们最初的设想。&lt;/p&gt;
+&lt;p&gt;安装proxychains：&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;dnf install  proxychains
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;proxychains的配置文件的查找优先级：&lt;/p&gt;
+&lt;p&gt;1 ./proxychains.conf
+2 $(HOME)/.proxychains/proxychains.conf
+3 /etc/proxychains.conf **&lt;/p&gt;
+&lt;p&gt;推荐在用户目录创建&lt;/p&gt;
+&lt;p&gt;完成以后，我们配置proxychains.conf，增加如下的内容：&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;[ProxyList]
+# add proxy here ...
+# meanwile
+# defaults set to &amp;quot;tor&amp;quot;
+http 192.168.1.2 3128
+socks5  192.168.1.2 1080
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;上面的配置文件的含义是，请求首先进入http proxy，随后再通过socket5到达目的地。&lt;/p&gt;
+&lt;p&gt;使用范例：&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;proxychains wget www.test.com
+&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Seanchann Zhou</dc:creator><pubDate>Fri, 03 Jul 2015 00:00:00 +0800</pubDate><guid>tag:seanchann.github.io,2015-07-03:httpproxy2socket-cn.html</guid><category>httpproxy socket</category></item></channel></rss>

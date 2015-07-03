@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>seanchann's blog</title><link>http://seanchann.github.io/</link><description></description><atom:link href="http://seanchann.github.io/feeds/ci-cd.rss.xml" rel="self"></atom:link><lastBuildDate>Fri, 03 Jul 2015 00:00:00 +0800</lastBuildDate><item><title>jenkins-docker</title><link>http://seanchann.github.io/jenkins-docker-cn.html</link><description>&lt;p&gt;&lt;strong&gt;系统：CentOS7 + docker 1.6&lt;/strong&gt;
+&lt;strong&gt;Jenkins: ver. 1.609.1&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;jenkins在使用中碰到的问题的汇总，以备查阅。&lt;/p&gt;
+&lt;h2&gt;jenkins  (pending—Waiting for next available executor)&lt;/h2&gt;
+&lt;p&gt;检查下节点的状态，当master node如果disk不足，就会自动的把master node切换到离线，如果有job被触发，那么将此job置为pending。&lt;/p&gt;
+&lt;h2&gt;Disk space is too low. Only 0.519GB left on /tmp&lt;/h2&gt;
+&lt;p&gt;在docker镜像里，/tmp分区确实很小，因此，总是会把master节点置为offline，我们在启动的时候传入下面的环境变量来修改tmpdir：&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;JAVA_OPTS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;-Djava.io.tmpdir=&lt;/span&gt;&lt;span class="nv"&gt;$JENKINS_HOME&lt;/span&gt;&lt;span class="s2"&gt;/tmp&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Seanchann Zhou</dc:creator><pubDate>Fri, 03 Jul 2015 00:00:00 +0800</pubDate><guid>tag:seanchann.github.io,2015-07-03:jenkins-docker-cn.html</guid><category>jenkins</category></item><item><title>jenkins-docker-build</title><link>http://seanchann.github.io/jenkins-docker-build-cn.html</link><description>&lt;p&gt;&lt;strong&gt;系统：CentOS7 + docker 1.6&lt;/strong&gt;
+&lt;strong&gt;Jenkins: ver. 1.609.1&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;前提条件：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;jenkins的任意node已经安装docker或者docker-build-step插件已经安装&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;首先，完成docker img编译相关的job有两种方式：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;通过docker-build-setup等类似插件来完成&lt;/li&gt;
+&lt;li&gt;通过执行脚本来完成，前提是我们的node上已经有docker环境。这个node当然也可以是docker-slave了，这样就会更加的灵活了。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;配置docker build step 插件&lt;/h2&gt;
+&lt;p&gt;docker build step的原理是配置一个Docker Remote API，插件通过这个API来进行docker命令的相关操作。&lt;/p&gt;
+&lt;p&gt;这个插件的配置是在configuration
+--&amp;gt;Docker Builder选项中配置一下docker Remote API，比如：http://192.168.60.79:2375&lt;/p&gt;
+&lt;p&gt;配置完成后，就可以在job的build step里面选择“Execute Docker container”配置相应的命令，来完成你的工作。&lt;/p&gt;
+&lt;h2&gt;配置一个节点&lt;/h2&gt;
+&lt;p&gt;参照标准的节点操作来添加一个有docker环境的node。&lt;/p&gt;
+&lt;p&gt;节点配置完成后，我们在job的configure制定我们的slave node，那么就可以在这个docker node里面执行我们的docker相关的工作了。&lt;/p&gt;
+&lt;p&gt;这里你也可以尝试下使用docker in docker的方式。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意：node上必须有jdk的环境，以及git等相关软件，根据需要自行安装&lt;/strong&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Seanchann Zhou</dc:creator><pubDate>Fri, 03 Jul 2015 00:00:00 +0800</pubDate><guid>tag:seanchann.github.io,2015-07-03:jenkins-docker-build-cn.html</guid><category>jenkins</category></item><item><title>jenkins-docker-slave</title><link>http://seanchann.github.io/jenkins-docker-slave-cn.html</link><description>&lt;p&gt;&lt;strong&gt;系统：CentOS7 + docker 1.6&lt;/strong&gt;
+&lt;strong&gt;Jenkins: ver. 1.609.1&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://seanchann.github.io/jenkins-gitlab-cn.html"&gt;前面的章节已经成功的通过git push触发job&lt;/a&gt;，本章我们配置一个job，在docker cloud中执行这些job&lt;/p&gt;
+&lt;p&gt;前提条件：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;jenkins的docker-plugin插件已经安装&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;jenkins与docker协同工作的原理是，通过jenkins的docker插件来完成。
+首先docker插件负责docker daemon的管理，也就是配置jenkins去连接docker daemon。然后启动一个docker image来完成job。其中，需要注意的是后续我们的job都是完全放在这个启动起来的container里面完成的。因此这个image需要我们自己去根据工程的需要来定义。还有就是master会去连接到这个启动起来的container，是通过ssh来连接的。&lt;/p&gt;
+&lt;h2&gt;配置docker plugin&lt;/h2&gt;
+&lt;p&gt;docker 插件提供了可以通过在slave的节点上docker环境，来执行docker的相关操作。&lt;/p&gt;
+&lt;h3&gt;docker环境配置&lt;/h3&gt;
+&lt;p&gt;这里主要就是配置下docker daemon，首先使我们必须安装完成docker。
+对docker daemon的配置流程如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;/etc/sysconfig/docker配置文件配置OPTIONS='-H unix:///var/run/docker.sock -H tcp://0.0.0.0:2375' 。这个配置使能了本地socket以及远端tcp的连接。&lt;/li&gt;
+&lt;li&gt;如果有防火墙，配置防火墙打开2375端口（no auth）以及2376端口（auth）&lt;/li&gt;
+&lt;li&gt;重启防火墙以及我们的docker.service&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;em&gt;注意-H给出的端口作为http端口，端口+1作为https，这是docker daemon的默认行为&lt;/em&gt;&lt;/p&gt;
+&lt;h3&gt;docker jenkins image&lt;/h3&gt;
+&lt;p&gt;配置好docker daemon以后，还需要在docker slave上跑一个docker image给jenkins来使用。后面去配置jenkins的docker cloud的时候就是配置这个image。&lt;/p&gt;
+&lt;p&gt;这个image的创建可以手动创建或者直接使用docker hub上的evarga/jenkins-slave&lt;/p&gt;
+&lt;h4&gt;evarga/jenkins-slave的使用&lt;/h4&gt;
+&lt;p&gt;这个镜像直接拉取：&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;docker pull evarga/jenkins-slave
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;镜像默认的用户名和密码是jenkins:jenkins&lt;/p&gt;
+&lt;h4&gt;手动创建jenkins-slave&lt;/h4&gt;
+&lt;h1&gt;jenkins的配置&lt;/h1&gt;
+&lt;p&gt;jenkins的配置主要包括增加一个docker cloud。&lt;/p&gt;
+&lt;h4&gt;docker cloud的配置，&lt;/h4&gt;
+&lt;p&gt;流程描述如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Manage Jenkins-&amp;gt;configuration-&amp;gt;Add New cloud&lt;/li&gt;
+&lt;li&gt;配置name以及 Docker URL（eg.http://dockerdaemonip:2375）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;上面流程配置完成后，会在Mnage Jenkins--&amp;gt;Docker页面看到我们配置的docker server以及它的状态。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Seanchann Zhou</dc:creator><pubDate>Fri, 03 Jul 2015 00:00:00 +0800</pubDate><guid>tag:seanchann.github.io,2015-07-03:jenkins-docker-slave-cn.html</guid><category>jenkins</category></item><item><title>jenkins-gitlab</title><link>http://seanchann.github.io/jenkins-gitlab-cn.html</link><description>&lt;p&gt;&lt;strong&gt;系统：CentOS7 + docker 1.6&lt;/strong&gt;
+&lt;strong&gt;Jenkins: ver. 1.609.1&lt;/strong&gt;
+&lt;strong&gt;gitlab: 6.8.1&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;本文主要针对jenkins与gitlab的整合进行说明。&lt;/p&gt;
+&lt;p&gt;前提条件：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;jenkins的 git、git-client、gitlab-hook插件已经安装&lt;/li&gt;
+&lt;li&gt;gitlab已经安装成功&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;jenkins的配置&lt;/h2&gt;
+&lt;h3&gt;create jobs&lt;/h3&gt;
+&lt;p&gt;创建一个任务其中需要注意的地方是，配置下自己的git ssh key&lt;/p&gt;
+&lt;h4&gt;Source Code Management&lt;/h4&gt;
+&lt;p&gt;此项配置主要是对我们代码库的配置，我们配置为git，然后给出我们的git 仓库的url，切记这里需要配置下证书，我们选择的方式ssh key的方式&lt;/p&gt;
+&lt;h4&gt;Build Triggers的配置&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Poll SCM：也就是给一个周期来自动的拉取整个的workspace，如果要避免这样做，那么就给出一个push的触发。我们这里的schedule什么都不配置。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;gitlab webhook的配置&lt;/h2&gt;
+&lt;p&gt;登录到gitlab管理页面，给git-test工程增加一个push event的hook，url填写：&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;http://yourjenkinshome/git/notifyCommit?url=git@192.168.60.18:xqzhou/git-test.git
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;配置完成后，我们在gitlab上点击testlink，触发到jenkins成功，表示我们的配置是ok的。&lt;/p&gt;
+&lt;h3&gt;gitlab push event的额外配置&lt;/h3&gt;
+&lt;p&gt;在我使用的gitlab的版本上，当git客户端去git push的时候，不能触发hook，必须在gitlab的每个仓库中的hooks目录增加一个post-receive的脚本：&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c"&gt;#!/bin/bash&lt;/span&gt;
+
+curl http://yourjenkins/git/notifyCommit?url&lt;span class="o"&gt;=&lt;/span&gt;your-gitrepos-url
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;这样配置以后，才可以正常的在jenkins中触发我们的job。&lt;/p&gt;
+&lt;p&gt;并且这个触发可以支持分支的build，需要在jenkins的job中增加需要编译的分支。git插件提供了一些有用的变量，可以在我们的脚本中使用：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$GIT_BRANCH：返回分支名&lt;/li&gt;
+&lt;li&gt;$GIT_COMMIT：git的commit id&lt;/li&gt;
+&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Seanchann Zhou</dc:creator><pubDate>Fri, 03 Jul 2015 00:00:00 +0800</pubDate><guid>tag:seanchann.github.io,2015-07-03:jenkins-gitlab-cn.html</guid><category>jenkins</category></item><item><title>jenkins-install</title><link>http://seanchann.github.io/jenkins-install-cn.html</link><description>&lt;p&gt;&lt;strong&gt;系统：CentOS7 + docker 1.6&lt;/strong&gt;
+&lt;strong&gt;Jenkins: ver. 1.609.1&lt;/strong&gt;&lt;/p&gt;
+&lt;h2&gt;安装&lt;/h2&gt;
+&lt;p&gt;对于jenkins的安装，直接使用dockerhub上的镜像进行构建。直接docker pull jenkins就可以了。&lt;/p&gt;
+&lt;h2&gt;jenkins的插件安装&lt;/h2&gt;
+&lt;p&gt;对于插件安装，有两种方式，通过页面安装或者直接安装在docker image里面。
+一般来说，我们采用后一种方式来安装。避免插件的反复安装。&lt;/p&gt;
+&lt;p&gt;重新编译一个docker image，Dockerfile片段：&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;FROM jenkins
+COPY plugins.txt /usr/share/jenkins/plugins.txt
+RUN /usr/local/bin/plugins.sh /usr/share/jenkins/plugins.txt
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;复制了一个plugins.txt文件，这个文件的内容如下：&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;git:latest
+git-client:latest
+gitlab-hook:latest
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;上面的这些就是我们要安装的插件。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意：在安装插件的时候，保证插件依赖的插件也被正确的安装，否则这些插件是不可用的&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://wiki.jenkins-ci.org/display/JENKINS/"&gt;插件依赖可参考这里&lt;/a&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Seanchann Zhou</dc:creator><pubDate>Fri, 03 Jul 2015 00:00:00 +0800</pubDate><guid>tag:seanchann.github.io,2015-07-03:jenkins-install-cn.html</guid><category>jenkins</category></item><item><title>jenkins-security</title><link>http://seanchann.github.io/jenkins-security-cn.html</link><description>&lt;p&gt;&lt;strong&gt;系统：CentOS7 + docker 1.6&lt;/strong&gt;
+&lt;strong&gt;Jenkins: ver. 1.609.1&lt;/strong&gt;&lt;/p&gt;
+&lt;h2&gt;配置说明&lt;/h2&gt;
+&lt;p&gt;jenkins的安全配置说明在主页面的Configure Global Security的菜单中。它的安全和访问控制主要是两部分：安全域和鉴权策略。&lt;/p&gt;
+&lt;h3&gt;Security Realm配置&lt;/h3&gt;
+&lt;p&gt;在这个配置中，包含了下列的子选项，我们一一进行分析和说明：&lt;/p&gt;
+&lt;h4&gt;Delegate to servlet container&lt;/h4&gt;
+&lt;p&gt;使用servlet container对用户授权。这个是有历史的，从1.163版本就支持了这个功能。它主要用于下面的情节：
+&lt;em&gt; 从1.164就开始使用jenkins，并且不想改变当前的状态。
+&lt;/em&gt; 你已经配置了servlet container的鉴权，并且希望jenkins直接使用它&lt;/p&gt;
+&lt;h4&gt;Jenkins's own user database&lt;/h4&gt;
+&lt;p&gt;使用jenkins自己的用户列表来授权。这个适合小型范围的配置当你并没有任何的用户数据库的时候，当有大量用户的时候，这种策略是不合适的。在这种策略下，如果允许任何人通过注册可以获取到jenkins的权限的话，可以勾上“Allow user to sign up”。这样非用户可以自己通过“sign up”来注册使用jenkins。如果不允许，那么此时想添加新的用户，只能由注已经注册用户通过Manage Jenkins--&amp;gt; Manage Users进入User Database界面，来创建用户。&lt;/p&gt;
+&lt;h4&gt;LDAP&lt;/h4&gt;
+&lt;p&gt;顾名思义连接到你已经有的ldap服务器来配置&lt;/p&gt;
+&lt;h4&gt;Unix user/group database&lt;/h4&gt;
+&lt;p&gt;如果安装的机器是unix机器，可以使用unix的账户信息来登录到jenkins。&lt;/p&gt;
+&lt;h3&gt;Authorization 配置&lt;/h3&gt;
+&lt;p&gt;鉴权策略的话，也有几个子选项。&lt;/p&gt;
+&lt;h4&gt;Anyone can do anything&lt;/h4&gt;
+&lt;p&gt;任何人都可以在系统上进行任何的操作。不推荐的方式&lt;/p&gt;
+&lt;h4&gt;Legacy mode&lt;/h4&gt;
+&lt;p&gt;这种策略比较极端：admin用户拥有所有权限，其他用户只读。&lt;/p&gt;
+&lt;h4&gt;Logged-in users can do anything&lt;/h4&gt;
+&lt;p&gt;可登录的用户拥有所有操作的权限。&lt;/p&gt;
+&lt;h4&gt;Matrix-based security&lt;/h4&gt;
+&lt;p&gt;默认首次启动后，配置administrator用户，配置系统所有权限，再对其他用户配置相应的权限。可实现admin对所有用户的权限的集中管制&lt;/p&gt;
+&lt;h4&gt;Project-based Matrix Authorization Strategy&lt;/h4&gt;
+&lt;p&gt;这个是针对每个工程配置权限，上节描述的是针对整个系统的。此项针对每个用户在每个具体的project上的权限进行配置。&lt;/p&gt;
+&lt;h3&gt;Matrix-based security配置系统&lt;/h3&gt;
+&lt;p&gt;我们使用Matrix-base sercurity来配置我们的用户系统，对用户进行集中管理。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;勾选Enable Security&lt;/li&gt;
+&lt;li&gt;Security Realm选择“Jenkins’ own user” database，确保勾选了“Allow users to sign up”&lt;/li&gt;
+&lt;li&gt;Authorization选择“Matrix-based security”&lt;/li&gt;
+&lt;li&gt;save &amp;amp;&amp;amp; apply&lt;/li&gt;
+&lt;li&gt;随后“sign up”创建一个新的用户admin。&lt;/li&gt;
+&lt;li&gt;在“Matrix-based security”中为admin用户配置所有的权限&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;补充说明&lt;/h2&gt;
+&lt;h3&gt;权限配置错误，导致无法登陆的问题&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;停止jenkins&lt;/li&gt;
+&lt;li&gt;修改$JENKINS_HOME目录下的congfig.xml&lt;/li&gt;
+&lt;li&gt;将标签&lt;useSecurity&gt;true&lt;/useSecurity&gt;改为false&lt;/li&gt;
+&lt;li&gt;将标签&lt;AuthorizationStrategy&gt;以及&lt;securityRealm&gt;这两个标签删除&lt;/li&gt;
+&lt;li&gt;重新启动jenkins&lt;/li&gt;
+&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Seanchann Zhou</dc:creator><pubDate>Fri, 03 Jul 2015 00:00:00 +0800</pubDate><guid>tag:seanchann.github.io,2015-07-03:jenkins-security-cn.html</guid><category>jenkins</category></item></channel></rss>

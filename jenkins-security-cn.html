@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="cn" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>mongodb---user - seanchann's blog</title>
+    <title>jenkins-security - seanchann's blog</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -9,20 +9,20 @@
 
 
 
-<link rel="canonical" href="http://seanchann.github.io/mongodb-user-cn.html">
+<link rel="canonical" href="http://seanchann.github.io/jenkins-security-cn.html">
 
         <meta name="author" content="Seanchann Zhou" />
-        <meta name="keywords" content="mongodb" />
-        <meta name="description" content="系统：CentOS7 + docker 1.6 mongodb版本： 3.0.2 安装工作完成后，整个的mongodb运行起来后，在开始工作前，首先应该为我们的mongodb配置适当的用户以及其权限。 注意下，网上大多数的直接进入命令行,执行： use admin db.adduser(&#34;test&#34;,&#34;123&#34;) 上面这种方式在3.0的版本上是行不通的 添加管理员用户 通过docker首先启动不带--auth的mongodb： docker run --volumes-from=mongodb-dv --name mongodb -d mongo 更详细的对安装的描述 进入mongo shell 添加管理员用户： use admin db.createUser( { user: &#34;admin&#34;, pwd: &#34;admin&#34;, roles: [ { role: &#34;userAdminAnyDatabase&#34;, db ..." />
+        <meta name="keywords" content="jenkins" />
+        <meta name="description" content="系统：CentOS7 + docker 1.6 Jenkins: ver. 1.609.1 配置说明 jenkins的安全配置说明在主页面的Configure Global Security的菜单中。它的安全和访问控制主要是两部分：安全域和鉴权策略。 Security Realm配置 在这个配置中，包含了下列的子选项，我们一一进行分析和说明： Delegate to servlet container 使用servlet container对用户授权。这个是有历史的，从1.163版本就支持了这个功能。它主要用于下面的情节： 从1.164就开始使用jenkins，并且不想改变当前的状态。 你已经配置了servlet container的鉴权，并且希望jenkins直接使用它 Jenkins&#39;s own user database 使用jenkins自己的用户列表来授权。这个适合小型范围的配置当你并没有任何的用户数据库的时候，当有大量用户的时候，这种策略是不合适的。在这种策略下，如果允许任何人通过注册可以获取到jenkins的权限的话，可以勾上“Allow ..." />
 
         <meta property="og:site_name" content="seanchann's blog" />
         <meta property="og:type" content="article"/>
-        <meta property="og:title" content="mongodb---user"/>
-        <meta property="og:url" content="http://seanchann.github.io/mongodb-user-cn.html"/>
-        <meta property="og:description" content="系统：CentOS7 + docker 1.6 mongodb版本： 3.0.2 安装工作完成后，整个的mongodb运行起来后，在开始工作前，首先应该为我们的mongodb配置适当的用户以及其权限。 注意下，网上大多数的直接进入命令行,执行： use admin db.adduser(&#34;test&#34;,&#34;123&#34;) 上面这种方式在3.0的版本上是行不通的 添加管理员用户 通过docker首先启动不带--auth的mongodb： docker run --volumes-from=mongodb-dv --name mongodb -d mongo 更详细的对安装的描述 进入mongo shell 添加管理员用户： use admin db.createUser( { user: &#34;admin&#34;, pwd: &#34;admin&#34;, roles: [ { role: &#34;userAdminAnyDatabase&#34;, db ..."/>
+        <meta property="og:title" content="jenkins-security"/>
+        <meta property="og:url" content="http://seanchann.github.io/jenkins-security-cn.html"/>
+        <meta property="og:description" content="系统：CentOS7 + docker 1.6 Jenkins: ver. 1.609.1 配置说明 jenkins的安全配置说明在主页面的Configure Global Security的菜单中。它的安全和访问控制主要是两部分：安全域和鉴权策略。 Security Realm配置 在这个配置中，包含了下列的子选项，我们一一进行分析和说明： Delegate to servlet container 使用servlet container对用户授权。这个是有历史的，从1.163版本就支持了这个功能。它主要用于下面的情节： 从1.164就开始使用jenkins，并且不想改变当前的状态。 你已经配置了servlet container的鉴权，并且希望jenkins直接使用它 Jenkins&#39;s own user database 使用jenkins自己的用户列表来授权。这个适合小型范围的配置当你并没有任何的用户数据库的时候，当有大量用户的时候，这种策略是不合适的。在这种策略下，如果允许任何人通过注册可以获取到jenkins的权限的话，可以勾上“Allow ..."/>
         <meta property="article:published_time" content="2015-07-03" />
-            <meta property="article:section" content="mongodb" />
-            <meta property="article:tag" content="mongodb" />
+            <meta property="article:section" content="ci-cd" />
+            <meta property="article:tag" content="jenkins" />
             <meta property="article:author" content="Seanchann Zhou" />
 
 
@@ -75,10 +75,10 @@ seanchann's blog            </a>
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="http://seanchann.github.io/mongodb-user-cn.html"
+                    <a href="http://seanchann.github.io/jenkins-security-cn.html"
                        rel="bookmark"
-                       title="Permalink to mongodb---user">
-                        mongodb---user
+                       title="Permalink to jenkins-security">
+                        jenkins-security
                     </a>
                 </h1>
             </header>
@@ -96,139 +96,60 @@ seanchann's blog            </a>
             <a href="http://seanchann.github.io/author/seanchann-zhou.html"><i class="fa fa-user"></i> Seanchann Zhou</a>
 
         <span class="label label-default">Category</span>
-        <a href="http://seanchann.github.io/category/mongodb.html">mongodb</a>
+        <a href="http://seanchann.github.io/category/ci-cd.html">ci-cd</a>
 
 
 <span class="label label-default">Tags</span>
-	<a href="http://seanchann.github.io/tag/mongodb.html">mongodb</a>
+	<a href="http://seanchann.github.io/tag/jenkins.html">jenkins</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p><strong>系统：CentOS7 + docker 1.6</strong></p>
-<p><strong>mongodb版本： 3.0.2</strong></p>
-<p>安装工作完成后，整个的mongodb运行起来后，在开始工作前，首先应该为我们的mongodb配置适当的用户以及其权限。</p>
-<p><em>注意下，网上大多数的直接进入命令行,执行：</em></p>
-<div class="codehilite"><pre>use admin
-db.adduser(&quot;test&quot;,&quot;123&quot;)
-</pre></div>
-
-
-<p><em>上面这种方式在3.0的版本上是行不通的</em></p>
-<h2>添加管理员用户</h2>
-<p>通过docker首先启动不带--auth的mongodb：</p>
-<div class="codehilite"><pre>docker run --volumes-from=mongodb-dv --name mongodb -d mongo
-</pre></div>
-
-
-<p><a href="http://seanchann.github.io/mongodb-install-cn.html">更详细的对安装的描述</a></p>
-<h3>进入mongo shell</h3>
-<h3>添加管理员用户：</h3>
-<div class="codehilite"><pre>use admin
-db.createUser(
-{
-      user: &quot;admin&quot;,
-      pwd: &quot;admin&quot;,
-      roles: [ { role: &quot;userAdminAnyDatabase&quot;, db: &quot;admin&quot; } ]
-})
-</pre></div>
-
-
-<p><em>roles字段的说明：添加管理员用户的时候，提供了两种roles：userAdmin以及userAdminAnyDatabase</em></p>
+                <p><strong>系统：CentOS7 + docker 1.6</strong>
+<strong>Jenkins: ver. 1.609.1</strong></p>
+<h2>配置说明</h2>
+<p>jenkins的安全配置说明在主页面的Configure Global Security的菜单中。它的安全和访问控制主要是两部分：安全域和鉴权策略。</p>
+<h3>Security Realm配置</h3>
+<p>在这个配置中，包含了下列的子选项，我们一一进行分析和说明：</p>
+<h4>Delegate to servlet container</h4>
+<p>使用servlet container对用户授权。这个是有历史的，从1.163版本就支持了这个功能。它主要用于下面的情节：
+<em> 从1.164就开始使用jenkins，并且不想改变当前的状态。
+</em> 你已经配置了servlet container的鉴权，并且希望jenkins直接使用它</p>
+<h4>Jenkins's own user database</h4>
+<p>使用jenkins自己的用户列表来授权。这个适合小型范围的配置当你并没有任何的用户数据库的时候，当有大量用户的时候，这种策略是不合适的。在这种策略下，如果允许任何人通过注册可以获取到jenkins的权限的话，可以勾上“Allow user to sign up”。这样非用户可以自己通过“sign up”来注册使用jenkins。如果不允许，那么此时想添加新的用户，只能由注已经注册用户通过Manage Jenkins--&gt; Manage Users进入User Database界面，来创建用户。</p>
+<h4>LDAP</h4>
+<p>顾名思义连接到你已经有的ldap服务器来配置</p>
+<h4>Unix user/group database</h4>
+<p>如果安装的机器是unix机器，可以使用unix的账户信息来登录到jenkins。</p>
+<h3>Authorization 配置</h3>
+<p>鉴权策略的话，也有几个子选项。</p>
+<h4>Anyone can do anything</h4>
+<p>任何人都可以在系统上进行任何的操作。不推荐的方式</p>
+<h4>Legacy mode</h4>
+<p>这种策略比较极端：admin用户拥有所有权限，其他用户只读。</p>
+<h4>Logged-in users can do anything</h4>
+<p>可登录的用户拥有所有操作的权限。</p>
+<h4>Matrix-based security</h4>
+<p>默认首次启动后，配置administrator用户，配置系统所有权限，再对其他用户配置相应的权限。可实现admin对所有用户的权限的集中管制</p>
+<h4>Project-based Matrix Authorization Strategy</h4>
+<p>这个是针对每个工程配置权限，上节描述的是针对整个系统的。此项针对每个用户在每个具体的project上的权限进行配置。</p>
+<h3>Matrix-based security配置系统</h3>
+<p>我们使用Matrix-base sercurity来配置我们的用户系统，对用户进行集中管理。</p>
 <ul>
-<li>
-<p>userAdmin：提供去创建和修改当前数据库的roles以及user。这个role也间接的提供了superuser给我们去访问数据库或者其他，如果当前数据库是admin 数据库，cluster数据库。userAdmin role允许用户去更改其他用户的权限，当然也包括他们自己。它支持操作有：</p>
-<ul>
-<li>changeCustomData</li>
-<li>changePassword</li>
-<li>createRole</li>
-<li>createUser</li>
-<li>dropRole</li>
-<li>dropUser</li>
-<li>grantRole</li>
-<li>revokeRole</li>
-<li>viewRole</li>
-<li>viewUser</li>
+<li>勾选Enable Security</li>
+<li>Security Realm选择“Jenkins’ own user” database，确保勾选了“Allow users to sign up”</li>
+<li>Authorization选择“Matrix-based security”</li>
+<li>save &amp;&amp; apply</li>
+<li>随后“sign up”创建一个新的用户admin。</li>
+<li>在“Matrix-based security”中为admin用户配置所有的权限</li>
 </ul>
-</li>
-<li>
-<p>userAdminAnyDatabase: 这个role与userAdmin支持的权限类似，但是它应用的对象是在整个集群中的数据库。这个role也提供了下面可以在集群中使用的操作：</p>
+<h2>补充说明</h2>
+<h3>权限配置错误，导致无法登陆的问题</h3>
 <ul>
-<li>authSchemaUpgrade</li>
-<li>invalidateUserCache</li>
-<li>listDatabases</li>
-</ul>
-</li>
-</ul>
-<h3>检查创建的用户</h3>
-<p>根据前面的命令，我们的应该有了一个admin的用户，执行命令检查下：</p>
-<div class="codehilite"><pre>show users
-</pre></div>
-
-
-<p>我们得到的输出是：</p>
-<div class="codehilite"><pre><span class="p">{</span>
-        <span class="nt">&quot;_id&quot;</span> <span class="p">:</span> <span class="s2">&quot;admin.admin&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;user&quot;</span> <span class="p">:</span> <span class="s2">&quot;admin&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;db&quot;</span> <span class="p">:</span> <span class="s2">&quot;admin&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;roles&quot;</span> <span class="p">:</span> <span class="p">[</span>
-                <span class="p">{</span>
-                        <span class="nt">&quot;role&quot;</span> <span class="p">:</span> <span class="s2">&quot;userAdminAnyDatabase&quot;</span><span class="p">,</span>
-                        <span class="nt">&quot;db&quot;</span> <span class="p">:</span> <span class="s2">&quot;admin&quot;</span>
-                <span class="p">}</span>
-        <span class="p">]</span>
-<span class="p">}</span>
-</pre></div>
-
-
-<p>同样的，我们也可以使用命令：</p>
-<div class="codehilite"><pre>  db.system.users.find()
-</pre></div>
-
-
-<h3>重新启动mongodb with auth parameter</h3>
-<p>接下来，我们重新启动一个mongodb，使用--auth：</p>
-<div class="codehilite"><pre>docker run --volumes-from<span class="o">=</span>mongodb_data --name mongodb -d mongo --auth
-</pre></div>
-
-
-<p>执行下面的命令，检查鉴权是否可以成功：</p>
-<div class="codehilite"><pre>use admin
-db.auth(&quot;admin&quot;,&quot;admin&quot;)
-</pre></div>
-
-
-<p>执行后返回的结果是：</p>
-<div class="codehilite"><pre>1
-</pre></div>
-
-
-<p>这表示我们的执行用户鉴权是成功的</p>
-<p>到此，管理数据库用户的用户admin创建成功，接下来就是创建针对每个数据库的用户</p>
-<h3>创建数据库用户</h3>
-<p>我们先来执行下面的命令，创建一个数据库test：</p>
-<div class="codehilite"><pre>use test
-</pre></div>
-
-
-<p>创建test数据库的用户test,这里给的role是readWrite：</p>
-<div class="codehilite"><pre>db.createUser({user:&quot;test&quot;, pwd:&quot;test&quot;, roles:[{role:&quot;readWrite&quot;,db:&quot;test&quot;}]})
-</pre></div>
-
-
-<p>我们对用户进行下鉴权：</p>
-<div class="codehilite"><pre>db.auth(&quot;test&quot;,&quot;test&quot;)
-</pre></div>
-
-
-<p>如果返回为：</p>
-<div class="codehilite"><pre>1
-</pre></div>
-
-
-<p>那对test数据库创建的test用户是ok的，随后在test的数据库中，就可以使用test用户对此数据库进行读写。</p>
-<p><strong>相关资源链接：</strong></p>
-<ul>
-<li><em><a href="http://docs.mongodb.org/manual/reference/built-in-roles">mongodb role相关内容参考</a></em></li>
+<li>停止jenkins</li>
+<li>修改$JENKINS_HOME目录下的congfig.xml</li>
+<li>将标签<useSecurity>true</useSecurity>改为false</li>
+<li>将标签<AuthorizationStrategy>以及<securityRealm>这两个标签删除</li>
+<li>重新启动jenkins</li>
 </ul>
             </div>
             <!-- /.entry-content -->
@@ -241,8 +162,8 @@ db.auth(&quot;admin&quot;,&quot;admin&quot;)
             /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
             var disqus_shortname = 'seanchannblog'; // required: replace example with your forum shortname
 
-                    var disqus_identifier = 'mongodb-user';
-                var disqus_url = 'http://seanchann.github.io/mongodb-user-cn.html';
+                    var disqus_identifier = 'jenkins-security';
+                var disqus_url = 'http://seanchann.github.io/jenkins-security-cn.html';
 
             var disqus_config = function () {
                 this.language = "zh";

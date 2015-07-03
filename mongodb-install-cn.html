@@ -13,14 +13,14 @@
 
         <meta name="author" content="Seanchann Zhou" />
         <meta name="keywords" content="mongodb" />
-        <meta name="description" content="系统：CentOS7 + docker 1.6 mongodb版本： 3.0.2 本文的安装是采用docker的方式，而不是在os上安装package的方式。 package的安装方式 在开始前，假定用户已经完成了基础环境的配置，这里主要是指docker的运行环境 安装 运行一个mongodb docker hub上官方的mongodb image，我们直接使用此image来运行mongodb： docker run --name some-mongo -d mongo 上面这个命令会自动拉取在github上的latest tag的mongodb run mongodb with volume 直接指定绑定host上的文件夹： docker run -v /data/db:/data/db --name mongodb -d mongo 或者我们也可以这样做： docker run -v /opt ..." />
+        <meta name="description" content="系统：CentOS7 + docker 1.6 mongodb版本： 3.0.2 本文的安装是采用docker的方式，而不是在os上安装package的方式。 package的安装方式 在开始前，假定用户已经完成了基础环境的配置，这里主要是指docker的运行环境 安装 运行一个mongodb docker hub上官方的mongodb image，我们直接使用此image来运行mongodb： docker pull mongo 创建一个volume容器，保存mongo的数据以及配置： docker create -v /yourdir/mongo/data/db:/data/db -v /yourdir/mongo/conf/:/conf/ --name=mongo-dv mongo run mongodb with volume 直接指定绑定host上的文件夹： docker create ..." />
 
         <meta property="og:site_name" content="seanchann's blog" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="mongodb---install"/>
         <meta property="og:url" content="http://seanchann.github.io/mongodb-install-cn.html"/>
-        <meta property="og:description" content="系统：CentOS7 + docker 1.6 mongodb版本： 3.0.2 本文的安装是采用docker的方式，而不是在os上安装package的方式。 package的安装方式 在开始前，假定用户已经完成了基础环境的配置，这里主要是指docker的运行环境 安装 运行一个mongodb docker hub上官方的mongodb image，我们直接使用此image来运行mongodb： docker run --name some-mongo -d mongo 上面这个命令会自动拉取在github上的latest tag的mongodb run mongodb with volume 直接指定绑定host上的文件夹： docker run -v /data/db:/data/db --name mongodb -d mongo 或者我们也可以这样做： docker run -v /opt ..."/>
-        <meta property="article:published_time" content="2015-06-07" />
+        <meta property="og:description" content="系统：CentOS7 + docker 1.6 mongodb版本： 3.0.2 本文的安装是采用docker的方式，而不是在os上安装package的方式。 package的安装方式 在开始前，假定用户已经完成了基础环境的配置，这里主要是指docker的运行环境 安装 运行一个mongodb docker hub上官方的mongodb image，我们直接使用此image来运行mongodb： docker pull mongo 创建一个volume容器，保存mongo的数据以及配置： docker create -v /yourdir/mongo/data/db:/data/db -v /yourdir/mongo/conf/:/conf/ --name=mongo-dv mongo run mongodb with volume 直接指定绑定host上的文件夹： docker create ..."/>
+        <meta property="article:published_time" content="2015-07-03" />
             <meta property="article:section" content="mongodb" />
             <meta property="article:tag" content="mongodb" />
             <meta property="article:author" content="Seanchann Zhou" />
@@ -88,7 +88,7 @@ seanchann's blog            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2015-06-07T00:00:00+08:00"> Sun 07 June 2015</time>
+        <i class="fa fa-calendar"></i><time datetime="2015-07-03T00:00:00+08:00"> Fri 03 July 2015</time>
     </span>
 
 
@@ -112,28 +112,24 @@ seanchann's blog            </a>
 <h2>安装</h2>
 <h3>运行一个mongodb</h3>
 <p>docker hub上官方的mongodb image，我们直接使用此image来运行mongodb：</p>
-<div class="codehilite"><pre>docker run --name some-mongo -d mongo
+<div class="codehilite"><pre>docker pull mongo
 </pre></div>
 
 
-<p>上面这个命令会自动拉取在github上的latest tag的mongodb</p>
+<p>创建一个volume容器，保存mongo的数据以及配置：</p>
+<div class="codehilite"><pre>docker create -v /yourdir/mongo/data/db:/data/db -v /yourdir/mongo/conf/:/conf/ --name<span class="o">=</span>mongo-dv mongo
+</pre></div>
+
+
 <h3>run mongodb with volume</h3>
 <p>直接指定绑定host上的文件夹：</p>
-<div class="codehilite"><pre>docker run -v /data/db:/data/db --name mongodb -d mongo
+<div class="codehilite"><pre>docker create --volumes-from<span class="o">=</span>mongo-dv --name mongodb -d mongo
 </pre></div>
 
 
-<p>或者我们也可以这样做：</p>
-<div class="codehilite"><pre>docker run -v /opt/dockershare/mongo/conf/:/conf/  -v /opt/dockershare/mongo/data/db:/data/db --name mongodb_data centos <span class="nb">true</span>
-
-docker run --volumes-from<span class="o">=</span>mongodb_data --name mongodb -d mongo
-</pre></div>
-
-
-<p>上面的镜像文件，根据自己的情况替换</p>
 <h3>自定义参数启动</h3>
 <p>docker hub上提供的官方镜像支持自定义参数启动mongodb：</p>
-<div class="codehilite"><pre>docker run  --name mongodb-t -d mongo  --auth
+<div class="codehilite"><pre>docker run -p 27017:27017 --name<span class="o">=</span>mongodb -d mongo  --auth
 </pre></div>
 
 
@@ -172,7 +168,7 @@ docker run --volumes-from<span class="o">=</span>mongodb_data --name mongodb -d 
 </ol>
 <h3>完整的启动命令</h3>
 <p>经过上面的推敲，通过docker启动mongodb的完整命令应该是：</p>
-<div class="codehilite"><pre>docker run --volumes-from=mongodb_data --name mongodb -d mongo --auth
+<div class="codehilite"><pre>docker run -p 27017:27017 --volumes-from=mongo-dv --name=mongodb -d mongo --auth
 </pre></div>
             </div>
             <!-- /.entry-content -->
@@ -226,23 +222,28 @@ docker run --volumes-from<span class="o">=</span>mongodb_data --name mongodb -d 
             <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
                 <ul class="list-group" id="recentposts">
                     <li class="list-group-item">
-                        <a href="http://seanchann.github.io/go-reflect-cn.html">
-                            go-reflect
+                        <a href="http://seanchann.github.io/httpproxy2socket-cn.html">
+                            httpproxy2socket
                         </a>
                     </li>
                     <li class="list-group-item">
-                        <a href="http://seanchann.github.io/mongodb-install-cn.html">
-                            mongodb---install
+                        <a href="http://seanchann.github.io/jenkins-docker-cn.html">
+                            jenkins-docker
                         </a>
                     </li>
                     <li class="list-group-item">
-                        <a href="http://seanchann.github.io/mongodb-problems-summary-cn.html">
-                            mongodb---Problems Summary
+                        <a href="http://seanchann.github.io/jenkins-docker-build-cn.html">
+                            jenkins-docker-build
                         </a>
                     </li>
                     <li class="list-group-item">
-                        <a href="http://seanchann.github.io/mongodb-user-cn.html">
-                            mongodb---user
+                        <a href="http://seanchann.github.io/jenkins-docker-slave-cn.html">
+                            jenkins-docker-slave
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://seanchann.github.io/jenkins-gitlab-cn.html">
+                            jenkins-gitlab
                         </a>
                     </li>
                 </ul>
@@ -250,6 +251,11 @@ docker run --volumes-from<span class="o">=</span>mongodb_data --name mongodb -d 
 
             <li class="list-group-item"><a href="http://seanchann.github.io/"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4></a>
                 <ul class="list-group" id="categories">
+                    <li class="list-group-item">
+                        <a href="http://seanchann.github.io/category/ci-cd.html">
+                            <i class="fa fa-folder-open fa-lg"></i> ci-cd
+                        </a>
+                    </li>
                     <li class="list-group-item">
                         <a href="http://seanchann.github.io/category/go.html">
                             <i class="fa fa-folder-open fa-lg"></i> go
@@ -260,12 +266,22 @@ docker run --volumes-from<span class="o">=</span>mongodb_data --name mongodb -d 
                             <i class="fa fa-folder-open fa-lg"></i> mongodb
                         </a>
                     </li>
+                    <li class="list-group-item">
+                        <a href="http://seanchann.github.io/category/network.html">
+                            <i class="fa fa-folder-open fa-lg"></i> network
+                        </a>
+                    </li>
                 </ul>
             </li>
 
             <li class="list-group-item"><a href="http://seanchann.github.io/tags.html"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
                 <ul class="list-group " id="tags">
-                    <li class="list-group-item tag-1">
+                    <li class="list-group-item tag-0">
+                        <a href="http://seanchann.github.io/tag/jenkins.html">
+                            jenkins
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
                         <a href="http://seanchann.github.io/tag/mongodb.html">
                             mongodb
                         </a>
@@ -273,6 +289,11 @@ docker run --volumes-from<span class="o">=</span>mongodb_data --name mongodb -d 
                     <li class="list-group-item tag-4">
                         <a href="http://seanchann.github.io/tag/go.html">
                             go
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://seanchann.github.io/tag/httpproxy-socket.html">
+                            httpproxy socket
                         </a>
                     </li>
                 </ul>

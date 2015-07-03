@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="zh" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<html lang="cn" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>mongodb - seanchann's blog</title>
+    <title>jenkins-docker-slave - seanchann's blog</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -9,16 +9,21 @@
 
 
 
+<link rel="canonical" href="http://seanchann.github.io/jenkins-docker-slave-cn.html">
 
-    <meta name="author" content="seanchann" />
-    <meta name="keywords" content="mongodb" />
+        <meta name="author" content="Seanchann Zhou" />
+        <meta name="keywords" content="jenkins" />
+        <meta name="description" content="系统：CentOS7 + docker 1.6 Jenkins: ver. 1.609.1 前面的章节已经成功的通过git push触发job，本章我们配置一个job，在docker cloud中执行这些job 前提条件： jenkins的docker-plugin插件已经安装 jenkins与docker协同工作的原理是，通过jenkins的docker插件来完成。 首先docker插件负责docker daemon的管理，也就是配置jenkins去连接docker daemon。然后启动一个docker image来完成job。其中，需要注意的是后续我们的job都是完全放在这个启动起来的container里面完成的。因此这个image需要我们自己去根据工程的需要来定义。还有就是master会去连接到这个启动起来的container，是通过ssh来连接的。 配置docker plugin docker 插件提供了可以通过在slave的节点上docker环境，来执行docker的相关操作。 docker环境配置 这里主要就是配置下docker daemon，首先使我们必须安装完成docker。 对docker daemon的配置流程如下： /etc/sysconfig/docker配置文件配置OPTIONS=&#39;-H unix:///var/run/docker.sock ..." />
 
-    <!-- Open Graph tags -->
         <meta property="og:site_name" content="seanchann's blog" />
-        <meta property="og:type" content="website"/>
-        <meta property="og:title" content="seanchann's blog"/>
-        <meta property="og:url" content="http://seanchann.github.io"/>
-        <meta property="og:description" content="seanchann's blog"/>
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="jenkins-docker-slave"/>
+        <meta property="og:url" content="http://seanchann.github.io/jenkins-docker-slave-cn.html"/>
+        <meta property="og:description" content="系统：CentOS7 + docker 1.6 Jenkins: ver. 1.609.1 前面的章节已经成功的通过git push触发job，本章我们配置一个job，在docker cloud中执行这些job 前提条件： jenkins的docker-plugin插件已经安装 jenkins与docker协同工作的原理是，通过jenkins的docker插件来完成。 首先docker插件负责docker daemon的管理，也就是配置jenkins去连接docker daemon。然后启动一个docker image来完成job。其中，需要注意的是后续我们的job都是完全放在这个启动起来的container里面完成的。因此这个image需要我们自己去根据工程的需要来定义。还有就是master会去连接到这个启动起来的container，是通过ssh来连接的。 配置docker plugin docker 插件提供了可以通过在slave的节点上docker环境，来执行docker的相关操作。 docker环境配置 这里主要就是配置下docker daemon，首先使我们必须安装完成docker。 对docker daemon的配置流程如下： /etc/sysconfig/docker配置文件配置OPTIONS=&#39;-H unix:///var/run/docker.sock ..."/>
+        <meta property="article:published_time" content="2015-07-03" />
+            <meta property="article:section" content="ci-cd" />
+            <meta property="article:tag" content="jenkins" />
+            <meta property="article:author" content="Seanchann Zhou" />
 
 
     <!-- Bootstrap -->
@@ -66,80 +71,113 @@ seanchann's blog            </a>
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
-            <article>
-                <h2><a href="http://seanchann.github.io/mongodb-install-cn.html">mongodb---install</a></h2>
-                <div class="summary"><p><strong>系统：CentOS7 + docker 1.6</strong></p>
-<p><strong>mongodb版本： 3.0.2</strong></p>
-<p>本文的安装是采用docker的方式，而不是在os上安装package的方式。
-<a href="http://docs.mongoing.com/manual/tutorial/">package的安装方式</a></p>
-<p>在开始前，假定用户已经完成了基础环境的配置，这里主要是指docker的运行环境</p>
-<h2>安装</h2>
-<h3>运行一个mongodb</h3>
-<p>docker hub上官方的mongodb image，我们直接使用此image来运行mongodb：</p>
-<div class="codehilite"><pre>docker pull mongo
-</pre></div>
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="http://seanchann.github.io/jenkins-docker-slave-cn.html"
+                       rel="bookmark"
+                       title="Permalink to jenkins-docker-slave">
+                        jenkins-docker-slave
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2015-07-03T00:00:00+08:00"> Fri 03 July 2015</time>
+    </span>
 
 
-<p>创建一个volume容器，保存mongo的数据以及配置：</p>
-<div class="codehilite"><pre>docker create -v /yourdir/mongo/data/db:/data/db -v /yourdir/mongo/conf/:/conf/ --name<span class="o">=</span>mongo-dv mongo
-</pre></div>
+            <span class="label label-default">By</span>
+            <a href="http://seanchann.github.io/author/seanchann-zhou.html"><i class="fa fa-user"></i> Seanchann Zhou</a>
+
+        <span class="label label-default">Category</span>
+        <a href="http://seanchann.github.io/category/ci-cd.html">ci-cd</a>
 
 
-<h3>run mongodb with volume</h3>
-<p>直接指定绑定host上的文件夹：</p>
-<div class="codehilite"><pre>docker create ...</pre></div>
-                    <a class="btn btn-default btn-xs" href="http://seanchann.github.io/mongodb-install-cn.html">more ...</a>
+<span class="label label-default">Tags</span>
+	<a href="http://seanchann.github.io/tag/jenkins.html">jenkins</a>
+    
+</footer><!-- /.post-info -->                    </div>
                 </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://seanchann.github.io/mongodb-problems-summary-cn.html">mongodb---Problems Summary</a></h2>
-                <div class="summary"><p><strong>系统：CentOS7 + docker 1.6</strong></p>
-<p><strong>mongodb版本： 3.0.2</strong></p>
-<h2>WARNING:/sys/kernel/mm/transparent_hugepage/enabled or /sys/kernel/mm/transparent_hugepage/defrag is 'always'.</h2>
-<div class="codehilite"><pre>    这个问题的原因是由于内核的某些参数的配置造成的mongodb产生了警告，基于docker环境，在docker运行的host主机上：
-
-    1. echo never &gt; /sys/kernel/mm/transparent_hugepage/enabled
-    2. echo never &gt; /sys/kernel/mm/transparent_hugepage/defrag
-
-    or
-
-    1. echo never | sudo tee /sys/kernel ...</pre></div>
-                    <a class="btn btn-default btn-xs" href="http://seanchann.github.io/mongodb-problems-summary-cn.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://seanchann.github.io/mongodb-user-cn.html">mongodb---user</a></h2>
-                <div class="summary"><p><strong>系统：CentOS7 + docker 1.6</strong></p>
-<p><strong>mongodb版本： 3.0.2</strong></p>
-<p>安装工作完成后，整个的mongodb运行起来后，在开始工作前，首先应该为我们的mongodb配置适当的用户以及其权限。</p>
-<p><em>注意下，网上大多数的直接进入命令行,执行：</em></p>
-<div class="codehilite"><pre>use admin
-db.adduser(&quot;test&quot;,&quot;123&quot;)
+                <p><strong>系统：CentOS7 + docker 1.6</strong>
+<strong>Jenkins: ver. 1.609.1</strong></p>
+<p><a href="http://seanchann.github.io/jenkins-gitlab-cn.html">前面的章节已经成功的通过git push触发job</a>，本章我们配置一个job，在docker cloud中执行这些job</p>
+<p>前提条件：</p>
+<ul>
+<li>jenkins的docker-plugin插件已经安装</li>
+</ul>
+<p>jenkins与docker协同工作的原理是，通过jenkins的docker插件来完成。
+首先docker插件负责docker daemon的管理，也就是配置jenkins去连接docker daemon。然后启动一个docker image来完成job。其中，需要注意的是后续我们的job都是完全放在这个启动起来的container里面完成的。因此这个image需要我们自己去根据工程的需要来定义。还有就是master会去连接到这个启动起来的container，是通过ssh来连接的。</p>
+<h2>配置docker plugin</h2>
+<p>docker 插件提供了可以通过在slave的节点上docker环境，来执行docker的相关操作。</p>
+<h3>docker环境配置</h3>
+<p>这里主要就是配置下docker daemon，首先使我们必须安装完成docker。
+对docker daemon的配置流程如下：</p>
+<ul>
+<li>/etc/sysconfig/docker配置文件配置OPTIONS='-H unix:///var/run/docker.sock -H tcp://0.0.0.0:2375' 。这个配置使能了本地socket以及远端tcp的连接。</li>
+<li>如果有防火墙，配置防火墙打开2375端口（no auth）以及2376端口（auth）</li>
+<li>重启防火墙以及我们的docker.service</li>
+</ul>
+<p><em>注意-H给出的端口作为http端口，端口+1作为https，这是docker daemon的默认行为</em></p>
+<h3>docker jenkins image</h3>
+<p>配置好docker daemon以后，还需要在docker slave上跑一个docker image给jenkins来使用。后面去配置jenkins的docker cloud的时候就是配置这个image。</p>
+<p>这个image的创建可以手动创建或者直接使用docker hub上的evarga/jenkins-slave</p>
+<h4>evarga/jenkins-slave的使用</h4>
+<p>这个镜像直接拉取：</p>
+<div class="codehilite"><pre>docker pull evarga/jenkins-slave
 </pre></div>
 
 
-<p><em>上面这种方式在3.0的版本上是行不通的</em></p>
-<h2>添加管理员用户</h2>
-<p>通过docker首先启动不带--auth的mongodb：</p>
-<div class="codehilite"><pre>docker run --volumes-from=mongodb-dv --name mongodb -d mongo
-</pre></div>
+<p>镜像默认的用户名和密码是jenkins:jenkins</p>
+<h4>手动创建jenkins-slave</h4>
+<h1>jenkins的配置</h1>
+<p>jenkins的配置主要包括增加一个docker cloud。</p>
+<h4>docker cloud的配置，</h4>
+<p>流程描述如下：</p>
+<ul>
+<li>Manage Jenkins-&gt;configuration-&gt;Add New cloud</li>
+<li>配置name以及 Docker URL（eg.http://dockerdaemonip:2375）</li>
+</ul>
+<p>上面流程配置完成后，会在Mnage Jenkins--&gt;Docker页面看到我们配置的docker server以及它的状态。</p>
+            </div>
+            <!-- /.entry-content -->
+    <hr/>
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
 
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'seanchannblog'; // required: replace example with your forum shortname
 
-<p><a href="http://seanchann.github.io/mongodb-install-cn.html">更详细的对安装的描述</a></p>
-<h3>进入mongo shell</h3>
-<h3>添加管理员用户：</h3>
-<div class="codehilite"><pre>use admin
-db.createUser(
-{
-      user: &quot;admin&quot;,
-      pwd: &quot;admin&quot;,
-      roles: [ { role: &quot;userAdminAnyDatabase&quot;, db ...</pre></div>
-                    <a class="btn btn-default btn-xs" href="http://seanchann.github.io/mongodb-user-cn.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
+                    var disqus_identifier = 'jenkins-docker-slave';
+                var disqus_url = 'http://seanchann.github.io/jenkins-docker-slave-cn.html';
+
+            var disqus_config = function () {
+                this.language = "zh";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
 
         </div>
         <div class="col-sm-3" id="sidebar">
@@ -158,18 +196,28 @@ db.createUser(
             <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
                 <ul class="list-group" id="recentposts">
                     <li class="list-group-item">
-                        <a href="http://seanchann.github.io/mongodb-install-cn.html">
-                            mongodb---install
+                        <a href="http://seanchann.github.io/httpproxy2socket-cn.html">
+                            httpproxy2socket
                         </a>
                     </li>
                     <li class="list-group-item">
-                        <a href="http://seanchann.github.io/mongodb-problems-summary-cn.html">
-                            mongodb---Problems Summary
+                        <a href="http://seanchann.github.io/jenkins-docker-cn.html">
+                            jenkins-docker
                         </a>
                     </li>
                     <li class="list-group-item">
-                        <a href="http://seanchann.github.io/mongodb-user-cn.html">
-                            mongodb---user
+                        <a href="http://seanchann.github.io/jenkins-docker-build-cn.html">
+                            jenkins-docker-build
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://seanchann.github.io/jenkins-docker-slave-cn.html">
+                            jenkins-docker-slave
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://seanchann.github.io/jenkins-gitlab-cn.html">
+                            jenkins-gitlab
                         </a>
                     </li>
                 </ul>
