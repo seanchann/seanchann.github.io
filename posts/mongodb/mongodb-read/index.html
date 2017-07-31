@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta name="generator" content="Hugo 0.26-DEV" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> | seanchann</title>
+
+     
+      
+    
+    
+    
+    
+    
+
+  <meta name="author" content="">
+
+ 
+    <meta property="og:title" content="" />
+<meta property="og:description" content="Tags: mongodb Author: Seanchann Zhou lang: cn
+系统：CentOS7 &#43; docker 1.6
+mongodb版本： 3.0.2
+mongodb与读操作相关的内容，比如find以及query操作
+查询和Projection的操作选项 查询选择器 比较  $eq : 匹配到所有的与给定的值相等的条目 $gt : 匹配到所有的大于给定的值的条目 $gte : 匹配到所有的大于或者等于给定的值的条目 $lt : 匹配所有的小于给定值的条目 $lte : 匹配所有的小于或者等于给定值的条目 $ne : 匹配所有的不等于给定值的条目 $in : 匹配给定的值在一个数组中存在的条目 $nin : 匹配给定的值不在一个数组中存在的条目  逻辑操作  $or : 逻辑或操作 $and : 逻辑与操作 $not : 逻辑非的操作 $nor : 逻辑异或的操作  Element  $exists : 匹配所有的文档存在给定的字段的条目 $type : 匹配如果字段是给定的类型的文档条目  Evaluation  $mod : 针对字段的值进行mod的操作 $regex : 返回与正则表达式匹配的文档 $text : 处理text的查找 $where : 返回匹配JavaScript表达式的文档  Geospatial  $geoWithin : Selects geometries within a bounding GeoJSON geometry." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.ucatch.me/posts/mongodb/mongodb-read/" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+    
+
+
+
+ 
+    
+     
+     
+    
+    
+    <link rel="canonical" href="https://blog.ucatch.me/posts/mongodb/mongodb-read/">   <link rel="shortcut icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABwlBMVEUAAAA/3MUK07UJ0rRk6NkC0rMAw5sAx6Ic1rs/3MYAlU0E0rQAhjMAyKIAiTkM07UJ07UAhC8m2L4o2L5O4Msn2L4AzKoAzq0128Mo2b8F0rQE0rMu2cAt2cAA0bI228MA0LAAy6kr2b8Q1LcF0rMH0rUAxp4t2b8c1ros2b8P1LcAzKsAzq4528Q02sIM07YAfyg93cUD0rMA0LEA0bFK4c0M1LcL07Uv2sEAzawY1rlJ4c0w2sEAzKkY1rqr+PQN07Yj170G0rQI07UF0bMt2cAF0rMC0bIL07UF0bMs2cAF0rMA0bIC0bIL07UF0rMA0bIA0bIA0bIO1LYr2b8N07Yp2L4F0rMF0rQJ07UA0bIC0bMA0bIH0rQK07UD0bMA0LAF0rMAyqYE0rMA0bIS1Lg228ID0bMM07YS1LcI07QL07UJ07UC0bMM07YG0rMS1Lc328IR1LcC0bIK07UM07Yo2L4P1LcL07UD0rMD0rMD0rMB0bIH0rQ23MMQ1LcD0rMN1LYB0LAJ0rQ33MMG0bMP1bgD0rMN07YH0rQH0rQ33MQF0rMD0rMN1LYo2L4F0rQG0rSA6tsA0bIB0bL////yxqscAAAAk3RSTlMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgnDXAUItvZKBAi6+vpMuf3++wEIAQcEBFn5AgR9UwMEoQLD/AEH4AIdAzha+UMEAQcc9AM4CAFSA9IC+4AEAc8yAwIEBAHOMQOBBLfLMAnFlAJNsa0LAAAAAWJLR0SVCGB6gwAAAAd0SU1FB+EBBBI4BduZ4woAAAF5SURBVDjLY2CAAUYmZgcWRydnVhc2dg4GTMAJlOdydZvs7sHtiU0FSJ7Hy3uyz2RfP24XNl4OLPJ8Xv5A+YBAsAo0M2DyQZMnY1fBL+AgCJXHrkIoWDgEJo9NhUioaBhCHqoiXExcAqZAMkIqckrU5MkoKqSjZeAmyMbIxSIZAFIRMCVOOl4epkAmQSERrwKOJMXkySl4rEhVSkufHDAZtyMzlDPdJweiyiN7UyRLIHsKQj5wMnowSIar5ExJQcjn5qnmqyFHlzqKL7EoQPMlphUaaL7EcGSBZiGKLzFUZGgVFSP5ElNFCVPpFORwhAeVto4uWEGwUJk3alSAVXhIR+tB7ShHTi5QkOIzpUKqEmKCPpODgReaipSUyVWl0tW6GEkWGhRBk2tq6wzrsSVqqPaGRqOmZmMTXWwqwNpbTFvbzMwtsGUMoPb2DqOmTksxK2xZLyhgck1XtzVIuw22zNszeXJvH0i7rR1G9gVlf/v+CRMnWaPYDgA74gwO0j2znAAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxNy0wMS0wNFQxODo1NjowNSswMTowME2yC4wAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTctMDEtMDRUMTg6NTY6MDUrMDE6MDA877MwAAAAV3pUWHRSYXcgcHJvZmlsZSB0eXBlIGlwdGMAAHic4/IMCHFWKCjKT8vMSeVSAAMjCy5jCxMjE0uTFAMTIESANMNkAyOzVCDL2NTIxMzEHMQHy4BIoEouAOoXEXTyQjWVAAAAAElFTkSuQmCC">
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
+    <link rel="stylesheet" href="https://jenil.github.io/bulmaswatch/lumen/bulmaswatch.min.css"> 
+    <link rel="stylesheet" href="https://blog.ucatch.me/css/landing.css">   
+    
+    
+</head>
+
+
+<body>
+    <header> <nav class="nav has-shadow">
+<div class="nav-left">
+    <a class="nav-item" href="https://blog.ucatch.me/">
+        <img src="https://blog.ucatch.me/img/bulma.png" alt="Bulma logo">
+    </a>
+</div>
+
+<div class="nav-center">
+    
+
+    <a class="nav-item" target="blank" href="https://github.com/seanchann">
+        <span class="icon">
+            <i class="fa fa-github"></i>
+          </span>
+    </a>
+    
+    
+</div>
+
+
+
+<span class="nav-toggle">
+        <span></span>
+<span></span>
+<span></span>
+</span>
+
+
+
+<div class="nav-right nav-menu" itemscope itemtype="http://schema.org/SiteNavigationElement">
+        
+        
+        <a itemprop="url" class="nav-item is-tab  is-active" href="https://blog.ucatch.me/posts/"><span itemprop="name">Posts</span></a>
+        
+        <a itemprop="url" class="nav-item is-tab " href="https://blog.ucatch.me/blog/"><span itemprop="name">bulma theme</span></a>
+        
+        <a itemprop="url" class="nav-item is-tab " href="https://blog.ucatch.me/"><span itemprop="name">Home</span></a>
+        
+</div>
+</nav> </header>
+    <main>
+
+<div class="columns is-fullheight">
+    <div class="column">
+        <section class="hero is-default is-bold">
+            <div class="hero-body">
+                <div class="content container">
+                   
+
+<p>Tags: mongodb
+Author: Seanchann Zhou
+lang: cn</p>
+
+<p><strong>系统：CentOS7 + docker 1.6</strong></p>
+
+<p><strong>mongodb版本： 3.0.2</strong></p>
+
+<p>mongodb与读操作相关的内容，比如find以及query操作</p>
+
+<h2 id="查询和projection的操作选项">查询和Projection的操作选项</h2>
+
+<h3 id="查询选择器">查询选择器</h3>
+
+<h4 id="比较">比较</h4>
+
+<ul>
+<li>$eq   : 匹配到所有的与给定的值相等的条目</li>
+<li>$gt   : 匹配到所有的大于给定的值的条目</li>
+<li>$gte  : 匹配到所有的大于或者等于给定的值的条目</li>
+<li>$lt   : 匹配所有的小于给定值的条目</li>
+<li>$lte  : 匹配所有的小于或者等于给定值的条目</li>
+<li>$ne   : 匹配所有的不等于给定值的条目</li>
+<li>$in   : 匹配给定的值在一个数组中存在的条目</li>
+<li>$nin  : 匹配给定的值不在一个数组中存在的条目</li>
+</ul>
+
+<h4 id="逻辑操作">逻辑操作</h4>
+
+<ul>
+<li>$or   : 逻辑或操作</li>
+<li>$and  : 逻辑与操作</li>
+<li>$not  : 逻辑非的操作</li>
+<li>$nor  : 逻辑异或的操作</li>
+</ul>
+
+<h4 id="element">Element</h4>
+
+<ul>
+<li>$exists  : 匹配所有的文档存在给定的字段的条目</li>
+<li>$type    : 匹配如果字段是给定的类型的文档条目</li>
+</ul>
+
+<h4 id="evaluation">Evaluation</h4>
+
+<ul>
+<li>$mod     : 针对字段的值进行mod的操作</li>
+<li>$regex   : 返回与正则表达式匹配的文档</li>
+<li>$text    : 处理text的查找</li>
+<li>$where   : 返回匹配JavaScript表达式的文档</li>
+</ul>
+
+<h4 id="geospatial">Geospatial</h4>
+
+<ul>
+<li>$geoWithin   : Selects geometries within a bounding GeoJSON geometry. The 2dsphere and 2d indexes support $geoWithin.</li>
+<li>$geoIntersects   : Selects geometries that intersect with a GeoJSON geometry. The 2dsphere index supports $geoIntersects.</li>
+<li>$near     :Returns geospatial objects in proximity to a point. Requires a geospatial index. The 2dsphere and 2d indexes support $near.</li>
+<li>$nearSphere    : Returns geospatial objects in proximity to a point on a sphere. Requires a geospatial index. The 2dsphere and 2d indexes support $nearSphere.</li>
+</ul>
+
+<h4 id="数组">数组</h4>
+
+<ul>
+<li>$all  : 匹配在请求中给出的字段值都在数组中的文档</li>
+<li>$elemMatch   : 匹配如果数组中的元素匹配到所有的在$elemMatch中给出的条件的文档</li>
+<li>$size   : 匹配如果数组字段与指定的大小一致的文档</li>
+</ul>
+
+<h4 id="comment-注释">comment （注释）</h4>
+
+<ul>
+<li>$comment  : 添加注释到查询中</li>
+</ul>
+
+<h3 id="projection-operators">Projection Operators</h3>
+
+<ul>
+<li>$   : 项目在符合查询条件的数组的第一个元素。</li>
+<li>$   : 项目在符合指定$ elemMatch条件数组的第一个元素。</li>
+<li>$meta   : Projects the document’s score assigned during $text operation.</li>
+<li>$slice  : Limits the number of elements projected from an array. Supports skip and limit slices.</li>
+</ul>
+
+<h2 id="find-with-golang">find with golang</h2>
+
+<pre><code class="language-go">query := bson.M{}
+query[&quot;origin&quot;] = &quot;test&quot;
+query[&quot;$or&quot;] = []bson.M{}
+query[&quot;$or&quot;] = append(query[&quot;$or&quot;].([]bson.M), bson.M{&quot;abc&quot;: &quot;1&quot;})
+query[&quot;$or&quot;] = append(query[&quot;$or&quot;].([]bson.M), bson.M{&quot;def&quot;: &quot;2&quot;})
+</code></pre>
+
+<h3 id="find-with-string-value-match">find with string value match</h3>
+
+<p>比如我们有如下的数据：</p>
+
+<pre><code class="language-text">&gt; db.users.find()
+{ &quot;_id&quot; : ObjectId(&quot;55e3f0de55f3a3391d003a16&quot;), &quot;key&quot; : &quot;/users/pusherSystemAdmin&quot;, &quot;value&quot; : &quot;{\&quot;kind\&quot;:\&quot;User\&quot;,\&quot;apiVersion\&quot;:\&quot;v1beta1\&quot;,\&quot;metadata\&quot;:{\&quot;name\&quot;:\&quot;pusherSystemAdmin\&quot;,\&quot;uid\&quot;:\&quot;66a15c15-380e-480e-8d4a-4d39107ce267\\n\&quot;,\&quot;creationTimestamp\&quot;:\&quot;2015-08-31T06:14:54Z\&quot;},\&quot;spec\&quot;:{\&quot;grant\&quot;:\&quot;SUPERADMIN\&quot;,\&quot;appid\&quot;:\&quot;3Pxs-81CM-UJqQ9\&quot;,\&quot;info\&quot;:{\&quot;username\&quot;:\&quot;pusherSystemAdmin\&quot;,\&quot;nickname\&quot;:\&quot;pusherSystemAdmin\&quot;,\&quot;pwd\&quot;:\&quot;123456\&quot;}}}&quot;, &quot;dir&quot; : false, &quot;nodes&quot; : [ ] }
+{ &quot;_id&quot; : ObjectId(&quot;55e66a7155f3a3391d003af2&quot;), &quot;key&quot; : &quot;/users/pooooo&quot;, &quot;value&quot; : &quot;{\&quot;kind\&quot;:\&quot;User\&quot;,\&quot;apiVersion\&quot;:\&quot;v1beta1\&quot;,\&quot;metadata\&quot;:{\&quot;name\&quot;:\&quot;pooooo\&quot;,\&quot;uid\&quot;:\&quot;201d45e3-f014-4934-8582-ef5d391b632c\\n\&quot;,\&quot;creationTimestamp\&quot;:\&quot;2015-09-02T03:19:59Z\&quot;},\&quot;spec\&quot;:{\&quot;grant\&quot;:\&quot;GENERALADMIN\&quot;,\&quot;appid\&quot;:\&quot;OPTm-sC0b-nhK5B\&quot;,\&quot;info\&quot;:{\&quot;username\&quot;:\&quot;pooooo\&quot;,\&quot;nickname\&quot;:\&quot;pooooo\&quot;,\&quot;pwd\&quot;:\&quot;ssssssssssss\&quot;}}}&quot;, &quot;dir&quot; : false, &quot;nodes&quot; : [ ] }
+</code></pre>
+
+<p>我们上面的数据在value的string串里有个appid的键值，我们来用下面的命令来过滤一下：</p>
+
+<pre><code class="language-mongo">db.users.find({value:/\&quot;appid\&quot;:\&quot;3Pxs-81CM-UJqQ9\&quot;/})
+</code></pre>
+
+<p>还有下面的一些过滤：</p>
+
+<pre><code class="language-mongo">db.users.insert({name: 'paulo'})
+db.users.insert({name: 'patric'})
+db.users.insert({name: 'pedro'})
+
+db.users.find({value: /a/})  //like '%a%'
+db.users.find({name: /^pa/}) //like 'pa%'
+db.users.find({name: /ro$/}) //like '%ro'
+</code></pre>
+
+<h4 id="with-golang">with golang</h4>
+
+<h3 id="组合查询的例子">组合查询的例子</h3>
+
+<pre><code class="language-mongo">&gt; db.amon.find().pretty()
+{
+    &quot;_id&quot; : ObjectId(&quot;53ea66bdf9b63e0dd3ca1a18&quot;),
+    &quot;code&quot; : &quot;AAA&quot;,
+    &quot;name&quot; : &quot;AA&quot;
+}
+{
+    &quot;_id&quot; : ObjectId(&quot;53ea66c1f9b63e0dd3ca1a19&quot;),
+    &quot;code&quot; : &quot;AAA&quot;,
+    &quot;name&quot; : &quot;BB&quot;
+}
+{
+    &quot;_id&quot; : ObjectId(&quot;53ea66c3f9b63e0dd3ca1a1a&quot;),
+    &quot;code&quot; : &quot;AAA&quot;,
+    &quot;name&quot; : &quot;CC&quot;
+}
+{
+    &quot;_id&quot; : ObjectId(&quot;53ea66d3f9b63e0dd3ca1a1b&quot;),
+    &quot;code&quot; : &quot;BBB&quot;,
+    &quot;name&quot; : &quot;AA&quot;
+}
+{
+    &quot;_id&quot; : ObjectId(&quot;53ea66d6f9b63e0dd3ca1a1c&quot;),
+    &quot;code&quot; : &quot;BBB&quot;,
+    &quot;name&quot; : &quot;BB&quot;
+}
+{
+    &quot;_id&quot; : ObjectId(&quot;53ea66daf9b63e0dd3ca1a1d&quot;),
+    &quot;code&quot; : &quot;BBB&quot;,
+    &quot;name&quot; : &quot;CC&quot;
+}
+&gt; db.amon.find({ 
+    &quot;$or&quot; : [
+        { &quot;code&quot; : { &quot;$not&quot; : /^AAA/ } }, 
+        { &quot;name&quot;: { &quot;$not&quot; : { &quot;$in&quot; : [&quot;BB&quot;, &quot;CC&quot;] } } } 
+    ] 
+})
+{ &quot;_id&quot; : ObjectId(&quot;53ea66bdf9b63e0dd3ca1a18&quot;), &quot;code&quot; : &quot;AAA&quot;, &quot;name&quot; : &quot;AA&quot; }
+{ &quot;_id&quot; : ObjectId(&quot;53ea66d3f9b63e0dd3ca1a1b&quot;), &quot;code&quot; : &quot;BBB&quot;, &quot;name&quot; : &quot;AA&quot; }
+{ &quot;_id&quot; : ObjectId(&quot;53ea66d6f9b63e0dd3ca1a1c&quot;), &quot;code&quot; : &quot;BBB&quot;, &quot;name&quot; : &quot;BB&quot; }
+{ &quot;_id&quot; : ObjectId(&quot;53ea66daf9b63e0dd3ca1a1d&quot;), &quot;code&quot; : &quot;BBB&quot;, &quot;name&quot; : &quot;CC&quot; }
+</code></pre>
+
+                </div>
+                <br>
+            </div>
+        </section>
+    </div>
+</div>
+</main>
+    <footer> 
+  
+<div class="hero-foot">
+    <div class="container">
+        <div class="tabs is-centered">
+            <ul>
+                This page was generated using this template
+                <li> <a class="button button is-link" class="link" target="_blank" rel="noopener" href="https://jeblister.github.io/bulma/">Bulma</a></li>
+                using 
+                <li> <a class="button button is-link" target="_blank" rel="noopener" href="https://gohugo.io/">Hugo</a></li>
+                and build by
+                <strong>&nbsp;seanchann.zhou</strong>
+                <li> <a class="icon" href="https://github.com/jeblister/bulma">
+              
+                    <i class="fa fa-github"></i>
+                </a></li>
+            </ul>
+            
+        </div>
+    </div>
+</div>
+ 
+</footer>
+
+    <script async type="text/javascript" src="https://blog.ucatch.me/js/bulma.js"></script>
+    <script async type="text/javascript"  src="https://blog.ucatch.me/js/clipboard.min.js"></script>
+    <script async type="text/javascript"  src="https://blog.ucatch.me/js/clip.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://blog.ucatch.me/blog/</loc>
+    <lastmod>2017-04-01T14:19:25+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.ucatch.me/posts/golang/reflect/</loc>
+    <lastmod>2017-07-31T08:49:41+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.ucatch.me/posts/build-system/cmake-external-project/</loc>
+  </url>
+  
+  <url>
+    <loc>https://blog.ucatch.me/posts/ci-cd/jenkins-docker-build/</loc>
+  </url>
+  
+  <url>
+    <loc>https://blog.ucatch.me/posts/ci-cd/jenkins-docker-slave/</loc>
+  </url>
+  
+  <url>
+    <loc>https://blog.ucatch.me/posts/ci-cd/jenkins-gitlab/</loc>
+  </url>
+  
+  <url>
+    <loc>https://blog.ucatch.me/posts/ci-cd/jenkins-install/</loc>
+  </url>
+  
+  <url>
+    <loc>https://blog.ucatch.me/posts/ci-cd/jenkins-problem/</loc>
+  </url>
+  
+  <url>
+    <loc>https://blog.ucatch.me/posts/ci-cd/jenkins-security/</loc>
+  </url>
+  
+  <url>
+    <loc>https://blog.ucatch.me/posts/loadbalancer/lvs-install/</loc>
+  </url>
+  
+  <url>
+    <loc>https://blog.ucatch.me/posts/mongodb/mongodb-go-concurrently/</loc>
+  </url>
+  
+  <url>
+    <loc>https://blog.ucatch.me/posts/mongodb/mongodb-index/</loc>
+  </url>
+  
+  <url>
+    <loc>https://blog.ucatch.me/posts/mongodb/mongodb-install/</loc>
+  </url>
+  
+  <url>
+    <loc>https://blog.ucatch.me/posts/mongodb/mongodb-problems-summary/</loc>
+  </url>
+  
+  <url>
+    <loc>https://blog.ucatch.me/posts/mongodb/mongodb-read/</loc>
+  </url>
+  
+  <url>
+    <loc>https://blog.ucatch.me/posts/mongodb/mongodb-shell-cmd/</loc>
+  </url>
+  
+  <url>
+    <loc>https://blog.ucatch.me/posts/mongodb/mongodb-user/</loc>
+  </url>
+  
+  <url>
+    <loc>https://blog.ucatch.me/posts/mongodb/mongodb-wirte/</loc>
+  </url>
+  
+  <url>
+    <loc>https://blog.ucatch.me/posts/scm/gitlab-install/</loc>
+  </url>
+  
+  <url>
+    <loc>https://blog.ucatch.me/posts/scm/redmine-install/</loc>
+  </url>
+  
+  <url>
+    <loc>https://blog.ucatch.me/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.ucatch.me/categories/golang/</loc>
+    <lastmod>2017-07-31T08:49:41+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.ucatch.me/tags/golang/</loc>
+    <lastmod>2017-07-31T08:49:41+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.ucatch.me/posts/</loc>
+    <lastmod>2017-07-31T08:49:41+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.ucatch.me/tags/reflect/</loc>
+    <lastmod>2017-07-31T08:49:41+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.ucatch.me/tags/</loc>
+    <lastmod>2017-07-31T08:49:41+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.ucatch.me/</loc>
+    <lastmod>2017-04-01T14:19:25+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

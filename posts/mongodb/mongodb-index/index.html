@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta name="generator" content="Hugo 0.26-DEV" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> | seanchann</title>
+
+     
+      
+    
+    
+    
+    
+    
+
+  <meta name="author" content="">
+
+ 
+    <meta property="og:title" content="" />
+<meta property="og:description" content="Title: mongodb-index Date: Category: mongodb Tags: mongodb Author: Seanchann Zhou lang: cn
+系统：CentOS7 &#43; docker 1.6
+mongodb版本： 3.0.2
+mongo 的索引可以加快数据的查询，并且可以有效的避免重复键值对。
+mongo的索引类型 MongoDB提供了不同类型的indexes，这些indexes针对不同的目的以及各种不同类型的内容。
+ Single Field Indexes ：单字段索引仅包含集合中相应文档的单个字段中的数据。MongoDB 支持在文档根里的单字段索引，也支持在文档的子文档（需要理解为嵌套的文档）的中的字段的索引。 Compound Indexes：复合索引包含了在集合中的文档的多个字段。 Multikey Indexes：Multikey 指的是将索引建立在了一个数组的字段上，为在数组中的每个值都创建一个index key。 Geospatial Indexes and Queries：地理空间索引作为 GeoJSON 对象或遗留的坐标对存储的数据支持基于位置的搜索。 Text Indexes：text的索引支持对文档中的字符串内容的查找。 Text indexes support search of string content in documents. Hashed Index：哈希的索引维护条目的索引字段的值的哈希值，主要用于与分片集群支持散列的碎片的密钥。  Index Properties （属性） 你可以在你构建索引的时候，给出这些属性值。
+ TTL Indexes：TTL索引用于TTL的集合，它指示了在一定时间后数据的过期。 Unique Indexes：唯一索引会导致 MongoDB 拒绝包含索引字段的重复值的所有文档。 Sparse Indexes：sparse 属性，会在索引文档的时候，不去索引不包含索引字段的文档。  创建一个唯一的索引 db." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.ucatch.me/posts/mongodb/mongodb-index/" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+    
+
+
+
+ 
+    
+     
+     
+    
+    
+    <link rel="canonical" href="https://blog.ucatch.me/posts/mongodb/mongodb-index/">   <link rel="shortcut icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABwlBMVEUAAAA/3MUK07UJ0rRk6NkC0rMAw5sAx6Ic1rs/3MYAlU0E0rQAhjMAyKIAiTkM07UJ07UAhC8m2L4o2L5O4Msn2L4AzKoAzq0128Mo2b8F0rQE0rMu2cAt2cAA0bI228MA0LAAy6kr2b8Q1LcF0rMH0rUAxp4t2b8c1ros2b8P1LcAzKsAzq4528Q02sIM07YAfyg93cUD0rMA0LEA0bFK4c0M1LcL07Uv2sEAzawY1rlJ4c0w2sEAzKkY1rqr+PQN07Yj170G0rQI07UF0bMt2cAF0rMC0bIL07UF0bMs2cAF0rMA0bIC0bIL07UF0rMA0bIA0bIA0bIO1LYr2b8N07Yp2L4F0rMF0rQJ07UA0bIC0bMA0bIH0rQK07UD0bMA0LAF0rMAyqYE0rMA0bIS1Lg228ID0bMM07YS1LcI07QL07UJ07UC0bMM07YG0rMS1Lc328IR1LcC0bIK07UM07Yo2L4P1LcL07UD0rMD0rMD0rMB0bIH0rQ23MMQ1LcD0rMN1LYB0LAJ0rQ33MMG0bMP1bgD0rMN07YH0rQH0rQ33MQF0rMD0rMN1LYo2L4F0rQG0rSA6tsA0bIB0bL////yxqscAAAAk3RSTlMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgnDXAUItvZKBAi6+vpMuf3++wEIAQcEBFn5AgR9UwMEoQLD/AEH4AIdAzha+UMEAQcc9AM4CAFSA9IC+4AEAc8yAwIEBAHOMQOBBLfLMAnFlAJNsa0LAAAAAWJLR0SVCGB6gwAAAAd0SU1FB+EBBBI4BduZ4woAAAF5SURBVDjLY2CAAUYmZgcWRydnVhc2dg4GTMAJlOdydZvs7sHtiU0FSJ7Hy3uyz2RfP24XNl4OLPJ8Xv5A+YBAsAo0M2DyQZMnY1fBL+AgCJXHrkIoWDgEJo9NhUioaBhCHqoiXExcAqZAMkIqckrU5MkoKqSjZeAmyMbIxSIZAFIRMCVOOl4epkAmQSERrwKOJMXkySl4rEhVSkufHDAZtyMzlDPdJweiyiN7UyRLIHsKQj5wMnowSIar5ExJQcjn5qnmqyFHlzqKL7EoQPMlphUaaL7EcGSBZiGKLzFUZGgVFSP5ElNFCVPpFORwhAeVto4uWEGwUJk3alSAVXhIR+tB7ShHTi5QkOIzpUKqEmKCPpODgReaipSUyVWl0tW6GEkWGhRBk2tq6wzrsSVqqPaGRqOmZmMTXWwqwNpbTFvbzMwtsGUMoPb2DqOmTksxK2xZLyhgck1XtzVIuw22zNszeXJvH0i7rR1G9gVlf/v+CRMnWaPYDgA74gwO0j2znAAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxNy0wMS0wNFQxODo1NjowNSswMTowME2yC4wAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTctMDEtMDRUMTg6NTY6MDUrMDE6MDA877MwAAAAV3pUWHRSYXcgcHJvZmlsZSB0eXBlIGlwdGMAAHic4/IMCHFWKCjKT8vMSeVSAAMjCy5jCxMjE0uTFAMTIESANMNkAyOzVCDL2NTIxMzEHMQHy4BIoEouAOoXEXTyQjWVAAAAAElFTkSuQmCC">
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
+    <link rel="stylesheet" href="https://jenil.github.io/bulmaswatch/lumen/bulmaswatch.min.css"> 
+    <link rel="stylesheet" href="https://blog.ucatch.me/css/landing.css">   
+    
+    
+</head>
+
+
+<body>
+    <header> <nav class="nav has-shadow">
+<div class="nav-left">
+    <a class="nav-item" href="https://blog.ucatch.me/">
+        <img src="https://blog.ucatch.me/img/bulma.png" alt="Bulma logo">
+    </a>
+</div>
+
+<div class="nav-center">
+    
+
+    <a class="nav-item" target="blank" href="https://github.com/seanchann">
+        <span class="icon">
+            <i class="fa fa-github"></i>
+          </span>
+    </a>
+    
+    
+</div>
+
+
+
+<span class="nav-toggle">
+        <span></span>
+<span></span>
+<span></span>
+</span>
+
+
+
+<div class="nav-right nav-menu" itemscope itemtype="http://schema.org/SiteNavigationElement">
+        
+        
+        <a itemprop="url" class="nav-item is-tab  is-active" href="https://blog.ucatch.me/posts/"><span itemprop="name">Posts</span></a>
+        
+        <a itemprop="url" class="nav-item is-tab " href="https://blog.ucatch.me/blog/"><span itemprop="name">bulma theme</span></a>
+        
+        <a itemprop="url" class="nav-item is-tab " href="https://blog.ucatch.me/"><span itemprop="name">Home</span></a>
+        
+</div>
+</nav> </header>
+    <main>
+
+<div class="columns is-fullheight">
+    <div class="column">
+        <section class="hero is-default is-bold">
+            <div class="hero-body">
+                <div class="content container">
+                   
+
+<p>Title: mongodb-index
+Date:
+Category: mongodb
+Tags: mongodb
+Author: Seanchann Zhou
+lang: cn</p>
+
+<p><strong>系统：CentOS7 + docker 1.6</strong></p>
+
+<p><strong>mongodb版本： 3.0.2</strong></p>
+
+<p>mongo 的索引可以加快数据的查询，并且可以有效的避免重复键值对。</p>
+
+<h2 id="mongo的索引类型">mongo的索引类型</h2>
+
+<p>MongoDB提供了不同类型的indexes，这些indexes针对不同的目的以及各种不同类型的内容。</p>
+
+<ul>
+<li>Single Field Indexes ：单字段索引仅包含集合中相应文档的单个字段中的数据。MongoDB 支持在文档根里的单字段索引，也支持在文档的子文档（需要理解为嵌套的文档）的中的字段的索引。</li>
+<li>Compound Indexes：复合索引包含了在集合中的文档的多个字段。</li>
+<li>Multikey Indexes：Multikey 指的是将索引建立在了一个数组的字段上，为在数组中的每个值都创建一个index key。</li>
+<li>Geospatial Indexes and Queries：地理空间索引作为 GeoJSON 对象或遗留的坐标对存储的数据支持基于位置的搜索。</li>
+<li>Text Indexes：text的索引支持对文档中的字符串内容的查找。
+Text indexes support search of string content in documents.</li>
+<li>Hashed Index：哈希的索引维护条目的索引字段的值的哈希值，主要用于与分片集群支持散列的碎片的密钥。</li>
+</ul>
+
+<h2 id="index-properties-属性">Index Properties （属性）</h2>
+
+<p>你可以在你构建索引的时候，给出这些属性值。</p>
+
+<ul>
+<li>TTL Indexes：TTL索引用于TTL的集合，它指示了在一定时间后数据的过期。</li>
+<li>Unique Indexes：唯一索引会导致 MongoDB 拒绝包含索引字段的重复值的所有文档。</li>
+<li>Sparse Indexes：sparse 属性，会在索引文档的时候，不去索引不包含索引字段的文档。</li>
+</ul>
+
+<h2 id="创建一个唯一的索引">创建一个唯一的索引</h2>
+
+<pre><code class="language-bash">db.collection.ensureIndex( { a: 1 }, { unique: true } )
+</code></pre>
+
+<h3 id="unique">unique</h3>
+
+<p>unique如果为true，表示此键值对必须是唯一的。如果在插入重复的键值对的时候，会根据驱动的相关做法返回错误或者直接丢弃插入。</p>
+
+<h3 id="sparse">sparse</h3>
+
+<p>sparse indexes只包含文档中存在索引字段的条目，即使index字段包含了null值。并且会跳过所有的文档中没有索引字段的文档</p>
+
+<h3 id="将nested-字段作为index">将nested 字段作为index</h3>
+
+<p>如果你有插入了类似这样的文档：</p>
+
+<pre><code class="language-bash">db.exp.insert({&quot;name&quot;:&quot;c&quot;,nested:{date:new Date()}})
+</code></pre>
+
+<p>如果想针对文档内的嵌套字段作为index，那么可以这样做：</p>
+
+<pre><code class="language-bash">db.collection.ensureIndex({&quot;nested.date&quot;: 1}, {expireAfterSeconds:60})
+</code></pre>
+
+<h2 id="创建一个text的索引">创建一个text的索引</h2>
+
+<pre><code class="language-bash">import (
+  &quot;labix.org/v2/mgo&quot;
+)
+
+func main() {
+
+  session, err := mgo.Dial(&quot;127.0.0.1&quot;)
+  if err != nil {
+    panic(err)
+  }
+
+  defer session.Close()
+
+  session.SetMode(mgo.Monotonic, true)
+
+  c := session.DB(&quot;test&quot;).C(&quot;texty&quot;)
+
+  index := mgo.Index{
+    Key: []string{&quot;$text:name&quot;, &quot;$text:about&quot;},
+  }
+
+  err = c.EnsureIndex(index)
+  if err != nil {
+    panic(err)
+  }
+
+}
+</code></pre>
+
+                </div>
+                <br>
+            </div>
+        </section>
+    </div>
+</div>
+</main>
+    <footer> 
+  
+<div class="hero-foot">
+    <div class="container">
+        <div class="tabs is-centered">
+            <ul>
+                This page was generated using this template
+                <li> <a class="button button is-link" class="link" target="_blank" rel="noopener" href="https://jeblister.github.io/bulma/">Bulma</a></li>
+                using 
+                <li> <a class="button button is-link" target="_blank" rel="noopener" href="https://gohugo.io/">Hugo</a></li>
+                and build by
+                <strong>&nbsp;seanchann.zhou</strong>
+                <li> <a class="icon" href="https://github.com/jeblister/bulma">
+              
+                    <i class="fa fa-github"></i>
+                </a></li>
+            </ul>
+            
+        </div>
+    </div>
+</div>
+ 
+</footer>
+
+    <script async type="text/javascript" src="https://blog.ucatch.me/js/bulma.js"></script>
+    <script async type="text/javascript"  src="https://blog.ucatch.me/js/clipboard.min.js"></script>
+    <script async type="text/javascript"  src="https://blog.ucatch.me/js/clip.js"></script>
+</body>
+
+</html>
