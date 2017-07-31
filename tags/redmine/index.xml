@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Redmine on seanchann</title>
+    <link>https://blog.ucatch.me/tags/redmine/</link>
+    <description>Recent content in Redmine on seanchann</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <managingEditor>seanchann@foxmail.com (Some Person)</managingEditor>
+    <webMaster>seanchann@foxmail.com (Some Person)</webMaster>
+    <lastBuildDate>Mon, 31 Jul 2017 08:49:41 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.ucatch.me/tags/redmine/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>redmine的安装</title>
+      <link>https://blog.ucatch.me/post/scm/redmine-install/</link>
+      <pubDate>Mon, 31 Jul 2017 08:49:41 +0800</pubDate>
+      <author>seanchann@foxmail.com (Some Person)</author>
+      <guid>https://blog.ucatch.me/post/scm/redmine-install/</guid>
+      <description>redmine的安装 系统：CentOS7 + docker 1.6
+本文主要就是基于docker来构建我们的redmine环境，方便数据的迁移以及redmine的升级。
+docker create --name=postgresql-redmine-dv -v /home/pub/dockerdata/redmine/postgresql:/var/lib/postgresql sameersbn/postgresql:9.4  docker run --name=postgresql-redmine -d \ --env=&#39;DB_NAME=redmine_production&#39; \ --env=&#39;DB_USER=redmine&#39; --env=&#39;DB_PASS=password&#39; \ --volumes-from=postgresql-redmine-dv \ sameersbn/postgresql:9.4  docker create --name=redmine-dv -v /home/pub/dockerdata/redmine/redmine:/home/redmine/data sameersbn/redmine:3.0.4  docker run --name=redmine -d \ --link=postgresql-redmine:postgresql --publish=10083:80 \ --env=&#39;REDMINE_PORT=10083&#39; \ --volumes-from=redmine-dv \ sameersbn/redmine:3.0.4  使用env file 启动redmine SMTP_ENABLED=true SMTP_DOMAIN=smtp.qq.com SMTP_HOST=smtp.exmail.qq.com SMTP_PORT=25 SMTP_USER=icastbug@ronghe.tv SMTP_PASS=icast123 SMTP_STARTTLS=true SMTP_AUTHENTICATION=login REDMINE_PORT=10083  docker run --name=redmine -d \ --link=postgresql-redmine:postgresql --publish=10083:80 \ --volumes-from=redmine-dv \ --env-file=redmine-with-smtp-env.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cmake on seanchann</title>
+    <link>https://blog.ucatch.me/tags/cmake/</link>
+    <description>Recent content in Cmake on seanchann</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <managingEditor>seanchann@foxmail.com (Some Person)</managingEditor>
+    <webMaster>seanchann@foxmail.com (Some Person)</webMaster>
+    <lastBuildDate>Mon, 31 Jul 2017 08:49:41 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.ucatch.me/tags/cmake/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>cmake编译第三方依赖工程</title>
+      <link>https://blog.ucatch.me/post/build-system/cmake-external-project/</link>
+      <pubDate>Mon, 31 Jul 2017 08:49:41 +0800</pubDate>
+      <author>seanchann@foxmail.com (Some Person)</author>
+      <guid>https://blog.ucatch.me/post/build-system/cmake-external-project/</guid>
+      <description>cmake的ExteranlProject 系统：F22 Cmake: version 3.3.2
+ExternalProject_Add 这个函数在cmake 2.8版本以上支持，包含include(ExternalProject)模块即可， 此函数定义了一个编译外部工程的标准方法，当然也可以定制编译流程ExternalProject_Add_Step
+ExternalProject_Add函数说明：创建一个针对外部工程的自定义编译目标的过程：下载，更新/patch，configure，build，install， 以及test:
+ExternalProject_Add(&amp;lt;name&amp;gt; # Name for custom target [DEPENDS projects...] # Targets on which the project depends [PREFIX dir] # Root dir for entire project [LIST_SEPARATOR sep] # Sep to be replaced by ; in cmd lines [TMP_DIR dir] # Directory to store temporary files [STAMP_DIR dir] # Directory to store step timestamps #--Download step-------------- [DOWNLOAD_NAME fname] # File name to store (if not end of URL) [DOWNLOAD_DIR dir] # Directory to store downloaded files [DOWNLOAD_COMMAND cmd.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -6,28 +6,21 @@
     <description>Recent content on seanchann</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 01 Apr 2017 14:19:25 +0100</lastBuildDate>
+    <managingEditor>seanchann@foxmail.com (Some Person)</managingEditor>
+    <webMaster>seanchann@foxmail.com (Some Person)</webMaster>
+    <lastBuildDate>Mon, 31 Jul 2017 08:49:41 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.ucatch.me/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>bulma theme</title>
-      <link>https://blog.ucatch.me/blog/</link>
-      <pubDate>Sat, 01 Apr 2017 14:19:25 +0100</pubDate>
-      
-      <guid>https://blog.ucatch.me/blog/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Reflect</title>
-      <link>https://blog.ucatch.me/posts/golang/reflect/</link>
+      <link>https://blog.ucatch.me/post/golang/reflect/</link>
       <pubDate>Mon, 31 Jul 2017 08:49:41 +0800</pubDate>
-      
-      <guid>https://blog.ucatch.me/posts/golang/reflect/</guid>
-      <description>原文地址
-反射规则 反射规则的第一条： 1.反射从interface的value到reflection object 在底层，反射仅仅是一个机制，来检查存储在内部的一个interface变量中的type和value的对。首先，在包reflect中有两种类型我们必须知晓：Type 以及 Value。这两个类型可以让我们访问到interface变量的内容，并且提供了两个简单的函数，reflect.TypeOf以及reflect.ValueOf,通过对这两个函数的调用就可以获取到interface变量的值。（此外，调用reflect.Value也非常容易获取到reflect.Type,但是在概念上Value以及Type是完全不同的）
+      <author>seanchann@foxmail.com (Some Person)</author>
+      <guid>https://blog.ucatch.me/post/golang/reflect/</guid>
+      <description>反射规则 原文地址
+反射规则的第一条： 1.反射从interface的value到reflection object 在底层，反射仅仅是一个机制，来检查存储在内部的一个interface变量中的type和value的对。首先，在包reflect中有两种类型我们必须知晓：Type 以及 Value。这两个类型可以让我们访问到interface变量的内容，并且提供了两个简单的函数，reflect.TypeOf以及reflect.ValueOf,通过对这两个函数的调用就可以获取到interface变量的值。（此外，调用reflect.Value也非常容易获取到reflect.Type,但是在概念上Value以及Type是完全不同的）
 让我们先开始使用下TypeOf:
 package main import ( &amp;quot;fmt&amp;quot; &amp;quot;reflect&amp;quot; ) func main() { var x float64 = 3.4 fmt.Println(&amp;quot;type:&amp;quot;, reflect.TypeOf(x)) }  这个程序会打印：
 type: float64  你可能会想知道我们的interface在哪里，因为上面的程序看上去就像是它传递了float64给变量x，而不是一个interface的value，传递给我们的reflect.TypeOf。但是它确实是存在的；在godoc文档中，reflect.TypeOf的签名包含一个空的interface：
@@ -39,65 +32,36 @@ var x float64 = 3.</description>
     </item>
     
     <item>
-      <title></title>
-      <link>https://blog.ucatch.me/posts/build-system/cmake-external-project/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.ucatch.me/posts/build-system/cmake-external-project/</guid>
-      <description>Title: cmkae-external-project Date: Category: build-system Tags: cmake Author: Seanchann Zhou lang: cn
-系统：F22 Cmake: version 3.3.2
+      <title>cmake编译第三方依赖工程</title>
+      <link>https://blog.ucatch.me/post/build-system/cmake-external-project/</link>
+      <pubDate>Mon, 31 Jul 2017 08:49:41 +0800</pubDate>
+      <author>seanchann@foxmail.com (Some Person)</author>
+      <guid>https://blog.ucatch.me/post/build-system/cmake-external-project/</guid>
+      <description>cmake的ExteranlProject 系统：F22 Cmake: version 3.3.2
 ExternalProject_Add 这个函数在cmake 2.8版本以上支持，包含include(ExternalProject)模块即可， 此函数定义了一个编译外部工程的标准方法，当然也可以定制编译流程ExternalProject_Add_Step
 ExternalProject_Add函数说明：创建一个针对外部工程的自定义编译目标的过程：下载，更新/patch，configure，build，install， 以及test:
 ExternalProject_Add(&amp;lt;name&amp;gt; # Name for custom target [DEPENDS projects...] # Targets on which the project depends [PREFIX dir] # Root dir for entire project [LIST_SEPARATOR sep] # Sep to be replaced by ; in cmd lines [TMP_DIR dir] # Directory to store temporary files [STAMP_DIR dir] # Directory to store step timestamps #--Download step-------------- [DOWNLOAD_NAME fname] # File name to store (if not end of URL) [DOWNLOAD_DIR dir] # Directory to store downloaded files [DOWNLOAD_COMMAND cmd.</description>
     </item>
     
     <item>
-      <title></title>
-      <link>https://blog.ucatch.me/posts/ci-cd/jenkins-docker-build/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.ucatch.me/posts/ci-cd/jenkins-docker-build/</guid>
-      <description>Title: jenkins-docker-build Date: Category: ci-cd Tags: jenkins Author: Seanchann Zhou lang: cn
-系统：CentOS7 + docker 1.6 Jenkins: ver. 1.609.1
-前提条件：
- jenkins的任意node已经安装docker或者docker-build-step插件已经安装  首先，完成docker img编译相关的job有两种方式：
- 通过docker-build-setup等类似插件来完成 通过执行脚本来完成，前提是我们的node上已经有docker环境。这个node当然也可以是docker-slave了，这样就会更加的灵活了。  配置docker build step 插件 docker build step的原理是配置一个Docker Remote API，插件通过这个API来进行docker命令的相关操作。
-这个插件的配置是在configuration &amp;ndash;&amp;gt;Docker Builder选项中配置一下docker Remote API，比如：http://192.168.60.79:2375
-配置完成后，就可以在job的build step里面选择“Execute Docker container”配置相应的命令，来完成你的工作。
-配置一个节点 参照标准的节点操作来添加一个有docker环境的node。
-节点配置完成后，我们在job的configure制定我们的slave node，那么就可以在这个docker node里面执行我们的docker相关的工作了。
-这里你也可以尝试下使用docker in docker的方式。
-注意：node上必须有jdk的环境，以及git等相关软件，根据需要自行安装</description>
+      <title>gitlab的安装</title>
+      <link>https://blog.ucatch.me/post/scm/gitlab-install/</link>
+      <pubDate>Mon, 31 Jul 2017 08:49:41 +0800</pubDate>
+      <author>seanchann@foxmail.com (Some Person)</author>
+      <guid>https://blog.ucatch.me/post/scm/gitlab-install/</guid>
+      <description>gitlab的安装 系统：CentOS7 + docker 1.6
+本文主要就是基于docker来构建我们的gitlab环境，方便数据的迁移以及gitlab的升级。
+镜像的获取 gitlab的镜像获取我们执行下面的命令，分别拉取gitlab，postgresql，redis：
+docker pull sameersbn/postgresql:9.4 docker pull sameersbn/redis:latest docker pull sameersbn/gitlab:7.12.2  创建相关的data volume docker create --name=gitlab-redis-dv -v /yourdir:/var/lib/redis sameersbn/redis:latest  docker create --name=gitlab-postgresql-dv -v /yourdir:/var/lib/postgresql sameersbn/postgresql:9.4  docker create --name=gitlab-dv -v /yourdir:/home/git/data sameersbn/gitlab:7.12.2  运行相关的镜像 docker run --name=postgresql-gitlab -d \ --env=&#39;DB_NAME=gitlabhq_production&#39; \ --env=&#39;DB_USER=gitlab&#39; --env=&#39;DB_PASS=password&#39; \ --volumes-from=gitlab-postgresql-dv \ sameersbn/postgresql:9.4  docker run --name=redis-gitlab -d \ --volumes-from=gitlab-redis-dv \ sameersbn/redis:latest  docker run --name=&#39;gitlab&#39; -d \ --link=postgresql-gitlab:postgresql --link=redis-gitlab:redisio \ --publish=10022:22 --publish=10080:80 \ --env=&#39;GITLAB_PORT=10080&#39; --env=&#39;GITLAB_SSH_PORT=10022&#39; \ --volumes-from=gitlab-dv \ sameersbn/gitlab:7.</description>
     </item>
     
     <item>
-      <title></title>
-      <link>https://blog.ucatch.me/posts/ci-cd/jenkins-docker-slave/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.ucatch.me/posts/ci-cd/jenkins-docker-slave/</guid>
-      <description>Title: jenkins-docker-slave Date: Category: ci-cd Tags: jenkins Author: Seanchann Zhou lang: cn
-系统：CentOS7 + docker 1.6 Jenkins: ver. 1.609.1
-前面的章节已经成功的通过git push触发job，本章我们配置一个job，在docker cloud中执行这些job
-前提条件：
- jenkins的docker-plugin插件已经安装  jenkins与docker协同工作的原理是，通过jenkins的docker插件来完成。 首先docker插件负责docker daemon的管理，也就是配置jenkins去连接docker daemon。然后启动一个docker image来完成job。其中，需要注意的是后续我们的job都是完全放在这个启动起来的container里面完成的。因此这个image需要我们自己去根据工程的需要来定义。还有就是master会去连接到这个启动起来的container，是通过ssh来连接的。
-配置docker plugin docker 插件提供了可以通过在slave的节点上docker环境，来执行docker的相关操作。
-docker环境配置 这里主要就是配置下docker daemon，首先使我们必须安装完成docker。 对docker daemon的配置流程如下：
- /etc/sysconfig/docker配置文件配置OPTIONS=&amp;lsquo;-H unix:///var/run/docker.sock -H tcp://0.0.0.0:2375&amp;rsquo; 。这个配置使能了本地socket以及远端tcp的连接。 如果有防火墙，配置防火墙打开2375端口（no auth）以及2376端口（auth） 重启防火墙以及我们的docker.service  注意-H给出的端口作为http端口，端口+1作为https，这是docker daemon的默认行为
-docker jenkins image 配置好docker daemon以后，还需要在docker slave上跑一个docker image给jenkins来使用。后面去配置jenkins的docker cloud的时候就是配置这个image。
-这个image的创建可以手动创建或者直接使用docker hub上的evarga/jenkins-slave
-evarga/jenkins-slave的使用 这个镜像直接拉取：
-docker pull evarga/jenkins-slave  镜像默认的用户名和密码是jenkins:jenkins</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://blog.ucatch.me/posts/ci-cd/jenkins-gitlab/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.ucatch.me/posts/ci-cd/jenkins-gitlab/</guid>
-      <description> Title: jenkins-gitlab Date: Category: ci-cd Tags: jenkins Author: Seanchann Zhou lang: cn
-系统：CentOS7 + docker 1.6 Jenkins: ver. 1.609.1 gitlab: 6.8.1
+      <title>jenkins与gitlab的整合</title>
+      <link>https://blog.ucatch.me/post/ci-cd/jenkins-gitlab/</link>
+      <pubDate>Mon, 31 Jul 2017 08:49:41 +0800</pubDate>
+      <author>seanchann@foxmail.com (Some Person)</author>
+      <guid>https://blog.ucatch.me/post/ci-cd/jenkins-gitlab/</guid>
+      <description> jenkins与gitlab的整合 系统：CentOS7 + docker 1.6 Jenkins: ver. 1.609.1 gitlab: 6.8.1
 本文主要针对jenkins与gitlab的整合进行说明。
 前提条件：
  jenkins的 git、git-client、gitlab-hook插件已经安装 gitlab已经安装成功  jenkins的配置 create jobs 创建一个任务其中需要注意的地方是，配置下自己的git ssh key
@@ -111,13 +75,66 @@ gitlab push event的额外配置 在我使用的gitlab的版本上，当git客�
     </item>
     
     <item>
-      <title></title>
-      <link>https://blog.ucatch.me/posts/ci-cd/jenkins-install/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.ucatch.me/posts/ci-cd/jenkins-install/</guid>
-      <description>Title: jenkins-install Date: Category: ci-cd Tags: jenkins Author: Seanchann Zhou lang: cn
-系统：CentOS7 + docker 1.6 Jenkins: ver. 1.609.1
+      <title>jenkins使用问题汇总</title>
+      <link>https://blog.ucatch.me/post/ci-cd/jenkins-problem/</link>
+      <pubDate>Mon, 31 Jul 2017 08:49:41 +0800</pubDate>
+      <author>seanchann@foxmail.com (Some Person)</author>
+      <guid>https://blog.ucatch.me/post/ci-cd/jenkins-problem/</guid>
+      <description> 问题汇总 系统：CentOS7 + docker 1.6 Jenkins: ver. 1.609.1
+jenkins在使用中碰到的问题的汇总，以备查阅。
+jenkins (pending—Waiting for next available executor) 检查下节点的状态，当master node如果disk不足，就会自动的把master node切换到离线，如果有job被触发，那么将此job置为pending。
+Disk space is too low. Only 0.519GB left on /tmp 在docker镜像里，/tmp分区确实很小，因此，总是会把master节点置为offline，我们在启动的时候传入下面的环境变量来修改tmpdir：
+JAVA_OPTS=&amp;quot;-Djava.io.tmpdir=$JENKINS_HOME/tmp&amp;quot;  </description>
+    </item>
+    
+    <item>
+      <title>jenkins的docker编译</title>
+      <link>https://blog.ucatch.me/post/ci-cd/jenkins-docker-build/</link>
+      <pubDate>Mon, 31 Jul 2017 08:49:41 +0800</pubDate>
+      <author>seanchann@foxmail.com (Some Person)</author>
+      <guid>https://blog.ucatch.me/post/ci-cd/jenkins-docker-build/</guid>
+      <description>jenkins的docker自动化 系统：CentOS7 + docker 1.6 Jenkins: ver. 1.609.1
+前提条件：
+ jenkins的任意node已经安装docker或者docker-build-step插件已经安装  首先，完成docker img编译相关的job有两种方式：
+ 通过docker-build-setup等类似插件来完成 通过执行脚本来完成，前提是我们的node上已经有docker环境。这个node当然也可以是docker-slave了，这样就会更加的灵活了。  配置docker build step 插件 docker build step的原理是配置一个Docker Remote API，插件通过这个API来进行docker命令的相关操作。
+这个插件的配置是在configuration &amp;ndash;&amp;gt;Docker Builder选项中配置一下docker Remote API，比如：http://192.168.60.79:2375
+配置完成后，就可以在job的build step里面选择“Execute Docker container”配置相应的命令，来完成你的工作。
+配置一个节点 参照标准的节点操作来添加一个有docker环境的node。
+节点配置完成后，我们在job的configure制定我们的slave node，那么就可以在这个docker node里面执行我们的docker相关的工作了。
+这里你也可以尝试下使用docker in docker的方式。
+注意：node上必须有jdk的环境，以及git等相关软件，根据需要自行安装</description>
+    </item>
+    
+    <item>
+      <title>jenkins的docker节点配置</title>
+      <link>https://blog.ucatch.me/post/ci-cd/jenkins-docker-slave/</link>
+      <pubDate>Mon, 31 Jul 2017 08:49:41 +0800</pubDate>
+      <author>seanchann@foxmail.com (Some Person)</author>
+      <guid>https://blog.ucatch.me/post/ci-cd/jenkins-docker-slave/</guid>
+      <description>docker的slave节点配置 系统：CentOS7 + docker 1.6 Jenkins: ver. 1.609.1
+前面的章节已经成功的通过git push触发job，本章我们配置一个job，在docker cloud中执行这些job
+前提条件：
+ jenkins的docker-plugin插件已经安装  说明：
+jenkins与docker协同工作的原理是，通过jenkins的docker插件来完成。 首先docker插件负责docker daemon的管理，也就是配置jenkins去连接docker daemon。然后启动一个docker image来完成job。其中，需要注意的是后续我们的job都是完全放在这个启动起来的container里面完成的。因此这个image需要我们自己去根据工程的需要来定义。还有就是master会去连接到这个启动起来的container，是通过ssh来连接的。
+配置docker plugin docker 插件提供了可以通过在slave的节点上docker环境，来执行docker的相关操作。
+docker环境配置 这里主要就是配置下docker daemon，首先使我们必须安装完成docker。 对docker daemon的配置流程如下：
+ /etc/sysconfig/docker配置文件配置OPTIONS=&amp;lsquo;-H unix:///var/run/docker.sock -H tcp://0.0.0.0:2375&amp;rsquo; 。这个配置使能了本地socket以及远端tcp的连接。 如果有防火墙，配置防火墙打开2375端口（no auth）以及2376端口（auth） 重启防火墙以及我们的docker.service  注意-H给出的端口作为http端口，端口+1作为https，这是docker daemon的默认行为
+docker jenkins image 配置好docker daemon以后，还需要在docker slave上跑一个docker image给jenkins来使用。后面去配置jenkins的docker cloud的时候就是配置这个image。
+这个image的创建可以手动创建或者直接使用docker hub上的evarga/jenkins-slave
+evarga/jenkins-slave的使用 这个镜像直接拉取：
+docker pull evarga/jenkins-slave  镜像默认的用户名和密码是jenkins:jenkins
+手动创建jenkins-slave jenkins的配置 jenkins的配置主要包括增加一个docker cloud。
+docker cloud的配置， 流程描述如下：
+ Manage Jenkins-&amp;gt;configuration-&amp;gt;Add New cloud 配置name以及 Docker URL（eg.</description>
+    </item>
+    
+    <item>
+      <title>jenkins的安装说明</title>
+      <link>https://blog.ucatch.me/post/ci-cd/jenkins-install/</link>
+      <pubDate>Mon, 31 Jul 2017 08:49:41 +0800</pubDate>
+      <author>seanchann@foxmail.com (Some Person)</author>
+      <guid>https://blog.ucatch.me/post/ci-cd/jenkins-install/</guid>
+      <description>jenkins的安装 系统：CentOS7 + docker 1.6 Jenkins: ver. 1.609.1
 安装 对于jenkins的安装，直接使用dockerhub上的镜像进行构建。直接docker pull jenkins就可以了。
 jenkins的插件安装 对于插件安装，有两种方式，通过页面安装或者直接安装在docker image里面。 一般来说，我们采用后一种方式来安装。避免插件的反复安装。
 重新编译一个docker image，Dockerfile片段：
@@ -128,61 +145,59 @@ git:latest git-client:latest gitlab-hook:latest  上面的这些就是我们要�
     </item>
     
     <item>
-      <title></title>
-      <link>https://blog.ucatch.me/posts/ci-cd/jenkins-problem/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.ucatch.me/posts/ci-cd/jenkins-problem/</guid>
-      <description> Title: jenkins-docker Date: Category: ci-cd Tags: jenkins Author: Seanchann Zhou lang: cn
-系统：CentOS7 + docker 1.6 Jenkins: ver. 1.609.1
-jenkins在使用中碰到的问题的汇总，以备查阅。
-jenkins (pending—Waiting for next available executor) 检查下节点的状态，当master node如果disk不足，就会自动的把master node切换到离线，如果有job被触发，那么将此job置为pending。
-Disk space is too low. Only 0.519GB left on /tmp 在docker镜像里，/tmp分区确实很小，因此，总是会把master节点置为offline，我们在启动的时候传入下面的环境变量来修改tmpdir：
-JAVA_OPTS=&amp;quot;-Djava.io.tmpdir=$JENKINS_HOME/tmp&amp;quot;  </description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://blog.ucatch.me/posts/ci-cd/jenkins-security/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.ucatch.me/posts/ci-cd/jenkins-security/</guid>
-      <description>Title: jenkins-security Date: Category: ci-cd Tags: jenkins Author: Seanchann Zhou lang: cn
-系统：CentOS7 + docker 1.6 Jenkins: ver. 1.609.1
+      <title>jenkins的访问权限以及账户安全</title>
+      <link>https://blog.ucatch.me/post/ci-cd/jenkins-security/</link>
+      <pubDate>Mon, 31 Jul 2017 08:49:41 +0800</pubDate>
+      <author>seanchann@foxmail.com (Some Person)</author>
+      <guid>https://blog.ucatch.me/post/ci-cd/jenkins-security/</guid>
+      <description>jenkins的访问权限以及帐号安全 系统：CentOS7 + docker 1.6 Jenkins: ver. 1.609.1
 配置说明 jenkins的安全配置说明在主页面的Configure Global Security的菜单中。它的安全和访问控制主要是两部分：安全域和鉴权策略。
 Security Realm配置 在这个配置中，包含了下列的子选项，我们一一进行分析和说明：
-Delegate to servlet container 使用servlet container对用户授权。这个是有历史的，从1.163版本就支持了这个功能。它主要用于下面的情节： * 从1.164就开始使用jenkins，并且不想改变当前的状态。 * 你已经配置了servlet container的鉴权，并且希望jenkins直接使用它
-Jenkins&amp;rsquo;s own user database 使用jenkins自己的用户列表来授权。这个适合小型范围的配置当你并没有任何的用户数据库的时候，当有大量用户的时候，这种策略是不合适的。在这种策略下，如果允许任何人通过注册可以获取到jenkins的权限的话，可以勾上“Allow user to sign up”。这样非用户可以自己通过“sign up”来注册使用jenkins。如果不允许，那么此时想添加新的用户，只能由注已经注册用户通过Manage Jenkins&amp;ndash;&amp;gt; Manage Users进入User Database界面，来创建用户。
+Delegate to servlet container 使用servlet container对用户授权。这个是有历史的，从1.163版本就支持了这个功能。它主要用于下面的情节：
+ 从1.164就开始使用jenkins，并且不想改变当前的状态。 你已经配置了servlet container的鉴权，并且希望jenkins直接使用它  Jenkins&amp;rsquo;s own user database 使用jenkins自己的用户列表来授权。这个适合小型范围的配置当你并没有任何的用户数据库的时候，当有大量用户的时候，这种策略是不合适的。在这种策略下，如果允许任何人通过注册可以获取到jenkins的权限的话，可以勾上“Allow user to sign up”。这样非用户可以自己通过“sign up”来注册使用jenkins。如果不允许，那么此时想添加新的用户，只能由注已经注册用户通过Manage Jenkins&amp;ndash;&amp;gt; Manage Users进入User Database界面，来创建用户。
 LDAP 顾名思义连接到你已经有的ldap服务器来配置
 Unix user/group database 如果安装的机器是unix机器，可以使用unix的账户信息来登录到jenkins。
 Authorization 配置 鉴权策略的话，也有几个子选项。
 Anyone can do anything 任何人都可以在系统上进行任何的操作。不推荐的方式
 Legacy mode 这种策略比较极端：admin用户拥有所有权限，其他用户只读。
-Logged-in users can do anything 可登录的用户拥有所有操作的权限。</description>
+Logged-in users can do anything 可登录的用户拥有所有操作的权限。
+Matrix-based security 默认首次启动后，配置administrator用户，配置系统所有权限，再对其他用户配置相应的权限。可实现admin对所有用户的权限的集中管制
+Project-based Matrix Authorization Strategy 这个是针对每个工程配置权限，上节描述的是针对整个系统的。此项针对每个用户在每个具体的project上的权限进行配置。</description>
     </item>
     
     <item>
-      <title></title>
-      <link>https://blog.ucatch.me/posts/loadbalancer/lvs-install/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.ucatch.me/posts/loadbalancer/lvs-install/</guid>
-      <description> Title: lvs-install Date: Category: loadbalancer Tags: loadbalancer Author: Seanchann Zhou lang: cn status: draft
-系统：CentOS7 + docker 1.6
-本文主要是对lvs软件在docker中的安装过程做了一个总结，物理裸机的安装方式是一致的。
-技术名词  piranha：提供配置接口来配置lvs,这个工程现在在rel7中已经被haproxy+keepalive代替，建议就不要用了，基本没人维护了。 ipvs：（IP Virtual Server）ip虚拟服务器，是在linux下实现负载均衡的技术。 ipvsadm：顾名思义，这个是一个软件包，就是用来让管理员配置ipvs的。注意，我们可以通过ipvsadm或者piranha-gui来配置ipvs VIP：虚拟ip地址，配置在我们的负载均衡服务器上。 RIP：真实的服务器IP地址，也就是负载均衡服务器后端的真实服务器地址。  dockerfile with lvs dockerfile我们基于centos7的官方镜像来制作，lvs本身已经集成到了kernel中，因此我们主要是安装user namespace中的一个配置软件：ipvsadm
-dockerfile文件中的代码片段：
-  </description>
+      <title>mongodb index说明</title>
+      <link>https://blog.ucatch.me/post/mongodb/mongodb-index/</link>
+      <pubDate>Mon, 31 Jul 2017 08:49:41 +0800</pubDate>
+      <author>seanchann@foxmail.com (Some Person)</author>
+      <guid>https://blog.ucatch.me/post/mongodb/mongodb-index/</guid>
+      <description>mongodb的索引 系统：CentOS7 + docker 1.6 mongodb版本： 3.0.2
+mongo 的索引可以加快数据的查询，并且可以有效的避免重复键值对。
+mongo的索引类型 MongoDB提供了不同类型的indexes，这些indexes针对不同的目的以及各种不同类型的内容。
+ Single Field Indexes ：单字段索引仅包含集合中相应文档的单个字段中的数据。MongoDB 支持在文档根里的单字段索引，也支持在文档的子文档（需要理解为嵌套的文档）的中的字段的索引。 Compound Indexes：复合索引包含了在集合中的文档的多个字段。 Multikey Indexes：Multikey 指的是将索引建立在了一个数组的字段上，为在数组中的每个值都创建一个index key。 Geospatial Indexes and Queries：地理空间索引作为 GeoJSON 对象或遗留的坐标对存储的数据支持基于位置的搜索。 Text Indexes：text的索引支持对文档中的字符串内容的查找。Text indexes support search of string content in documents. Hashed Index：哈希的索引维护条目的索引字段的值的哈希值，主要用于与分片集群支持散列的碎片的密钥。  Index Properties （属性） 你可以在你构建索引的时候，给出这些属性值。
+ TTL Indexes：TTL索引用于TTL的集合，它指示了在一定时间后数据的过期。 Unique Indexes：唯一索引会导致 MongoDB 拒绝包含索引字段的重复值的所有文档。 Sparse Indexes：sparse 属性，会在索引文档的时候，不去索引不包含索引字段的文档。  创建一个唯一的索引 db.collection.ensureIndex( { a: 1 }, { unique: true } )  unique unique如果为true，表示此键值对必须是唯一的。如果在插入重复的键值对的时候，会根据驱动的相关做法返回错误或者直接丢弃插入。</description>
     </item>
     
     <item>
-      <title></title>
-      <link>https://blog.ucatch.me/posts/mongodb/mongodb-go-concurrently/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.ucatch.me/posts/mongodb/mongodb-go-concurrently/</guid>
-      <description>Title: mongodb在Go中的并发 Date: Category: mongodb Tags: mongodb Author: Seanchann Zhou lang: cn
-系统：CentOS7 + docker 1.6
+      <title>mongodb 写操作</title>
+      <link>https://blog.ucatch.me/post/mongodb/mongodb-wirte/</link>
+      <pubDate>Mon, 31 Jul 2017 08:49:41 +0800</pubDate>
+      <author>seanchann@foxmail.com (Some Person)</author>
+      <guid>https://blog.ucatch.me/post/mongodb/mongodb-wirte/</guid>
+      <description>mongodb的写操作 系统：CentOS7 + docker 1.6 mongodb版本： 3.0.2
+mongodb与写操作相关的内容，比如insert、update、delete操作
+mongo update 请求的方法：
+db.collection.update(query, update, options)  语法格式：
+db.collection.update( &amp;lt;query&amp;gt;, &amp;lt;update&amp;gt;, { upsert: &amp;lt;boolean&amp;gt;, multi: &amp;lt;boolean&amp;gt;, writeConcern: &amp;lt;document&amp;gt; } )  update 的操作 对字段的操作  $inc : 使用给定的值对字段值进行增加 $mul : 使用给定的值对字段值做乘法 $rename : 对字段进行重命名 $setOnInsert : 如果更新的文档是被作为插入处理的，那么设置字段为此值。对更新操作为修改已经存在的文档没有影响。 $set : 设置在文档中的字段的值 $unset : 从文档中移除给定的字段 $min : 如果给定的值小于已经存在的字段的值，那么更新这个字段的值。 $max : 如果给定的值大于已经存在的字段的值，那么更新这个字段的值。 $currentDate : 设置字段的值为当前的日期。设置为Data或者timestamp其中之一。  对数组的操作  $ Acts : 作为占位符，当根据条件匹配到后，更新第一个元素。 $addToSet : 只有当他们在数组集合中不存在的时候，才添加元素到此数组中。 $pop ：删除第一个或者最后一个在数组中的元素。 $pullAll : 删除所有的在数组中匹配到的值。 $pull ：删除所有的根据查询条件匹配到的元素。 $pushAll ：反对的做法。添加一些元素到数组中 $push ：添加一个元素到数组中  修改选项 $each ： 修改$push以及$addToSet的操作，追加多个条目给数组的更新。 $slice : 修改$push的操作，限制更新数组的大小。 $sort ：修改$push的操作，重新对在数组中的文档进行排序。 $position ：修改$push的操作，给定一个数组中的位置去添加元素到数组中的此位置</description>
+    </item>
+    
+    <item>
+      <title>mongodb客户端 - Go中的并发</title>
+      <link>https://blog.ucatch.me/post/mongodb/mongodb-go-concurrently/</link>
+      <pubDate>Mon, 31 Jul 2017 08:49:41 +0800</pubDate>
+      <author>seanchann@foxmail.com (Some Person)</author>
+      <guid>https://blog.ucatch.me/post/mongodb/mongodb-go-concurrently/</guid>
+      <description>mongodb中的golang的并发 系统：CentOS7 + docker 1.6
 mongodb版本： 3.0.2
 原文的地址
 pla，pla的一堆作者的铺垫介绍略过，但是还是感谢下作者。
@@ -194,137 +209,85 @@ MongoDB和Go让你可以构建可扩展的软件在很多不同的操作系统�
     </item>
     
     <item>
-      <title></title>
-      <link>https://blog.ucatch.me/posts/mongodb/mongodb-index/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.ucatch.me/posts/mongodb/mongodb-index/</guid>
-      <description>Title: mongodb-index Date: Category: mongodb Tags: mongodb Author: Seanchann Zhou lang: cn
-系统：CentOS7 + docker 1.6
-mongodb版本： 3.0.2
-mongo 的索引可以加快数据的查询，并且可以有效的避免重复键值对。
-mongo的索引类型 MongoDB提供了不同类型的indexes，这些indexes针对不同的目的以及各种不同类型的内容。
- Single Field Indexes ：单字段索引仅包含集合中相应文档的单个字段中的数据。MongoDB 支持在文档根里的单字段索引，也支持在文档的子文档（需要理解为嵌套的文档）的中的字段的索引。 Compound Indexes：复合索引包含了在集合中的文档的多个字段。 Multikey Indexes：Multikey 指的是将索引建立在了一个数组的字段上，为在数组中的每个值都创建一个index key。 Geospatial Indexes and Queries：地理空间索引作为 GeoJSON 对象或遗留的坐标对存储的数据支持基于位置的搜索。 Text Indexes：text的索引支持对文档中的字符串内容的查找。 Text indexes support search of string content in documents. Hashed Index：哈希的索引维护条目的索引字段的值的哈希值，主要用于与分片集群支持散列的碎片的密钥。  Index Properties （属性） 你可以在你构建索引的时候，给出这些属性值。
- TTL Indexes：TTL索引用于TTL的集合，它指示了在一定时间后数据的过期。 Unique Indexes：唯一索引会导致 MongoDB 拒绝包含索引字段的重复值的所有文档。 Sparse Indexes：sparse 属性，会在索引文档的时候，不去索引不包含索引字段的文档。  创建一个唯一的索引 db.</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://blog.ucatch.me/posts/mongodb/mongodb-install/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.ucatch.me/posts/mongodb/mongodb-install/</guid>
-      <description>Title: mongodb-install Date: Category: mongodb Tags: mongodb Author: Seanchann Zhou lang: cn
-系统：CentOS7 + docker 1.6
-mongodb版本： 3.0.2
-本文的安装是采用docker的方式，而不是在os上安装package的方式。 package的安装方式
-在开始前，假定用户已经完成了基础环境的配置，这里主要是指docker的运行环境
-安装 运行一个mongodb docker hub上官方的mongodb image，我们直接使用此image来运行mongodb：
-docker pull mongo  创建一个volume容器，保存mongo的数据以及配置：
-docker create -v /yourdir/mongo/data/db:/data/db -v /yourdir/mongo/conf/:/conf/ --name=mongo-dv mongo  run mongodb with volume 直接指定绑定host上的文件夹：
-docker create --volumes-from=mongo-dv --name mongodb -d mongo  自定义参数启动 docker hub上提供的官方镜像支持自定义参数启动mongodb：
-docker run -p 27017:27017 --name=mongodb -d mongo --auth  如上所示，我们传入了&amp;ndash;auth给run命令做为参数，相当于我们执行mongod &amp;ndash;auth
-截取一段代码看看：
-#!/bin/bash set -e if [ &amp;quot;${1:0:1}&amp;quot; = &#39;-&#39; ]; then set -- mongod &amp;quot;$@&amp;quot; fi if [ &amp;quot;$1&amp;quot; = &#39;mongod&#39; ]; then chown -R mongodb /data/db numa=&#39;numactl --interleave=all&#39; exec gosu mongodb &amp;quot;$@&amp;quot; fi exec &amp;quot;$@&amp;quot;  此段脚本的流程如下：</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://blog.ucatch.me/posts/mongodb/mongodb-problems-summary/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.ucatch.me/posts/mongodb/mongodb-problems-summary/</guid>
-      <description>Title: mongodb-Problems-Summary Date: Category: mongodb Tags: mongodb Author: Seanchann Zhou lang: cn
-系统：CentOS7 + docker 1.6
-mongodb版本： 3.0.2
-WARNING:/sys/kernel/mm/transparent_hugepage/enabled or /sys/kernel/mm/transparent_hugepage/defrag is &amp;lsquo;always&amp;rsquo;. 这个问题的原因是由于内核的某些参数的配置造成的mongodb产生了警告，基于docker环境，在docker运行的host主机上： 1. echo never &amp;gt; /sys/kernel/mm/transparent_hugepage/enabled 2. echo never &amp;gt; /sys/kernel/mm/transparent_hugepage/defrag or 1. echo never | sudo tee /sys/kernel/mm/transparent_hugepage/enabled 2. echo never | sudo tee /sys/kernel/mm/transparent_hugepage/defrag  run command with db 从mongo shell执行db.runCommand()，需要添加下面的用户以及权限才能执行。
-db.createUser( { user: &amp;quot;admin&amp;quot;, pwd: &amp;quot;password&amp;quot;, roles: [ { role: &amp;quot;root&amp;quot;, db: &amp;quot;admin&amp;quot; } ] } ); exit;  db.</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://blog.ucatch.me/posts/mongodb/mongodb-read/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.ucatch.me/posts/mongodb/mongodb-read/</guid>
-      <description>Tags: mongodb Author: Seanchann Zhou lang: cn
-系统：CentOS7 + docker 1.6
-mongodb版本： 3.0.2
-mongodb与读操作相关的内容，比如find以及query操作
-查询和Projection的操作选项 查询选择器 比较  $eq : 匹配到所有的与给定的值相等的条目 $gt : 匹配到所有的大于给定的值的条目 $gte : 匹配到所有的大于或者等于给定的值的条目 $lt : 匹配所有的小于给定值的条目 $lte : 匹配所有的小于或者等于给定值的条目 $ne : 匹配所有的不等于给定值的条目 $in : 匹配给定的值在一个数组中存在的条目 $nin : 匹配给定的值不在一个数组中存在的条目  逻辑操作  $or : 逻辑或操作 $and : 逻辑与操作 $not : 逻辑非的操作 $nor : 逻辑异或的操作  Element  $exists : 匹配所有的文档存在给定的字段的条目 $type : 匹配如果字段是给定的类型的文档条目  Evaluation  $mod : 针对字段的值进行mod的操作 $regex : 返回与正则表达式匹配的文档 $text : 处理text的查找 $where : 返回匹配JavaScript表达式的文档  Geospatial  $geoWithin : Selects geometries within a bounding GeoJSON geometry.</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://blog.ucatch.me/posts/mongodb/mongodb-shell-cmd/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.ucatch.me/posts/mongodb/mongodb-shell-cmd/</guid>
-      <description>Title: mongodb-shell-cmd Date: Category: mongodb Tags: mongodb Author: Seanchann Zhou lang: cn
-系统：CentOS7 + docker 1.6
+      <title>mongodb的命令</title>
+      <link>https://blog.ucatch.me/post/mongodb/mongodb-shell-cmd/</link>
+      <pubDate>Mon, 31 Jul 2017 08:49:41 +0800</pubDate>
+      <author>seanchann@foxmail.com (Some Person)</author>
+      <guid>https://blog.ucatch.me/post/mongodb/mongodb-shell-cmd/</guid>
+      <description>mongodb的命令 系统：CentOS7 + docker 1.6
 mongodb版本： 3.0.2 mongo shell版本：3.0.4
-Object Object.bsonsize() 这个命令返回文档的bson的大小，单位是字节。
+Object Object.bsonsize(&amp;lt;doc&amp;gt;) 这个命令返回文档的bson的大小，单位是字节。
 例子：
 db.test.status Object.bsonsize(db.test.findOne({bar2:&amp;quot;baz&amp;quot;}))  可以看下是不是跟总和一致。这里一定要使用findOne，find返回的是CURSOR的size，而不是当前文档的。</description>
     </item>
     
     <item>
-      <title></title>
-      <link>https://blog.ucatch.me/posts/mongodb/mongodb-user/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.ucatch.me/posts/mongodb/mongodb-user/</guid>
-      <description>Title: mongodb-user Date: Category: mongodb Tags: mongodb Author: Seanchann Zhou lang: cn
-系统：CentOS7 + docker 1.6
-mongodb版本： 3.0.2
+      <title>mongodb的用户管理说明</title>
+      <link>https://blog.ucatch.me/post/mongodb/mongodb-user/</link>
+      <pubDate>Mon, 31 Jul 2017 08:49:41 +0800</pubDate>
+      <author>seanchann@foxmail.com (Some Person)</author>
+      <guid>https://blog.ucatch.me/post/mongodb/mongodb-user/</guid>
+      <description>mongodb的用户管理 系统：CentOS7 + docker 1.6 mongodb版本： 3.0.2
 安装工作完成后，整个的mongodb运行起来后，在开始工作前，首先应该为我们的mongodb配置适当的用户以及其权限。
-注意下，网上大多数的直接进入命令行,执行：
+注意下，网上大多数的直接进入命令行,执行
 use admin db.adduser(&amp;quot;test&amp;quot;,&amp;quot;123&amp;quot;)  上面这种方式在3.0的版本上是行不通的
 添加管理员用户 通过docker首先启动不带&amp;ndash;auth的mongodb：
 docker run --volumes-from=mongodb-dv --name mongodb -d mongo  更详细的对安装的描述
-进入mongo shell 添加管理员用户： use admin db.createUser( { user: &amp;quot;admin&amp;quot;, pwd: &amp;quot;admin&amp;quot;, roles: [ { role: &amp;quot;userAdminAnyDatabase&amp;quot;, db: &amp;quot;admin&amp;quot; } ] })  roles字段的说明：添加管理员用户的时候，提供了两种roles：userAdmin以及userAdminAnyDatabase
+添加管理员用户： 进入mongo shell
+use admin db.createUser( { user: &amp;quot;admin&amp;quot;, pwd: &amp;quot;admin&amp;quot;, roles: [ { role: &amp;quot;userAdminAnyDatabase&amp;quot;, db: &amp;quot;admin&amp;quot; } ] })  roles字段的说明：添加管理员用户的时候，提供了两种roles：userAdmin以及userAdminAnyDatabase
  userAdmin：提供去创建和修改当前数据库的roles以及user。这个role也间接的提供了superuser给我们去访问数据库或者其他，如果当前数据库是admin 数据库，cluster数据库。userAdmin role允许用户去更改其他用户的权限，当然也包括他们自己。它支持操作有：
- changeCustomData changePassword createRole createUser dropRole dropUser grantRole revokeRole viewRole viewUser  userAdminAnyDatabase: 这个role与userAdmin支持的权限类似，但是它应用的对象是在整个集群中的数据库。这个role也提供了下面可以在集群中使用的操作：</description>
+ changeCustomData changePassword createRole createUser dropRole dropUser grantRole revokeRole viewRole viewUser  userAdminAnyDatabase: 这个role与userAdmin支持的权限类似，但是它应用的对象是在整个集群中的数据库。这个role也提供了下面可以在集群中使用的操作：
+ authSchemaUpgrade invalidateUserCache listDatabases   检查创建的用户 根据前面的命令，我们的应该有了一个admin的用户，执行命令检查下：</description>
     </item>
     
     <item>
-      <title></title>
-      <link>https://blog.ucatch.me/posts/mongodb/mongodb-wirte/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.ucatch.me/posts/mongodb/mongodb-wirte/</guid>
-      <description>Title: mongodb-write Date: Category: mongodb Tags: mongodb Author: Seanchann Zhou lang: cn
-系统：CentOS7 + docker 1.6
-mongodb版本： 3.0.2
-mongodb与写操作相关的内容，比如insert、update、delete操作
-mongo update 请求的方法：
-db.collection.update(query, update, options)  语法格式：
-db.collection.update( &amp;lt;query&amp;gt;, &amp;lt;update&amp;gt;, { upsert: &amp;lt;boolean&amp;gt;, multi: &amp;lt;boolean&amp;gt;, writeConcern: &amp;lt;document&amp;gt; } )  update 的操作 对字段的操作  $inc : 使用给定的值对字段值进行增加 $mul : 使用给定的值对字段值做乘法 $rename : 对字段进行重命名 $setOnInsert : 如果更新的文档是被作为插入处理的，那么设置字段为此值。对更新操作为修改已经存在的文档没有影响。 $set : 设置在文档中的字段的值 $unset : 从文档中移除给定的字段 $min : 如果给定的值小于已经存在的字段的值，那么更新这个字段的值。 $max : 如果给定的值大于已经存在的字段的值，那么更新这个字段的值。 $currentDate : 设置字段的值为当前的日期。设置为Data或者timestamp其中之一。  对数组的操作  $ Acts : 作为占位符，当根据条件匹配到后，更新第一个元素。 $addToSet : 只有当他们在数组集合中不存在的时候，才添加元素到此数组中。 $pop ：删除第一个或者最后一个在数组中的元素。 $pullAll : 删除所有的在数组中匹配到的值。 $pull ：删除所有的根据查询条件匹配到的元素。 $pushAll ：反对的做法。添加一些元素到数组中 $push ：添加一个元素到数组中  修改选项 $each ： 修改$push以及$addToSet的操作，追加多个条目给数组的更新。 $slice : 修改$push的操作，限制更新数组的大小。 $sort ：修改$push的操作，重新对在数组中的文档进行排序。 $position ：修改$push的操作，给定一个数组中的位置去添加元素到数组中的此位置</description>
+      <title>mongodb的读说明</title>
+      <link>https://blog.ucatch.me/post/mongodb/mongodb-read/</link>
+      <pubDate>Mon, 31 Jul 2017 08:49:41 +0800</pubDate>
+      <author>seanchann@foxmail.com (Some Person)</author>
+      <guid>https://blog.ucatch.me/post/mongodb/mongodb-read/</guid>
+      <description>mongodb的读 系统：CentOS7 + docker 1.6 mongodb版本： 3.0.2
+mongodb与读操作相关的内容，比如find以及query操作
+查询和Projection的操作选项 查询选择器 比较  $eq : 匹配到所有的与给定的值相等的条目 $gt : 匹配到所有的大于给定的值的条目 $gte : 匹配到所有的大于或者等于给定的值的条目 $lt : 匹配所有的小于给定值的条目 $lte : 匹配所有的小于或者等于给定值的条目 $ne : 匹配所有的不等于给定值的条目 $in : 匹配给定的值在一个数组中存在的条目 $nin : 匹配给定的值不在一个数组中存在的条目  逻辑操作  $or : 逻辑或操作 $and : 逻辑与操作 $not : 逻辑非的操作 $nor : 逻辑异或的操作  Element  $exists : 匹配所有的文档存在给定的字段的条目 $type : 匹配如果字段是给定的类型的文档条目  Evaluation  $mod : 针对字段的值进行mod的操作 $regex : 返回与正则表达式匹配的文档 $text : 处理text的查找 $where : 返回匹配JavaScript表达式的文档  Geospatial  $geoWithin : Selects geometries within a bounding GeoJSON geometry.</description>
     </item>
     
     <item>
-      <title></title>
-      <link>https://blog.ucatch.me/posts/scm/gitlab-install/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.ucatch.me/posts/scm/gitlab-install/</guid>
-      <description>Title: gitlab-install Date: Category: scm Tags: gitlab Author: Seanchann Zhou lang: cn
-系统：CentOS7 + docker 1.6
-本文主要就是基于docker来构建我们的gitlab环境，方便数据的迁移以及gitlab的升级。
-镜像的获取 gitlab的镜像获取我们执行下面的命令，分别拉取gitlab，postgresql，redis：
-docker pull sameersbn/postgresql:9.4 docker pull sameersbn/redis:latest docker pull sameersbn/gitlab:7.12.2  创建相关的data volume docker create --name=gitlab-redis-dv -v /yourdir:/var/lib/redis sameersbn/redis:latest  docker create --name=gitlab-postgresql-dv -v /yourdir:/var/lib/postgresql sameersbn/postgresql:9.4  docker create --name=gitlab-dv -v /yourdir:/home/git/data sameersbn/gitlab:7.12.2  运行相关的镜像 docker run --name=postgresql-gitlab -d \ --env=&#39;DB_NAME=gitlabhq_production&#39; \ --env=&#39;DB_USER=gitlab&#39; --env=&#39;DB_PASS=password&#39; \ --volumes-from=gitlab-postgresql-dv \ sameersbn/postgresql:9.4  docker run --name=redis-gitlab -d \ --volumes-from=gitlab-redis-dv \ sameersbn/redis:latest  docker run --name=&#39;gitlab&#39; -d \ --link=postgresql-gitlab:postgresql --link=redis-gitlab:redisio \ --publish=10022:22 --publish=10080:80 \ --env=&#39;GITLAB_PORT=10080&#39; --env=&#39;GITLAB_SSH_PORT=10022&#39; \ --volumes-from=gitlab-dv \ sameersbn/gitlab:7.</description>
+      <title>mongodb问题汇总</title>
+      <link>https://blog.ucatch.me/post/mongodb/mongodb-problems-summary/</link>
+      <pubDate>Mon, 31 Jul 2017 08:49:41 +0800</pubDate>
+      <author>seanchann@foxmail.com (Some Person)</author>
+      <guid>https://blog.ucatch.me/post/mongodb/mongodb-problems-summary/</guid>
+      <description>mongodb使用中的问题 系统：CentOS7 + docker 1.6 mongodb版本： 3.0.2
+WARNING:/sys/kernel/mm/transparent_hugepage/enabled or /sys/kernel/mm/transparent_hugepage/defrag is &amp;lsquo;always&amp;rsquo;. 这个问题的原因是由于内核的某些参数的配置造成的mongodb产生了警告，基于docker环境，在docker运行的host主机上： 1. echo never &amp;gt; /sys/kernel/mm/transparent_hugepage/enabled 2. echo never &amp;gt; /sys/kernel/mm/transparent_hugepage/defrag or 1. echo never | sudo tee /sys/kernel/mm/transparent_hugepage/enabled 2. echo never | sudo tee /sys/kernel/mm/transparent_hugepage/defrag  run command with db 从mongo shell执行db.runCommand()，需要添加下面的用户以及权限才能执行。
+db.createUser( { user: &amp;quot;admin&amp;quot;, pwd: &amp;quot;password&amp;quot;, roles: [ { role: &amp;quot;root&amp;quot;, db: &amp;quot;admin&amp;quot; } ] } ); exit;  db.auth() 错误：Error: 18 { ok: 0.</description>
     </item>
     
     <item>
-      <title></title>
-      <link>https://blog.ucatch.me/posts/scm/redmine-install/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.ucatch.me/posts/scm/redmine-install/</guid>
-      <description>Title: redmine-install Date: Category: scm Tags: redmine Author: Seanchann Zhou lang: cn
-系统：CentOS7 + docker 1.6
+      <title>redmine的安装</title>
+      <link>https://blog.ucatch.me/post/scm/redmine-install/</link>
+      <pubDate>Mon, 31 Jul 2017 08:49:41 +0800</pubDate>
+      <author>seanchann@foxmail.com (Some Person)</author>
+      <guid>https://blog.ucatch.me/post/scm/redmine-install/</guid>
+      <description>redmine的安装 系统：CentOS7 + docker 1.6
 本文主要就是基于docker来构建我们的redmine环境，方便数据的迁移以及redmine的升级。
 docker create --name=postgresql-redmine-dv -v /home/pub/dockerdata/redmine/postgresql:/var/lib/postgresql sameersbn/postgresql:9.4  docker run --name=postgresql-redmine -d \ --env=&#39;DB_NAME=redmine_production&#39; \ --env=&#39;DB_USER=redmine&#39; --env=&#39;DB_PASS=password&#39; \ --volumes-from=postgresql-redmine-dv \ sameersbn/postgresql:9.4  docker create --name=redmine-dv -v /home/pub/dockerdata/redmine/redmine:/home/redmine/data sameersbn/redmine:3.0.4  docker run --name=redmine -d \ --link=postgresql-redmine:postgresql --publish=10083:80 \ --env=&#39;REDMINE_PORT=10083&#39; \ --volumes-from=redmine-dv \ sameersbn/redmine:3.0.4  使用env file 启动redmine SMTP_ENABLED=true SMTP_DOMAIN=smtp.qq.com SMTP_HOST=smtp.exmail.qq.com SMTP_PORT=25 SMTP_USER=icastbug@ronghe.tv SMTP_PASS=icast123 SMTP_STARTTLS=true SMTP_AUTHENTICATION=login REDMINE_PORT=10083  docker run --name=redmine -d \ --link=postgresql-redmine:postgresql --publish=10083:80 \ --volumes-from=redmine-dv \ --env-file=redmine-with-smtp-env.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.ucatch.me/post/mongodb/mongodb-install/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>seanchann@foxmail.com (Some Person)</author>
+      <guid>https://blog.ucatch.me/post/mongodb/mongodb-install/</guid>
+      <description>Title: mongodb-install Date: Category: mongodb Tags: mongodb Author: Seanchann Zhou lang: cn
++++ title = &amp;ldquo;mongodb安装说明&amp;rdquo; date = 2017-07-31T08:49:41+08:00 draft = false tags = [&amp;ldquo;mongodb&amp;rdquo;] categories = [&amp;ldquo;mongodb&amp;rdquo;] description = &amp;ldquo;mongodb的安装说明&amp;rdquo; +++
+mongodb的安装 系统：CentOS7 + docker 1.6 mongodb版本： 3.0.2
+本文的安装是采用docker的方式，而不是在os上安装package的方式。 package的安装方式
+在开始前，假定用户已经完成了基础环境的配置，这里主要是指docker的运行环境
+安装 运行一个mongodb docker hub上官方的mongodb image，我们直接使用此image来运行mongodb：
+docker pull mongo  创建一个volume容器，保存mongo的数据以及配置：
+docker create -v /yourdir/mongo/data/db:/data/db -v /yourdir/mongo/conf/:/conf/ --name=mongo-dv mongo  run mongodb with volume 直接指定绑定host上的文件夹：
+docker create --volumes-from=mongo-dv --name mongodb -d mongo  自定义参数启动 docker hub上提供的官方镜像支持自定义参数启动mongodb：</description>
     </item>
     
   </channel>

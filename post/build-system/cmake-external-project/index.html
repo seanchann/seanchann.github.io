@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>cmake编译第三方依赖工程</title>
+  <meta property="og:title" content="cmake编译第三方依赖工程" />
+  <meta name="twitter:title" content="cmake编译第三方依赖工程" />
+  <meta name="description" content="cmake编译">
+  <meta property="og:description" content="cmake编译">
+  <meta name="twitter:description" content="cmake编译">
+  <meta name="author" content="Some Person"/>
+  <link href='https://blog.ucatch.me/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta property="og:image" content="https://blog.ucatch.me/img/avatar-icon.png" />
+  <meta name="twitter:image" content="https://blog.ucatch.me/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary" />
+  <meta property="og:url" content="https://blog.ucatch.me/post/build-system/cmake-external-project/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="seanchann" />
+
+  <meta name="generator" content="Hugo 0.26-DEV" />
+  <link rel="canonical" href="https://blog.ucatch.me/post/build-system/cmake-external-project/" />
+  <link rel="alternate" href="https://blog.ucatch.me/index.xml" type="application/rss+xml" title="seanchann">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://blog.ucatch.me/css/main.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="https://blog.ucatch.me/css/pygment_highlights.css" />
+  <link rel="stylesheet" href="https://blog.ucatch.me/css/highlight.min.css" />
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.css" integrity="sha256-sCl5PUOGMLfFYctzDW3MtRib0ctyUvI9Qsmq2wXOeBY=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/default-skin/default-skin.min.css" integrity="sha256-BFeI1V+Vh1Rk37wswuOYn5lsTcaU96hGaI7OUVCLjPc=" crossorigin="anonymous" />
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+</head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://blog.ucatch.me/">seanchann</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="https://blog.ucatch.me/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="https://blog.ucatch.me/tags">Tags</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Posts" href="https://blog.ucatch.me/post/">Posts</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        
+          <a title="seanchann" href="https://blog.ucatch.me/">
+            <img class="avatar-img" src="https://blog.ucatch.me/img/avatar-icon.png" alt="seanchann" />
+          </a>
+        
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+
+
+    
+  
+  
+  
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              <h1>cmake编译第三方依赖工程</h1>
+                
+                
+                  <span class="post-meta">
+  Posted on July 31, 2017
+  
+</span>
+
+
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+
+<h1 id="cmake的-exteranlproject">cmake的<code>ExteranlProject</code></h1>
+
+<p><strong>系统：F22</strong>
+<strong>Cmake: version 3.3.2</strong></p>
+
+<h2 id="externalproject-add">ExternalProject_Add</h2>
+
+<p>这个函数在cmake 2.8版本以上支持，包含<code>include(ExternalProject)</code>模块即可，
+此函数定义了一个编译外部工程的标准方法，当然也可以定制编译流程<code>ExternalProject_Add_Step</code></p>
+
+<p><code>ExternalProject_Add</code>函数说明：创建一个针对外部工程的自定义编译目标的过程：下载，更新/patch，configure，build，install，
+以及test:</p>
+
+<pre><code>ExternalProject_Add(&lt;name&gt;    # Name for custom target
+  [DEPENDS projects...]       # Targets on which the project depends
+  [PREFIX dir]                # Root dir for entire project
+  [LIST_SEPARATOR sep]        # Sep to be replaced by ; in cmd lines
+  [TMP_DIR dir]               # Directory to store temporary files
+  [STAMP_DIR dir]             # Directory to store step timestamps
+ #--Download step--------------
+  [DOWNLOAD_NAME fname]       # File name to store (if not end of URL)
+  [DOWNLOAD_DIR dir]          # Directory to store downloaded files
+  [DOWNLOAD_COMMAND cmd...]   # Command to download source tree
+  [CVS_REPOSITORY cvsroot]    # CVSROOT of CVS repository
+  [CVS_MODULE mod]            # Module to checkout from CVS repo
+  [CVS_TAG tag]               # Tag to checkout from CVS repo
+  [SVN_REPOSITORY url]        # URL of Subversion repo
+  [SVN_REVISION rev]          # Revision to checkout from Subversion repo
+  [SVN_USERNAME john ]        # Username for Subversion checkout and update
+  [SVN_PASSWORD doe ]         # Password for Subversion checkout and update
+  [SVN_TRUST_CERT 1 ]         # Trust the Subversion server site certificate
+  [GIT_REPOSITORY url]        # URL of git repo
+  [GIT_TAG tag]               # Git branch name, commit id or tag
+  [GIT_SUBMODULES modules...] # Git submodules that shall be updated, all if empty
+  [HG_REPOSITORY url]         # URL of mercurial repo
+  [HG_TAG tag]                # Mercurial branch name, commit id or tag
+  [URL /.../src.tgz]          # Full path or URL of source
+  [URL_HASH ALGO=value]       # Hash of file at URL
+  [URL_MD5 md5]               # Equivalent to URL_HASH MD5=md5
+  [TLS_VERIFY bool]           # Should certificate for https be checked
+  [TLS_CAINFO file]           # Path to a certificate authority file
+  [TIMEOUT seconds]           # Time allowed for file download operations
+ #--Update/Patch step----------
+  [UPDATE_COMMAND cmd...]     # Source work-tree update command
+  [PATCH_COMMAND cmd...]      # Command to patch downloaded source
+ #--Configure step-------------
+  [SOURCE_DIR dir]            # Source dir to be used for build
+  [CONFIGURE_COMMAND cmd...]  # Build tree configuration command
+  [CMAKE_COMMAND /.../cmake]  # Specify alternative cmake executable
+  [CMAKE_GENERATOR gen]       # Specify generator for native build
+  [CMAKE_GENERATOR_TOOLSET t] # Generator-specific toolset name
+  [CMAKE_ARGS args...]        # Arguments to CMake command line
+  [CMAKE_CACHE_ARGS args...]  # Initial cache arguments, of the form -Dvar:string=on
+ #--Build step-----------------
+  [BINARY_DIR dir]            # Specify build dir location
+  [BUILD_COMMAND cmd...]      # Command to drive the native build
+  [BUILD_IN_SOURCE 1]         # Use source dir for build dir
+ #--Install step---------------
+  [INSTALL_DIR dir]           # Installation prefix
+  [INSTALL_COMMAND cmd...]    # Command to drive install after build
+ #--Test step------------------
+  [TEST_BEFORE_INSTALL 1]     # Add test step executed before install step
+  [TEST_AFTER_INSTALL 1]      # Add test step executed after install step
+  [TEST_COMMAND cmd...]       # Command to drive test
+ #--Output logging-------------
+  [LOG_DOWNLOAD 1]            # Wrap download in script to log output
+  [LOG_UPDATE 1]              # Wrap update in script to log output
+  [LOG_CONFIGURE 1]           # Wrap configure in script to log output
+  [LOG_BUILD 1]               # Wrap build in script to log output
+  [LOG_TEST 1]                # Wrap test in script to log output
+  [LOG_INSTALL 1]             # Wrap install in script to log output
+ #--Custom targets-------------
+  [STEP_TARGETS st1 st2 ...]  # Generate custom targets for these steps
+  )
+</code></pre>
+
+<p>上面描述的所有的<code>*_DIR</code>选项指定针对工程的目录配置，默认的目录的计算方法描述如下。如果
+<code>PREFIX</code>选项再<code>ExternalProject_Add</code>被设置了或者<code>EP_PREFIX</code>目录属性被设置了，那么工程将会被
+编译，安装在下面的所指定的前缀目录中：</p>
+
+<pre><code>TMP_DIR      = &lt;prefix&gt;/tmp
+STAMP_DIR    = &lt;prefix&gt;/src/&lt;name&gt;-stamp
+DOWNLOAD_DIR = &lt;prefix&gt;/src
+SOURCE_DIR   = &lt;prefix&gt;/src/&lt;name&gt;
+BINARY_DIR   = &lt;prefix&gt;/src/&lt;name&gt;-build
+INSTALL_DIR  = &lt;prefix&gt;
+</code></pre>
+
+<p>换句话说，如果<code>EP_BASE</code> 目录属性被设置，那么工程将会被存放在下面的目录：</p>
+
+<pre><code>TMP_DIR      = &lt;base&gt;/tmp/&lt;name&gt;
+STAMP_DIR    = &lt;base&gt;/Stamp/&lt;name&gt;
+DOWNLOAD_DIR = &lt;base&gt;/Download/&lt;name&gt;
+SOURCE_DIR   = &lt;base&gt;/Source/&lt;name&gt;
+BINARY_DIR   = &lt;base&gt;/Build/&lt;name&gt;
+INSTALL_DIR  = &lt;base&gt;/Install/&lt;name&gt;
+</code></pre>
+
+<p>如果没有<code>PREFIX</code>,<code>EP_PREFIX</code> 或者 <code>EP_BASE</code>被设置，那么默认的会设置<code>PREFIX</code>为<code>&lt;name&gt;-prefix</code>.
+工程的相对路径会被解释为调用<code>ExternalProject_Add</code>的源目录所对应的编译目录。也就是以调用此函数的CMakeList.txt文件
+为基准。</p>
+
+<p>如果<code>SOURCE_DIR</code>如果显式的设置为了一个已经存在的目录，那么工程会从这个目录来编译。其他的情形的话，就必须配置一个
+下载的步骤使用<code>DOWNLOAD_COMMAND</code>,<code>CVS_*</code>,<code>SVN_*</code>或者<code>URL</code>选项。URL的选项可以去引用一个本地的目录或者源码的tar包，或者引用
+一个远端服务器的tarba11</p>
+
+<p>例子：</p>
+
+<pre><code>ExternalProject_Add(glog
+  # download step copy our source into binary dir
+  DOWNLOAD_COMMAND cp -rf ${GLOG_SOURCE} ${GLOG_BUILDDIR}
+  # configure step set our source dir
+  SOURCE_DIR ${GLOG_BUILDDIR}/glog
+  CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${GLOG_INSTALLPREFIX} -DWITH_GFLAGS=OFF
+)
+</code></pre>
+
+<p><code>ExternalProject_Add_Step</code> 函数添加一个自定义的步骤给external project:</p>
+
+<pre><code>ExternalProject_Add_Step(&lt;name&gt; &lt;step&gt; # Names of project and custom step
+  [COMMAND cmd...]        # Command line invoked by this step
+  [COMMENT &quot;text...&quot;]     # Text printed when step executes
+  [DEPENDEES steps...]    # Steps on which this step depends
+  [DEPENDERS steps...]    # Steps that depend on this step
+  [DEPENDS files...]      # Files on which this step depends
+  [ALWAYS 1]              # No stamp file, step always runs
+  [WORKING_DIRECTORY dir] # Working directory for command
+  [LOG 1]                 # Wrap step in script to log output
+  )
+</code></pre>
+
+<p>COMMAND行，COMMENT，以及每一个标准的WORKING DIRECTORY，这些行中的<SOURCE_DIR>, <BINARY_DIR>, <INSTALL_DIR>, and <TMP_DIR>都会被自定义步骤替换为合适的属性值</p>
+
+<p>任何内建的步骤都会指定一个 <code>&lt;step&gt;_COMMAND cmd...</code>  或者自定义步骤给出一个 <code>COMMAND cmd...</code>可能给定附加的命令行使用 <code>COMMAND cmd...</code>.在build的时候，命令会顺序的执行，如果任意的步骤失败都会退出。例如：</p>
+
+<p><code>...BUILD_COMMAND make COMMAND echo done...</code></p>
+
+<p>上面的行执行<code>make</code>然后<code>echo done</code>再编译阶段。 working dirctotry 是未定义的无论是否在命令之间保存了它。shell的操作行为就像<code>&amp;&amp;</code>是未定义的</p>
+
+<p><code>ExternalProject_Get_Property</code>函数检索 external project的target的属性:</p>
+
+<pre><code>ExternalProject_Get_Property(&lt;name&gt; [prop1 [prop2 [...]]])
+</code></pre>
+
+<p>它会在name中存储属性值。属性的名字与<code>ExternalProject_Add</code>的参数名字是一致的。</p>
+
+<p><code>ExternalProject_Add_StepTargets</code>函数根据步骤中的列表生成自定义的:</p>
+
+<pre><code>ExternalProject_Add_StepTargets(&lt;name&gt; [step1 [step2 [...]]])
+</code></pre>
+
+<p>如果<code>STEP_TARGETS</code> 被设置，那么 <code>ExternalProject_Add_StepTargets</code>会在匹配到的<code>ExternalProject_Add_Step</code>的最后被自动的调用。透传<code>STEP_TARGETS</code>显式的分离<code>ExternalProject_Add</code>的调用，或者隐含的针对所有的<code>ExternalProject_Add</code>调用通过设置目录属性<code>EP_STEP_TARGETS</code></p>
+
+<p>如果 <code>STEP_TARGETS</code>没有设置，clients可能始终需要去手动的调用<code>ExternalProject_Add_StepTargets</code>在<code>ExternalProject_Add</code>或者<code>ExternalProject_Add_Step</code>调用之后</p>
+
+<p>这个功能提供了一个比较容易的方法通过指定targets在build命令行来让彼此有一个分离的步骤。例如你想要基于一个dashboard来提交一个子工程，或者是想要配置编译的部分，然后提交到dashboard，紧跟着是编译，然后是测试。如果你使用一个自定义的target，它依赖于一个依赖链中的某步骤，那么所有的前面的步骤都讲需要运行并且确保所有的一切都是最新的。</p>
+
+<p>例如，去驱动configure，build，测试步骤独立的针对每一个<code>ExternalProject_Add</code>调用在你的工程中，可以使用下面的行在任何的<code>ExternalProject_Add</code>调用之前，在你的CMakeLists.txt文件中：</p>
+
+<pre><code>set_property(DIRECTORY PROPERTY EP_STEP_TARGETS configure build test)
+</code></pre>
+
+      </article>
+
+      <ul class="pager blog-pager">
+        
+          <li class="previous">
+            <a href="https://blog.ucatch.me/post/scm/gitlab-install/" data-toggle="tooltip" data-placement="top" title="gitlab的安装">&larr; Previous Post</a>
+          </li>
+        
+        
+          <li class="next">
+            <a href="https://blog.ucatch.me/post/golang/reflect/" data-toggle="tooltip" data-placement="top" title="Reflect">Next Post &rarr;</a>
+          </li>
+        
+      </ul>
+
+      
+        
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:seanchann@foxmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/seanchann" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="https://blog.ucatch.me/index.xml" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          Some Person
+          &nbsp;&bull;&nbsp;
+          2017
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://blog.ucatch.me/">seanchann</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.26-DEV</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://blog.ucatch.me/js/main.js"></script>
+<script src="https://blog.ucatch.me/js/highlight.min.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> renderMathInElement(document.body); </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.js" integrity="sha256-UplRCs9v4KXVJvVY+p+RSo5Q4ilAUXh7kpjyIP5odyc=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe-ui-default.min.js" integrity="sha256-PWHOlUzc96pMc8ThwRIXPn8yH4NOLu42RQ0b9SpnpFk=" crossorigin="anonymous"></script>
+<script src="https://blog.ucatch.me/js/load-photoswipe.js"></script>
+
+
+
+  </body>
+</html>
+

@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>mongodb客户端 - Go中的并发</title>
+  <meta property="og:title" content="mongodb客户端 - Go中的并发" />
+  <meta name="twitter:title" content="mongodb客户端 - Go中的并发" />
+  <meta name="description" content="go语言版本的mongodb的驱动并发说明">
+  <meta property="og:description" content="go语言版本的mongodb的驱动并发说明">
+  <meta name="twitter:description" content="go语言版本的mongodb的驱动并发说明">
+  <meta name="author" content="Some Person"/>
+  <link href='https://blog.ucatch.me/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta property="og:image" content="https://blog.ucatch.me/img/avatar-icon.png" />
+  <meta name="twitter:image" content="https://blog.ucatch.me/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary" />
+  <meta property="og:url" content="https://blog.ucatch.me/post/mongodb/mongodb-go-concurrently/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="seanchann" />
+
+  <meta name="generator" content="Hugo 0.26-DEV" />
+  <link rel="canonical" href="https://blog.ucatch.me/post/mongodb/mongodb-go-concurrently/" />
+  <link rel="alternate" href="https://blog.ucatch.me/index.xml" type="application/rss+xml" title="seanchann">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://blog.ucatch.me/css/main.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="https://blog.ucatch.me/css/pygment_highlights.css" />
+  <link rel="stylesheet" href="https://blog.ucatch.me/css/highlight.min.css" />
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.css" integrity="sha256-sCl5PUOGMLfFYctzDW3MtRib0ctyUvI9Qsmq2wXOeBY=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/default-skin/default-skin.min.css" integrity="sha256-BFeI1V+Vh1Rk37wswuOYn5lsTcaU96hGaI7OUVCLjPc=" crossorigin="anonymous" />
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+</head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://blog.ucatch.me/">seanchann</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="https://blog.ucatch.me/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="https://blog.ucatch.me/tags">Tags</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Posts" href="https://blog.ucatch.me/post/">Posts</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        
+          <a title="seanchann" href="https://blog.ucatch.me/">
+            <img class="avatar-img" src="https://blog.ucatch.me/img/avatar-icon.png" alt="seanchann" />
+          </a>
+        
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+
+
+    
+  
+  
+  
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              <h1>mongodb客户端 - Go中的并发</h1>
+                
+                
+                  <span class="post-meta">
+  Posted on July 31, 2017
+  
+</span>
+
+
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+
+<h1 id="mongodb中的golang的并发">mongodb中的golang的并发</h1>
+
+<p><strong>系统：CentOS7 + docker 1.6</strong></p>
+
+<p><strong>mongodb版本： 3.0.2</strong></p>
+
+<p><a href="http://blog.mongodb.org/post/80579086742/running-mongodb-queries-concurrently-with-go">原文的地址</a></p>
+
+<p>pla，pla的一堆作者的铺垫介绍略过，但是还是感谢下作者。</p>
+
+<h2 id="介绍">介绍</h2>
+
+<p>mongodb支持很多不同的编程语言，感谢编写驱动程序的人员。一个mongoDB的go语言的驱动叫做mgo。这个驱动是由Gustavo Niemeyer和一些的MongoDB公司的同事一起开发的。团队的负责人是Gustavo以及Steve Francia，他们在2014年的“GopherCon”上分享了“使用Go语言在mongodb中存储数据”。分享内容描述了mgo驱动如何使得mongodb和go更好的协同工作去构建高度可扩展的软件。</p>
+
+<p>MongoDB和Go让你可以构建可扩展的软件在很多不同的操作系统以及架构上，无需安装框架或者其他的运行时依赖。Go程序是本地的二进制文件并且Go工具正在不断的提升它的运行效率，它的效率是可以比肩C编写的程序的。但是，这并不意味着如果用Go写程序就很复杂和繁琐，就像C程序那样的。使用Go的情况是，编写代码的速度会很快，并且很有乐趣。</p>
+
+<p>在这篇文章中，我将告诉你如何编写一个Go程序使用mgo驱动来连接以及进行mongo数据库的查询。我会给出一些示例代码，这里可能在新版本的mongodb和Go一同工作上会有一点困惑，但是我会一一解释的。</p>
+
+<h2 id="示例程序">示例程序</h2>
+
+<p>示例程序连接到一个公共的mongodb数据库。如果你有Go和Bazaar在你的机器上安装了，你也可以连接到我的数据库上。这个程序非常的简单 - 它运行了10个goroutines，它们分别会从goinggo数据库中的buoy_stations 集合中查询记录。这些记录被反射到本地的Go types并且每一个goroutine 日志输出返回的文档的数目：</p>
+
+<pre><code class="language-go">// This program provides a sample application for using MongoDB with
+// the mgo driver.
+package main
+ 
+import (
+  &quot;labix.org/v2/mgo&quot;
+  &quot;labix.org/v2/mgo/bson&quot;
+  &quot;log&quot;
+  &quot;sync&quot;
+  &quot;time&quot;
+)
+ 
+const (
+  MongoDBHosts = &quot;ds035428.mongolab.com:35428&quot;
+  AuthDatabase = &quot;goinggo&quot;
+  AuthUserName = &quot;guest&quot;
+  AuthPassword = &quot;welcome&quot;
+  TestDatabase = &quot;goinggo&quot;
+)
+ 
+type (
+  // BuoyCondition contains information for an individual station.
+  BuoyCondition struct {
+    WindSpeed     float64 `bson:&quot;wind_speed_milehour&quot;`
+    WindDirection int     `bson:&quot;wind_direction_degnorth&quot;`
+    WindGust      float64 `bson:&quot;gust_wind_speed_milehour&quot;`
+  }
+ 
+  // BuoyLocation contains the buoy's location.
+  BuoyLocation struct {
+    Type        string    `bson:&quot;type&quot;`
+    Coordinates []float64 `bson:&quot;coordinates&quot;`
+  }
+ 
+  // BuoyStation contains information for an individual station.
+  BuoyStation struct {
+    ID        bson.ObjectId `bson:&quot;_id,omitempty&quot;`
+    StationId string        `bson:&quot;station_id&quot;`
+    Name      string        `bson:&quot;name&quot;`
+    LocDesc   string        `bson:&quot;location_desc&quot;`
+    Condition BuoyCondition `bson:&quot;condition&quot;`
+    Location  BuoyLocation  `bson:&quot;location&quot;`
+  }
+)
+ 
+// main is the entry point for the application.
+func main() {
+  // We need this object to establish a session to our MongoDB.
+  mongoDBDialInfo := &amp;mgo.DialInfo{
+    Addrs:    []string{MongoDBHosts},
+    Timeout:  60 * time.Second,
+    Database: AuthDatabase,
+    Username: AuthUserName,
+    Password: AuthPassword,
+  }
+ 
+  // Create a session which maintains a pool of socket connections
+  // to our MongoDB.
+  mongoSession, err := mgo.DialWithInfo(mongoDBDialInfo)
+  if err != nil {
+    log.Fatalf(&quot;CreateSession: %s\n&quot;, err)
+  }
+ 
+  // Reads may not be entirely up-to-date, but they will always see the
+  // history of changes moving forward, the data read will be consistent
+  // across sequential queries in the same session, and modifications made
+  // within the session will be observed in following queries (read-your-writes).
+  // http://godoc.org/labix.org/v2/mgo#Session.SetMode
+  mongoSession.SetMode(mgo.Monotonic, true)
+ 
+  // Create a wait group to manage the goroutines.
+  var waitGroup sync.WaitGroup
+ 
+  // Perform 10 concurrent queries against the database.
+  waitGroup.Add(10)
+  for query := 0; query &lt; 10; query++ {
+    go RunQuery(query, &amp;waitGroup, mongoSession)
+  }
+ 
+  // Wait for all the queries to complete.
+  waitGroup.Wait()
+  log.Println(&quot;All Queries Completed&quot;)
+}
+ 
+// RunQuery is a function that is launched as a goroutine to perform
+// the MongoDB work.
+func RunQuery(query int, waitGroup *sync.WaitGroup, mongoSession *mgo.Session) {
+  // Decrement the wait group count so the program knows this
+  // has been completed once the goroutine exits.
+  defer waitGroup.Done()
+ 
+  // Request a socket connection from the session to process our query.
+  // Close the session when the goroutine exits and put the connection back
+  // into the pool.
+  sessionCopy := mongoSession.Copy()
+  defer sessionCopy.Close()
+ 
+  // Get a collection to execute the query against.
+  collection := sessionCopy.DB(TestDatabase).C(&quot;buoy_stations&quot;)
+ 
+  log.Printf(&quot;RunQuery : %d : Executing\n&quot;, query)
+ 
+  // Retrieve the list of stations.
+  var buoyStations []BuoyStation
+  err := collection.Find(nil).All(&amp;buoyStations)
+  if err != nil {
+    log.Printf(&quot;RunQuery : ERROR : %s\n&quot;, err)
+    return
+  }
+ 
+  log.Printf(&quot;RunQuery : %d : Count[%d]\n&quot;, query, len(buoyStations))
+}
+
+</code></pre>
+
+<p>现在我们看到了整个程序，我们可以先不看它。先看下数据类型的定义：</p>
+
+<pre><code class="language-go">type (
+  // BuoyCondition contains information for an individual station.
+  BuoyCondition struct {
+    WindSpeed     float64 `bson:&quot;wind_speed_milehour&quot;`
+    WindDirection int     `bson:&quot;wind_direction_degnorth&quot;`
+    WindGust      float64 `bson:&quot;gust_wind_speed_milehour&quot;`
+  }
+ 
+  // BuoyLocation contains the buoy's location.
+  BuoyLocation struct {
+    Type        string    `bson:&quot;type&quot;`
+    Coordinates []float64 `bson:&quot;coordinates&quot;`
+  }
+ 
+  // BuoyStation contains information for an individual station.
+  BuoyStation struct {
+    ID        bson.ObjectId `bson:&quot;_id,omitempty&quot;`
+    StationId string        `bson:&quot;station_id&quot;`
+    Name      string        `bson:&quot;name&quot;`
+    LocDesc   string        `bson:&quot;location_desc&quot;`
+    Condition BuoyCondition `bson:&quot;condition&quot;`
+    Location  BuoyLocation  `bson:&quot;location&quot;`
+  }
+)
+</code></pre>
+
+<p>上面这个结构代表了我们要检索的数据，查询的数据会解析到我们的数据结构。BuoStation代表主文档，BuoCondition和BuoLocaiont嵌入到主文档中。mgo驱动程序可以很容易的使用本地的类型去将它们呈现到我们的存储的集合中。有了那些标签，我们可以控制mgo驱动解析返回的文档到我们数据结构中。</p>
+
+<p>现在让我们看看去连接MongoDB数据库使用mgo：</p>
+
+<pre><code class="language-go">// We need this object to establish a session to our MongoDB.
+mongoDBDialInfo := &amp;mgo.DialInfo{
+  Addrs:    []string{MongoDBHosts},
+  Timeout:  60 * time.Second,
+  Database: AuthDatabase,
+  Username: AuthUserName,
+  Password: AuthPassword,
+}
+ 
+// Create a session which maintains a pool of socket connections
+// to our MongoDB.
+mongoSession, err := mgo.DialWithInfo(mongoDBDialInfo)
+if err != nil {
+  log.Fatalf(&quot;CreateSession: %s\n&quot;, err)
+}
+</code></pre>
+
+<p>我们开始创建一个mgo.Dialinfo对象。连接可以在Addrs字段提供多个地址在或者唯一地址的来组成一个连接集。如果我们使用一台主机去连接这个集合，mgo驱动将会学习在连接集合中的成员的关于任何的我们连接过的mongo server的主机信息。在我们的例子中，我们只连接到了一台主机。</p>
+
+<p>给出了主机信息后，我们指定了数据库，以及需要进行身份验证的用户名和密码。有一点需要注意的是，我们验证的数据库不一定就是我们的程序要访问的数据库。有些应用程序鉴权admin数据库，然后使用其他的数据库，这个逻辑取决于他们的配置。mgo驱动支持这些配置类型非常的好。</p>
+
+<p>接下来我们使用mgo.DialWithInfo方法来创建一个mgo.Session对象。每个会话指定一个Strong或者Monotonic模式，也可以设置一些其他的比如write concern以及read相关的。mgo.Session对象保持了一个Mongodb的连接池。我们可以创建多个sessions使用不同模式以及配置来支持应用程序的不同需求。</p>
+
+<pre><code class="language-go">// Reads may not be entirely up-to-date, but they will always see the
+// history of changes moving forward, the data read will be consistent
+// across sequential queries in the same session, and modifications made
+// within the session will be observed in following queries (read-your-writes).
+// http://godoc.org/labix.org/v2/mgo#Session.SetMode.
+mongoSession.SetMode(mgo.Monotonic, true)
+</code></pre>
+
+<p>上面的代码我们设置了session的模式。这里可以设置Strong，Monotonic，Eventual。每一个模式都给出了如何读写，以及一致性。更多的官员模式之间的差异，可以查看mgo的文档。</p>
+
+<p>我们使用Monotonic模式，它针对读取可能不能读取到最新的文档，但是读取始终可以看到更改的历史。在这种模式下读取会出现不一致当我们从连接集的另外的连接上读取文档当一个写操作发生的时候。一旦写操作发生时，主连接就会被使用。这样做的好处就是可以对读负载进行分流。</p>
+
+<p>现在session的配置都ok，让我们执行一些并发的查询：</p>
+
+<pre><code class="language-go">// Create a wait group to manage the goroutines.
+var waitGroup sync.WaitGroup
+ 
+// Perform 10 concurrent queries against the database.
+waitGroup.Add(10)
+for query := 0; query &lt; 10; query++ {
+  go RunQuery(query, &amp;waitGroup, mongoSession)
+}
+ 
+// Wait for all the queries to complete.
+waitGroup.Wait()
+log.Println(&quot;All Queries Completed&quot;)
+</code></pre>
+
+<p>这个代码是典型的Go并发的代码。首先我们创建了一个sync.WatiGroup 对象，我们可以保持对所有的goroutines的追踪，我们去运行保证他们完成工作。然后，我们设置了sync.WaitGroup的数目为10，并使用了一个循环启动了10个goroutines来执行RunQuery函数。go使用一个函数或者方法来执行并发。最后我们调用了sync.WaitGroup对象来锁定主goroutine直到所有的任务都处理完成。</p>
+
+<p>去了解更多的关于Go并发的内容，最好去参阅一些代码以及文档。</p>
+
+<p>现在我们看下RunQuery函数，看看在这个session上执行的操作：</p>
+
+<pre><code class="language-go">// Decrement the wait group count so the program knows this
+// has been completed once the goroutine exits.
+defer waitGroup.Done()
+ 
+// Request a socket connection from the session to process our query.
+// Close the session when the goroutine exits and put the connection back
+// into the pool.
+sessionCopy := mongoSession.Copy()
+defer sessionCopy.Close()
+</code></pre>
+
+<p>在RunQuery函数中我们调用了defer来对sync.WaitGroup调用，保证此方法完成后，可以对wait的值减1。</p>
+
+<p>接下来，我们复制了在主goroutines中创建的session。每一个goroutine需要去创建一个session的copy，因此他们每个都会获取到自己的socket，避免在socket通信的时候与其他的goroutines发生排队。同样我们使用defer保证程序退出的时候，关闭socker的连接。关闭一个session返回socket到主连接池，是非常重要的。</p>
+
+<pre><code class="language-go">// Get a collection to execute the query against.
+collection := sessionCopy.DB(TestDatabase).C(&quot;buoy_stations&quot;)
+ 
+log.Printf(&quot;RunQuery : %d : Executing\n&quot;, query)
+ 
+// Retrieve the list of stations.
+var buoyStations []BuoyStation
+err := collection.Find(nil).All(&amp;buoyStations)
+if err != nil {
+  log.Printf(&quot;RunQuery : ERROR : %s\n&quot;, err)
+  return
+}
+ 
+log.Printf(&quot;RunQuery : %d : Count[%d]\n&quot;, query, len(buoyStations))
+
+</code></pre>
+
+<p>要执行一个查询我们需要一个mgo.Collection对象。我们可以获取到一个mgo.Collection对象通过mgo.Session对象给定一个数据库以及集合。使用mgo.Collection对象，我们可以进行查找和检索这个集合里的所有的文档。所有的数据都会被解析并且分片到我们的BuoyStation对象中。一个slice在go中就是一个动态数组。要注意的是，所有的方法都会加载数据直接到内存中。对比较大的集合最好使用迭代获取的方式。最后，我们记录并返回了BuoyStation对象的数目。</p>
+
+<h2 id="结论">结论</h2>
+
+<p>这个例子说明了如何并发启动多个goroutines进行查询。一旦session建立，mgo驱动导出所有的MongoDB的功能并且处理BSON数据到Go的本地类型。</p>
+
+<p>MongoDB可以处理大量的并发请求，当你设计你的MongoDB数据库和集合为并发的时候。Go以及mgo驱动完全的对齐并且推送数据到MongoDB，使得软件可以在计算能力上有很大的优势。</p>
+
+<p>mgo驱动提供了一个安全的方式来利用Go并发的优势，你必须灵活的平行的执行并发查询。最好花一点时间学习一些MongoDB的replica sets以及负载均衡的配置。然后确保负载均衡的行为按照预期的设想工作。</p>
+
+      </article>
+
+      <ul class="pager blog-pager">
+        
+          <li class="previous">
+            <a href="https://blog.ucatch.me/post/mongodb/mongodb-shell-cmd/" data-toggle="tooltip" data-placement="top" title="mongodb的命令">&larr; Previous Post</a>
+          </li>
+        
+        
+          <li class="next">
+            <a href="https://blog.ucatch.me/post/mongodb/mongodb-wirte/" data-toggle="tooltip" data-placement="top" title="mongodb 写操作">Next Post &rarr;</a>
+          </li>
+        
+      </ul>
+
+      
+        
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:seanchann@foxmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/seanchann" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="https://blog.ucatch.me/index.xml" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          Some Person
+          &nbsp;&bull;&nbsp;
+          2017
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://blog.ucatch.me/">seanchann</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.26-DEV</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://blog.ucatch.me/js/main.js"></script>
+<script src="https://blog.ucatch.me/js/highlight.min.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> renderMathInElement(document.body); </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.js" integrity="sha256-UplRCs9v4KXVJvVY+p+RSo5Q4ilAUXh7kpjyIP5odyc=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe-ui-default.min.js" integrity="sha256-PWHOlUzc96pMc8ThwRIXPn8yH4NOLu42RQ0b9SpnpFk=" crossorigin="anonymous"></script>
+<script src="https://blog.ucatch.me/js/load-photoswipe.js"></script>
+
+
+
+  </body>
+</html>
+

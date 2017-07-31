@@ -6,6 +6,8 @@
     <description>Recent content in Golang on seanchann</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
+    <managingEditor>seanchann@foxmail.com (Some Person)</managingEditor>
+    <webMaster>seanchann@foxmail.com (Some Person)</webMaster>
     <lastBuildDate>Mon, 31 Jul 2017 08:49:41 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.ucatch.me/categories/golang/index.xml" rel="self" type="application/rss+xml" />
@@ -13,12 +15,12 @@
     
     <item>
       <title>Reflect</title>
-      <link>https://blog.ucatch.me/posts/golang/reflect/</link>
+      <link>https://blog.ucatch.me/post/golang/reflect/</link>
       <pubDate>Mon, 31 Jul 2017 08:49:41 +0800</pubDate>
-      
-      <guid>https://blog.ucatch.me/posts/golang/reflect/</guid>
-      <description>原文地址
-反射规则 反射规则的第一条： 1.反射从interface的value到reflection object 在底层，反射仅仅是一个机制，来检查存储在内部的一个interface变量中的type和value的对。首先，在包reflect中有两种类型我们必须知晓：Type 以及 Value。这两个类型可以让我们访问到interface变量的内容，并且提供了两个简单的函数，reflect.TypeOf以及reflect.ValueOf,通过对这两个函数的调用就可以获取到interface变量的值。（此外，调用reflect.Value也非常容易获取到reflect.Type,但是在概念上Value以及Type是完全不同的）
+      <author>seanchann@foxmail.com (Some Person)</author>
+      <guid>https://blog.ucatch.me/post/golang/reflect/</guid>
+      <description>反射规则 原文地址
+反射规则的第一条： 1.反射从interface的value到reflection object 在底层，反射仅仅是一个机制，来检查存储在内部的一个interface变量中的type和value的对。首先，在包reflect中有两种类型我们必须知晓：Type 以及 Value。这两个类型可以让我们访问到interface变量的内容，并且提供了两个简单的函数，reflect.TypeOf以及reflect.ValueOf,通过对这两个函数的调用就可以获取到interface变量的值。（此外，调用reflect.Value也非常容易获取到reflect.Type,但是在概念上Value以及Type是完全不同的）
 让我们先开始使用下TypeOf:
 package main import ( &amp;quot;fmt&amp;quot; &amp;quot;reflect&amp;quot; ) func main() { var x float64 = 3.4 fmt.Println(&amp;quot;type:&amp;quot;, reflect.TypeOf(x)) }  这个程序会打印：
 type: float64  你可能会想知道我们的interface在哪里，因为上面的程序看上去就像是它传递了float64给变量x，而不是一个interface的value，传递给我们的reflect.TypeOf。但是它确实是存在的；在godoc文档中，reflect.TypeOf的签名包含一个空的interface：

@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>mongodb的读说明</title>
+  <meta property="og:title" content="mongodb的读说明" />
+  <meta name="twitter:title" content="mongodb的读说明" />
+  <meta name="description" content="mongodb的读说明">
+  <meta property="og:description" content="mongodb的读说明">
+  <meta name="twitter:description" content="mongodb的读说明">
+  <meta name="author" content="Some Person"/>
+  <link href='https://blog.ucatch.me/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta property="og:image" content="https://blog.ucatch.me/img/avatar-icon.png" />
+  <meta name="twitter:image" content="https://blog.ucatch.me/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary" />
+  <meta property="og:url" content="https://blog.ucatch.me/post/mongodb/mongodb-read/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="seanchann" />
+
+  <meta name="generator" content="Hugo 0.26-DEV" />
+  <link rel="canonical" href="https://blog.ucatch.me/post/mongodb/mongodb-read/" />
+  <link rel="alternate" href="https://blog.ucatch.me/index.xml" type="application/rss+xml" title="seanchann">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://blog.ucatch.me/css/main.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="https://blog.ucatch.me/css/pygment_highlights.css" />
+  <link rel="stylesheet" href="https://blog.ucatch.me/css/highlight.min.css" />
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.css" integrity="sha256-sCl5PUOGMLfFYctzDW3MtRib0ctyUvI9Qsmq2wXOeBY=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/default-skin/default-skin.min.css" integrity="sha256-BFeI1V+Vh1Rk37wswuOYn5lsTcaU96hGaI7OUVCLjPc=" crossorigin="anonymous" />
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+</head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://blog.ucatch.me/">seanchann</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="https://blog.ucatch.me/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="https://blog.ucatch.me/tags">Tags</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Posts" href="https://blog.ucatch.me/post/">Posts</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        
+          <a title="seanchann" href="https://blog.ucatch.me/">
+            <img class="avatar-img" src="https://blog.ucatch.me/img/avatar-icon.png" alt="seanchann" />
+          </a>
+        
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+
+
+    
+  
+  
+  
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              <h1>mongodb的读说明</h1>
+                
+                
+                  <span class="post-meta">
+  Posted on July 31, 2017
+  
+</span>
+
+
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+
+<h1 id="mongodb的读">mongodb的读</h1>
+
+<p><strong>系统：CentOS7 + docker 1.6</strong>
+<strong>mongodb版本： 3.0.2</strong></p>
+
+<p>mongodb与读操作相关的内容，比如find以及query操作</p>
+
+<h2 id="查询和projection的操作选项">查询和Projection的操作选项</h2>
+
+<h3 id="查询选择器">查询选择器</h3>
+
+<h4 id="比较">比较</h4>
+
+<ul>
+<li>$eq   : 匹配到所有的与给定的值相等的条目</li>
+<li>$gt   : 匹配到所有的大于给定的值的条目</li>
+<li>$gte  : 匹配到所有的大于或者等于给定的值的条目</li>
+<li>$lt   : 匹配所有的小于给定值的条目</li>
+<li>$lte  : 匹配所有的小于或者等于给定值的条目</li>
+<li>$ne   : 匹配所有的不等于给定值的条目</li>
+<li>$in   : 匹配给定的值在一个数组中存在的条目</li>
+<li>$nin  : 匹配给定的值不在一个数组中存在的条目</li>
+</ul>
+
+<h4 id="逻辑操作">逻辑操作</h4>
+
+<ul>
+<li>$or   : 逻辑或操作</li>
+<li>$and  : 逻辑与操作</li>
+<li>$not  : 逻辑非的操作</li>
+<li>$nor  : 逻辑异或的操作</li>
+</ul>
+
+<h4 id="element">Element</h4>
+
+<ul>
+<li>$exists  : 匹配所有的文档存在给定的字段的条目</li>
+<li>$type    : 匹配如果字段是给定的类型的文档条目</li>
+</ul>
+
+<h4 id="evaluation">Evaluation</h4>
+
+<ul>
+<li>$mod     : 针对字段的值进行mod的操作</li>
+<li>$regex   : 返回与正则表达式匹配的文档</li>
+<li>$text    : 处理text的查找</li>
+<li>$where   : 返回匹配JavaScript表达式的文档</li>
+</ul>
+
+<h4 id="geospatial">Geospatial</h4>
+
+<ul>
+<li>$geoWithin   : Selects geometries within a bounding GeoJSON geometry. The 2dsphere and 2d indexes support $geoWithin.</li>
+<li>$geoIntersects   : Selects geometries that intersect with a GeoJSON geometry. The 2dsphere index supports $geoIntersects.</li>
+<li>$near     :Returns geospatial objects in proximity to a point. Requires a geospatial index. The 2dsphere and 2d indexes support $near.</li>
+<li>$nearSphere    : Returns geospatial objects in proximity to a point on a sphere. Requires a geospatial index. The 2dsphere and 2d indexes support $nearSphere.</li>
+</ul>
+
+<h4 id="数组">数组</h4>
+
+<ul>
+<li>$all  : 匹配在请求中给出的字段值都在数组中的文档</li>
+<li>$elemMatch   : 匹配如果数组中的元素匹配到所有的在$elemMatch中给出的条件的文档</li>
+<li>$size   : 匹配如果数组字段与指定的大小一致的文档</li>
+</ul>
+
+<h4 id="comment-注释">comment （注释）</h4>
+
+<ul>
+<li>$comment  : 添加注释到查询中</li>
+</ul>
+
+<h3 id="projection-operators">Projection Operators</h3>
+
+<ul>
+<li>$   : 项目在符合查询条件的数组的第一个元素。</li>
+<li>$   : 项目在符合指定$ elemMatch条件数组的第一个元素。</li>
+<li>$meta   : Projects the document’s score assigned during $text operation.</li>
+<li>$slice  : Limits the number of elements projected from an array. Supports skip and limit slices.</li>
+</ul>
+
+<h2 id="find-with-golang">find with golang</h2>
+
+<pre><code class="language-go">query := bson.M{}
+query[&quot;origin&quot;] = &quot;test&quot;
+query[&quot;$or&quot;] = []bson.M{}
+query[&quot;$or&quot;] = append(query[&quot;$or&quot;].([]bson.M), bson.M{&quot;abc&quot;: &quot;1&quot;})
+query[&quot;$or&quot;] = append(query[&quot;$or&quot;].([]bson.M), bson.M{&quot;def&quot;: &quot;2&quot;})
+</code></pre>
+
+<h3 id="find-with-string-value-match">find with string value match</h3>
+
+<p>比如我们有如下的数据：</p>
+
+<pre><code class="language-text">&gt; db.users.find()
+{ &quot;_id&quot; : ObjectId(&quot;55e3f0de55f3a3391d003a16&quot;), &quot;key&quot; : &quot;/users/pusherSystemAdmin&quot;, &quot;value&quot; : &quot;{\&quot;kind\&quot;:\&quot;User\&quot;,\&quot;apiVersion\&quot;:\&quot;v1beta1\&quot;,\&quot;metadata\&quot;:{\&quot;name\&quot;:\&quot;pusherSystemAdmin\&quot;,\&quot;uid\&quot;:\&quot;66a15c15-380e-480e-8d4a-4d39107ce267\\n\&quot;,\&quot;creationTimestamp\&quot;:\&quot;2015-08-31T06:14:54Z\&quot;},\&quot;spec\&quot;:{\&quot;grant\&quot;:\&quot;SUPERADMIN\&quot;,\&quot;appid\&quot;:\&quot;3Pxs-81CM-UJqQ9\&quot;,\&quot;info\&quot;:{\&quot;username\&quot;:\&quot;pusherSystemAdmin\&quot;,\&quot;nickname\&quot;:\&quot;pusherSystemAdmin\&quot;,\&quot;pwd\&quot;:\&quot;123456\&quot;}}}&quot;, &quot;dir&quot; : false, &quot;nodes&quot; : [ ] }
+{ &quot;_id&quot; : ObjectId(&quot;55e66a7155f3a3391d003af2&quot;), &quot;key&quot; : &quot;/users/pooooo&quot;, &quot;value&quot; : &quot;{\&quot;kind\&quot;:\&quot;User\&quot;,\&quot;apiVersion\&quot;:\&quot;v1beta1\&quot;,\&quot;metadata\&quot;:{\&quot;name\&quot;:\&quot;pooooo\&quot;,\&quot;uid\&quot;:\&quot;201d45e3-f014-4934-8582-ef5d391b632c\\n\&quot;,\&quot;creationTimestamp\&quot;:\&quot;2015-09-02T03:19:59Z\&quot;},\&quot;spec\&quot;:{\&quot;grant\&quot;:\&quot;GENERALADMIN\&quot;,\&quot;appid\&quot;:\&quot;OPTm-sC0b-nhK5B\&quot;,\&quot;info\&quot;:{\&quot;username\&quot;:\&quot;pooooo\&quot;,\&quot;nickname\&quot;:\&quot;pooooo\&quot;,\&quot;pwd\&quot;:\&quot;ssssssssssss\&quot;}}}&quot;, &quot;dir&quot; : false, &quot;nodes&quot; : [ ] }
+</code></pre>
+
+<p>我们上面的数据在value的string串里有个appid的键值，我们来用下面的命令来过滤一下：</p>
+
+<pre><code class="language-mongo">db.users.find({value:/\&quot;appid\&quot;:\&quot;3Pxs-81CM-UJqQ9\&quot;/})
+</code></pre>
+
+<p>还有下面的一些过滤：</p>
+
+<pre><code class="language-mongo">db.users.insert({name: 'paulo'})
+db.users.insert({name: 'patric'})
+db.users.insert({name: 'pedro'})
+
+db.users.find({value: /a/})  //like '%a%'
+db.users.find({name: /^pa/}) //like 'pa%'
+db.users.find({name: /ro$/}) //like '%ro'
+</code></pre>
+
+<h4 id="with-golang">with golang</h4>
+
+<h3 id="组合查询的例子">组合查询的例子</h3>
+
+<pre><code class="language-mongo">&gt; db.amon.find().pretty()
+{
+    &quot;_id&quot; : ObjectId(&quot;53ea66bdf9b63e0dd3ca1a18&quot;),
+    &quot;code&quot; : &quot;AAA&quot;,
+    &quot;name&quot; : &quot;AA&quot;
+}
+{
+    &quot;_id&quot; : ObjectId(&quot;53ea66c1f9b63e0dd3ca1a19&quot;),
+    &quot;code&quot; : &quot;AAA&quot;,
+    &quot;name&quot; : &quot;BB&quot;
+}
+{
+    &quot;_id&quot; : ObjectId(&quot;53ea66c3f9b63e0dd3ca1a1a&quot;),
+    &quot;code&quot; : &quot;AAA&quot;,
+    &quot;name&quot; : &quot;CC&quot;
+}
+{
+    &quot;_id&quot; : ObjectId(&quot;53ea66d3f9b63e0dd3ca1a1b&quot;),
+    &quot;code&quot; : &quot;BBB&quot;,
+    &quot;name&quot; : &quot;AA&quot;
+}
+{
+    &quot;_id&quot; : ObjectId(&quot;53ea66d6f9b63e0dd3ca1a1c&quot;),
+    &quot;code&quot; : &quot;BBB&quot;,
+    &quot;name&quot; : &quot;BB&quot;
+}
+{
+    &quot;_id&quot; : ObjectId(&quot;53ea66daf9b63e0dd3ca1a1d&quot;),
+    &quot;code&quot; : &quot;BBB&quot;,
+    &quot;name&quot; : &quot;CC&quot;
+}
+&gt; db.amon.find({ 
+    &quot;$or&quot; : [
+        { &quot;code&quot; : { &quot;$not&quot; : /^AAA/ } }, 
+        { &quot;name&quot;: { &quot;$not&quot; : { &quot;$in&quot; : [&quot;BB&quot;, &quot;CC&quot;] } } } 
+    ] 
+})
+{ &quot;_id&quot; : ObjectId(&quot;53ea66bdf9b63e0dd3ca1a18&quot;), &quot;code&quot; : &quot;AAA&quot;, &quot;name&quot; : &quot;AA&quot; }
+{ &quot;_id&quot; : ObjectId(&quot;53ea66d3f9b63e0dd3ca1a1b&quot;), &quot;code&quot; : &quot;BBB&quot;, &quot;name&quot; : &quot;AA&quot; }
+{ &quot;_id&quot; : ObjectId(&quot;53ea66d6f9b63e0dd3ca1a1c&quot;), &quot;code&quot; : &quot;BBB&quot;, &quot;name&quot; : &quot;BB&quot; }
+{ &quot;_id&quot; : ObjectId(&quot;53ea66daf9b63e0dd3ca1a1d&quot;), &quot;code&quot; : &quot;BBB&quot;, &quot;name&quot; : &quot;CC&quot; }
+</code></pre>
+
+      </article>
+
+      <ul class="pager blog-pager">
+        
+          <li class="previous">
+            <a href="https://blog.ucatch.me/post/mongodb/mongodb-problems-summary/" data-toggle="tooltip" data-placement="top" title="mongodb问题汇总">&larr; Previous Post</a>
+          </li>
+        
+        
+          <li class="next">
+            <a href="https://blog.ucatch.me/post/mongodb/mongodb-user/" data-toggle="tooltip" data-placement="top" title="mongodb的用户管理说明">Next Post &rarr;</a>
+          </li>
+        
+      </ul>
+
+      
+        
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:seanchann@foxmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/seanchann" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="https://blog.ucatch.me/index.xml" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          Some Person
+          &nbsp;&bull;&nbsp;
+          2017
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://blog.ucatch.me/">seanchann</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.26-DEV</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://blog.ucatch.me/js/main.js"></script>
+<script src="https://blog.ucatch.me/js/highlight.min.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> renderMathInElement(document.body); </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.js" integrity="sha256-UplRCs9v4KXVJvVY+p+RSo5Q4ilAUXh7kpjyIP5odyc=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe-ui-default.min.js" integrity="sha256-PWHOlUzc96pMc8ThwRIXPn8yH4NOLu42RQ0b9SpnpFk=" crossorigin="anonymous"></script>
+<script src="https://blog.ucatch.me/js/load-photoswipe.js"></script>
+
+
+
+  </body>
+</html>
+

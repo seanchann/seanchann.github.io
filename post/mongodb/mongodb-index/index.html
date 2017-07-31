@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>mongodb index说明</title>
+  <meta property="og:title" content="mongodb index说明" />
+  <meta name="twitter:title" content="mongodb index说明" />
+  <meta name="description" content="mongodb的索引说明">
+  <meta property="og:description" content="mongodb的索引说明">
+  <meta name="twitter:description" content="mongodb的索引说明">
+  <meta name="author" content="Some Person"/>
+  <link href='https://blog.ucatch.me/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta property="og:image" content="https://blog.ucatch.me/img/avatar-icon.png" />
+  <meta name="twitter:image" content="https://blog.ucatch.me/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary" />
+  <meta property="og:url" content="https://blog.ucatch.me/post/mongodb/mongodb-index/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="seanchann" />
+
+  <meta name="generator" content="Hugo 0.26-DEV" />
+  <link rel="canonical" href="https://blog.ucatch.me/post/mongodb/mongodb-index/" />
+  <link rel="alternate" href="https://blog.ucatch.me/index.xml" type="application/rss+xml" title="seanchann">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://blog.ucatch.me/css/main.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="https://blog.ucatch.me/css/pygment_highlights.css" />
+  <link rel="stylesheet" href="https://blog.ucatch.me/css/highlight.min.css" />
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.css" integrity="sha256-sCl5PUOGMLfFYctzDW3MtRib0ctyUvI9Qsmq2wXOeBY=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/default-skin/default-skin.min.css" integrity="sha256-BFeI1V+Vh1Rk37wswuOYn5lsTcaU96hGaI7OUVCLjPc=" crossorigin="anonymous" />
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+</head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://blog.ucatch.me/">seanchann</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="https://blog.ucatch.me/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="https://blog.ucatch.me/tags">Tags</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Posts" href="https://blog.ucatch.me/post/">Posts</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        
+          <a title="seanchann" href="https://blog.ucatch.me/">
+            <img class="avatar-img" src="https://blog.ucatch.me/img/avatar-icon.png" alt="seanchann" />
+          </a>
+        
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+
+
+    
+  
+  
+  
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              <h1>mongodb index说明</h1>
+                
+                
+                  <span class="post-meta">
+  Posted on July 31, 2017
+  
+</span>
+
+
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+
+<h1 id="mongodb的索引">mongodb的索引</h1>
+
+<p><strong>系统：CentOS7 + docker 1.6</strong>
+<strong>mongodb版本： 3.0.2</strong></p>
+
+<p>mongo 的索引可以加快数据的查询，并且可以有效的避免重复键值对。</p>
+
+<h2 id="mongo的索引类型">mongo的索引类型</h2>
+
+<p>MongoDB提供了不同类型的indexes，这些indexes针对不同的目的以及各种不同类型的内容。</p>
+
+<ul>
+<li>Single Field Indexes ：单字段索引仅包含集合中相应文档的单个字段中的数据。MongoDB 支持在文档根里的单字段索引，也支持在文档的子文档（需要理解为嵌套的文档）的中的字段的索引。</li>
+<li>Compound Indexes：复合索引包含了在集合中的文档的多个字段。</li>
+<li>Multikey Indexes：Multikey 指的是将索引建立在了一个数组的字段上，为在数组中的每个值都创建一个index key。</li>
+<li>Geospatial Indexes and Queries：地理空间索引作为 GeoJSON 对象或遗留的坐标对存储的数据支持基于位置的搜索。</li>
+<li>Text Indexes：text的索引支持对文档中的字符串内容的查找。Text indexes support search of string content in documents.</li>
+<li>Hashed Index：哈希的索引维护条目的索引字段的值的哈希值，主要用于与分片集群支持散列的碎片的密钥。</li>
+</ul>
+
+<h2 id="index-properties-属性">Index Properties （属性）</h2>
+
+<p>你可以在你构建索引的时候，给出这些属性值。</p>
+
+<ul>
+<li>TTL Indexes：TTL索引用于TTL的集合，它指示了在一定时间后数据的过期。</li>
+<li>Unique Indexes：唯一索引会导致 MongoDB 拒绝包含索引字段的重复值的所有文档。</li>
+<li>Sparse Indexes：sparse 属性，会在索引文档的时候，不去索引不包含索引字段的文档。</li>
+</ul>
+
+<h2 id="创建一个唯一的索引">创建一个唯一的索引</h2>
+
+<pre><code class="language-bash">db.collection.ensureIndex( { a: 1 }, { unique: true } )
+</code></pre>
+
+<h3 id="unique">unique</h3>
+
+<p>unique如果为true，表示此键值对必须是唯一的。如果在插入重复的键值对的时候，会根据驱动的相关做法返回错误或者直接丢弃插入。</p>
+
+<h3 id="sparse">sparse</h3>
+
+<p>sparse indexes只包含文档中存在索引字段的条目，即使index字段包含了null值。并且会跳过所有的文档中没有索引字段的文档</p>
+
+<h3 id="将nested-字段作为index">将nested 字段作为index</h3>
+
+<p>如果你有插入了类似这样的文档：</p>
+
+<pre><code class="language-bash">db.exp.insert({&quot;name&quot;:&quot;c&quot;,nested:{date:new Date()}})
+</code></pre>
+
+<p>如果想针对文档内的嵌套字段作为index，那么可以这样做：</p>
+
+<pre><code class="language-bash">db.collection.ensureIndex({&quot;nested.date&quot;: 1}, {expireAfterSeconds:60})
+</code></pre>
+
+<h2 id="创建一个text的索引">创建一个text的索引</h2>
+
+<pre><code class="language-bash">import (
+  &quot;labix.org/v2/mgo&quot;
+)
+
+func main() {
+
+  session, err := mgo.Dial(&quot;127.0.0.1&quot;)
+  if err != nil {
+    panic(err)
+  }
+
+  defer session.Close()
+
+  session.SetMode(mgo.Monotonic, true)
+
+  c := session.DB(&quot;test&quot;).C(&quot;texty&quot;)
+
+  index := mgo.Index{
+    Key: []string{&quot;$text:name&quot;, &quot;$text:about&quot;},
+  }
+
+  err = c.EnsureIndex(index)
+  if err != nil {
+    panic(err)
+  }
+
+}
+</code></pre>
+
+      </article>
+
+      <ul class="pager blog-pager">
+        
+          <li class="previous">
+            <a href="https://blog.ucatch.me/post/mongodb/mongodb-wirte/" data-toggle="tooltip" data-placement="top" title="mongodb 写操作">&larr; Previous Post</a>
+          </li>
+        
+        
+          <li class="next">
+            <a href="https://blog.ucatch.me/post/ci-cd/jenkins-security/" data-toggle="tooltip" data-placement="top" title="jenkins的访问权限以及账户安全">Next Post &rarr;</a>
+          </li>
+        
+      </ul>
+
+      
+        
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:seanchann@foxmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/seanchann" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="https://blog.ucatch.me/index.xml" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          Some Person
+          &nbsp;&bull;&nbsp;
+          2017
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://blog.ucatch.me/">seanchann</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.26-DEV</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://blog.ucatch.me/js/main.js"></script>
+<script src="https://blog.ucatch.me/js/highlight.min.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> renderMathInElement(document.body); </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.js" integrity="sha256-UplRCs9v4KXVJvVY+p+RSo5Q4ilAUXh7kpjyIP5odyc=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe-ui-default.min.js" integrity="sha256-PWHOlUzc96pMc8ThwRIXPn8yH4NOLu42RQ0b9SpnpFk=" crossorigin="anonymous"></script>
+<script src="https://blog.ucatch.me/js/load-photoswipe.js"></script>
+
+
+
+  </body>
+</html>
+

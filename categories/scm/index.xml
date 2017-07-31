@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Scm on seanchann</title>
+    <link>https://blog.ucatch.me/categories/scm/</link>
+    <description>Recent content in Scm on seanchann</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <managingEditor>seanchann@foxmail.com (Some Person)</managingEditor>
+    <webMaster>seanchann@foxmail.com (Some Person)</webMaster>
+    <lastBuildDate>Mon, 31 Jul 2017 08:49:41 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.ucatch.me/categories/scm/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>gitlab的安装</title>
+      <link>https://blog.ucatch.me/post/scm/gitlab-install/</link>
+      <pubDate>Mon, 31 Jul 2017 08:49:41 +0800</pubDate>
+      <author>seanchann@foxmail.com (Some Person)</author>
+      <guid>https://blog.ucatch.me/post/scm/gitlab-install/</guid>
+      <description>gitlab的安装 系统：CentOS7 + docker 1.6
+本文主要就是基于docker来构建我们的gitlab环境，方便数据的迁移以及gitlab的升级。
+镜像的获取 gitlab的镜像获取我们执行下面的命令，分别拉取gitlab，postgresql，redis：
+docker pull sameersbn/postgresql:9.4 docker pull sameersbn/redis:latest docker pull sameersbn/gitlab:7.12.2  创建相关的data volume docker create --name=gitlab-redis-dv -v /yourdir:/var/lib/redis sameersbn/redis:latest  docker create --name=gitlab-postgresql-dv -v /yourdir:/var/lib/postgresql sameersbn/postgresql:9.4  docker create --name=gitlab-dv -v /yourdir:/home/git/data sameersbn/gitlab:7.12.2  运行相关的镜像 docker run --name=postgresql-gitlab -d \ --env=&#39;DB_NAME=gitlabhq_production&#39; \ --env=&#39;DB_USER=gitlab&#39; --env=&#39;DB_PASS=password&#39; \ --volumes-from=gitlab-postgresql-dv \ sameersbn/postgresql:9.4  docker run --name=redis-gitlab -d \ --volumes-from=gitlab-redis-dv \ sameersbn/redis:latest  docker run --name=&#39;gitlab&#39; -d \ --link=postgresql-gitlab:postgresql --link=redis-gitlab:redisio \ --publish=10022:22 --publish=10080:80 \ --env=&#39;GITLAB_PORT=10080&#39; --env=&#39;GITLAB_SSH_PORT=10022&#39; \ --volumes-from=gitlab-dv \ sameersbn/gitlab:7.</description>
+    </item>
+    
+    <item>
+      <title>redmine的安装</title>
+      <link>https://blog.ucatch.me/post/scm/redmine-install/</link>
+      <pubDate>Mon, 31 Jul 2017 08:49:41 +0800</pubDate>
+      <author>seanchann@foxmail.com (Some Person)</author>
+      <guid>https://blog.ucatch.me/post/scm/redmine-install/</guid>
+      <description>redmine的安装 系统：CentOS7 + docker 1.6
+本文主要就是基于docker来构建我们的redmine环境，方便数据的迁移以及redmine的升级。
+docker create --name=postgresql-redmine-dv -v /home/pub/dockerdata/redmine/postgresql:/var/lib/postgresql sameersbn/postgresql:9.4  docker run --name=postgresql-redmine -d \ --env=&#39;DB_NAME=redmine_production&#39; \ --env=&#39;DB_USER=redmine&#39; --env=&#39;DB_PASS=password&#39; \ --volumes-from=postgresql-redmine-dv \ sameersbn/postgresql:9.4  docker create --name=redmine-dv -v /home/pub/dockerdata/redmine/redmine:/home/redmine/data sameersbn/redmine:3.0.4  docker run --name=redmine -d \ --link=postgresql-redmine:postgresql --publish=10083:80 \ --env=&#39;REDMINE_PORT=10083&#39; \ --volumes-from=redmine-dv \ sameersbn/redmine:3.0.4  使用env file 启动redmine SMTP_ENABLED=true SMTP_DOMAIN=smtp.qq.com SMTP_HOST=smtp.exmail.qq.com SMTP_PORT=25 SMTP_USER=icastbug@ronghe.tv SMTP_PASS=icast123 SMTP_STARTTLS=true SMTP_AUTHENTICATION=login REDMINE_PORT=10083  docker run --name=redmine -d \ --link=postgresql-redmine:postgresql --publish=10083:80 \ --volumes-from=redmine-dv \ --env-file=redmine-with-smtp-env.</description>
+    </item>
+    
+  </channel>
+</rss>

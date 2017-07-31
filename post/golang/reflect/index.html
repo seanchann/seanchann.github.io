@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Reflect</title>
+  <meta property="og:title" content="Reflect" />
+  <meta name="twitter:title" content="Reflect" />
+  <meta name="description" content="reflect rule">
+  <meta property="og:description" content="reflect rule">
+  <meta name="twitter:description" content="reflect rule">
+  <meta name="author" content="Some Person"/>
+  <link href='https://blog.ucatch.me/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta property="og:image" content="https://blog.ucatch.me/img/avatar-icon.png" />
+  <meta name="twitter:image" content="https://blog.ucatch.me/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary" />
+  <meta property="og:url" content="https://blog.ucatch.me/post/golang/reflect/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="seanchann" />
+
+  <meta name="generator" content="Hugo 0.26-DEV" />
+  <link rel="canonical" href="https://blog.ucatch.me/post/golang/reflect/" />
+  <link rel="alternate" href="https://blog.ucatch.me/index.xml" type="application/rss+xml" title="seanchann">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://blog.ucatch.me/css/main.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="https://blog.ucatch.me/css/pygment_highlights.css" />
+  <link rel="stylesheet" href="https://blog.ucatch.me/css/highlight.min.css" />
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.css" integrity="sha256-sCl5PUOGMLfFYctzDW3MtRib0ctyUvI9Qsmq2wXOeBY=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/default-skin/default-skin.min.css" integrity="sha256-BFeI1V+Vh1Rk37wswuOYn5lsTcaU96hGaI7OUVCLjPc=" crossorigin="anonymous" />
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+</head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://blog.ucatch.me/">seanchann</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="https://blog.ucatch.me/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="https://blog.ucatch.me/tags">Tags</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Posts" href="https://blog.ucatch.me/post/">Posts</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        
+          <a title="seanchann" href="https://blog.ucatch.me/">
+            <img class="avatar-img" src="https://blog.ucatch.me/img/avatar-icon.png" alt="seanchann" />
+          </a>
+        
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+
+
+    
+  
+  
+  
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              <h1>Reflect</h1>
+                
+                
+                  <span class="post-meta">
+  Posted on July 31, 2017
+  
+</span>
+
+
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+
+<h1 id="反射规则">反射规则</h1>
+
+<p><a href="http://blog.golang.org/laws-of-reflection">原文地址</a></p>
+
+<h2 id="反射规则的第一条">反射规则的第一条：</h2>
+
+<p><strong>1.反射从interface的value到reflection object
+  在底层，反射仅仅是一个机制，来检查存储在内部的一个interface变量中的type和value的对。首先，在包reflect中有两种类型我们必须知晓：Type 以及 Value。这两个类型可以让我们访问到interface变量的内容，并且提供了两个简单的函数，reflect.TypeOf以及reflect.ValueOf,通过对这两个函数的调用就可以获取到interface变量的值。（此外，调用reflect.Value也非常容易获取到reflect.Type,但是在概念上Value以及Type是完全不同的）</strong></p>
+
+<p>让我们先开始使用下TypeOf:</p>
+
+<pre><code class="language-go">package main
+  import (
+    &quot;fmt&quot;
+    &quot;reflect&quot;
+  )
+
+  func main() {
+    var x float64 = 3.4
+    fmt.Println(&quot;type:&quot;, reflect.TypeOf(x))
+  }
+</code></pre>
+
+<p>这个程序会打印：</p>
+
+<pre><code class="language-text">  type: float64
+</code></pre>
+
+<p>你可能会想知道我们的interface在哪里，因为上面的程序看上去就像是它传递了float64给变量x，而不是一个interface的value，传递给我们的reflect.TypeOf。但是它确实是存在的；在godoc文档中，reflect.TypeOf的签名包含一个空的interface：</p>
+
+<pre><code class="language-go">  // TypeOf returns the reflection Type of the value in the interface{}.
+  func TypeOf(i interface{}) Type
+</code></pre>
+
+<p>当我们调用reflect.TypeOf(x),x是第一个被存储在空interface中，然后传入作为参数；reflect.TypeOf打开这个空的interface，然后重新获取type的信息。</p>
+
+<p>reflect.Valueof 函数，当然，也重新获取value</p>
+
+<pre><code class="language-go">  var x float64 = 3.4
+  fmt.Println(&quot;value:&quot;, reflect.ValueOf(x))
+</code></pre>
+
+<p>程序输出：</p>
+
+<pre><code class="language-text">  value: &lt;float64 Value&gt;
+</code></pre>
+
+<p>reflect.Type以及reflect.Value两个都提供了很多的方法让我们去检查和操作它们。一个重要的例子是Value有一个Type的方法来返回一个reflect.Value的Type。还有Type以及Value都有一个Kind的方法，这个方法返回一个恒量，这个恒量是按照一定的顺序被存储：Unit，Float64，Slice，等等。另外Value提供了一些方法，这些方法名类似Int以及Float，可以让我们获取在这些对象的内部存储的值：（就像int64以及float64）：</p>
+
+<pre><code class="language-go">  var x float64 = 3.4
+  v := reflect.ValueOf(x)
+  fmt.Println(&quot;type:&quot;, v.Type())
+  fmt.Println(&quot;kind is float64:&quot;, v.Kind() == reflect.Float64)
+  fmt.Println(&quot;value:&quot;, v.Float())
+</code></pre>
+
+<p>输出：</p>
+
+<pre><code class="language-text">  type: float64
+  kind is float64: true
+  value: 3.4
+</code></pre>
+
+<p>这里也有一些方法类似于SetInt以及SetFloat，使用它们的时候，我们必须理解reflect的设置能力，下面的内容将会讲到。
+  反射库有一些比较有用的属性。首先，保持API的简单，Value的方法“getter”以及“setter”操作，可以容纳比较大的类型的值：例如,针对所有的有符号整型int64。也就是说，Value的Int方法返回一个int64的值，以及SetInt可以接受int64的参数；那么可能我们需要将它们转换为实际的所需要的类型。</p>
+
+<pre><code class="language-go">  var x uint8 = 'x'
+  v := reflect.ValueOf(x)
+  fmt.Println(&quot;type:&quot;, v.Type())           // uint8.
+  fmt.Println(&quot;kind is uint8: &quot;, v.Kind() == reflect.Uint8) // true.
+  x = uint8(v.Uint())      // v.Uint returns a uint64.
+</code></pre>
+
+<p>第二个属性就是reflect对象的Kind描述的是最基本的类型，而不是静态类型。如果一个反射对象包含了用户自定义的integer类型，就像：</p>
+
+<pre><code class="language-go">  type MyInt int
+  var x MyInt = 7
+  v := reflect.ValueOf(x)
+</code></pre>
+
+<p>v的kind将会是reflect.Int，即使我们x的类型是MyInt，而不是int。换句话说，Kind不能区分从一个MyInt到Int，即使在类型上看它们是不同的。</p>
+
+<h2 id="反射的第二条规则">反射的第二条规则</h2>
+
+<p><strong>2.反射从反射的对象到interface的值
+  类似于物理反射，反射在Go中生成它自己的反面</strong></p>
+
+<p>给出一个reflect.Value我们可以获取到interface的值使用Interface的方法；实际上，此方法打包了type以及value的信息以一个interface的来表现并且返回结果。</p>
+
+<pre><code class="language-go">  // Interface returns v's value as an interface{}.
+  func (v Value) Interface() interface{}
+</code></pre>
+
+<p>作为一个推论我们可以有：</p>
+
+<pre><code class="language-go">  y := v.Interface().(float64) // y will have type float64.
+  fmt.Println(y)
+</code></pre>
+
+<p>通过反射对象v来打印float64值的表现</p>
+
+<p>我们可以做的更好。fmt.Println,fmt.Printf的参数都是一个空的interface的值，然后在fmt包的内部做解包，就跟我们前面讲的例子一样。因此，我们可以打印出reflect.Value：</p>
+
+<pre><code class="language-go">  fmt.Println(v.Interface())
+</code></pre>
+
+<p>（为什么不直接fmt.Println(v)?因为v是一个reflect.Value的类型。我们想要它保存的正确的值。）由于我们的值是一个float64，我们可以格式化float的输出：</p>
+
+<pre><code class="language-go">  fmt.Printf(&quot;value is %7.1e\n&quot;, v.Interface())
+</code></pre>
+
+<p>输出：</p>
+
+<pre><code class="language-text">  3.4e+00
+</code></pre>
+
+<p>再次，这里不需要v.Interface()到float64的类型的断言；空的interface的值在里面有具体的类型信息，并且Printf会重新恢复它。
+  总之，Interface的方法是ValueOf函数的逆操作，不同的地方就是它的结果始终是静态类型interface{}
+  重申：反射从interface的值到反射的对象，并且也可以返回。</p>
+
+<h2 id="反射的第三个规则">反射的第三个规则</h2>
+
+<p><strong>3.修改一个反射对象，值必须是可修改的。
+  第三条规则非常的让人困惑并且难以理解，但是也是很容易理解的，如果我们是从第一个原理开始的学习。</strong></p>
+
+<p>这里有一些代码不能工作，但是它对学习此规则很有用：</p>
+
+<pre><code class="language-go">  var x float64 = 3.4
+  v := reflect.ValueOf(x)
+  v.SetFloat(7.1) // Error: will panic.
+</code></pre>
+
+<p>如果你运行这个代码，程序将会panic：</p>
+
+<pre><code class="language-text">  panic: reflect.Value.SetFloat using unaddressable value
+</code></pre>
+
+<p>这个问题不在于值7.1，而在于这个值无法寻址。它的v是不可设置的。设置能力是反射的Value的属性，但是不是所有的反射Values都有此能力。
+  Value的CanSet的方法可以给出Value的设置能力。在我们的例子里：</p>
+
+<pre><code class="language-go">  var x float64 = 3.4
+  v := reflect.ValueOf(x)
+  fmt.Println(&quot;settability of v:&quot;, v.CanSet())
+</code></pre>
+
+<p>打印：</p>
+
+<pre><code class="language-text">  settability of v: false
+</code></pre>
+
+<p>不能对不具有设置能力的Value调用Set方法。但是什么是设置能力那？
+  设置能力有点像寻址能力，但是它更严格。它是一个反射对象的属性，可以用来修改被创建这个反射对象的实际的存储的数据。设置能力通过是否反射对象保存了原始的条目来确定。那么：</p>
+
+<pre><code class="language-go">  var x float64 = 3.4
+  v := reflect.ValueOf(x)
+</code></pre>
+
+<p>我们传入了一个x的copy给reflect.ValueOf,因此对传入给relfect.ValueOf的x的copy的参数，创建了一个interface，这里不是x自己。因此，语句：</p>
+
+<pre><code class="language-go">  v.SetFloat(7.1)
+</code></pre>
+
+<p>是可以成功的，它不会去更新x，即使看上去它是从x创建的。相反，它将会更新存在在反射的值的x的copy，x本身不会受到影响。这将会引起混乱，因此它是非法的，设置能力就是为了避免类似的问题。
+  如果这个看上去比较奇怪，实际上不是。实际上这是一个我们熟悉的情况，但是有不寻常的表述。考虑一个传入x参数的函数：</p>
+
+<pre><code class="language-go">  f(x)
+</code></pre>
+
+<p>我们不期望f可以去修改我们的x，因为我们传递的是x的值拷贝，而不是x自己。如果我们想要修改x，那么我们必须传递的是对x的引用：</p>
+
+<pre><code class="language-go">  f(&amp;x)
+</code></pre>
+
+<p>这是比较简单和熟悉的，并且反射的工作原理与这个类似。如果我们想要通过反射来修改x，我们必须给反射库提供一个指向我们想要修改的变量的指针。
+  让我们来实践下。首先初始化x，然后创建一个reflect的value指向它，称它为p：</p>
+
+<pre><code class="language-go">  var x float64 = 3.4
+  p := reflect.ValueOf(&amp;x) // Note: take the address of x.
+  fmt.Println(&quot;type of p:&quot;, p.Type())
+  fmt.Println(&quot;settability of p:&quot;, p.CanSet())
+</code></pre>
+
+<p>那么输出是：</p>
+
+<pre><code class="language-text">  type of p: *float64
+  settability of p: false
+</code></pre>
+
+<p>反射对象p是不可修改的，但是这个不是我们修改的p。它是*p。获取到p指向哪里，我们调用Value的Elem的方法，它直接获取到指针，并且保存结果再反射的Value，我们称之为v：</p>
+
+<pre><code class="language-go">  v := p.Elem()
+  fmt.Println(&quot;settability of v:&quot;, v.CanSet())
+</code></pre>
+
+<p>现在v是一个可以设置修改的反射对象了：</p>
+
+<pre><code class="language-text">  settability of v: true
+</code></pre>
+
+<p>由于它就是指向x的，我们最终调用v.SetFloat来修改x的值：</p>
+
+<pre><code class="language-go">  v.SetFloat(7.1)
+  fmt.Println(v.Interface())
+  fmt.Println(x)
+</code></pre>
+
+<p>输出是：</p>
+
+<pre><code class="language-text">  7.1
+  7.1
+</code></pre>
+
+<p>反射可能难以理解，但是它是语言层面实现的，这些掩饰了反射的Types以及Values背后的逻辑。我们只需记住，反射的Values需要想要修改的对象的地址来进行修改它们的值。
+  structs
+  在我们的前面的例子中v本身不是一个指针，它只是由一个指针创建。使用反射去修改结构的字段的常用方法。只要我们有结构实例的地址，我们就可以修改它的字段。
+  这里有一个简单的分析结构值的例子，t。我们创建一个结构，用它的地址创建反射对象，因为我们随后要修改它。然后我们设置typeOfT给它的类型，使用straightforward方法来迭代它的字段。请注意，我们从数据结构类型中提取字段的名字，但是字段本身是一个reflect.Value对象。</p>
+
+<pre><code class="language-go">  type T struct {
+    A int
+    B string
+  }
+  t := T{23, &quot;skidoo&quot;}
+  s := reflect.ValueOf(&amp;t).Elem()
+  typeOfT := s.Type()
+  for i := 0; i &lt; s.NumField(); i++ {
+    f := s.Field(i)
+    fmt.Printf(&quot;%d: %s %s = %v\n&quot;, i,
+    typeOfT.Field(i).Name, f.Type(), f.Interface())
+  }
+</code></pre>
+
+<p>这个程序的输出是：</p>
+
+<pre><code class="language-text">  0: A int = 23
+  1: B string = skidoo
+</code></pre>
+
+<p>还有一个关于可设置的在这里介绍：T的字段名是大写的（导出特性），因为只有数据结构中导出的字段是可设置的。
+  因为S包含一个可设置的反射对象，所以我们可以修改该结构的字段值。</p>
+
+<pre><code class="language-go">  s.Field(0).SetInt(77)
+  s.Field(1).SetString(&quot;Sunset Strip&quot;)
+  fmt.Println(&quot;t is now&quot;, t)
+</code></pre>
+
+<p>那么这里的结果就是：</p>
+
+<pre><code class="language-text">  t is now {77 Sunset Strip}
+</code></pre>
+
+<p>如果我们修改程序，s从t创建而不是&amp;t，那么调用SetInt以及SetString将会失败，因为t的字段不似乎可设置的。</p>
+
+<h2 id="结论">结论：</h2>
+
+<p>这里重新罗列下反射的规则：</p>
+
+<ol>
+<li>反射是从interface value到反射对象。</li>
+<li>反射是从反射对象到interface value。</li>
+<li>修改一个反射对象，value必须是可设置的。</li>
+</ol>
+
+<p>一旦你了解这些反射的规则，它们会变得更加的容易使用，但是它们仍然是很微妙的。因此应该小心的使用，除非你特别需要它才去使用它。</p>
+
+      </article>
+
+      <ul class="pager blog-pager">
+        
+          <li class="previous">
+            <a href="https://blog.ucatch.me/post/build-system/cmake-external-project/" data-toggle="tooltip" data-placement="top" title="cmake编译第三方依赖工程">&larr; Previous Post</a>
+          </li>
+        
+        
+      </ul>
+
+      
+        
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:seanchann@foxmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/seanchann" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="https://blog.ucatch.me/index.xml" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          Some Person
+          &nbsp;&bull;&nbsp;
+          2017
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://blog.ucatch.me/">seanchann</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.26-DEV</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://blog.ucatch.me/js/main.js"></script>
+<script src="https://blog.ucatch.me/js/highlight.min.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> renderMathInElement(document.body); </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.js" integrity="sha256-UplRCs9v4KXVJvVY+p+RSo5Q4ilAUXh7kpjyIP5odyc=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe-ui-default.min.js" integrity="sha256-PWHOlUzc96pMc8ThwRIXPn8yH4NOLu42RQ0b9SpnpFk=" crossorigin="anonymous"></script>
+<script src="https://blog.ucatch.me/js/load-photoswipe.js"></script>
+
+
+
+  </body>
+</html>
+
