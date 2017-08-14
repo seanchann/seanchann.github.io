@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
   <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,10 +8,10 @@
   <title>Docker</title>
   <meta property="og:title" content="Docker" />
   <meta name="twitter:title" content="Docker" />
-  <meta name="author" content="Some Person"/>
+  <meta name="author" content="seanchann.zhou"/>
   <link href='https://blog.ucatch.me/img/favicon.ico' rel='icon' type='image/x-icon'/>
-  <meta property="og:image" content="https://blog.ucatch.me/img/avatar-icon.png" />
-  <meta name="twitter:image" content="https://blog.ucatch.me/img/avatar-icon.png" />
+  <meta property="og:image" content="https://blog.ucatch.me/img/my-IT-user.jpg" />
+  <meta name="twitter:image" content="https://blog.ucatch.me/img/my-IT-user.jpg" />
   <meta name="twitter:card" content="summary" />
   <meta property="og:url" content="https://blog.ucatch.me/tags/docker/" />
   <meta property="og:type" content="website" />
@@ -86,7 +86,7 @@
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
-        <span class="sr-only">Toggle navigation</span>
+        <span class="sr-only">切换导航</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -126,7 +126,7 @@
       <div class="avatar-img-border">
         
           <a title="seanchann" href="https://blog.ucatch.me/">
-            <img class="avatar-img" src="https://blog.ucatch.me/img/avatar-icon.png" alt="seanchann" />
+            <img class="avatar-img" src="https://blog.ucatch.me/img/my-IT-user.jpg" alt="seanchann" />
           </a>
         
       </div>
@@ -164,21 +164,18 @@
             <article class="post-preview">
               <a href="https://blog.ucatch.me/post/ci-cd/jenkins-docker-build/">
                 <h2 class="post-title">jenkins的docker编译</h2>
-    
+
                 
               </a>
-    
+
               <p class="post-meta">
-                Posted on July 31, 2017
+                发表于 March 31, 2015
               </p>
               <div class="post-entry">
                 
-                  
+                  <p><strong>系统：CentOS7 + docker 1.6</strong></p>
 
-<h1 id="jenkins的docker自动化">jenkins的docker自动化</h1>
-
-<p><strong>系统：CentOS7 + docker 1.6</strong>
-<strong>Jenkins: ver. 1.609.1</strong></p>
+<p><strong>Jenkins: ver. 1.609.1</strong></p>
 
 <p>前提条件：</p>
 
@@ -186,88 +183,62 @@
 <li>jenkins的任意node已经安装docker或者docker-build-step插件已经安装</li>
 </ul>
 
-<p>首先，完成docker img编译相关的job有两种方式：</p>
-
-<ul>
-<li>通过docker-build-setup等类似插件来完成</li>
-<li>通过执行脚本来完成，前提是我们的node上已经有docker环境。这个node当然也可以是docker-slave了，这样就会更加的灵活了。</li>
-</ul>
-
-<h2 id="配置docker-build-step-插件">配置docker build step 插件</h2>
-
-<p>docker build step的原理是配置一个Docker Remote API，插件通过这个API来进行docker命令的相关操作。</p>
-
-<p>这个插件的配置是在configuration
-&ndash;&gt;Docker Builder选项中配置一下docker Remote API，比如：<a href="http://192.168.60.79:2375">http://192.168.60.79:2375</a></p>
-
-<p>配置完成后，就可以在job的build step里面选择“Execute Docker container”配置相应的命令，来完成你的工作。</p>
-
-<h2 id="配置一个节点">配置一个节点</h2>
-
-<p>参照标准的节点操作来添加一个有docker环境的node。</p>
-
-<p>节点配置完成后，我们在job的configure制定我们的slave node，那么就可以在这个docker node里面执行我们的docker相关的工作了。</p>
-
-<p>这里你也可以尝试下使用docker in docker的方式。</p>
-
-<p><strong>注意：node上必须有jdk的环境，以及git等相关软件，根据需要自行安装</strong></p>
-
+<p></p>
+                  <a href="https://blog.ucatch.me/post/ci-cd/jenkins-docker-build/" class="post-read-more">[阅读全文]</a>
                 
               </div>
-    
+
               
                 <span class="post-meta">
                   
-                    #<a href="https://blog.ucatch.me/tags/jenkins">jenkins</a>&nbsp;
+                    #<a href="https://blog.ucatch.me/tags/jenkins/">jenkins</a>&nbsp;
                   
-                    #<a href="https://blog.ucatch.me/tags/docker">docker</a>&nbsp;
+                    #<a href="https://blog.ucatch.me/tags/docker/">docker</a>&nbsp;
                   
                 </span>
               
-    
+
             </article>
           
             <article class="post-preview">
               <a href="https://blog.ucatch.me/post/ci-cd/jenkins-docker-slave/">
                 <h2 class="post-title">jenkins的docker节点配置</h2>
-    
+
                 
               </a>
-    
+
               <p class="post-meta">
-                Posted on July 31, 2017
+                发表于 March 31, 2015
               </p>
               <div class="post-entry">
                 
-                  docker的slave节点配置 系统：CentOS7 + docker 1.6 Jenkins: ver. 1.609.1
-前面的章节已经成功的通过git push触发job，本章我们配置一个job，在docker cloud中执行这些job
-前提条件：
- jenkins的docker-plugin插件已经安装  说明：
-jenkins与docker协同工作的原理是，通过jenkins的docker插件来完成。 首先docker插件负责docker daemon的管理，也就是配置jenkins去连接docker daemon。然后启动一个docker image来完成job。其中，需要注意的是后续我们的job都是完全放在这个启动起来的container里面完成的。因此这个image需要我们自己去根据工程的需要来定义。还有就是master会去连接到这个启动起来的container，是通过ssh来连接的。
-配置docker plugin docker 插件提供了可以通过在slave的节点上docker环境，来执行docker的相关操作。
-docker环境配置 这里主要就是配置下docker daemon，首先使我们必须安装完成docker。 对docker daemon的配置流程如下：
- /etc/sysconfig/docker配置文件配置OPTIONS=&lsquo;-H unix:///var/run/docker.sock -H tcp://0.0.0.0:2375&rsquo; 。这个配置使能了本地socket以及远端tcp的连接。 如果有防火墙，配置防火墙打开2375端口（no auth）以及2376端口（auth） 重启防火墙以及我们的docker.service  注意-H给出的端口作为http端口，端口+1作为https，这是docker daemon的默认行为
-docker jenkins image 配置好docker daemon以后，还需要在docker slave上跑一个docker image给jenkins来使用。后面去配置jenkins的docker cloud的时候就是配置这个image。
-这个image的创建可以手动创建或者直接使用docker hub上的evarga/jenkins-slave
-evarga/jenkins-slave的使用 这个镜像直接拉取：
-docker pull evarga/jenkins-slave  镜像默认的用户名和密码是jenkins:jenkins
-手动创建jenkins-slave jenkins的配置 jenkins的配置主要包括增加一个docker cloud。
-docker cloud的配置， 流程描述如下：
- Manage Jenkins-&gt;configuration-&gt;Add New cloud 配置name以及 Docker URL（eg.
-                  <a href="https://blog.ucatch.me/post/ci-cd/jenkins-docker-slave/" class="post-read-more">[Read More]</a>
+                  <p><strong>系统：CentOS7 + docker 1.6</strong></p>
+
+<p><strong>Jenkins：ver. 1.609.1</strong></p>
+
+<p><a href="../../ci-cd/jenkins-gitlab">前面的章节已经成功的通过git push触发job</a>，本章我们配置一个job，在docker cloud中执行这些job</p>
+
+<p>前提条件：</p>
+
+<ul>
+<li>jenkins的docker-plugin插件已经安装</li>
+</ul>
+
+<p></p>
+                  <a href="https://blog.ucatch.me/post/ci-cd/jenkins-docker-slave/" class="post-read-more">[阅读全文]</a>
                 
               </div>
-    
+
               
                 <span class="post-meta">
                   
-                    #<a href="https://blog.ucatch.me/tags/jenkins">jenkins</a>&nbsp;
+                    #<a href="https://blog.ucatch.me/tags/jenkins/">jenkins</a>&nbsp;
                   
-                    #<a href="https://blog.ucatch.me/tags/docker">docker</a>&nbsp;
+                    #<a href="https://blog.ucatch.me/tags/docker/">docker</a>&nbsp;
                   
                 </span>
               
-    
+
             </article>
           
         </div>
@@ -310,7 +281,12 @@ docker cloud的配置， 流程描述如下：
           
         </ul>
         <p class="credits copyright text-muted">
-          Some Person
+          
+            
+              seanchann.zhou
+                      
+          
+          
           &nbsp;&bull;&nbsp;
           2017
 
@@ -321,7 +297,7 @@ docker cloud的配置， 流程描述如下：
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="http://gohugo.io">Hugo v0.26-DEV</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          由 <a href="http://gohugo.io">Hugo v0.26-DEV</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>
@@ -342,6 +318,7 @@ docker cloud的配置， 流程描述如下：
 <script src="https://blog.ucatch.me/js/load-photoswipe.js"></script>
 
 
+<p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
 
   </body>
 </html>

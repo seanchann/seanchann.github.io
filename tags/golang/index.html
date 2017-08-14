@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
   <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,10 +8,10 @@
   <title>Golang</title>
   <meta property="og:title" content="Golang" />
   <meta name="twitter:title" content="Golang" />
-  <meta name="author" content="Some Person"/>
+  <meta name="author" content="seanchann.zhou"/>
   <link href='https://blog.ucatch.me/img/favicon.ico' rel='icon' type='image/x-icon'/>
-  <meta property="og:image" content="https://blog.ucatch.me/img/avatar-icon.png" />
-  <meta name="twitter:image" content="https://blog.ucatch.me/img/avatar-icon.png" />
+  <meta property="og:image" content="https://blog.ucatch.me/img/my-IT-user.jpg" />
+  <meta name="twitter:image" content="https://blog.ucatch.me/img/my-IT-user.jpg" />
   <meta name="twitter:card" content="summary" />
   <meta property="og:url" content="https://blog.ucatch.me/tags/golang/" />
   <meta property="og:type" content="website" />
@@ -86,7 +86,7 @@
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
-        <span class="sr-only">Toggle navigation</span>
+        <span class="sr-only">切换导航</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -126,7 +126,7 @@
       <div class="avatar-img-border">
         
           <a title="seanchann" href="https://blog.ucatch.me/">
-            <img class="avatar-img" src="https://blog.ucatch.me/img/avatar-icon.png" alt="seanchann" />
+            <img class="avatar-img" src="https://blog.ucatch.me/img/my-IT-user.jpg" alt="seanchann" />
           </a>
         
       </div>
@@ -162,78 +162,73 @@
         <div class="posts-list">
           
             <article class="post-preview">
-              <a href="https://blog.ucatch.me/post/golang/reflect/">
-                <h2 class="post-title">Reflect</h2>
-    
+              <a href="https://blog.ucatch.me/post/mongodb/mongodb-go-concurrently/">
+                <h2 class="post-title">mongodb客户端并发 --- Golang</h2>
+
                 
               </a>
-    
+
               <p class="post-meta">
-                Posted on July 31, 2017
+                发表于 July 31, 2016
               </p>
               <div class="post-entry">
                 
-                  反射规则 原文地址
-反射规则的第一条： 1.反射从interface的value到reflection object 在底层，反射仅仅是一个机制，来检查存储在内部的一个interface变量中的type和value的对。首先，在包reflect中有两种类型我们必须知晓：Type 以及 Value。这两个类型可以让我们访问到interface变量的内容，并且提供了两个简单的函数，reflect.TypeOf以及reflect.ValueOf,通过对这两个函数的调用就可以获取到interface变量的值。（此外，调用reflect.Value也非常容易获取到reflect.Type,但是在概念上Value以及Type是完全不同的）
-让我们先开始使用下TypeOf:
-package main import ( &quot;fmt&quot; &quot;reflect&quot; ) func main() { var x float64 = 3.4 fmt.Println(&quot;type:&quot;, reflect.TypeOf(x)) }  这个程序会打印：
-type: float64  你可能会想知道我们的interface在哪里，因为上面的程序看上去就像是它传递了float64给变量x，而不是一个interface的value，传递给我们的reflect.TypeOf。但是它确实是存在的；在godoc文档中，reflect.TypeOf的签名包含一个空的interface：
-// TypeOf returns the reflection Type of the value in the interface{}. func TypeOf(i interface{}) Type  当我们调用reflect.TypeOf(x),x是第一个被存储在空interface中，然后传入作为参数；reflect.TypeOf打开这个空的interface，然后重新获取type的信息。
-reflect.Valueof 函数，当然，也重新获取value
-var x float64 = 3.4 fmt.Println(&quot;value:&quot;, reflect.ValueOf(x))  程序输出：
-value: &lt;float64 Value&gt;  reflect.Type以及reflect.Value两个都提供了很多的方法让我们去检查和操作它们。一个重要的例子是Value有一个Type的方法来返回一个reflect.Value的Type。还有Type以及Value都有一个Kind的方法，这个方法返回一个恒量，这个恒量是按照一定的顺序被存储：Unit，Float64，Slice，等等。另外Value提供了一些方法，这些方法名类似Int以及Float，可以让我们获取在这些对象的内部存储的值：（就像int64以及float64）：
-var x float64 = 3.
-                  <a href="https://blog.ucatch.me/post/golang/reflect/" class="post-read-more">[Read More]</a>
+                  <p><strong>系统：CentOS7 + docker 1.6</strong></p>
+
+<p><strong>mongodb版本： 3.0.2</strong></p>
+
+<p><a href="http://blog.mongodb.org/post/80579086742/running-mongodb-queries-concurrently-with-go"><code>原文的地址</code></a>, pla，pla的一堆作者的铺垫介绍略过，但是还是感谢下作者。</p>
+
+<h2 id="介绍">介绍</h2>
+
+<p>mongodb支持很多不同的编程语言，感谢编写驱动程序的人员。一个mongoDB的go语言的驱动叫做mgo。这个驱动是由Gustavo Niemeyer和一些的MongoDB公司的同事一起开发的。团队的负责人是Gustavo以及Steve Francia，他们在2014年的“GopherCon”上分享了“使用Go语言在mongodb中存储数据”。分享内容描述了mgo驱动如何使得mongodb和go更好的协同工作去构建高度可扩展的软件。</p>
+
+<p></p>
+                  <a href="https://blog.ucatch.me/post/mongodb/mongodb-go-concurrently/" class="post-read-more">[阅读全文]</a>
                 
               </div>
-    
+
               
                 <span class="post-meta">
                   
-                    #<a href="https://blog.ucatch.me/tags/golang">golang</a>&nbsp;
+                    #<a href="https://blog.ucatch.me/tags/golang/">golang</a>&nbsp;
                   
-                    #<a href="https://blog.ucatch.me/tags/golang-reflect">golang-reflect</a>&nbsp;
+                    #<a href="https://blog.ucatch.me/tags/mongodb/">mongodb</a>&nbsp;
                   
                 </span>
               
-    
+
             </article>
           
             <article class="post-preview">
-              <a href="https://blog.ucatch.me/post/mongodb/mongodb-go-concurrently/">
-                <h2 class="post-title">mongodb客户端 - Go中的并发</h2>
-    
+              <a href="https://blog.ucatch.me/post/golang/reflect/">
+                <h2 class="post-title">Reflect</h2>
+
                 
               </a>
-    
+
               <p class="post-meta">
-                Posted on July 31, 2017
+                发表于 October 31, 2015
               </p>
               <div class="post-entry">
                 
-                  mongodb中的golang的并发 系统：CentOS7 + docker 1.6
-mongodb版本： 3.0.2
-原文的地址
-pla，pla的一堆作者的铺垫介绍略过，但是还是感谢下作者。
-介绍 mongodb支持很多不同的编程语言，感谢编写驱动程序的人员。一个mongoDB的go语言的驱动叫做mgo。这个驱动是由Gustavo Niemeyer和一些的MongoDB公司的同事一起开发的。团队的负责人是Gustavo以及Steve Francia，他们在2014年的“GopherCon”上分享了“使用Go语言在mongodb中存储数据”。分享内容描述了mgo驱动如何使得mongodb和go更好的协同工作去构建高度可扩展的软件。
-MongoDB和Go让你可以构建可扩展的软件在很多不同的操作系统以及架构上，无需安装框架或者其他的运行时依赖。Go程序是本地的二进制文件并且Go工具正在不断的提升它的运行效率，它的效率是可以比肩C编写的程序的。但是，这并不意味着如果用Go写程序就很复杂和繁琐，就像C程序那样的。使用Go的情况是，编写代码的速度会很快，并且很有乐趣。
-在这篇文章中，我将告诉你如何编写一个Go程序使用mgo驱动来连接以及进行mongo数据库的查询。我会给出一些示例代码，这里可能在新版本的mongodb和Go一同工作上会有一点困惑，但是我会一一解释的。
-示例程序 示例程序连接到一个公共的mongodb数据库。如果你有Go和Bazaar在你的机器上安装了，你也可以连接到我的数据库上。这个程序非常的简单 - 它运行了10个goroutines，它们分别会从goinggo数据库中的buoy_stations 集合中查询记录。这些记录被反射到本地的Go types并且每一个goroutine 日志输出返回的文档的数目：
-// This program provides a sample application for using MongoDB with // the mgo driver. package main import ( &quot;labix.org/v2/mgo&quot; &quot;labix.org/v2/mgo/bson&quot; &quot;log&quot; &quot;sync&quot; &quot;time&quot; ) const ( MongoDBHosts = &quot;ds035428.mongolab.com:35428&quot; AuthDatabase = &quot;goinggo&quot; AuthUserName = &quot;guest&quot; AuthPassword = &quot;welcome&quot; TestDatabase = &quot;goinggo&quot; ) type ( // BuoyCondition contains information for an individual station.
-                  <a href="https://blog.ucatch.me/post/mongodb/mongodb-go-concurrently/" class="post-read-more">[Read More]</a>
+                  <p>reflect 在golang的开发中，经常会使用到的一个特性，它使golang具有了某些动态语言的特性。本文直接翻译自<a href="(http://blog.golang.org/laws-of-reflection)"><code>官方网站</code></a>，对<code>reflect</code>的三条规则进行阐述。</p>
+
+<p></p>
+                  <a href="https://blog.ucatch.me/post/golang/reflect/" class="post-read-more">[阅读全文]</a>
                 
               </div>
-    
+
               
                 <span class="post-meta">
                   
-                    #<a href="https://blog.ucatch.me/tags/golang">golang</a>&nbsp;
+                    #<a href="https://blog.ucatch.me/tags/golang/">golang</a>&nbsp;
                   
-                    #<a href="https://blog.ucatch.me/tags/mongodb">mongodb</a>&nbsp;
+                    #<a href="https://blog.ucatch.me/tags/golang-reflect/">golang-reflect</a>&nbsp;
                   
                 </span>
               
-    
+
             </article>
           
         </div>
@@ -276,7 +271,12 @@ MongoDB和Go让你可以构建可扩展的软件在很多不同的操作系统�
           
         </ul>
         <p class="credits copyright text-muted">
-          Some Person
+          
+            
+              seanchann.zhou
+                      
+          
+          
           &nbsp;&bull;&nbsp;
           2017
 
@@ -287,7 +287,7 @@ MongoDB和Go让你可以构建可扩展的软件在很多不同的操作系统�
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="http://gohugo.io">Hugo v0.26-DEV</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          由 <a href="http://gohugo.io">Hugo v0.26-DEV</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>
@@ -308,6 +308,7 @@ MongoDB和Go让你可以构建可扩展的软件在很多不同的操作系统�
 <script src="https://blog.ucatch.me/js/load-photoswipe.js"></script>
 
 
+<p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
 
   </body>
 </html>

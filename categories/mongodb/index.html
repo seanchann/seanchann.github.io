@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
   <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,10 +8,10 @@
   <title>Mongodb</title>
   <meta property="og:title" content="Mongodb" />
   <meta name="twitter:title" content="Mongodb" />
-  <meta name="author" content="Some Person"/>
+  <meta name="author" content="seanchann.zhou"/>
   <link href='https://blog.ucatch.me/img/favicon.ico' rel='icon' type='image/x-icon'/>
-  <meta property="og:image" content="https://blog.ucatch.me/img/avatar-icon.png" />
-  <meta name="twitter:image" content="https://blog.ucatch.me/img/avatar-icon.png" />
+  <meta property="og:image" content="https://blog.ucatch.me/img/my-IT-user.jpg" />
+  <meta name="twitter:image" content="https://blog.ucatch.me/img/my-IT-user.jpg" />
   <meta name="twitter:card" content="summary" />
   <meta property="og:url" content="https://blog.ucatch.me/categories/mongodb/" />
   <meta property="og:type" content="website" />
@@ -86,7 +86,7 @@
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
-        <span class="sr-only">Toggle navigation</span>
+        <span class="sr-only">切换导航</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -126,7 +126,7 @@
       <div class="avatar-img-border">
         
           <a title="seanchann" href="https://blog.ucatch.me/">
-            <img class="avatar-img" src="https://blog.ucatch.me/img/avatar-icon.png" alt="seanchann" />
+            <img class="avatar-img" src="https://blog.ucatch.me/img/my-IT-user.jpg" alt="seanchann" />
           </a>
         
       </div>
@@ -164,246 +164,194 @@
             <article class="post-preview">
               <a href="https://blog.ucatch.me/post/mongodb/mongodb-index/">
                 <h2 class="post-title">mongodb index说明</h2>
-    
+
                 
               </a>
-    
+
               <p class="post-meta">
-                Posted on July 31, 2017
+                发表于 July 31, 2016
               </p>
               <div class="post-entry">
                 
-                  mongodb的索引 系统：CentOS7 + docker 1.6 mongodb版本： 3.0.2
-mongo 的索引可以加快数据的查询，并且可以有效的避免重复键值对。
-mongo的索引类型 MongoDB提供了不同类型的indexes，这些indexes针对不同的目的以及各种不同类型的内容。
- Single Field Indexes ：单字段索引仅包含集合中相应文档的单个字段中的数据。MongoDB 支持在文档根里的单字段索引，也支持在文档的子文档（需要理解为嵌套的文档）的中的字段的索引。 Compound Indexes：复合索引包含了在集合中的文档的多个字段。 Multikey Indexes：Multikey 指的是将索引建立在了一个数组的字段上，为在数组中的每个值都创建一个index key。 Geospatial Indexes and Queries：地理空间索引作为 GeoJSON 对象或遗留的坐标对存储的数据支持基于位置的搜索。 Text Indexes：text的索引支持对文档中的字符串内容的查找。Text indexes support search of string content in documents. Hashed Index：哈希的索引维护条目的索引字段的值的哈希值，主要用于与分片集群支持散列的碎片的密钥。  Index Properties （属性） 你可以在你构建索引的时候，给出这些属性值。
- TTL Indexes：TTL索引用于TTL的集合，它指示了在一定时间后数据的过期。 Unique Indexes：唯一索引会导致 MongoDB 拒绝包含索引字段的重复值的所有文档。 Sparse Indexes：sparse 属性，会在索引文档的时候，不去索引不包含索引字段的文档。  创建一个唯一的索引 db.collection.ensureIndex( { a: 1 }, { unique: true } )  unique unique如果为true，表示此键值对必须是唯一的。如果在插入重复的键值对的时候，会根据驱动的相关做法返回错误或者直接丢弃插入。
-                  <a href="https://blog.ucatch.me/post/mongodb/mongodb-index/" class="post-read-more">[Read More]</a>
+                  <p><strong>系统：CentOS7 + docker 1.6</strong></p>
+
+<p><strong>mongodb版本： 3.0.2</strong></p>
+
+<p>mongo 的索引可以加快数据的查询，并且可以有效的避免重复键值对。</p>
+
+<h2 id="mongo的索引类型">mongo的索引类型</h2>
+
+<p>MongoDB提供了不同类型的indexes，这些indexes针对不同的目的以及各种不同类型的内容。</p>
+
+<p></p>
+                  <a href="https://blog.ucatch.me/post/mongodb/mongodb-index/" class="post-read-more">[阅读全文]</a>
                 
               </div>
-    
+
               
                 <span class="post-meta">
                   
-                    #<a href="https://blog.ucatch.me/tags/mongodb">mongodb</a>&nbsp;
+                    #<a href="https://blog.ucatch.me/tags/mongodb/">mongodb</a>&nbsp;
                   
                 </span>
               
-    
+
             </article>
           
             <article class="post-preview">
               <a href="https://blog.ucatch.me/post/mongodb/mongodb-wirte/">
                 <h2 class="post-title">mongodb 写操作</h2>
-    
+
                 
               </a>
-    
+
               <p class="post-meta">
-                Posted on July 31, 2017
+                发表于 July 31, 2016
               </p>
               <div class="post-entry">
                 
-                  mongodb的写操作 系统：CentOS7 + docker 1.6 mongodb版本： 3.0.2
-mongodb与写操作相关的内容，比如insert、update、delete操作
-mongo update 请求的方法：
-db.collection.update(query, update, options)  语法格式：
-db.collection.update( &lt;query&gt;, &lt;update&gt;, { upsert: &lt;boolean&gt;, multi: &lt;boolean&gt;, writeConcern: &lt;document&gt; } )  update 的操作 对字段的操作  $inc : 使用给定的值对字段值进行增加 $mul : 使用给定的值对字段值做乘法 $rename : 对字段进行重命名 $setOnInsert : 如果更新的文档是被作为插入处理的，那么设置字段为此值。对更新操作为修改已经存在的文档没有影响。 $set : 设置在文档中的字段的值 $unset : 从文档中移除给定的字段 $min : 如果给定的值小于已经存在的字段的值，那么更新这个字段的值。 $max : 如果给定的值大于已经存在的字段的值，那么更新这个字段的值。 $currentDate : 设置字段的值为当前的日期。设置为Data或者timestamp其中之一。  对数组的操作  $ Acts : 作为占位符，当根据条件匹配到后，更新第一个元素。 $addToSet : 只有当他们在数组集合中不存在的时候，才添加元素到此数组中。 $pop ：删除第一个或者最后一个在数组中的元素。 $pullAll : 删除所有的在数组中匹配到的值。 $pull ：删除所有的根据查询条件匹配到的元素。 $pushAll ：反对的做法。添加一些元素到数组中 $push ：添加一个元素到数组中  修改选项 $each ： 修改$push以及$addToSet的操作，追加多个条目给数组的更新。 $slice : 修改$push的操作，限制更新数组的大小。 $sort ：修改$push的操作，重新对在数组中的文档进行排序。 $position ：修改$push的操作，给定一个数组中的位置去添加元素到数组中的此位置
-                  <a href="https://blog.ucatch.me/post/mongodb/mongodb-wirte/" class="post-read-more">[Read More]</a>
+                  <p><strong>系统：CentOS7 + docker 1.6</strong></p>
+
+<p><strong>mongodb版本： 3.0.2</strong></p>
+
+<p>mongodb与写操作相关的内容，比如insert、update、delete操作</p>
+
+<p></p>
+                  <a href="https://blog.ucatch.me/post/mongodb/mongodb-wirte/" class="post-read-more">[阅读全文]</a>
                 
               </div>
-    
+
               
                 <span class="post-meta">
                   
-                    #<a href="https://blog.ucatch.me/tags/mongodb">mongodb</a>&nbsp;
+                    #<a href="https://blog.ucatch.me/tags/mongodb/">mongodb</a>&nbsp;
                   
                 </span>
               
-    
+
+            </article>
+          
+            <article class="post-preview">
+              <a href="https://blog.ucatch.me/post/mongodb/mongodb-install/">
+                <h2 class="post-title">mongodb安装说明</h2>
+
+                
+              </a>
+
+              <p class="post-meta">
+                发表于 July 31, 2016
+              </p>
+              <div class="post-entry">
+                
+                  <p><strong>系统：CentOS7 + docker 1.6</strong></p>
+
+<p><strong>mongodb版本： 3.0.2</strong></p>
+
+<p>本文的安装是采用docker的方式，而不是在os上安装package的方式。</p>
+
+<p><a href="http://docs.mongoing.com/manual/tutorial/">package的安装方式</a></p>
+
+<p>在开始前，假定用户已经完成了基础环境的配置，这里主要是指docker的运行环境</p>
+
+<p></p>
+                  <a href="https://blog.ucatch.me/post/mongodb/mongodb-install/" class="post-read-more">[阅读全文]</a>
+                
+              </div>
+
+              
+                <span class="post-meta">
+                  
+                    #<a href="https://blog.ucatch.me/tags/mongodb/">mongodb</a>&nbsp;
+                  
+                </span>
+              
+
             </article>
           
             <article class="post-preview">
               <a href="https://blog.ucatch.me/post/mongodb/mongodb-go-concurrently/">
-                <h2 class="post-title">mongodb客户端 - Go中的并发</h2>
-    
+                <h2 class="post-title">mongodb客户端并发 --- Golang</h2>
+
                 
               </a>
-    
+
               <p class="post-meta">
-                Posted on July 31, 2017
+                发表于 July 31, 2016
               </p>
               <div class="post-entry">
                 
-                  mongodb中的golang的并发 系统：CentOS7 + docker 1.6
-mongodb版本： 3.0.2
-原文的地址
-pla，pla的一堆作者的铺垫介绍略过，但是还是感谢下作者。
-介绍 mongodb支持很多不同的编程语言，感谢编写驱动程序的人员。一个mongoDB的go语言的驱动叫做mgo。这个驱动是由Gustavo Niemeyer和一些的MongoDB公司的同事一起开发的。团队的负责人是Gustavo以及Steve Francia，他们在2014年的“GopherCon”上分享了“使用Go语言在mongodb中存储数据”。分享内容描述了mgo驱动如何使得mongodb和go更好的协同工作去构建高度可扩展的软件。
-MongoDB和Go让你可以构建可扩展的软件在很多不同的操作系统以及架构上，无需安装框架或者其他的运行时依赖。Go程序是本地的二进制文件并且Go工具正在不断的提升它的运行效率，它的效率是可以比肩C编写的程序的。但是，这并不意味着如果用Go写程序就很复杂和繁琐，就像C程序那样的。使用Go的情况是，编写代码的速度会很快，并且很有乐趣。
-在这篇文章中，我将告诉你如何编写一个Go程序使用mgo驱动来连接以及进行mongo数据库的查询。我会给出一些示例代码，这里可能在新版本的mongodb和Go一同工作上会有一点困惑，但是我会一一解释的。
-示例程序 示例程序连接到一个公共的mongodb数据库。如果你有Go和Bazaar在你的机器上安装了，你也可以连接到我的数据库上。这个程序非常的简单 - 它运行了10个goroutines，它们分别会从goinggo数据库中的buoy_stations 集合中查询记录。这些记录被反射到本地的Go types并且每一个goroutine 日志输出返回的文档的数目：
-// This program provides a sample application for using MongoDB with // the mgo driver. package main import ( &quot;labix.org/v2/mgo&quot; &quot;labix.org/v2/mgo/bson&quot; &quot;log&quot; &quot;sync&quot; &quot;time&quot; ) const ( MongoDBHosts = &quot;ds035428.mongolab.com:35428&quot; AuthDatabase = &quot;goinggo&quot; AuthUserName = &quot;guest&quot; AuthPassword = &quot;welcome&quot; TestDatabase = &quot;goinggo&quot; ) type ( // BuoyCondition contains information for an individual station.
-                  <a href="https://blog.ucatch.me/post/mongodb/mongodb-go-concurrently/" class="post-read-more">[Read More]</a>
+                  <p><strong>系统：CentOS7 + docker 1.6</strong></p>
+
+<p><strong>mongodb版本： 3.0.2</strong></p>
+
+<p><a href="http://blog.mongodb.org/post/80579086742/running-mongodb-queries-concurrently-with-go"><code>原文的地址</code></a>, pla，pla的一堆作者的铺垫介绍略过，但是还是感谢下作者。</p>
+
+<h2 id="介绍">介绍</h2>
+
+<p>mongodb支持很多不同的编程语言，感谢编写驱动程序的人员。一个mongoDB的go语言的驱动叫做mgo。这个驱动是由Gustavo Niemeyer和一些的MongoDB公司的同事一起开发的。团队的负责人是Gustavo以及Steve Francia，他们在2014年的“GopherCon”上分享了“使用Go语言在mongodb中存储数据”。分享内容描述了mgo驱动如何使得mongodb和go更好的协同工作去构建高度可扩展的软件。</p>
+
+<p></p>
+                  <a href="https://blog.ucatch.me/post/mongodb/mongodb-go-concurrently/" class="post-read-more">[阅读全文]</a>
                 
               </div>
-    
+
               
                 <span class="post-meta">
                   
-                    #<a href="https://blog.ucatch.me/tags/golang">golang</a>&nbsp;
+                    #<a href="https://blog.ucatch.me/tags/golang/">golang</a>&nbsp;
                   
-                    #<a href="https://blog.ucatch.me/tags/mongodb">mongodb</a>&nbsp;
+                    #<a href="https://blog.ucatch.me/tags/mongodb/">mongodb</a>&nbsp;
                   
                 </span>
               
-    
+
             </article>
           
             <article class="post-preview">
               <a href="https://blog.ucatch.me/post/mongodb/mongodb-shell-cmd/">
                 <h2 class="post-title">mongodb的命令</h2>
-    
+
                 
               </a>
-    
+
               <p class="post-meta">
-                Posted on July 31, 2017
+                发表于 July 31, 2016
               </p>
               <div class="post-entry">
                 
-                  
-
-<h1 id="mongodb的命令">mongodb的命令</h1>
+                  <p>本文主要汇总mongodb的命令行。</p>
 
 <p><strong>系统：CentOS7 + docker 1.6</strong></p>
 
-<p><strong>mongodb版本： 3.0.2</strong>
-<strong>mongo shell版本：3.0.4</strong></p>
+<p><strong>mongodb版本： 3.0.2</strong></p>
 
-<h2 id="object">Object</h2>
+<p><strong>mongo shell版本：3.0.4</strong></p>
 
-<h3 id="object-bsonsize-doc"><code>Object.bsonsize(&lt;doc&gt;)</code></h3>
-
-<p>这个命令返回文档的bson的大小，单位是字节。</p>
-
-<p>例子：</p>
-
-<pre><code class="language-bash">db.test.status
-Object.bsonsize(db.test.findOne({bar2:&quot;baz&quot;}))
-</code></pre>
-
-<p>可以看下是不是跟总和一致。这里一定要使用findOne，find返回的是CURSOR的size，而不是当前文档的。</p>
-
+<p></p>
+                  <a href="https://blog.ucatch.me/post/mongodb/mongodb-shell-cmd/" class="post-read-more">[阅读全文]</a>
                 
               </div>
-    
+
               
                 <span class="post-meta">
                   
-                    #<a href="https://blog.ucatch.me/tags/mongodb">mongodb</a>&nbsp;
+                    #<a href="https://blog.ucatch.me/tags/mongodb/">mongodb</a>&nbsp;
                   
                 </span>
               
-    
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://blog.ucatch.me/post/mongodb/mongodb-user/">
-                <h2 class="post-title">mongodb的用户管理说明</h2>
-    
-                
-              </a>
-    
-              <p class="post-meta">
-                Posted on July 31, 2017
-              </p>
-              <div class="post-entry">
-                
-                  mongodb的用户管理 系统：CentOS7 + docker 1.6 mongodb版本： 3.0.2
-安装工作完成后，整个的mongodb运行起来后，在开始工作前，首先应该为我们的mongodb配置适当的用户以及其权限。
-注意下，网上大多数的直接进入命令行,执行
-use admin db.adduser(&quot;test&quot;,&quot;123&quot;)  上面这种方式在3.0的版本上是行不通的
-添加管理员用户 通过docker首先启动不带&ndash;auth的mongodb：
-docker run --volumes-from=mongodb-dv --name mongodb -d mongo  更详细的对安装的描述
-添加管理员用户： 进入mongo shell
-use admin db.createUser( { user: &quot;admin&quot;, pwd: &quot;admin&quot;, roles: [ { role: &quot;userAdminAnyDatabase&quot;, db: &quot;admin&quot; } ] })  roles字段的说明：添加管理员用户的时候，提供了两种roles：userAdmin以及userAdminAnyDatabase
- userAdmin：提供去创建和修改当前数据库的roles以及user。这个role也间接的提供了superuser给我们去访问数据库或者其他，如果当前数据库是admin 数据库，cluster数据库。userAdmin role允许用户去更改其他用户的权限，当然也包括他们自己。它支持操作有：
- changeCustomData changePassword createRole createUser dropRole dropUser grantRole revokeRole viewRole viewUser  userAdminAnyDatabase: 这个role与userAdmin支持的权限类似，但是它应用的对象是在整个集群中的数据库。这个role也提供了下面可以在集群中使用的操作：
- authSchemaUpgrade invalidateUserCache listDatabases   检查创建的用户 根据前面的命令，我们的应该有了一个admin的用户，执行命令检查下：
-                  <a href="https://blog.ucatch.me/post/mongodb/mongodb-user/" class="post-read-more">[Read More]</a>
-                
-              </div>
-    
-              
-                <span class="post-meta">
-                  
-                    #<a href="https://blog.ucatch.me/tags/mongodb">mongodb</a>&nbsp;
-                  
-                </span>
-              
-    
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://blog.ucatch.me/post/mongodb/mongodb-read/">
-                <h2 class="post-title">mongodb的读说明</h2>
-    
-                
-              </a>
-    
-              <p class="post-meta">
-                Posted on July 31, 2017
-              </p>
-              <div class="post-entry">
-                
-                  mongodb的读 系统：CentOS7 + docker 1.6 mongodb版本： 3.0.2
-mongodb与读操作相关的内容，比如find以及query操作
-查询和Projection的操作选项 查询选择器 比较  $eq : 匹配到所有的与给定的值相等的条目 $gt : 匹配到所有的大于给定的值的条目 $gte : 匹配到所有的大于或者等于给定的值的条目 $lt : 匹配所有的小于给定值的条目 $lte : 匹配所有的小于或者等于给定值的条目 $ne : 匹配所有的不等于给定值的条目 $in : 匹配给定的值在一个数组中存在的条目 $nin : 匹配给定的值不在一个数组中存在的条目  逻辑操作  $or : 逻辑或操作 $and : 逻辑与操作 $not : 逻辑非的操作 $nor : 逻辑异或的操作  Element  $exists : 匹配所有的文档存在给定的字段的条目 $type : 匹配如果字段是给定的类型的文档条目  Evaluation  $mod : 针对字段的值进行mod的操作 $regex : 返回与正则表达式匹配的文档 $text : 处理text的查找 $where : 返回匹配JavaScript表达式的文档  Geospatial  $geoWithin : Selects geometries within a bounding GeoJSON geometry.
-                  <a href="https://blog.ucatch.me/post/mongodb/mongodb-read/" class="post-read-more">[Read More]</a>
-                
-              </div>
-    
-              
-                <span class="post-meta">
-                  
-                    #<a href="https://blog.ucatch.me/tags/mongodb">mongodb</a>&nbsp;
-                  
-                </span>
-              
-    
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://blog.ucatch.me/post/mongodb/mongodb-problems-summary/">
-                <h2 class="post-title">mongodb问题汇总</h2>
-    
-                
-              </a>
-    
-              <p class="post-meta">
-                Posted on July 31, 2017
-              </p>
-              <div class="post-entry">
-                
-                  mongodb使用中的问题 系统：CentOS7 + docker 1.6 mongodb版本： 3.0.2
-WARNING:/sys/kernel/mm/transparent_hugepage/enabled or /sys/kernel/mm/transparent_hugepage/defrag is &lsquo;always&rsquo;. 这个问题的原因是由于内核的某些参数的配置造成的mongodb产生了警告，基于docker环境，在docker运行的host主机上： 1. echo never &gt; /sys/kernel/mm/transparent_hugepage/enabled 2. echo never &gt; /sys/kernel/mm/transparent_hugepage/defrag or 1. echo never | sudo tee /sys/kernel/mm/transparent_hugepage/enabled 2. echo never | sudo tee /sys/kernel/mm/transparent_hugepage/defrag  run command with db 从mongo shell执行db.runCommand()，需要添加下面的用户以及权限才能执行。
-db.createUser( { user: &quot;admin&quot;, pwd: &quot;password&quot;, roles: [ { role: &quot;root&quot;, db: &quot;admin&quot; } ] } ); exit;  db.auth() 错误：Error: 18 { ok: 0.
-                  <a href="https://blog.ucatch.me/post/mongodb/mongodb-problems-summary/" class="post-read-more">[Read More]</a>
-                
-              </div>
-    
-              
-                <span class="post-meta">
-                  
-                    #<a href="https://blog.ucatch.me/tags/mongodb">mongodb</a>&nbsp;
-                  
-                </span>
-              
-    
+
             </article>
           
         </div>
+        
+          <ul class="pager main-pager">
+            
+            
+              <li class="next">
+                <a href="https://blog.ucatch.me/categories/mongodb/page/2">下一页 &rarr;</a>
+              </li>
+            
+          </ul>
         
       </div>
     </div>
@@ -443,7 +391,12 @@ db.createUser( { user: &quot;admin&quot;, pwd: &quot;password&quot;, roles: [ { 
           
         </ul>
         <p class="credits copyright text-muted">
-          Some Person
+          
+            
+              seanchann.zhou
+                      
+          
+          
           &nbsp;&bull;&nbsp;
           2017
 
@@ -454,7 +407,7 @@ db.createUser( { user: &quot;admin&quot;, pwd: &quot;password&quot;, roles: [ { 
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="http://gohugo.io">Hugo v0.26-DEV</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          由 <a href="http://gohugo.io">Hugo v0.26-DEV</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>
@@ -475,6 +428,7 @@ db.createUser( { user: &quot;admin&quot;, pwd: &quot;password&quot;, roles: [ { 
 <script src="https://blog.ucatch.me/js/load-photoswipe.js"></script>
 
 
+<p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
 
   </body>
 </html>

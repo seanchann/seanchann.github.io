@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
   <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,10 +11,10 @@
   <meta name="description" content="mongodb的问题汇总">
   <meta property="og:description" content="mongodb的问题汇总">
   <meta name="twitter:description" content="mongodb的问题汇总">
-  <meta name="author" content="Some Person"/>
+  <meta name="author" content="seanchann.zhou"/>
   <link href='https://blog.ucatch.me/img/favicon.ico' rel='icon' type='image/x-icon'/>
-  <meta property="og:image" content="https://blog.ucatch.me/img/avatar-icon.png" />
-  <meta name="twitter:image" content="https://blog.ucatch.me/img/avatar-icon.png" />
+  <meta property="og:image" content="https://blog.ucatch.me/img/my-IT-user.jpg" />
+  <meta name="twitter:image" content="https://blog.ucatch.me/img/my-IT-user.jpg" />
   <meta name="twitter:card" content="summary" />
   <meta property="og:url" content="https://blog.ucatch.me/post/mongodb/mongodb-problems-summary/" />
   <meta property="og:type" content="website" />
@@ -89,7 +89,7 @@
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
-        <span class="sr-only">Toggle navigation</span>
+        <span class="sr-only">切换导航</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -129,7 +129,7 @@
       <div class="avatar-img-border">
         
           <a title="seanchann" href="https://blog.ucatch.me/">
-            <img class="avatar-img" src="https://blog.ucatch.me/img/avatar-icon.png" alt="seanchann" />
+            <img class="avatar-img" src="https://blog.ucatch.me/img/my-IT-user.jpg" alt="seanchann" />
           </a>
         
       </div>
@@ -163,7 +163,7 @@
                 
                 
                   <span class="post-meta">
-  Posted on July 31, 2017
+  发表于 July 31, 2016
   
 </span>
 
@@ -182,12 +182,9 @@
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        
+        <p><strong>系统：CentOS7 + docker 1.6</strong></p>
 
-<h1 id="mongodb使用中的问题">mongodb使用中的问题</h1>
-
-<p><strong>系统：CentOS7 + docker 1.6</strong>
-<strong>mongodb版本： 3.0.2</strong></p>
+<p><strong>mongodb版本： 3.0.2</strong></p>
 
 <h2 id="warning-sys-kernel-mm-transparent-hugepage-enabled-or-sys-kernel-mm-transparent-hugepage-defrag-is-always">WARNING:/sys/kernel/mm/transparent_hugepage/enabled or /sys/kernel/mm/transparent_hugepage/defrag is &lsquo;always&rsquo;.</h2>
 
@@ -201,6 +198,8 @@
     1. echo never | sudo tee /sys/kernel/mm/transparent_hugepage/enabled
     2. echo never | sudo tee /sys/kernel/mm/transparent_hugepage/defrag
 </code></pre>
+
+<p></p>
 
 <h2 id="run-command-with-db">run command with db</h2>
 
@@ -247,18 +246,17 @@ var User = mongoose.model('User', userSchema);
 
 http://stackoverflow.com/questions/20980413/how-to-set-a-expires-for-a-subdocument-in-mongoose
 </code></pre>
-
       </article>
 
       <ul class="pager blog-pager">
         
           <li class="previous">
-            <a href="https://blog.ucatch.me/post/scm/redmine-install/" data-toggle="tooltip" data-placement="top" title="redmine的安装">&larr; Previous Post</a>
+            <a href="https://blog.ucatch.me/post/scm/redmine-install/" data-toggle="tooltip" data-placement="top" title="redmine的安装">&larr; 前一篇</a>
           </li>
         
         
           <li class="next">
-            <a href="https://blog.ucatch.me/post/mongodb/mongodb-read/" data-toggle="tooltip" data-placement="top" title="mongodb的读说明">Next Post &rarr;</a>
+            <a href="https://blog.ucatch.me/post/mongodb/mongodb-read/" data-toggle="tooltip" data-placement="top" title="mongodb的读说明">后一篇 &rarr;</a>
           </li>
         
       </ul>
@@ -305,7 +303,12 @@ http://stackoverflow.com/questions/20980413/how-to-set-a-expires-for-a-subdocume
           
         </ul>
         <p class="credits copyright text-muted">
-          Some Person
+          
+            
+              seanchann.zhou
+                      
+          
+          
           &nbsp;&bull;&nbsp;
           2017
 
@@ -316,7 +319,7 @@ http://stackoverflow.com/questions/20980413/how-to-set-a-expires-for-a-subdocume
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="http://gohugo.io">Hugo v0.26-DEV</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          由 <a href="http://gohugo.io">Hugo v0.26-DEV</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>
@@ -337,6 +340,7 @@ http://stackoverflow.com/questions/20980413/how-to-set-a-expires-for-a-subdocume
 <script src="https://blog.ucatch.me/js/load-photoswipe.js"></script>
 
 
+<p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
 
   </body>
 </html>

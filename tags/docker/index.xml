@@ -6,9 +6,9 @@
     <description>Recent content in Docker on seanchann</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <managingEditor>seanchann@foxmail.com (Some Person)</managingEditor>
-    <webMaster>seanchann@foxmail.com (Some Person)</webMaster>
-    <lastBuildDate>Mon, 31 Jul 2017 08:49:41 +0800</lastBuildDate>
+    <managingEditor>seanchann@foxmail.com (seanchann.zhou)</managingEditor>
+    <webMaster>seanchann@foxmail.com (seanchann.zhou)</webMaster>
+    <lastBuildDate>Tue, 31 Mar 2015 08:49:41 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.ucatch.me/tags/docker/index.xml" rel="self" type="application/rss+xml" />
     
@@ -16,42 +16,41 @@
     <item>
       <title>jenkins的docker编译</title>
       <link>https://blog.ucatch.me/post/ci-cd/jenkins-docker-build/</link>
-      <pubDate>Mon, 31 Jul 2017 08:49:41 +0800</pubDate>
-      <author>seanchann@foxmail.com (Some Person)</author>
+      <pubDate>Tue, 31 Mar 2015 08:49:41 +0800</pubDate>
+      <author>seanchann@foxmail.com (seanchann.zhou)</author>
       <guid>https://blog.ucatch.me/post/ci-cd/jenkins-docker-build/</guid>
-      <description>jenkins的docker自动化 系统：CentOS7 + docker 1.6 Jenkins: ver. 1.609.1
-前提条件：
- jenkins的任意node已经安装docker或者docker-build-step插件已经安装  首先，完成docker img编译相关的job有两种方式：
- 通过docker-build-setup等类似插件来完成 通过执行脚本来完成，前提是我们的node上已经有docker环境。这个node当然也可以是docker-slave了，这样就会更加的灵活了。  配置docker build step 插件 docker build step的原理是配置一个Docker Remote API，插件通过这个API来进行docker命令的相关操作。
-这个插件的配置是在configuration &amp;ndash;&amp;gt;Docker Builder选项中配置一下docker Remote API，比如：http://192.168.60.79:2375
-配置完成后，就可以在job的build step里面选择“Execute Docker container”配置相应的命令，来完成你的工作。
-配置一个节点 参照标准的节点操作来添加一个有docker环境的node。
-节点配置完成后，我们在job的configure制定我们的slave node，那么就可以在这个docker node里面执行我们的docker相关的工作了。
-这里你也可以尝试下使用docker in docker的方式。
-注意：node上必须有jdk的环境，以及git等相关软件，根据需要自行安装</description>
+      <description>&lt;p&gt;&lt;strong&gt;系统：CentOS7 + docker 1.6&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Jenkins: ver. 1.609.1&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;前提条件：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;jenkins的任意node已经安装docker或者docker-build-step插件已经安装&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>jenkins的docker节点配置</title>
       <link>https://blog.ucatch.me/post/ci-cd/jenkins-docker-slave/</link>
-      <pubDate>Mon, 31 Jul 2017 08:49:41 +0800</pubDate>
-      <author>seanchann@foxmail.com (Some Person)</author>
+      <pubDate>Tue, 31 Mar 2015 08:49:41 +0800</pubDate>
+      <author>seanchann@foxmail.com (seanchann.zhou)</author>
       <guid>https://blog.ucatch.me/post/ci-cd/jenkins-docker-slave/</guid>
-      <description>docker的slave节点配置 系统：CentOS7 + docker 1.6 Jenkins: ver. 1.609.1
-前面的章节已经成功的通过git push触发job，本章我们配置一个job，在docker cloud中执行这些job
-前提条件：
- jenkins的docker-plugin插件已经安装  说明：
-jenkins与docker协同工作的原理是，通过jenkins的docker插件来完成。 首先docker插件负责docker daemon的管理，也就是配置jenkins去连接docker daemon。然后启动一个docker image来完成job。其中，需要注意的是后续我们的job都是完全放在这个启动起来的container里面完成的。因此这个image需要我们自己去根据工程的需要来定义。还有就是master会去连接到这个启动起来的container，是通过ssh来连接的。
-配置docker plugin docker 插件提供了可以通过在slave的节点上docker环境，来执行docker的相关操作。
-docker环境配置 这里主要就是配置下docker daemon，首先使我们必须安装完成docker。 对docker daemon的配置流程如下：
- /etc/sysconfig/docker配置文件配置OPTIONS=&amp;lsquo;-H unix:///var/run/docker.sock -H tcp://0.0.0.0:2375&amp;rsquo; 。这个配置使能了本地socket以及远端tcp的连接。 如果有防火墙，配置防火墙打开2375端口（no auth）以及2376端口（auth） 重启防火墙以及我们的docker.service  注意-H给出的端口作为http端口，端口+1作为https，这是docker daemon的默认行为
-docker jenkins image 配置好docker daemon以后，还需要在docker slave上跑一个docker image给jenkins来使用。后面去配置jenkins的docker cloud的时候就是配置这个image。
-这个image的创建可以手动创建或者直接使用docker hub上的evarga/jenkins-slave
-evarga/jenkins-slave的使用 这个镜像直接拉取：
-docker pull evarga/jenkins-slave  镜像默认的用户名和密码是jenkins:jenkins
-手动创建jenkins-slave jenkins的配置 jenkins的配置主要包括增加一个docker cloud。
-docker cloud的配置， 流程描述如下：
- Manage Jenkins-&amp;gt;configuration-&amp;gt;Add New cloud 配置name以及 Docker URL（eg.</description>
+      <description>&lt;p&gt;&lt;strong&gt;系统：CentOS7 + docker 1.6&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Jenkins：ver. 1.609.1&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;../../ci-cd/jenkins-gitlab&#34;&gt;前面的章节已经成功的通过git push触发job&lt;/a&gt;，本章我们配置一个job，在docker cloud中执行这些job&lt;/p&gt;
+
+&lt;p&gt;前提条件：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;jenkins的docker-plugin插件已经安装&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

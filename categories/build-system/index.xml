@@ -6,9 +6,8 @@
     <description>Recent content in Build System on seanchann</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <managingEditor>seanchann@foxmail.com (Some Person)</managingEditor>
-    <webMaster>seanchann@foxmail.com (Some Person)</webMaster>
-    <lastBuildDate>Mon, 31 Jul 2017 08:49:41 +0800</lastBuildDate>
+    <managingEditor>seanchann@foxmail.com (seanchann.zhou)</managingEditor>
+    <webMaster>seanchann@foxmail.com (seanchann.zhou)</webMaster>
     
 	<atom:link href="https://blog.ucatch.me/categories/build-system/index.xml" rel="self" type="application/rss+xml" />
     
@@ -16,13 +15,14 @@
     <item>
       <title>cmake编译第三方依赖工程</title>
       <link>https://blog.ucatch.me/post/build-system/cmake-external-project/</link>
-      <pubDate>Mon, 31 Jul 2017 08:49:41 +0800</pubDate>
-      <author>seanchann@foxmail.com (Some Person)</author>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>seanchann@foxmail.com (seanchann.zhou)</author>
       <guid>https://blog.ucatch.me/post/build-system/cmake-external-project/</guid>
-      <description>cmake的ExteranlProject 系统：F22 Cmake: version 3.3.2
-ExternalProject_Add 这个函数在cmake 2.8版本以上支持，包含include(ExternalProject)模块即可， 此函数定义了一个编译外部工程的标准方法，当然也可以定制编译流程ExternalProject_Add_Step
-ExternalProject_Add函数说明：创建一个针对外部工程的自定义编译目标的过程：下载，更新/patch，configure，build，install， 以及test:
-ExternalProject_Add(&amp;lt;name&amp;gt; # Name for custom target [DEPENDS projects...] # Targets on which the project depends [PREFIX dir] # Root dir for entire project [LIST_SEPARATOR sep] # Sep to be replaced by ; in cmd lines [TMP_DIR dir] # Directory to store temporary files [STAMP_DIR dir] # Directory to store step timestamps #--Download step-------------- [DOWNLOAD_NAME fname] # File name to store (if not end of URL) [DOWNLOAD_DIR dir] # Directory to store downloaded files [DOWNLOAD_COMMAND cmd.</description>
+      <description>&lt;p&gt;在&lt;code&gt;cmake&lt;/code&gt;的工程中，存在大量的使用或者引用外部工程的情形，很多时候，我们并不想直接导入外部代码到我们的工程里。这个时候，在我们的工程里，直接编译外部工程，然后输出工程所依赖文件，无疑是最好的方法。&lt;/p&gt;
+
+&lt;p&gt;本文主要阐述在&lt;code&gt;cmake&lt;/code&gt;工程中如何编译外部工程。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

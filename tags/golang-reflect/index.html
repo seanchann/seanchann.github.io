@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
   <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,10 +8,10 @@
   <title>Golang Reflect</title>
   <meta property="og:title" content="Golang Reflect" />
   <meta name="twitter:title" content="Golang Reflect" />
-  <meta name="author" content="Some Person"/>
+  <meta name="author" content="seanchann.zhou"/>
   <link href='https://blog.ucatch.me/img/favicon.ico' rel='icon' type='image/x-icon'/>
-  <meta property="og:image" content="https://blog.ucatch.me/img/avatar-icon.png" />
-  <meta name="twitter:image" content="https://blog.ucatch.me/img/avatar-icon.png" />
+  <meta property="og:image" content="https://blog.ucatch.me/img/my-IT-user.jpg" />
+  <meta name="twitter:image" content="https://blog.ucatch.me/img/my-IT-user.jpg" />
   <meta name="twitter:card" content="summary" />
   <meta property="og:url" content="https://blog.ucatch.me/tags/golang-reflect/" />
   <meta property="og:type" content="website" />
@@ -86,7 +86,7 @@
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
-        <span class="sr-only">Toggle navigation</span>
+        <span class="sr-only">切换导航</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -126,7 +126,7 @@
       <div class="avatar-img-border">
         
           <a title="seanchann" href="https://blog.ucatch.me/">
-            <img class="avatar-img" src="https://blog.ucatch.me/img/avatar-icon.png" alt="seanchann" />
+            <img class="avatar-img" src="https://blog.ucatch.me/img/my-IT-user.jpg" alt="seanchann" />
           </a>
         
       </div>
@@ -164,39 +164,32 @@
             <article class="post-preview">
               <a href="https://blog.ucatch.me/post/golang/reflect/">
                 <h2 class="post-title">Reflect</h2>
-    
+
                 
               </a>
-    
+
               <p class="post-meta">
-                Posted on July 31, 2017
+                发表于 October 31, 2015
               </p>
               <div class="post-entry">
                 
-                  反射规则 原文地址
-反射规则的第一条： 1.反射从interface的value到reflection object 在底层，反射仅仅是一个机制，来检查存储在内部的一个interface变量中的type和value的对。首先，在包reflect中有两种类型我们必须知晓：Type 以及 Value。这两个类型可以让我们访问到interface变量的内容，并且提供了两个简单的函数，reflect.TypeOf以及reflect.ValueOf,通过对这两个函数的调用就可以获取到interface变量的值。（此外，调用reflect.Value也非常容易获取到reflect.Type,但是在概念上Value以及Type是完全不同的）
-让我们先开始使用下TypeOf:
-package main import ( &quot;fmt&quot; &quot;reflect&quot; ) func main() { var x float64 = 3.4 fmt.Println(&quot;type:&quot;, reflect.TypeOf(x)) }  这个程序会打印：
-type: float64  你可能会想知道我们的interface在哪里，因为上面的程序看上去就像是它传递了float64给变量x，而不是一个interface的value，传递给我们的reflect.TypeOf。但是它确实是存在的；在godoc文档中，reflect.TypeOf的签名包含一个空的interface：
-// TypeOf returns the reflection Type of the value in the interface{}. func TypeOf(i interface{}) Type  当我们调用reflect.TypeOf(x),x是第一个被存储在空interface中，然后传入作为参数；reflect.TypeOf打开这个空的interface，然后重新获取type的信息。
-reflect.Valueof 函数，当然，也重新获取value
-var x float64 = 3.4 fmt.Println(&quot;value:&quot;, reflect.ValueOf(x))  程序输出：
-value: &lt;float64 Value&gt;  reflect.Type以及reflect.Value两个都提供了很多的方法让我们去检查和操作它们。一个重要的例子是Value有一个Type的方法来返回一个reflect.Value的Type。还有Type以及Value都有一个Kind的方法，这个方法返回一个恒量，这个恒量是按照一定的顺序被存储：Unit，Float64，Slice，等等。另外Value提供了一些方法，这些方法名类似Int以及Float，可以让我们获取在这些对象的内部存储的值：（就像int64以及float64）：
-var x float64 = 3.
-                  <a href="https://blog.ucatch.me/post/golang/reflect/" class="post-read-more">[Read More]</a>
+                  <p>reflect 在golang的开发中，经常会使用到的一个特性，它使golang具有了某些动态语言的特性。本文直接翻译自<a href="(http://blog.golang.org/laws-of-reflection)"><code>官方网站</code></a>，对<code>reflect</code>的三条规则进行阐述。</p>
+
+<p></p>
+                  <a href="https://blog.ucatch.me/post/golang/reflect/" class="post-read-more">[阅读全文]</a>
                 
               </div>
-    
+
               
                 <span class="post-meta">
                   
-                    #<a href="https://blog.ucatch.me/tags/golang">golang</a>&nbsp;
+                    #<a href="https://blog.ucatch.me/tags/golang/">golang</a>&nbsp;
                   
-                    #<a href="https://blog.ucatch.me/tags/golang-reflect">golang-reflect</a>&nbsp;
+                    #<a href="https://blog.ucatch.me/tags/golang-reflect/">golang-reflect</a>&nbsp;
                   
                 </span>
               
-    
+
             </article>
           
         </div>
@@ -239,7 +232,12 @@ var x float64 = 3.
           
         </ul>
         <p class="credits copyright text-muted">
-          Some Person
+          
+            
+              seanchann.zhou
+                      
+          
+          
           &nbsp;&bull;&nbsp;
           2017
 
@@ -250,7 +248,7 @@ var x float64 = 3.
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="http://gohugo.io">Hugo v0.26-DEV</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          由 <a href="http://gohugo.io">Hugo v0.26-DEV</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>
@@ -271,6 +269,7 @@ var x float64 = 3.
 <script src="https://blog.ucatch.me/js/load-photoswipe.js"></script>
 
 
+<p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
 
   </body>
 </html>

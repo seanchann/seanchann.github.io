@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
   <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>mongodb客户端 - Go中的并发</title>
-  <meta property="og:title" content="mongodb客户端 - Go中的并发" />
-  <meta name="twitter:title" content="mongodb客户端 - Go中的并发" />
+  <title>mongodb客户端并发 --- Golang</title>
+  <meta property="og:title" content="mongodb客户端并发 --- Golang" />
+  <meta name="twitter:title" content="mongodb客户端并发 --- Golang" />
   <meta name="description" content="go语言版本的mongodb的驱动并发说明">
   <meta property="og:description" content="go语言版本的mongodb的驱动并发说明">
   <meta name="twitter:description" content="go语言版本的mongodb的驱动并发说明">
-  <meta name="author" content="Some Person"/>
+  <meta name="author" content="seanchann.zhou"/>
   <link href='https://blog.ucatch.me/img/favicon.ico' rel='icon' type='image/x-icon'/>
-  <meta property="og:image" content="https://blog.ucatch.me/img/avatar-icon.png" />
-  <meta name="twitter:image" content="https://blog.ucatch.me/img/avatar-icon.png" />
+  <meta property="og:image" content="https://blog.ucatch.me/img/my-IT-user.jpg" />
+  <meta name="twitter:image" content="https://blog.ucatch.me/img/my-IT-user.jpg" />
   <meta name="twitter:card" content="summary" />
   <meta property="og:url" content="https://blog.ucatch.me/post/mongodb/mongodb-go-concurrently/" />
   <meta property="og:type" content="website" />
@@ -89,7 +89,7 @@
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
-        <span class="sr-only">Toggle navigation</span>
+        <span class="sr-only">切换导航</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -129,7 +129,7 @@
       <div class="avatar-img-border">
         
           <a title="seanchann" href="https://blog.ucatch.me/">
-            <img class="avatar-img" src="https://blog.ucatch.me/img/avatar-icon.png" alt="seanchann" />
+            <img class="avatar-img" src="https://blog.ucatch.me/img/my-IT-user.jpg" alt="seanchann" />
           </a>
         
       </div>
@@ -159,11 +159,11 @@
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="post-heading">
-              <h1>mongodb客户端 - Go中的并发</h1>
+              <h1>mongodb客户端并发 --- Golang</h1>
                 
                 
                   <span class="post-meta">
-  Posted on July 31, 2017
+  发表于 July 31, 2016
   
 </span>
 
@@ -182,21 +182,17 @@
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        
-
-<h1 id="mongodb中的golang的并发">mongodb中的golang的并发</h1>
-
-<p><strong>系统：CentOS7 + docker 1.6</strong></p>
+        <p><strong>系统：CentOS7 + docker 1.6</strong></p>
 
 <p><strong>mongodb版本： 3.0.2</strong></p>
 
-<p><a href="http://blog.mongodb.org/post/80579086742/running-mongodb-queries-concurrently-with-go">原文的地址</a></p>
-
-<p>pla，pla的一堆作者的铺垫介绍略过，但是还是感谢下作者。</p>
+<p><a href="http://blog.mongodb.org/post/80579086742/running-mongodb-queries-concurrently-with-go"><code>原文的地址</code></a>, pla，pla的一堆作者的铺垫介绍略过，但是还是感谢下作者。</p>
 
 <h2 id="介绍">介绍</h2>
 
 <p>mongodb支持很多不同的编程语言，感谢编写驱动程序的人员。一个mongoDB的go语言的驱动叫做mgo。这个驱动是由Gustavo Niemeyer和一些的MongoDB公司的同事一起开发的。团队的负责人是Gustavo以及Steve Francia，他们在2014年的“GopherCon”上分享了“使用Go语言在mongodb中存储数据”。分享内容描述了mgo驱动如何使得mongodb和go更好的协同工作去构建高度可扩展的软件。</p>
+
+<p></p>
 
 <p>MongoDB和Go让你可以构建可扩展的软件在很多不同的操作系统以及架构上，无需安装框架或者其他的运行时依赖。Go程序是本地的二进制文件并且Go工具正在不断的提升它的运行效率，它的效率是可以比肩C编写的程序的。但是，这并不意味着如果用Go写程序就很复杂和繁琐，就像C程序那样的。使用Go的情况是，编写代码的速度会很快，并且很有乐趣。</p>
 
@@ -451,18 +447,17 @@ log.Printf(&quot;RunQuery : %d : Count[%d]\n&quot;, query, len(buoyStations))
 <p>MongoDB可以处理大量的并发请求，当你设计你的MongoDB数据库和集合为并发的时候。Go以及mgo驱动完全的对齐并且推送数据到MongoDB，使得软件可以在计算能力上有很大的优势。</p>
 
 <p>mgo驱动提供了一个安全的方式来利用Go并发的优势，你必须灵活的平行的执行并发查询。最好花一点时间学习一些MongoDB的replica sets以及负载均衡的配置。然后确保负载均衡的行为按照预期的设想工作。</p>
-
       </article>
 
       <ul class="pager blog-pager">
         
           <li class="previous">
-            <a href="https://blog.ucatch.me/post/mongodb/mongodb-shell-cmd/" data-toggle="tooltip" data-placement="top" title="mongodb的命令">&larr; Previous Post</a>
+            <a href="https://blog.ucatch.me/post/mongodb/mongodb-shell-cmd/" data-toggle="tooltip" data-placement="top" title="mongodb的命令">&larr; 前一篇</a>
           </li>
         
         
           <li class="next">
-            <a href="https://blog.ucatch.me/post/mongodb/mongodb-wirte/" data-toggle="tooltip" data-placement="top" title="mongodb 写操作">Next Post &rarr;</a>
+            <a href="https://blog.ucatch.me/post/mongodb/mongodb-install/" data-toggle="tooltip" data-placement="top" title="mongodb安装说明">后一篇 &rarr;</a>
           </li>
         
       </ul>
@@ -509,7 +504,12 @@ log.Printf(&quot;RunQuery : %d : Count[%d]\n&quot;, query, len(buoyStations))
           
         </ul>
         <p class="credits copyright text-muted">
-          Some Person
+          
+            
+              seanchann.zhou
+                      
+          
+          
           &nbsp;&bull;&nbsp;
           2017
 
@@ -520,7 +520,7 @@ log.Printf(&quot;RunQuery : %d : Count[%d]\n&quot;, query, len(buoyStations))
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="http://gohugo.io">Hugo v0.26-DEV</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          由 <a href="http://gohugo.io">Hugo v0.26-DEV</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>
@@ -541,6 +541,7 @@ log.Printf(&quot;RunQuery : %d : Count[%d]\n&quot;, query, len(buoyStations))
 <script src="https://blog.ucatch.me/js/load-photoswipe.js"></script>
 
 
+<p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
 
   </body>
 </html>

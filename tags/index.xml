@@ -6,9 +6,9 @@
     <description>Recent content in Tags on seanchann</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <managingEditor>seanchann@foxmail.com (Some Person)</managingEditor>
-    <webMaster>seanchann@foxmail.com (Some Person)</webMaster>
-    <lastBuildDate>Mon, 31 Jul 2017 08:49:41 +0800</lastBuildDate>
+    <managingEditor>seanchann@foxmail.com (seanchann.zhou)</managingEditor>
+    <webMaster>seanchann@foxmail.com (seanchann.zhou)</webMaster>
+    <lastBuildDate>Tue, 31 Mar 2015 08:49:41 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.ucatch.me/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -16,8 +16,8 @@
     <item>
       <title>Cmake</title>
       <link>https://blog.ucatch.me/tags/cmake/</link>
-      <pubDate>Mon, 31 Jul 2017 08:49:41 +0800</pubDate>
-      <author>seanchann@foxmail.com (Some Person)</author>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>seanchann@foxmail.com (seanchann.zhou)</author>
       <guid>https://blog.ucatch.me/tags/cmake/</guid>
       <description></description>
     </item>
@@ -25,8 +25,8 @@
     <item>
       <title>Docker</title>
       <link>https://blog.ucatch.me/tags/docker/</link>
-      <pubDate>Mon, 31 Jul 2017 08:49:41 +0800</pubDate>
-      <author>seanchann@foxmail.com (Some Person)</author>
+      <pubDate>Tue, 31 Mar 2015 08:49:41 +0800</pubDate>
+      <author>seanchann@foxmail.com (seanchann.zhou)</author>
       <guid>https://blog.ucatch.me/tags/docker/</guid>
       <description></description>
     </item>
@@ -34,8 +34,8 @@
     <item>
       <title>Gitlab</title>
       <link>https://blog.ucatch.me/tags/gitlab/</link>
-      <pubDate>Mon, 31 Jul 2017 08:49:41 +0800</pubDate>
-      <author>seanchann@foxmail.com (Some Person)</author>
+      <pubDate>Sun, 31 Jul 2016 08:49:41 +0800</pubDate>
+      <author>seanchann@foxmail.com (seanchann.zhou)</author>
       <guid>https://blog.ucatch.me/tags/gitlab/</guid>
       <description></description>
     </item>
@@ -43,8 +43,8 @@
     <item>
       <title>Golang</title>
       <link>https://blog.ucatch.me/tags/golang/</link>
-      <pubDate>Mon, 31 Jul 2017 08:49:41 +0800</pubDate>
-      <author>seanchann@foxmail.com (Some Person)</author>
+      <pubDate>Sun, 31 Jul 2016 08:49:41 +0800</pubDate>
+      <author>seanchann@foxmail.com (seanchann.zhou)</author>
       <guid>https://blog.ucatch.me/tags/golang/</guid>
       <description></description>
     </item>
@@ -52,8 +52,8 @@
     <item>
       <title>Golang Reflect</title>
       <link>https://blog.ucatch.me/tags/golang-reflect/</link>
-      <pubDate>Mon, 31 Jul 2017 08:49:41 +0800</pubDate>
-      <author>seanchann@foxmail.com (Some Person)</author>
+      <pubDate>Sat, 31 Oct 2015 08:49:41 +0800</pubDate>
+      <author>seanchann@foxmail.com (seanchann.zhou)</author>
       <guid>https://blog.ucatch.me/tags/golang-reflect/</guid>
       <description></description>
     </item>
@@ -61,8 +61,8 @@
     <item>
       <title>Jenkins</title>
       <link>https://blog.ucatch.me/tags/jenkins/</link>
-      <pubDate>Mon, 31 Jul 2017 08:49:41 +0800</pubDate>
-      <author>seanchann@foxmail.com (Some Person)</author>
+      <pubDate>Tue, 31 Mar 2015 08:49:41 +0800</pubDate>
+      <author>seanchann@foxmail.com (seanchann.zhou)</author>
       <guid>https://blog.ucatch.me/tags/jenkins/</guid>
       <description></description>
     </item>
@@ -70,8 +70,8 @@
     <item>
       <title>Mongodb</title>
       <link>https://blog.ucatch.me/tags/mongodb/</link>
-      <pubDate>Mon, 31 Jul 2017 08:49:41 +0800</pubDate>
-      <author>seanchann@foxmail.com (Some Person)</author>
+      <pubDate>Sun, 31 Jul 2016 08:49:41 +0800</pubDate>
+      <author>seanchann@foxmail.com (seanchann.zhou)</author>
       <guid>https://blog.ucatch.me/tags/mongodb/</guid>
       <description></description>
     </item>
@@ -79,8 +79,8 @@
     <item>
       <title>Redmine</title>
       <link>https://blog.ucatch.me/tags/redmine/</link>
-      <pubDate>Mon, 31 Jul 2017 08:49:41 +0800</pubDate>
-      <author>seanchann@foxmail.com (Some Person)</author>
+      <pubDate>Sun, 31 Jul 2016 08:49:41 +0800</pubDate>
+      <author>seanchann@foxmail.com (seanchann.zhou)</author>
       <guid>https://blog.ucatch.me/tags/redmine/</guid>
       <description></description>
     </item>

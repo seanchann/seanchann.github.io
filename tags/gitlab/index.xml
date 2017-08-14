@@ -6,9 +6,9 @@
     <description>Recent content in Gitlab on seanchann</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <managingEditor>seanchann@foxmail.com (Some Person)</managingEditor>
-    <webMaster>seanchann@foxmail.com (Some Person)</webMaster>
-    <lastBuildDate>Mon, 31 Jul 2017 08:49:41 +0800</lastBuildDate>
+    <managingEditor>seanchann@foxmail.com (seanchann.zhou)</managingEditor>
+    <webMaster>seanchann@foxmail.com (seanchann.zhou)</webMaster>
+    <lastBuildDate>Sun, 31 Jul 2016 08:49:41 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.ucatch.me/tags/gitlab/index.xml" rel="self" type="application/rss+xml" />
     
@@ -16,32 +16,31 @@
     <item>
       <title>gitlab的安装</title>
       <link>https://blog.ucatch.me/post/scm/gitlab-install/</link>
-      <pubDate>Mon, 31 Jul 2017 08:49:41 +0800</pubDate>
-      <author>seanchann@foxmail.com (Some Person)</author>
+      <pubDate>Sun, 31 Jul 2016 08:49:41 +0800</pubDate>
+      <author>seanchann@foxmail.com (seanchann.zhou)</author>
       <guid>https://blog.ucatch.me/post/scm/gitlab-install/</guid>
-      <description>gitlab的安装 系统：CentOS7 + docker 1.6
-本文主要就是基于docker来构建我们的gitlab环境，方便数据的迁移以及gitlab的升级。
-镜像的获取 gitlab的镜像获取我们执行下面的命令，分别拉取gitlab，postgresql，redis：
-docker pull sameersbn/postgresql:9.4 docker pull sameersbn/redis:latest docker pull sameersbn/gitlab:7.12.2  创建相关的data volume docker create --name=gitlab-redis-dv -v /yourdir:/var/lib/redis sameersbn/redis:latest  docker create --name=gitlab-postgresql-dv -v /yourdir:/var/lib/postgresql sameersbn/postgresql:9.4  docker create --name=gitlab-dv -v /yourdir:/home/git/data sameersbn/gitlab:7.12.2  运行相关的镜像 docker run --name=postgresql-gitlab -d \ --env=&#39;DB_NAME=gitlabhq_production&#39; \ --env=&#39;DB_USER=gitlab&#39; --env=&#39;DB_PASS=password&#39; \ --volumes-from=gitlab-postgresql-dv \ sameersbn/postgresql:9.4  docker run --name=redis-gitlab -d \ --volumes-from=gitlab-redis-dv \ sameersbn/redis:latest  docker run --name=&#39;gitlab&#39; -d \ --link=postgresql-gitlab:postgresql --link=redis-gitlab:redisio \ --publish=10022:22 --publish=10080:80 \ --env=&#39;GITLAB_PORT=10080&#39; --env=&#39;GITLAB_SSH_PORT=10022&#39; \ --volumes-from=gitlab-dv \ sameersbn/gitlab:7.</description>
+      <description>&lt;p&gt;gitlab是开源领域比较著名的git仓库管理平台，支持各种git特性、项目管理集成度高、定期备份、CI/CD Piplines等等功能，这些都能有效提升项目管理效率，让开发人员之间的协作更加的顺畅。&lt;/p&gt;
+
+&lt;p&gt;本文主要就是基于docker来构建我们的gitlab环境，方便数据的迁移以及gitlab的升级。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>jenkins与gitlab的整合</title>
       <link>https://blog.ucatch.me/post/ci-cd/jenkins-gitlab/</link>
-      <pubDate>Mon, 31 Jul 2017 08:49:41 +0800</pubDate>
-      <author>seanchann@foxmail.com (Some Person)</author>
+      <pubDate>Tue, 31 Mar 2015 08:49:41 +0800</pubDate>
+      <author>seanchann@foxmail.com (seanchann.zhou)</author>
       <guid>https://blog.ucatch.me/post/ci-cd/jenkins-gitlab/</guid>
-      <description> jenkins与gitlab的整合 系统：CentOS7 + docker 1.6 Jenkins: ver. 1.609.1 gitlab: 6.8.1
-本文主要针对jenkins与gitlab的整合进行说明。
-前提条件：
- jenkins的 git、git-client、gitlab-hook插件已经安装 gitlab已经安装成功  jenkins的配置 create jobs 创建一个任务其中需要注意的地方是，配置下自己的git ssh key
-Source Code Management 此项配置主要是对我们代码库的配置，我们配置为git，然后给出我们的git 仓库的url，切记这里需要配置下证书，我们选择的方式ssh key的方式
-Build Triggers的配置  Poll SCM：也就是给一个周期来自动的拉取整个的workspace，如果要避免这样做，那么就给出一个push的触发。我们这里的schedule什么都不配置。  gitlab webhook的配置 登录到gitlab管理页面，给git-test工程增加一个push event的hook，url填写：
-http://yourjenkinshome/git/notifyCommit?url=git@192.168.60.18:xqzhou/git-test.git  配置完成后，我们在gitlab上点击testlink，触发到jenkins成功，表示我们的配置是ok的。
-gitlab push event的额外配置 在我使用的gitlab的版本上，当git客户端去git push的时候，不能触发hook，必须在gitlab的每个仓库中的hooks目录增加一个post-receive的脚本：
-#!/bin/bash curl http://yourjenkins/git/notifyCommit?url=your-gitrepos-url  这样配置以后，才可以正常的在jenkins中触发我们的job。
-并且这个触发可以支持分支的build，需要在jenkins的job中增加需要编译的分支。git插件提供了一些有用的变量，可以在我们的脚本中使用：
- $GIT_BRANCH：返回分支名 $GIT_COMMIT：git的commit id  </description>
+      <description>&lt;p&gt;本文主要针对jenkins与gitlab的整合进行说明。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;系统：CentOS7 + docker 1.6&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Jenkins: ver. 1.609.1&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;gitlab: 6.8.1&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

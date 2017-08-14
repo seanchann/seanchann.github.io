@@ -1,37 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
   <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>seanchann</title>
-  <meta property="og:title" content="seanchann" />
-  <meta name="twitter:title" content="seanchann" />
-  <meta name="description" content="Title: mongodb-install Date: Category: mongodb Tags: mongodb Author: Seanchann Zhou lang: cn
-&#43;&#43;&#43; title = &ldquo;mongodb安装说明&rdquo; date = 2017-07-31T08:49:41&#43;08:00 draft = false tags = [&ldquo;mongodb&rdquo;] categories = [&ldquo;mongodb&rdquo;] description = &ldquo;mongodb的安装说明&rdquo; &#43;&#43;&#43;
-mongodb的安装 系统：CentOS7 &#43; docker 1.6 mongodb版本： 3.0.2
-本文的安装是采用docker的方式，而不是在os上安装package的方式。 package的安装方式
-在开始前，假定用户已经完成了基础环境的配置，这里主要是指docker的运行环境
-安装 运行一个mongodb docker hub上官方的mongodb image，我们直接使用此image来运行mongodb：
-docker pull mongo  创建一个volume容器，保存mongo的数据以及配置：
-docker create -v /yourdir/mongo/data/db:/data/db -v /yourdir/mongo/conf/:/conf/ --name=mongo-dv mongo  run mongodb with volume 直接指定绑定host上的文件夹：
-docker create --volumes-from=mongo-dv --name mongodb -d mongo  自定义参数启动 docker hub上提供的官方镜像支持自定义参数启动mongodb：">
-  <meta property="og:description" content="Title: mongodb-install Date: Category: mongodb Tags: mongodb Author: Seanchann Zhou lang: cn
-&#43;&#43;&#43; title = &ldquo;mongodb安装说明&rdquo; date = 2017-07-31T08:49:41&#43;08:00 draft = false tags = [&ldquo;mongodb&rdquo;] categories = [&ldquo;mongodb&rdquo;] description = &ldquo;mongodb的安装说明&rdquo; &#43;&#43;&#43;
-mongodb的安装 系统：CentOS7 &#43; docker 1.6 mongodb版本： 3.0.2
-本文的安装是采用docker的方式，而不是在os上安装package的方式。 package的安装方式
-在开始前，假定用户已经完成了基础环境的配置，这里主要是指docker的运行环境
-安装 运行一个mongodb docker hub上官方的mongodb image，我们直接使用此image来运行mongodb：
-docker pull mongo  创建一个volume容器，保存mongo的数据以及配置：
-docker create -v /yourdir/mongo/data/db:/data/db -v /yourdir/mongo/conf/:/conf/ --name=mongo-dv mongo  run mongodb with volume 直接指定绑定host上的文件夹：
-docker create --volumes-from=mongo-dv --name mongodb -d mongo  自定义参数启动 docker hub上提供的官方镜像支持自定义参数启动mongodb：">
-  <meta name="twitter:description" content="Title: mongodb-install Date: Category: mongodb Tags: mongodb Author: Seanchann Zhou lang: cn
-&#43;&#43;&#43; title = &ldquo;mongodb安装说明&rdquo; date = 2017-07-31T08:49:41&#43;08:00 draft = false tags = …">
-  <meta name="author" content="Some Person"/>
+  <title>mongodb安装说明</title>
+  <meta property="og:title" content="mongodb安装说明" />
+  <meta name="twitter:title" content="mongodb安装说明" />
+  <meta name="description" content="mongodb的安装说明">
+  <meta property="og:description" content="mongodb的安装说明">
+  <meta name="twitter:description" content="mongodb的安装说明">
+  <meta name="author" content="seanchann.zhou"/>
   <link href='https://blog.ucatch.me/img/favicon.ico' rel='icon' type='image/x-icon'/>
-  <meta property="og:image" content="https://blog.ucatch.me/img/avatar-icon.png" />
-  <meta name="twitter:image" content="https://blog.ucatch.me/img/avatar-icon.png" />
+  <meta property="og:image" content="https://blog.ucatch.me/img/my-IT-user.jpg" />
+  <meta name="twitter:image" content="https://blog.ucatch.me/img/my-IT-user.jpg" />
   <meta name="twitter:card" content="summary" />
   <meta property="og:url" content="https://blog.ucatch.me/post/mongodb/mongodb-install/" />
   <meta property="og:type" content="website" />
@@ -106,7 +89,7 @@ docker create --volumes-from=mongo-dv --name mongodb -d mongo  自定义参数�
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
-        <span class="sr-only">Toggle navigation</span>
+        <span class="sr-only">切换导航</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -146,7 +129,7 @@ docker create --volumes-from=mongo-dv --name mongodb -d mongo  自定义参数�
       <div class="avatar-img-border">
         
           <a title="seanchann" href="https://blog.ucatch.me/">
-            <img class="avatar-img" src="https://blog.ucatch.me/img/avatar-icon.png" alt="seanchann" />
+            <img class="avatar-img" src="https://blog.ucatch.me/img/my-IT-user.jpg" alt="seanchann" />
           </a>
         
       </div>
@@ -166,7 +149,32 @@ docker create --volumes-from=mongo-dv --name mongodb -d mongo  自定义参数�
 
 
 
-  <div class="intro-header"></div>
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              <h1>mongodb安装说明</h1>
+                
+                
+                  <span class="post-meta">
+  发表于 July 31, 2016
+  
+</span>
+
+
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
 
 
     
@@ -174,33 +182,17 @@ docker create --volumes-from=mongo-dv --name mongodb -d mongo  自定义参数�
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        
+        <p><strong>系统：CentOS7 + docker 1.6</strong></p>
 
-<p>Title: mongodb-install
-Date:
-Category: mongodb
-Tags: mongodb
-Author: Seanchann Zhou
-lang: cn</p>
+<p><strong>mongodb版本： 3.0.2</strong></p>
 
-<p>+++
-title = &ldquo;mongodb安装说明&rdquo;
-date = 2017-07-31T08:49:41+08:00
-draft = false
-tags = [&ldquo;mongodb&rdquo;]
-categories = [&ldquo;mongodb&rdquo;]
-description = &ldquo;mongodb的安装说明&rdquo;
-+++</p>
+<p>本文的安装是采用docker的方式，而不是在os上安装package的方式。</p>
 
-<h1 id="mongodb的安装">mongodb的安装</h1>
-
-<p><strong>系统：CentOS7 + docker 1.6</strong>
-<strong>mongodb版本： 3.0.2</strong></p>
-
-<p>本文的安装是采用docker的方式，而不是在os上安装package的方式。
-<a href="http://docs.mongoing.com/manual/tutorial/">package的安装方式</a></p>
+<p><a href="http://docs.mongoing.com/manual/tutorial/">package的安装方式</a></p>
 
 <p>在开始前，假定用户已经完成了基础环境的配置，这里主要是指docker的运行环境</p>
+
+<p></p>
 
 <h2 id="安装">安装</h2>
 
@@ -266,14 +258,17 @@ exec &quot;$@&quot;
 
 <pre><code class="language-bash">docker run -p 27017:27017 --volumes-from=mongo-dv --name=mongodb -d mongo --auth
 </code></pre>
-
       </article>
 
       <ul class="pager blog-pager">
         
+          <li class="previous">
+            <a href="https://blog.ucatch.me/post/mongodb/mongodb-go-concurrently/" data-toggle="tooltip" data-placement="top" title="mongodb客户端并发 --- Golang">&larr; 前一篇</a>
+          </li>
+        
         
           <li class="next">
-            <a href="https://blog.ucatch.me/post/scm/redmine-install/" data-toggle="tooltip" data-placement="top" title="redmine的安装">Next Post &rarr;</a>
+            <a href="https://blog.ucatch.me/post/mongodb/mongodb-wirte/" data-toggle="tooltip" data-placement="top" title="mongodb 写操作">后一篇 &rarr;</a>
           </li>
         
       </ul>
@@ -320,7 +315,12 @@ exec &quot;$@&quot;
           
         </ul>
         <p class="credits copyright text-muted">
-          Some Person
+          
+            
+              seanchann.zhou
+                      
+          
+          
           &nbsp;&bull;&nbsp;
           2017
 
@@ -331,7 +331,7 @@ exec &quot;$@&quot;
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="http://gohugo.io">Hugo v0.26-DEV</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          由 <a href="http://gohugo.io">Hugo v0.26-DEV</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>
@@ -352,6 +352,7 @@ exec &quot;$@&quot;
 <script src="https://blog.ucatch.me/js/load-photoswipe.js"></script>
 
 
+<p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
 
   </body>
 </html>
