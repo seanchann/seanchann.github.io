@@ -5,20 +5,23 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>Cmake</title>
-  <meta property="og:title" content="Cmake" />
-  <meta name="twitter:title" content="Cmake" />
+  <title>cmake 路径检索</title>
+  <meta property="og:title" content="cmake 路径检索" />
+  <meta name="twitter:title" content="cmake 路径检索" />
+  <meta name="description" content="整理cmake路径搜索相关的内容">
+  <meta property="og:description" content="整理cmake路径搜索相关的内容">
+  <meta name="twitter:description" content="整理cmake路径搜索相关的内容">
   <meta name="author" content="seanchann.zhou"/>
   <link href='https://blog.ucatch.me/img/favicon.ico' rel='icon' type='image/x-icon'/>
   <meta property="og:image" content="https://blog.ucatch.me/img/my-IT-user.jpg" />
   <meta name="twitter:image" content="https://blog.ucatch.me/img/my-IT-user.jpg" />
   <meta name="twitter:card" content="summary" />
-  <meta property="og:url" content="https://blog.ucatch.me/tags/cmake/" />
+  <meta property="og:url" content="https://blog.ucatch.me/post/build-system/cmake-path/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="seanchann" />
 
   <meta name="generator" content="Hugo 0.26-DEV" />
-  <link rel="canonical" href="https://blog.ucatch.me/tags/cmake/" />
+  <link rel="canonical" href="https://blog.ucatch.me/post/build-system/cmake-path/" />
   <link rel="alternate" href="https://blog.ucatch.me/index.xml" type="application/rss+xml" title="seanchann">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -139,14 +142,33 @@
 
 
     
+  
+  
+  
+
+
+
+
+  
+
   <header class="header-section ">
+    
     <div class="intro-header no-img">
+      
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="page-heading">
-              <h1>#Cmake</h1>
-              <hr class="small">
+            <div class="post-heading">
+              <h1>cmake 路径检索</h1>
+                
+                
+                  <span class="post-meta">
+  发表于 August 18, 2017
+  
+</span>
+
+
+                
             </div>
           </div>
         </div>
@@ -154,78 +176,54 @@
     </div>
   </header>
 
+
     
-  <div class="container" role="main">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        
-        <div class="posts-list">
-          
-            <article class="post-preview">
-              <a href="https://blog.ucatch.me/post/build-system/cmake-path/">
-                <h2 class="post-title">cmake 路径检索</h2>
-
-                
-              </a>
-
-              <p class="post-meta">
-                发表于 August 18, 2017
-              </p>
-              <div class="post-entry">
-                
-                  <p>在实际的开发过程中，经常需要配置库的检索路径，头文件的检索路径，工程的<code>*Config.cmake</code>检索路径，自定义的<code>FindProject.cmake</code>路径等等。因此，cmake的路径检索以及优先级策略等等，都是编写cmake工程文件所必需的知识，本文整理了cmake的路径检索知识，希望对大家有所帮助。</p>
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>在实际的开发过程中，经常需要配置库的检索路径，头文件的检索路径，工程的<code>*Config.cmake</code>检索路径，自定义的<code>FindProject.cmake</code>路径等等。因此，cmake的路径检索以及优先级策略等等，都是编写cmake工程文件所必需的知识，本文整理了cmake的路径检索知识，希望对大家有所帮助。</p>
 
 <p></p>
-                  <a href="https://blog.ucatch.me/post/build-system/cmake-path/" class="post-read-more">[阅读全文]</a>
-                
-              </div>
 
-              
-                <span class="post-meta">
-                  
-                    #<a href="https://blog.ucatch.me/tags/cmake/">cmake</a>&nbsp;
-                  
-                </span>
-              
+<h2 id="modules路径检索">Modules路径检索</h2>
 
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://blog.ucatch.me/post/build-system/cmake-external-project/">
-                <h2 class="post-title">cmake编译第三方依赖工程</h2>
+<p>cmake的模块目录是在安装cmake的时候直接安装好的（针对linux，默认在<code>/usr/share/cmake/Modules/</code>），这个目录通常情况下，我们不要去更改这个目录下面的任何内容。</p>
 
-                
-              </a>
+<p>如果想要自定义一些<code>*.cmake</code>的文件来使用。那么通常的做法是针对这个工程来添加自定义的cmake文件。然后安装到<code>${prefix}/*</code>目录。如下所示，<code>find_package</code>或者其他的函数可以在下面目录中来检索自定义的<code>*.cmake</code>文件</p>
 
-              <p class="post-meta">
-                发表于 January 1, 0001
-              </p>
-              <div class="post-entry">
-                
-                  <p>在<code>cmake</code>的工程中，存在大量的使用或者引用外部工程的情形，很多时候，我们并不想直接导入外部代码到我们的工程里。这个时候，在我们的工程里，直接编译外部工程，然后输出工程所依赖文件，无疑是最好的方法。</p>
+<pre><code class="language-text">&lt;prefix&gt;/                                               (Windows)
+&lt;prefix&gt;/(cmake|CMake)/                                 (Windows)
+&lt;prefix&gt;/&lt;name&gt;*/                                       (Windows)
+&lt;prefix&gt;/&lt;name&gt;*/(cmake|CMake)/                         (Windows)
+&lt;prefix&gt;/(lib/&lt;arch&gt;|lib|share)/cmake/&lt;name&gt;*/          (Unix)
+&lt;prefix&gt;/(lib/&lt;arch&gt;|lib|share)/&lt;name&gt;*/                (Unix)
+&lt;prefix&gt;/(lib/&lt;arch&gt;|lib|share)/&lt;name&gt;*/(cmake|CMake)/  (Unix)
+&lt;prefix&gt;/&lt;name&gt;.framework/Resources/                    (Apple)
+&lt;prefix&gt;/&lt;name&gt;.framework/Resources/CMake/              (Apple)
+&lt;prefix&gt;/&lt;name&gt;.framework/Versions/*/Resources/         (Apple)
+&lt;prefix&gt;/&lt;name&gt;.framework/Versions/*/Resources/CMake/   (Apple)
+&lt;prefix&gt;/&lt;name&gt;.app/Contents/Resources/                 (Apple)
+&lt;prefix&gt;/&lt;name&gt;.app/Contents/Resources/CMake/           (Apple)
+</code></pre>
+      </article>
 
-<p>本文主要阐述在<code>cmake</code>工程中如何编译外部工程。</p>
-
-<p></p>
-                  <a href="https://blog.ucatch.me/post/build-system/cmake-external-project/" class="post-read-more">[阅读全文]</a>
-                
-              </div>
-
-              
-                <span class="post-meta">
-                  
-                    #<a href="https://blog.ucatch.me/tags/cmake/">cmake</a>&nbsp;
-                  
-                </span>
-              
-
-            </article>
-          
-        </div>
+      <ul class="pager blog-pager">
         
-      </div>
+          <li class="previous">
+            <a href="https://blog.ucatch.me/post/scm/gitlab-install/" data-toggle="tooltip" data-placement="top" title="gitlab的安装">&larr; 前一篇</a>
+          </li>
+        
+        
+      </ul>
+
+      
+        
+      
+
     </div>
   </div>
+</div>
 
     <footer>
   <div class="container">

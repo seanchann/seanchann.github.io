@@ -8,10 +8,21 @@
     <language>zh-cn</language>
     <managingEditor>seanchann@foxmail.com (seanchann.zhou)</managingEditor>
     <webMaster>seanchann@foxmail.com (seanchann.zhou)</webMaster>
-    <lastBuildDate>Sun, 31 Jul 2016 08:49:41 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 18 Aug 2017 08:36:48 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.ucatch.me/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>cmake 路径检索</title>
+      <link>https://blog.ucatch.me/post/build-system/cmake-path/</link>
+      <pubDate>Fri, 18 Aug 2017 08:36:48 +0000</pubDate>
+      <author>seanchann@foxmail.com (seanchann.zhou)</author>
+      <guid>https://blog.ucatch.me/post/build-system/cmake-path/</guid>
+      <description>&lt;p&gt;在实际的开发过程中，经常需要配置库的检索路径，头文件的检索路径，工程的&lt;code&gt;*Config.cmake&lt;/code&gt;检索路径，自定义的&lt;code&gt;FindProject.cmake&lt;/code&gt;路径等等。因此，cmake的路径检索以及优先级策略等等，都是编写cmake工程文件所必需的知识，本文整理了cmake的路径检索知识，希望对大家有所帮助。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>gitlab的安装</title>
