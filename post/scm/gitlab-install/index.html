@@ -233,8 +233,8 @@ docker pull sameersbn/gitlab:7.12.2
 
 <pre><code class="language-bash">docker run --name='gitlab' -d \
   --link=postgresql-gitlab:postgresql --link=redis-gitlab:redisio \
-  --publish=10022:22 --publish=10080:80 \
-  --env='GITLAB_PORT=10080' --env='GITLAB_SSH_PORT=10022' \
+  --publish=8022:22 --publish=8080:80 \
+  --env='GITLAB_PORT=8080' --env='GITLAB_SSH_PORT=8022' \
   --volumes-from=gitlab-dv \
 sameersbn/gitlab:7.12.2
 </code></pre>
@@ -246,15 +246,15 @@ SMTP_ENABLED=true
 SMTP_DOMAIN=smtp.qq.com
 SMTP_HOST=smtp.exmail.qq.com
 SMTP_PORT=25
-SMTP_USER=icastbug@ronghe.tv
-SMTP_PASS=icast123
+SMTP_USER=example@user.com
+SMTP_PASS=123456
 SMTP_STARTTLS=true
 SMTP_AUTHENTICATION=login
 GITLAB_TIMEZONE=Kolkata
-GITLAB_HOST=192.168.60.239
-GITLAB_PORT=10080
-GITLAB_SSH_PORT=10022
-GITLAB_EMAIL=icastbug@ronghe.tv
+GITLAB_HOST=192.168.1.1
+GITLAB_PORT=8080
+GITLAB_SSH_PORT=8022
+GITLAB_EMAIL=example@user.com
 GITLAB_EMAIL_REPLY_TO=noreply@example.com
 GITLAB_BACKUPS=daily
 GITLAB_BACKUP_TIME=01:00
@@ -264,7 +264,7 @@ GITLAB_BACKUP_TIME=01:00
       <ul class="pager blog-pager">
         
           <li class="previous">
-            <a href="https://blog.ucatch.me/post/mongodb/mongodb-index/" data-toggle="tooltip" data-placement="top" title="mongodb index说明">&larr; 前一篇</a>
+            <a href="https://blog.ucatch.me/post/scm/redmine-install/" data-toggle="tooltip" data-placement="top" title="redmine的安装">&larr; 前一篇</a>
           </li>
         
         

@@ -40,12 +40,25 @@
     <item>
       <title>gitlab的安装</title>
       <link>https://blog.ucatch.me/post/scm/gitlab-install/</link>
-      <pubDate>Sun, 31 Jul 2016 08:49:41 +0800</pubDate>
+      <pubDate>Sun, 31 Jul 2016 08:49:41 +0000</pubDate>
       <author>seanchann@foxmail.com (seanchann.zhou)</author>
       <guid>https://blog.ucatch.me/post/scm/gitlab-install/</guid>
       <description>&lt;p&gt;gitlab是开源领域比较著名的git仓库管理平台，支持各种git特性、项目管理集成度高、定期备份、CI/CD Piplines等等功能，这些都能有效提升项目管理效率，让开发人员之间的协作更加的顺畅。&lt;/p&gt;
 
 &lt;p&gt;本文主要就是基于docker来构建我们的gitlab环境，方便数据的迁移以及gitlab的升级。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>redmine的安装</title>
+      <link>https://blog.ucatch.me/post/scm/redmine-install/</link>
+      <pubDate>Sun, 31 Jul 2016 08:49:41 +0000</pubDate>
+      <author>seanchann@foxmail.com (seanchann.zhou)</author>
+      <guid>https://blog.ucatch.me/post/scm/redmine-install/</guid>
+      <description>&lt;p&gt;本文主要就是基于docker来构建我们的redmine环境，方便数据的迁移以及redmine的升级。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;系统：CentOS7 + docker 1.6&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
     </item>
@@ -191,19 +204,6 @@
     1. echo never | sudo tee /sys/kernel/mm/transparent_hugepage/enabled
     2. echo never | sudo tee /sys/kernel/mm/transparent_hugepage/defrag
 &lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>redmine的安装</title>
-      <link>https://blog.ucatch.me/post/scm/redmine-install/</link>
-      <pubDate>Sun, 31 Jul 2016 08:49:41 +0800</pubDate>
-      <author>seanchann@foxmail.com (seanchann.zhou)</author>
-      <guid>https://blog.ucatch.me/post/scm/redmine-install/</guid>
-      <description>&lt;p&gt;本文主要就是基于docker来构建我们的redmine环境，方便数据的迁移以及redmine的升级。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;系统：CentOS7 + docker 1.6&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
     </item>
