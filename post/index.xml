@@ -25,6 +25,19 @@
     </item>
     
     <item>
+      <title>cmake编译第三方依赖工程</title>
+      <link>https://blog.ucatch.me/post/build-system/cmake-external-project/</link>
+      <pubDate>Thu, 18 Aug 2016 08:36:48 +0000</pubDate>
+      <author>seanchann@foxmail.com (seanchann.zhou)</author>
+      <guid>https://blog.ucatch.me/post/build-system/cmake-external-project/</guid>
+      <description>&lt;p&gt;在&lt;code&gt;cmake&lt;/code&gt;的工程中，存在大量的使用或者引用外部工程的情形，很多时候，我们并不想直接导入外部代码到我们的工程里。这个时候，在我们的工程里，直接编译外部工程，然后输出工程所依赖文件，无疑是最好的方法。&lt;/p&gt;
+
+&lt;p&gt;本文主要阐述在&lt;code&gt;cmake&lt;/code&gt;工程中如何编译外部工程。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>gitlab的安装</title>
       <link>https://blog.ucatch.me/post/scm/gitlab-install/</link>
       <pubDate>Sun, 31 Jul 2016 08:49:41 +0800</pubDate>
@@ -308,19 +321,6 @@
 &lt;h2 id=&#34;配置说明&#34;&gt;配置说明&lt;/h2&gt;
 
 &lt;p&gt;jenkins的安全配置说明在主页面的Configure Global Security的菜单中。它的安全和访问控制主要是两部分：安全域和鉴权策略。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>cmake编译第三方依赖工程</title>
-      <link>https://blog.ucatch.me/post/build-system/cmake-external-project/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <author>seanchann@foxmail.com (seanchann.zhou)</author>
-      <guid>https://blog.ucatch.me/post/build-system/cmake-external-project/</guid>
-      <description>&lt;p&gt;在&lt;code&gt;cmake&lt;/code&gt;的工程中，存在大量的使用或者引用外部工程的情形，很多时候，我们并不想直接导入外部代码到我们的工程里。这个时候，在我们的工程里，直接编译外部工程，然后输出工程所依赖文件，无疑是最好的方法。&lt;/p&gt;
-
-&lt;p&gt;本文主要阐述在&lt;code&gt;cmake&lt;/code&gt;工程中如何编译外部工程。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
     </item>

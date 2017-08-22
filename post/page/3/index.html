@@ -79,6 +79,13 @@
     </div>
 </div>
 
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-62644170-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
 </head>
 
   <body>
@@ -160,6 +167,50 @@
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         
         <div class="posts-list">
+          
+            <article class="post-preview">
+              <a href="https://blog.ucatch.me/post/mongodb/mongodb-problems-summary/">
+                <h2 class="post-title">mongodb问题汇总</h2>
+
+                
+              </a>
+
+              <p class="post-meta">
+                发表于 July 31, 2016
+              </p>
+              <div class="post-entry">
+                
+                  <p><strong>系统：CentOS7 + docker 1.6</strong></p>
+
+<p><strong>mongodb版本： 3.0.2</strong></p>
+
+<h2 id="warning-sys-kernel-mm-transparent-hugepage-enabled-or-sys-kernel-mm-transparent-hugepage-defrag-is-always">WARNING:/sys/kernel/mm/transparent_hugepage/enabled or /sys/kernel/mm/transparent_hugepage/defrag is &lsquo;always&rsquo;.</h2>
+
+<pre><code class="language-text">    这个问题的原因是由于内核的某些参数的配置造成的mongodb产生了警告，基于docker环境，在docker运行的host主机上：
+
+    1. echo never &gt; /sys/kernel/mm/transparent_hugepage/enabled
+    2. echo never &gt; /sys/kernel/mm/transparent_hugepage/defrag
+
+    or
+
+    1. echo never | sudo tee /sys/kernel/mm/transparent_hugepage/enabled
+    2. echo never | sudo tee /sys/kernel/mm/transparent_hugepage/defrag
+</code></pre>
+
+<p></p>
+                  <a href="https://blog.ucatch.me/post/mongodb/mongodb-problems-summary/" class="post-read-more">[阅读全文]</a>
+                
+              </div>
+
+              
+                <span class="post-meta">
+                  
+                    #<a href="https://blog.ucatch.me/tags/mongodb/">mongodb</a>&nbsp;
+                  
+                </span>
+              
+
+            </article>
           
             <article class="post-preview">
               <a href="https://blog.ucatch.me/post/scm/redmine-install/">
@@ -287,45 +338,6 @@
                 <span class="post-meta">
                   
                     #<a href="https://blog.ucatch.me/tags/jenkins/">jenkins</a>&nbsp;
-                  
-                </span>
-              
-
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://blog.ucatch.me/post/ci-cd/jenkins-docker-build/">
-                <h2 class="post-title">jenkins的docker编译</h2>
-
-                
-              </a>
-
-              <p class="post-meta">
-                发表于 March 31, 2015
-              </p>
-              <div class="post-entry">
-                
-                  <p><strong>系统：CentOS7 + docker 1.6</strong></p>
-
-<p><strong>Jenkins: ver. 1.609.1</strong></p>
-
-<p>前提条件：</p>
-
-<ul>
-<li>jenkins的任意node已经安装docker或者docker-build-step插件已经安装</li>
-</ul>
-
-<p></p>
-                  <a href="https://blog.ucatch.me/post/ci-cd/jenkins-docker-build/" class="post-read-more">[阅读全文]</a>
-                
-              </div>
-
-              
-                <span class="post-meta">
-                  
-                    #<a href="https://blog.ucatch.me/tags/jenkins/">jenkins</a>&nbsp;
-                  
-                    #<a href="https://blog.ucatch.me/tags/docker/">docker</a>&nbsp;
                   
                 </span>
               

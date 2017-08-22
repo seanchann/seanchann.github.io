@@ -79,6 +79,13 @@
     </div>
 </div>
 
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-62644170-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
 </head>
 
   <body>
@@ -180,6 +187,44 @@
 
         <div class="posts-list">
           
+          
+            <article class="post-preview">
+              <a href="https://blog.ucatch.me/post/mongodb/mongodb-install/">
+                <h2 class="post-title">mongodb安装说明</h2>
+                
+              </a>
+
+              <span class="post-meta">
+  发表于 July 31, 2016
+  
+</span>
+
+
+              <div class="post-entry">
+                
+                  <p><strong>系统：CentOS7 + docker 1.6</strong></p>
+
+<p><strong>mongodb版本： 3.0.2</strong></p>
+
+<p>本文的安装是采用docker的方式，而不是在os上安装package的方式。</p>
+
+<p><a href="http://docs.mongoing.com/manual/tutorial/">package的安装方式</a></p>
+
+<p>在开始前，假定用户已经完成了基础环境的配置，这里主要是指docker的运行环境</p>
+
+<p></p>
+                  <a href="https://blog.ucatch.me/post/mongodb/mongodb-install/" class="post-read-more">[阅读全文]</a>
+                
+              </div>
+
+              
+                <span class="post-meta">
+                
+                  #<a href="https://blog.ucatch.me/tags/mongodb/">mongodb</a>&nbsp;
+                
+                </span>
+              
+            </article>
           
             <article class="post-preview">
               <a href="https://blog.ucatch.me/post/mongodb/mongodb-go-concurrently/">
@@ -313,51 +358,6 @@
 
 <p></p>
                   <a href="https://blog.ucatch.me/post/mongodb/mongodb-read/" class="post-read-more">[阅读全文]</a>
-                
-              </div>
-
-              
-                <span class="post-meta">
-                
-                  #<a href="https://blog.ucatch.me/tags/mongodb/">mongodb</a>&nbsp;
-                
-                </span>
-              
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://blog.ucatch.me/post/mongodb/mongodb-problems-summary/">
-                <h2 class="post-title">mongodb问题汇总</h2>
-                
-              </a>
-
-              <span class="post-meta">
-  发表于 July 31, 2016
-  
-</span>
-
-
-              <div class="post-entry">
-                
-                  <p><strong>系统：CentOS7 + docker 1.6</strong></p>
-
-<p><strong>mongodb版本： 3.0.2</strong></p>
-
-<h2 id="warning-sys-kernel-mm-transparent-hugepage-enabled-or-sys-kernel-mm-transparent-hugepage-defrag-is-always">WARNING:/sys/kernel/mm/transparent_hugepage/enabled or /sys/kernel/mm/transparent_hugepage/defrag is &lsquo;always&rsquo;.</h2>
-
-<pre><code class="language-text">    这个问题的原因是由于内核的某些参数的配置造成的mongodb产生了警告，基于docker环境，在docker运行的host主机上：
-
-    1. echo never &gt; /sys/kernel/mm/transparent_hugepage/enabled
-    2. echo never &gt; /sys/kernel/mm/transparent_hugepage/defrag
-
-    or
-
-    1. echo never | sudo tee /sys/kernel/mm/transparent_hugepage/enabled
-    2. echo never | sudo tee /sys/kernel/mm/transparent_hugepage/defrag
-</code></pre>
-
-<p></p>
-                  <a href="https://blog.ucatch.me/post/mongodb/mongodb-problems-summary/" class="post-read-more">[阅读全文]</a>
                 
               </div>
 
