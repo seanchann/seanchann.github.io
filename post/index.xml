@@ -6,18 +6,16 @@
     <description>Recent content in Posts on seanchann</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <managingEditor>seanchann@foxmail.com (seanchann.zhou)</managingEditor>
-    <webMaster>seanchann@foxmail.com (seanchann.zhou)</webMaster>
     <lastBuildDate>Sun, 17 Sep 2017 10:57:02 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.ucatch.me/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Classes VS Interfaces</title>
+      <title>TypeScript的Classes 与 Interfaces</title>
       <link>https://blog.ucatch.me/post/typescript/classesvsinterfaces/</link>
       <pubDate>Sun, 17 Sep 2017 10:57:02 +0000</pubDate>
-      <author>seanchann@foxmail.com (seanchann.zhou)</author>
+      
       <guid>https://blog.ucatch.me/post/typescript/classesvsinterfaces/</guid>
       <description>&lt;p&gt;&lt;em&gt;&lt;a href=&#34;https://jameshenry.blog/typescript-classes-vs-interfaces/&#34;&gt;本文原文地址&lt;/a&gt;，翻译如有问题请指正&lt;/em&gt;&lt;/p&gt;
 
@@ -36,7 +34,7 @@
       <title>cmake exporting and importing target</title>
       <link>https://blog.ucatch.me/post/build-system/cmake-exporting-importing-target/</link>
       <pubDate>Wed, 30 Aug 2017 16:49:41 +0800</pubDate>
-      <author>seanchann@foxmail.com (seanchann.zhou)</author>
+      
       <guid>https://blog.ucatch.me/post/build-system/cmake-exporting-importing-target/</guid>
       <description>&lt;p&gt;使用&lt;code&gt;cmake&lt;/code&gt;编译生成的库或者可执行程序，我们都称为&lt;code&gt;target&lt;/code&gt;。如果其他的工程中想使用这些&lt;code&gt;target&lt;/code&gt;的话，就需要本文所描述的技术，来将&lt;code&gt;target&lt;/code&gt;导出，然后在其他的工程的cmake中再导入使用。&lt;/p&gt;
 
@@ -47,7 +45,7 @@
       <title>cmake 路径检索</title>
       <link>https://blog.ucatch.me/post/build-system/cmake-path/</link>
       <pubDate>Fri, 18 Aug 2017 08:36:48 +0000</pubDate>
-      <author>seanchann@foxmail.com (seanchann.zhou)</author>
+      
       <guid>https://blog.ucatch.me/post/build-system/cmake-path/</guid>
       <description>&lt;p&gt;在实际的开发过程中，经常需要配置库的检索路径，头文件的检索路径，工程的&lt;code&gt;*Config.cmake&lt;/code&gt;检索路径，自定义的&lt;code&gt;FindProject.cmake&lt;/code&gt;路径等等。因此，cmake的路径检索以及优先级策略等等，都是编写cmake工程文件所必需的知识，本文整理了cmake的路径检索知识，希望对大家有所帮助。&lt;/p&gt;
 
@@ -58,7 +56,7 @@
       <title>cmake编译第三方依赖工程</title>
       <link>https://blog.ucatch.me/post/build-system/cmake-external-project/</link>
       <pubDate>Thu, 18 Aug 2016 08:36:48 +0000</pubDate>
-      <author>seanchann@foxmail.com (seanchann.zhou)</author>
+      
       <guid>https://blog.ucatch.me/post/build-system/cmake-external-project/</guid>
       <description>&lt;p&gt;在&lt;code&gt;cmake&lt;/code&gt;的工程中，存在大量的使用或者引用外部工程的情形，很多时候，我们并不想直接导入外部代码到我们的工程里。这个时候，在我们的工程里，直接编译外部工程，然后输出工程所依赖文件，无疑是最好的方法。&lt;/p&gt;
 
@@ -71,7 +69,7 @@
       <title>gitlab的安装</title>
       <link>https://blog.ucatch.me/post/scm/gitlab-install/</link>
       <pubDate>Sun, 31 Jul 2016 08:49:41 +0000</pubDate>
-      <author>seanchann@foxmail.com (seanchann.zhou)</author>
+      
       <guid>https://blog.ucatch.me/post/scm/gitlab-install/</guid>
       <description>&lt;p&gt;gitlab是开源领域比较著名的git仓库管理平台，支持各种git特性、项目管理集成度高、定期备份、CI/CD Piplines等等功能，这些都能有效提升项目管理效率，让开发人员之间的协作更加的顺畅。&lt;/p&gt;
 
@@ -84,7 +82,7 @@
       <title>redmine的安装</title>
       <link>https://blog.ucatch.me/post/scm/redmine-install/</link>
       <pubDate>Sun, 31 Jul 2016 08:49:41 +0000</pubDate>
-      <author>seanchann@foxmail.com (seanchann.zhou)</author>
+      
       <guid>https://blog.ucatch.me/post/scm/redmine-install/</guid>
       <description>&lt;p&gt;本文主要就是基于docker来构建我们的redmine环境，方便数据的迁移以及redmine的升级。&lt;/p&gt;
 
@@ -97,7 +95,7 @@
       <title>mongodb index说明</title>
       <link>https://blog.ucatch.me/post/mongodb/mongodb-index/</link>
       <pubDate>Sun, 31 Jul 2016 08:49:41 +0800</pubDate>
-      <author>seanchann@foxmail.com (seanchann.zhou)</author>
+      
       <guid>https://blog.ucatch.me/post/mongodb/mongodb-index/</guid>
       <description>&lt;p&gt;&lt;strong&gt;系统：CentOS7 + docker 1.6&lt;/strong&gt;&lt;/p&gt;
 
@@ -116,7 +114,7 @@
       <title>mongodb 写操作</title>
       <link>https://blog.ucatch.me/post/mongodb/mongodb-wirte/</link>
       <pubDate>Sun, 31 Jul 2016 08:49:41 +0800</pubDate>
-      <author>seanchann@foxmail.com (seanchann.zhou)</author>
+      
       <guid>https://blog.ucatch.me/post/mongodb/mongodb-wirte/</guid>
       <description>&lt;p&gt;&lt;strong&gt;系统：CentOS7 + docker 1.6&lt;/strong&gt;&lt;/p&gt;
 
@@ -131,7 +129,7 @@
       <title>mongodb安装说明</title>
       <link>https://blog.ucatch.me/post/mongodb/mongodb-install/</link>
       <pubDate>Sun, 31 Jul 2016 08:49:41 +0800</pubDate>
-      <author>seanchann@foxmail.com (seanchann.zhou)</author>
+      
       <guid>https://blog.ucatch.me/post/mongodb/mongodb-install/</guid>
       <description>&lt;p&gt;&lt;strong&gt;系统：CentOS7 + docker 1.6&lt;/strong&gt;&lt;/p&gt;
 
@@ -150,7 +148,7 @@
       <title>mongodb客户端并发 --- Golang</title>
       <link>https://blog.ucatch.me/post/mongodb/mongodb-go-concurrently/</link>
       <pubDate>Sun, 31 Jul 2016 08:49:41 +0800</pubDate>
-      <author>seanchann@foxmail.com (seanchann.zhou)</author>
+      
       <guid>https://blog.ucatch.me/post/mongodb/mongodb-go-concurrently/</guid>
       <description>&lt;p&gt;&lt;strong&gt;系统：CentOS7 + docker 1.6&lt;/strong&gt;&lt;/p&gt;
 
@@ -169,7 +167,7 @@
       <title>mongodb的命令</title>
       <link>https://blog.ucatch.me/post/mongodb/mongodb-shell-cmd/</link>
       <pubDate>Sun, 31 Jul 2016 08:49:41 +0800</pubDate>
-      <author>seanchann@foxmail.com (seanchann.zhou)</author>
+      
       <guid>https://blog.ucatch.me/post/mongodb/mongodb-shell-cmd/</guid>
       <description>&lt;p&gt;本文主要汇总mongodb的命令行。&lt;/p&gt;
 
@@ -186,7 +184,7 @@
       <title>mongodb的用户管理说明</title>
       <link>https://blog.ucatch.me/post/mongodb/mongodb-user/</link>
       <pubDate>Sun, 31 Jul 2016 08:49:41 +0800</pubDate>
-      <author>seanchann@foxmail.com (seanchann.zhou)</author>
+      
       <guid>https://blog.ucatch.me/post/mongodb/mongodb-user/</guid>
       <description>&lt;p&gt;&lt;strong&gt;系统：CentOS7 + docker 1.6&lt;/strong&gt;&lt;/p&gt;
 
@@ -201,7 +199,7 @@
       <title>mongodb的读说明</title>
       <link>https://blog.ucatch.me/post/mongodb/mongodb-read/</link>
       <pubDate>Sun, 31 Jul 2016 08:49:41 +0800</pubDate>
-      <author>seanchann@foxmail.com (seanchann.zhou)</author>
+      
       <guid>https://blog.ucatch.me/post/mongodb/mongodb-read/</guid>
       <description>&lt;p&gt;&lt;strong&gt;系统：CentOS7 + docker 1.6&lt;/strong&gt;&lt;/p&gt;
 
@@ -216,7 +214,7 @@
       <title>mongodb问题汇总</title>
       <link>https://blog.ucatch.me/post/mongodb/mongodb-problems-summary/</link>
       <pubDate>Sun, 31 Jul 2016 08:49:41 +0800</pubDate>
-      <author>seanchann@foxmail.com (seanchann.zhou)</author>
+      
       <guid>https://blog.ucatch.me/post/mongodb/mongodb-problems-summary/</guid>
       <description>&lt;p&gt;&lt;strong&gt;系统：CentOS7 + docker 1.6&lt;/strong&gt;&lt;/p&gt;
 
@@ -242,7 +240,7 @@
       <title>Reflect</title>
       <link>https://blog.ucatch.me/post/golang/reflect/</link>
       <pubDate>Sat, 31 Oct 2015 08:49:41 +0800</pubDate>
-      <author>seanchann@foxmail.com (seanchann.zhou)</author>
+      
       <guid>https://blog.ucatch.me/post/golang/reflect/</guid>
       <description>&lt;p&gt;reflect 在golang的开发中，经常会使用到的一个特性，它使golang具有了某些动态语言的特性。本文直接翻译自&lt;a href=&#34;(http://blog.golang.org/laws-of-reflection)&#34;&gt;&lt;code&gt;官方网站&lt;/code&gt;&lt;/a&gt;，对&lt;code&gt;reflect&lt;/code&gt;的三条规则进行阐述。&lt;/p&gt;
 
@@ -253,7 +251,7 @@
       <title>jenkins与gitlab的整合</title>
       <link>https://blog.ucatch.me/post/ci-cd/jenkins-gitlab/</link>
       <pubDate>Tue, 31 Mar 2015 08:49:41 +0800</pubDate>
-      <author>seanchann@foxmail.com (seanchann.zhou)</author>
+      
       <guid>https://blog.ucatch.me/post/ci-cd/jenkins-gitlab/</guid>
       <description>&lt;p&gt;本文主要针对jenkins与gitlab的整合进行说明。&lt;/p&gt;
 
@@ -270,7 +268,7 @@
       <title>jenkins使用问题汇总</title>
       <link>https://blog.ucatch.me/post/ci-cd/jenkins-problem/</link>
       <pubDate>Tue, 31 Mar 2015 08:49:41 +0800</pubDate>
-      <author>seanchann@foxmail.com (seanchann.zhou)</author>
+      
       <guid>https://blog.ucatch.me/post/ci-cd/jenkins-problem/</guid>
       <description>&lt;p&gt;&lt;strong&gt;系统：CentOS7 + docker 1.6&lt;/strong&gt;&lt;/p&gt;
 
@@ -285,7 +283,7 @@
       <title>jenkins的docker编译</title>
       <link>https://blog.ucatch.me/post/ci-cd/jenkins-docker-build/</link>
       <pubDate>Tue, 31 Mar 2015 08:49:41 +0800</pubDate>
-      <author>seanchann@foxmail.com (seanchann.zhou)</author>
+      
       <guid>https://blog.ucatch.me/post/ci-cd/jenkins-docker-build/</guid>
       <description>&lt;p&gt;&lt;strong&gt;系统：CentOS7 + docker 1.6&lt;/strong&gt;&lt;/p&gt;
 
@@ -304,7 +302,7 @@
       <title>jenkins的docker节点配置</title>
       <link>https://blog.ucatch.me/post/ci-cd/jenkins-docker-slave/</link>
       <pubDate>Tue, 31 Mar 2015 08:49:41 +0800</pubDate>
-      <author>seanchann@foxmail.com (seanchann.zhou)</author>
+      
       <guid>https://blog.ucatch.me/post/ci-cd/jenkins-docker-slave/</guid>
       <description>&lt;p&gt;&lt;strong&gt;系统：CentOS7 + docker 1.6&lt;/strong&gt;&lt;/p&gt;
 
@@ -325,7 +323,7 @@
       <title>jenkins的安装说明</title>
       <link>https://blog.ucatch.me/post/ci-cd/jenkins-install/</link>
       <pubDate>Tue, 31 Mar 2015 08:49:41 +0800</pubDate>
-      <author>seanchann@foxmail.com (seanchann.zhou)</author>
+      
       <guid>https://blog.ucatch.me/post/ci-cd/jenkins-install/</guid>
       <description>&lt;p&gt;&lt;strong&gt;系统：CentOS7 + docker 1.6&lt;/strong&gt;&lt;/p&gt;
 
@@ -342,7 +340,7 @@
       <title>jenkins的访问权限以及账户安全</title>
       <link>https://blog.ucatch.me/post/ci-cd/jenkins-security/</link>
       <pubDate>Tue, 31 Mar 2015 08:49:41 +0800</pubDate>
-      <author>seanchann@foxmail.com (seanchann.zhou)</author>
+      
       <guid>https://blog.ucatch.me/post/ci-cd/jenkins-security/</guid>
       <description>&lt;p&gt;&lt;strong&gt;系统：CentOS7 + docker 1.6&lt;/strong&gt;&lt;/p&gt;
 

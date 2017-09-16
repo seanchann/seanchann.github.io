@@ -6,8 +6,6 @@
     <description>Recent content in Build System on seanchann</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <managingEditor>seanchann@foxmail.com (seanchann.zhou)</managingEditor>
-    <webMaster>seanchann@foxmail.com (seanchann.zhou)</webMaster>
     <lastBuildDate>Wed, 30 Aug 2017 16:49:41 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.ucatch.me/categories/build-system/index.xml" rel="self" type="application/rss+xml" />
@@ -17,7 +15,7 @@
       <title>cmake exporting and importing target</title>
       <link>https://blog.ucatch.me/post/build-system/cmake-exporting-importing-target/</link>
       <pubDate>Wed, 30 Aug 2017 16:49:41 +0800</pubDate>
-      <author>seanchann@foxmail.com (seanchann.zhou)</author>
+      
       <guid>https://blog.ucatch.me/post/build-system/cmake-exporting-importing-target/</guid>
       <description>&lt;p&gt;使用&lt;code&gt;cmake&lt;/code&gt;编译生成的库或者可执行程序，我们都称为&lt;code&gt;target&lt;/code&gt;。如果其他的工程中想使用这些&lt;code&gt;target&lt;/code&gt;的话，就需要本文所描述的技术，来将&lt;code&gt;target&lt;/code&gt;导出，然后在其他的工程的cmake中再导入使用。&lt;/p&gt;
 
@@ -28,7 +26,7 @@
       <title>cmake 路径检索</title>
       <link>https://blog.ucatch.me/post/build-system/cmake-path/</link>
       <pubDate>Fri, 18 Aug 2017 08:36:48 +0000</pubDate>
-      <author>seanchann@foxmail.com (seanchann.zhou)</author>
+      
       <guid>https://blog.ucatch.me/post/build-system/cmake-path/</guid>
       <description>&lt;p&gt;在实际的开发过程中，经常需要配置库的检索路径，头文件的检索路径，工程的&lt;code&gt;*Config.cmake&lt;/code&gt;检索路径，自定义的&lt;code&gt;FindProject.cmake&lt;/code&gt;路径等等。因此，cmake的路径检索以及优先级策略等等，都是编写cmake工程文件所必需的知识，本文整理了cmake的路径检索知识，希望对大家有所帮助。&lt;/p&gt;
 
@@ -39,7 +37,7 @@
       <title>cmake编译第三方依赖工程</title>
       <link>https://blog.ucatch.me/post/build-system/cmake-external-project/</link>
       <pubDate>Thu, 18 Aug 2016 08:36:48 +0000</pubDate>
-      <author>seanchann@foxmail.com (seanchann.zhou)</author>
+      
       <guid>https://blog.ucatch.me/post/build-system/cmake-external-project/</guid>
       <description>&lt;p&gt;在&lt;code&gt;cmake&lt;/code&gt;的工程中，存在大量的使用或者引用外部工程的情形，很多时候，我们并不想直接导入外部代码到我们的工程里。这个时候，在我们的工程里，直接编译外部工程，然后输出工程所依赖文件，无疑是最好的方法。&lt;/p&gt;
 

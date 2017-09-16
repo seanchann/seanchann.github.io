@@ -6,18 +6,16 @@
     <description>Recent content in Typescript on seanchann</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <managingEditor>seanchann@foxmail.com (seanchann.zhou)</managingEditor>
-    <webMaster>seanchann@foxmail.com (seanchann.zhou)</webMaster>
     <lastBuildDate>Sun, 17 Sep 2017 10:57:02 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.ucatch.me/categories/typescript/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Classes VS Interfaces</title>
+      <title>TypeScript的Classes 与 Interfaces</title>
       <link>https://blog.ucatch.me/post/typescript/classesvsinterfaces/</link>
       <pubDate>Sun, 17 Sep 2017 10:57:02 +0000</pubDate>
-      <author>seanchann@foxmail.com (seanchann.zhou)</author>
+      
       <guid>https://blog.ucatch.me/post/typescript/classesvsinterfaces/</guid>
       <description>&lt;p&gt;&lt;em&gt;&lt;a href=&#34;https://jameshenry.blog/typescript-classes-vs-interfaces/&#34;&gt;本文原文地址&lt;/a&gt;，翻译如有问题请指正&lt;/em&gt;&lt;/p&gt;
 

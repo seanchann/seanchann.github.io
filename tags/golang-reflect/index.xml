@@ -6,8 +6,6 @@
     <description>Recent content in Golang Reflect on seanchann</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <managingEditor>seanchann@foxmail.com (seanchann.zhou)</managingEditor>
-    <webMaster>seanchann@foxmail.com (seanchann.zhou)</webMaster>
     <lastBuildDate>Sat, 31 Oct 2015 08:49:41 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.ucatch.me/tags/golang-reflect/index.xml" rel="self" type="application/rss+xml" />
@@ -17,7 +15,7 @@
       <title>Reflect</title>
       <link>https://blog.ucatch.me/post/golang/reflect/</link>
       <pubDate>Sat, 31 Oct 2015 08:49:41 +0800</pubDate>
-      <author>seanchann@foxmail.com (seanchann.zhou)</author>
+      
       <guid>https://blog.ucatch.me/post/golang/reflect/</guid>
       <description>&lt;p&gt;reflect 在golang的开发中，经常会使用到的一个特性，它使golang具有了某些动态语言的特性。本文直接翻译自&lt;a href=&#34;(http://blog.golang.org/laws-of-reflection)&#34;&gt;&lt;code&gt;官方网站&lt;/code&gt;&lt;/a&gt;，对&lt;code&gt;reflect&lt;/code&gt;的三条规则进行阐述。&lt;/p&gt;
 
