@@ -169,175 +169,34 @@ ga('send', 'pageview');
         <div class="posts-list">
           
             <article class="post-preview">
-              <a href="https://blog.ucatch.me/post/mongodb/mongodb-shell-cmd/">
-                <h2 class="post-title">mongodb的命令</h2>
+              <a href="https://blog.ucatch.me/post/ci-cd/jenkins-security/">
+                <h2 class="post-title">jenkins的访问权限以及账户安全</h2>
 
                 
               </a>
 
               <p class="post-meta">
-                发表于 July 31, 2016
-              </p>
-              <div class="post-entry">
-                
-                  <p>本文主要汇总mongodb的命令行。</p>
-
-<p><strong>系统：CentOS7 + docker 1.6</strong></p>
-
-<p><strong>mongodb版本： 3.0.2</strong></p>
-
-<p><strong>mongo shell版本：3.0.4</strong></p>
-
-<p></p>
-                  <a href="https://blog.ucatch.me/post/mongodb/mongodb-shell-cmd/" class="post-read-more">[阅读全文]</a>
-                
-              </div>
-
-              
-                <span class="post-meta">
-                  
-                    #<a href="https://blog.ucatch.me/tags/mongodb/">mongodb</a>&nbsp;
-                  
-                </span>
-              
-
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://blog.ucatch.me/post/mongodb/mongodb-user/">
-                <h2 class="post-title">mongodb的用户管理说明</h2>
-
-                
-              </a>
-
-              <p class="post-meta">
-                发表于 July 31, 2016
+                发表于 March 31, 2015
               </p>
               <div class="post-entry">
                 
                   <p><strong>系统：CentOS7 + docker 1.6</strong></p>
 
-<p><strong>mongodb版本： 3.0.2</strong></p>
+<p><strong>Jenkins: ver. 1.609.1</strong></p>
 
-<p>安装工作完成后，整个的mongodb运行起来后，在开始工作前，首先应该为我们的mongodb配置适当的用户以及其权限。</p>
+<h2 id="配置说明">配置说明</h2>
+
+<p>jenkins的安全配置说明在主页面的Configure Global Security的菜单中。它的安全和访问控制主要是两部分：安全域和鉴权策略。</p>
 
 <p></p>
-                  <a href="https://blog.ucatch.me/post/mongodb/mongodb-user/" class="post-read-more">[阅读全文]</a>
+                  <a href="https://blog.ucatch.me/post/ci-cd/jenkins-security/" class="post-read-more">[阅读全文]</a>
                 
               </div>
 
               
                 <span class="post-meta">
                   
-                    #<a href="https://blog.ucatch.me/tags/mongodb/">mongodb</a>&nbsp;
-                  
-                </span>
-              
-
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://blog.ucatch.me/post/mongodb/mongodb-read/">
-                <h2 class="post-title">mongodb的读说明</h2>
-
-                
-              </a>
-
-              <p class="post-meta">
-                发表于 July 31, 2016
-              </p>
-              <div class="post-entry">
-                
-                  <p><strong>系统：CentOS7 + docker 1.6</strong></p>
-
-<p><strong>mongodb版本： 3.0.2</strong></p>
-
-<p>mongodb与读操作相关的内容，比如find以及query操作</p>
-
-<p></p>
-                  <a href="https://blog.ucatch.me/post/mongodb/mongodb-read/" class="post-read-more">[阅读全文]</a>
-                
-              </div>
-
-              
-                <span class="post-meta">
-                  
-                    #<a href="https://blog.ucatch.me/tags/mongodb/">mongodb</a>&nbsp;
-                  
-                </span>
-              
-
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://blog.ucatch.me/post/mongodb/mongodb-problems-summary/">
-                <h2 class="post-title">mongodb问题汇总</h2>
-
-                
-              </a>
-
-              <p class="post-meta">
-                发表于 July 31, 2016
-              </p>
-              <div class="post-entry">
-                
-                  <p><strong>系统：CentOS7 + docker 1.6</strong></p>
-
-<p><strong>mongodb版本： 3.0.2</strong></p>
-
-<h2 id="warning-sys-kernel-mm-transparent-hugepage-enabled-or-sys-kernel-mm-transparent-hugepage-defrag-is-always">WARNING:/sys/kernel/mm/transparent_hugepage/enabled or /sys/kernel/mm/transparent_hugepage/defrag is &lsquo;always&rsquo;.</h2>
-
-<pre><code class="language-text">    这个问题的原因是由于内核的某些参数的配置造成的mongodb产生了警告，基于docker环境，在docker运行的host主机上：
-
-    1. echo never &gt; /sys/kernel/mm/transparent_hugepage/enabled
-    2. echo never &gt; /sys/kernel/mm/transparent_hugepage/defrag
-
-    or
-
-    1. echo never | sudo tee /sys/kernel/mm/transparent_hugepage/enabled
-    2. echo never | sudo tee /sys/kernel/mm/transparent_hugepage/defrag
-</code></pre>
-
-<p></p>
-                  <a href="https://blog.ucatch.me/post/mongodb/mongodb-problems-summary/" class="post-read-more">[阅读全文]</a>
-                
-              </div>
-
-              
-                <span class="post-meta">
-                  
-                    #<a href="https://blog.ucatch.me/tags/mongodb/">mongodb</a>&nbsp;
-                  
-                </span>
-              
-
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://blog.ucatch.me/post/golang/reflect/">
-                <h2 class="post-title">Reflect</h2>
-
-                
-              </a>
-
-              <p class="post-meta">
-                发表于 October 31, 2015
-              </p>
-              <div class="post-entry">
-                
-                  <p>reflect 在golang的开发中，经常会使用到的一个特性，它使golang具有了某些动态语言的特性。本文直接翻译自<a href="(http://blog.golang.org/laws-of-reflection)"><code>官方网站</code></a>，对<code>reflect</code>的三条规则进行阐述。</p>
-
-<p></p>
-                  <a href="https://blog.ucatch.me/post/golang/reflect/" class="post-read-more">[阅读全文]</a>
-                
-              </div>
-
-              
-                <span class="post-meta">
-                  
-                    #<a href="https://blog.ucatch.me/tags/golang/">golang</a>&nbsp;
-                  
-                    #<a href="https://blog.ucatch.me/tags/golang-reflect/">golang-reflect</a>&nbsp;
+                    #<a href="https://blog.ucatch.me/tags/jenkins/">jenkins</a>&nbsp;
                   
                 </span>
               
@@ -349,13 +208,9 @@ ga('send', 'pageview');
           <ul class="pager main-pager">
             
               <li class="previous">
-                <a href="https://blog.ucatch.me/post/page/2">&larr; 上一页</a>
+                <a href="https://blog.ucatch.me/post/page/4">&larr; 上一页</a>
               </li>
             
-            
-              <li class="next">
-                <a href="https://blog.ucatch.me/post/page/4">下一页 &rarr;</a>
-              </li>
             
           </ul>
         

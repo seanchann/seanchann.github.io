@@ -5,20 +5,20 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>Posts</title>
-  <meta property="og:title" content="Posts" />
-  <meta name="twitter:title" content="Posts" />
+  <title>Typescript</title>
+  <meta property="og:title" content="Typescript" />
+  <meta name="twitter:title" content="Typescript" />
   <meta name="author" content="seanchann.zhou"/>
   <link href='https://blog.ucatch.me/img/favicon.ico' rel='icon' type='image/x-icon'/>
   <meta property="og:image" content="https://blog.ucatch.me/img/my-IT-user.jpg" />
   <meta name="twitter:image" content="https://blog.ucatch.me/img/my-IT-user.jpg" />
   <meta name="twitter:card" content="summary" />
-  <meta property="og:url" content="https://blog.ucatch.me/post/" />
+  <meta property="og:url" content="https://blog.ucatch.me/tags/typescript/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="seanchann" />
 
   <meta name="generator" content="Hugo 0.26-DEV" />
-  <link rel="canonical" href="https://blog.ucatch.me/post/" />
+  <link rel="canonical" href="https://blog.ucatch.me/tags/typescript/" />
   <link rel="alternate" href="https://blog.ucatch.me/index.xml" type="application/rss+xml" title="seanchann">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -152,7 +152,7 @@ ga('send', 'pageview');
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="page-heading">
-              <h1>Posts</h1>
+              <h1>#Typescript</h1>
               <hr class="small">
             </div>
           </div>
@@ -169,175 +169,36 @@ ga('send', 'pageview');
         <div class="posts-list">
           
             <article class="post-preview">
-              <a href="https://blog.ucatch.me/post/mongodb/mongodb-shell-cmd/">
-                <h2 class="post-title">mongodb的命令</h2>
+              <a href="https://blog.ucatch.me/post/typescript/classesvsinterfaces/">
+                <h2 class="post-title">Classes VS Interfaces</h2>
 
                 
               </a>
 
               <p class="post-meta">
-                发表于 July 31, 2016
+                发表于 September 17, 2017
               </p>
               <div class="post-entry">
                 
-                  <p>本文主要汇总mongodb的命令行。</p>
+                  <p><em><a href="https://jameshenry.blog/typescript-classes-vs-interfaces/">本文原文地址</a>，翻译如有问题请指正</em></p>
 
-<p><strong>系统：CentOS7 + docker 1.6</strong></p>
+<p>我们现在已经可以在JavaScript中使用类了，在TypeScript中类早已经支持了。但是在TypeScript中我们有一个<code>interface</code>的概念，那么当我们添加<code>type annotations</code>的时候，经常会有疑问：</p>
 
-<p><strong>mongodb版本： 3.0.2</strong></p>
+<blockquote>
+<p>这个<code>type annotations</code>应该使用<code>interface</code>还是<code>class</code></p>
+</blockquote>
 
-<p><strong>mongo shell版本：3.0.4</strong></p>
+<p>本文将会对比1<code>TypeScript</code>中的<code>classes</code>和<code>interfaces</code>的区别，来解答这个问题。</p>
 
 <p></p>
-                  <a href="https://blog.ucatch.me/post/mongodb/mongodb-shell-cmd/" class="post-read-more">[阅读全文]</a>
+                  <a href="https://blog.ucatch.me/post/typescript/classesvsinterfaces/" class="post-read-more">[阅读全文]</a>
                 
               </div>
 
               
                 <span class="post-meta">
                   
-                    #<a href="https://blog.ucatch.me/tags/mongodb/">mongodb</a>&nbsp;
-                  
-                </span>
-              
-
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://blog.ucatch.me/post/mongodb/mongodb-user/">
-                <h2 class="post-title">mongodb的用户管理说明</h2>
-
-                
-              </a>
-
-              <p class="post-meta">
-                发表于 July 31, 2016
-              </p>
-              <div class="post-entry">
-                
-                  <p><strong>系统：CentOS7 + docker 1.6</strong></p>
-
-<p><strong>mongodb版本： 3.0.2</strong></p>
-
-<p>安装工作完成后，整个的mongodb运行起来后，在开始工作前，首先应该为我们的mongodb配置适当的用户以及其权限。</p>
-
-<p></p>
-                  <a href="https://blog.ucatch.me/post/mongodb/mongodb-user/" class="post-read-more">[阅读全文]</a>
-                
-              </div>
-
-              
-                <span class="post-meta">
-                  
-                    #<a href="https://blog.ucatch.me/tags/mongodb/">mongodb</a>&nbsp;
-                  
-                </span>
-              
-
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://blog.ucatch.me/post/mongodb/mongodb-read/">
-                <h2 class="post-title">mongodb的读说明</h2>
-
-                
-              </a>
-
-              <p class="post-meta">
-                发表于 July 31, 2016
-              </p>
-              <div class="post-entry">
-                
-                  <p><strong>系统：CentOS7 + docker 1.6</strong></p>
-
-<p><strong>mongodb版本： 3.0.2</strong></p>
-
-<p>mongodb与读操作相关的内容，比如find以及query操作</p>
-
-<p></p>
-                  <a href="https://blog.ucatch.me/post/mongodb/mongodb-read/" class="post-read-more">[阅读全文]</a>
-                
-              </div>
-
-              
-                <span class="post-meta">
-                  
-                    #<a href="https://blog.ucatch.me/tags/mongodb/">mongodb</a>&nbsp;
-                  
-                </span>
-              
-
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://blog.ucatch.me/post/mongodb/mongodb-problems-summary/">
-                <h2 class="post-title">mongodb问题汇总</h2>
-
-                
-              </a>
-
-              <p class="post-meta">
-                发表于 July 31, 2016
-              </p>
-              <div class="post-entry">
-                
-                  <p><strong>系统：CentOS7 + docker 1.6</strong></p>
-
-<p><strong>mongodb版本： 3.0.2</strong></p>
-
-<h2 id="warning-sys-kernel-mm-transparent-hugepage-enabled-or-sys-kernel-mm-transparent-hugepage-defrag-is-always">WARNING:/sys/kernel/mm/transparent_hugepage/enabled or /sys/kernel/mm/transparent_hugepage/defrag is &lsquo;always&rsquo;.</h2>
-
-<pre><code class="language-text">    这个问题的原因是由于内核的某些参数的配置造成的mongodb产生了警告，基于docker环境，在docker运行的host主机上：
-
-    1. echo never &gt; /sys/kernel/mm/transparent_hugepage/enabled
-    2. echo never &gt; /sys/kernel/mm/transparent_hugepage/defrag
-
-    or
-
-    1. echo never | sudo tee /sys/kernel/mm/transparent_hugepage/enabled
-    2. echo never | sudo tee /sys/kernel/mm/transparent_hugepage/defrag
-</code></pre>
-
-<p></p>
-                  <a href="https://blog.ucatch.me/post/mongodb/mongodb-problems-summary/" class="post-read-more">[阅读全文]</a>
-                
-              </div>
-
-              
-                <span class="post-meta">
-                  
-                    #<a href="https://blog.ucatch.me/tags/mongodb/">mongodb</a>&nbsp;
-                  
-                </span>
-              
-
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://blog.ucatch.me/post/golang/reflect/">
-                <h2 class="post-title">Reflect</h2>
-
-                
-              </a>
-
-              <p class="post-meta">
-                发表于 October 31, 2015
-              </p>
-              <div class="post-entry">
-                
-                  <p>reflect 在golang的开发中，经常会使用到的一个特性，它使golang具有了某些动态语言的特性。本文直接翻译自<a href="(http://blog.golang.org/laws-of-reflection)"><code>官方网站</code></a>，对<code>reflect</code>的三条规则进行阐述。</p>
-
-<p></p>
-                  <a href="https://blog.ucatch.me/post/golang/reflect/" class="post-read-more">[阅读全文]</a>
-                
-              </div>
-
-              
-                <span class="post-meta">
-                  
-                    #<a href="https://blog.ucatch.me/tags/golang/">golang</a>&nbsp;
-                  
-                    #<a href="https://blog.ucatch.me/tags/golang-reflect/">golang-reflect</a>&nbsp;
+                    #<a href="https://blog.ucatch.me/tags/typescript/">typescript</a>&nbsp;
                   
                 </span>
               
@@ -345,19 +206,6 @@ ga('send', 'pageview');
             </article>
           
         </div>
-        
-          <ul class="pager main-pager">
-            
-              <li class="previous">
-                <a href="https://blog.ucatch.me/post/page/2">&larr; 上一页</a>
-              </li>
-            
-            
-              <li class="next">
-                <a href="https://blog.ucatch.me/post/page/4">下一页 &rarr;</a>
-              </li>
-            
-          </ul>
         
       </div>
     </div>

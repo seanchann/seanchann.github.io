@@ -5,20 +5,23 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>Posts</title>
-  <meta property="og:title" content="Posts" />
-  <meta name="twitter:title" content="Posts" />
+  <title>cmake exporting and importing target</title>
+  <meta property="og:title" content="cmake exporting and importing target" />
+  <meta name="twitter:title" content="cmake exporting and importing target" />
+  <meta name="description" content="cmake导入以及导出目标">
+  <meta property="og:description" content="cmake导入以及导出目标">
+  <meta name="twitter:description" content="cmake导入以及导出目标">
   <meta name="author" content="seanchann.zhou"/>
   <link href='https://blog.ucatch.me/img/favicon.ico' rel='icon' type='image/x-icon'/>
   <meta property="og:image" content="https://blog.ucatch.me/img/my-IT-user.jpg" />
   <meta name="twitter:image" content="https://blog.ucatch.me/img/my-IT-user.jpg" />
   <meta name="twitter:card" content="summary" />
-  <meta property="og:url" content="https://blog.ucatch.me/post/" />
+  <meta property="og:url" content="https://blog.ucatch.me/post/build-system/cmake-exporting-importing-target/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="seanchann" />
 
   <meta name="generator" content="Hugo 0.26-DEV" />
-  <link rel="canonical" href="https://blog.ucatch.me/post/" />
+  <link rel="canonical" href="https://blog.ucatch.me/post/build-system/cmake-exporting-importing-target/" />
   <link rel="alternate" href="https://blog.ucatch.me/index.xml" type="application/rss+xml" title="seanchann">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -146,14 +149,33 @@ ga('send', 'pageview');
 
 
     
+  
+  
+  
+
+
+
+
+  
+
   <header class="header-section ">
+    
     <div class="intro-header no-img">
+      
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="page-heading">
-              <h1>Posts</h1>
-              <hr class="small">
+            <div class="post-heading">
+              <h1>cmake exporting and importing target</h1>
+                
+                
+                  <span class="post-meta">
+  发表于 August 30, 2017
+  
+</span>
+
+
+                
             </div>
           </div>
         </div>
@@ -161,207 +183,108 @@ ga('send', 'pageview');
     </div>
   </header>
 
+
     
-  <div class="container" role="main">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        
-        <div class="posts-list">
-          
-            <article class="post-preview">
-              <a href="https://blog.ucatch.me/post/mongodb/mongodb-shell-cmd/">
-                <h2 class="post-title">mongodb的命令</h2>
-
-                
-              </a>
-
-              <p class="post-meta">
-                发表于 July 31, 2016
-              </p>
-              <div class="post-entry">
-                
-                  <p>本文主要汇总mongodb的命令行。</p>
-
-<p><strong>系统：CentOS7 + docker 1.6</strong></p>
-
-<p><strong>mongodb版本： 3.0.2</strong></p>
-
-<p><strong>mongo shell版本：3.0.4</strong></p>
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>使用<code>cmake</code>编译生成的库或者可执行程序，我们都称为<code>target</code>。如果其他的工程中想使用这些<code>target</code>的话，就需要本文所描述的技术，来将<code>target</code>导出，然后在其他的工程的cmake中再导入使用。</p>
 
 <p></p>
-                  <a href="https://blog.ucatch.me/post/mongodb/mongodb-shell-cmd/" class="post-read-more">[阅读全文]</a>
-                
-              </div>
 
-              
-                <span class="post-meta">
-                  
-                    #<a href="https://blog.ucatch.me/tags/mongodb/">mongodb</a>&nbsp;
-                  
-                </span>
-              
+<p><em><a href="https://cmake.org/Wiki/CMake/Tutorials/Exporting_and_Importing_Targets">原英文网站地址</a></em></p>
 
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://blog.ucatch.me/post/mongodb/mongodb-user/">
-                <h2 class="post-title">mongodb的用户管理说明</h2>
+<p><code>CMake</code> 2.6提供了从一个工程导出<code>target</code>，然后导入到其他工程的用法。这个功能里面的一个主要的概念就是<code>IMPORTED target</code>。因此我们会先介绍导入<code>targets</code>，然后来介绍如何在一个工程中导出它的<code>targets</code>给其他工程使用。</p>
 
-                
-              </a>
+<h2 id="导入-targets">导入 <code>Targets</code></h2>
 
-              <p class="post-meta">
-                发表于 July 31, 2016
-              </p>
-              <div class="post-entry">
-                
-                  <p><strong>系统：CentOS7 + docker 1.6</strong></p>
+<p>导入<code>targets</code>用来将本地硬盘上的外部工程以正确的方式导入到当前的CMake工程。通过<code>add_executable</code>和<code>add_library</code>命令使用<code>IMPORTED</code>的选项来导入<code>targets</code>。cmake不会为导入的这些对象生成任何的编译文件。使用这种方式导入外部可行性的程序以及库是灵活的，方便的。</p>
 
-<p><strong>mongodb版本： 3.0.2</strong></p>
+<p>下面的例子就是一个<code>IMPORTED</code>可执行文件的例子：</p>
 
-<p>安装工作完成后，整个的mongodb运行起来后，在开始工作前，首先应该为我们的mongodb配置适当的用户以及其权限。</p>
+<pre><code class="language-cmake">add_executable(generator IMPORTED)  #1
+set_property(TARGET generator PROPERTY IMPORTED_LOCATION &quot;/path/to/some_generator&quot;) #2
 
-<p></p>
-                  <a href="https://blog.ucatch.me/post/mongodb/mongodb-user/" class="post-read-more">[阅读全文]</a>
-                
-              </div>
-
-              
-                <span class="post-meta">
-                  
-                    #<a href="https://blog.ucatch.me/tags/mongodb/">mongodb</a>&nbsp;
-                  
-                </span>
-              
-
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://blog.ucatch.me/post/mongodb/mongodb-read/">
-                <h2 class="post-title">mongodb的读说明</h2>
-
-                
-              </a>
-
-              <p class="post-meta">
-                发表于 July 31, 2016
-              </p>
-              <div class="post-entry">
-                
-                  <p><strong>系统：CentOS7 + docker 1.6</strong></p>
-
-<p><strong>mongodb版本： 3.0.2</strong></p>
-
-<p>mongodb与读操作相关的内容，比如find以及query操作</p>
-
-<p></p>
-                  <a href="https://blog.ucatch.me/post/mongodb/mongodb-read/" class="post-read-more">[阅读全文]</a>
-                
-              </div>
-
-              
-                <span class="post-meta">
-                  
-                    #<a href="https://blog.ucatch.me/tags/mongodb/">mongodb</a>&nbsp;
-                  
-                </span>
-              
-
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://blog.ucatch.me/post/mongodb/mongodb-problems-summary/">
-                <h2 class="post-title">mongodb问题汇总</h2>
-
-                
-              </a>
-
-              <p class="post-meta">
-                发表于 July 31, 2016
-              </p>
-              <div class="post-entry">
-                
-                  <p><strong>系统：CentOS7 + docker 1.6</strong></p>
-
-<p><strong>mongodb版本： 3.0.2</strong></p>
-
-<h2 id="warning-sys-kernel-mm-transparent-hugepage-enabled-or-sys-kernel-mm-transparent-hugepage-defrag-is-always">WARNING:/sys/kernel/mm/transparent_hugepage/enabled or /sys/kernel/mm/transparent_hugepage/defrag is &lsquo;always&rsquo;.</h2>
-
-<pre><code class="language-text">    这个问题的原因是由于内核的某些参数的配置造成的mongodb产生了警告，基于docker环境，在docker运行的host主机上：
-
-    1. echo never &gt; /sys/kernel/mm/transparent_hugepage/enabled
-    2. echo never &gt; /sys/kernel/mm/transparent_hugepage/defrag
-
-    or
-
-    1. echo never | sudo tee /sys/kernel/mm/transparent_hugepage/enabled
-    2. echo never | sudo tee /sys/kernel/mm/transparent_hugepage/defrag
+set(GENERATED_SRC ${CMAKE_CURRENT_BINARY_DIR}/generated.c)
+add_custom_command(
+  OUTPUT ${GENERATED_SRC}
+  COMMAND generator ${GENERATED_SRC} #3
+)
+add_executable(myexe src1.c src2.c ${GENERATED_SRC})
 </code></pre>
 
-<p></p>
-                  <a href="https://blog.ucatch.me/post/mongodb/mongodb-problems-summary/" class="post-read-more">[阅读全文]</a>
-                
-              </div>
+<p><code>#1</code>行我们创建了一个的新的<code>CMake</code>的<code>target</code> <code>generator</code>。<code>#2</code>行告诉<code>CMake</code>导入的路径。<code>#3</code>行的自定义命令引用这个导入的目标。最终的生成包含类似下面的内容：</p>
 
-              
-                <span class="post-meta">
-                  
-                    #<a href="https://blog.ucatch.me/tags/mongodb/">mongodb</a>&nbsp;
-                  
-                </span>
-              
+<pre><code class="language-bash"> /path/to/some_generator /project/binary/dir/generated.c
+</code></pre>
 
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://blog.ucatch.me/post/golang/reflect/">
-                <h2 class="post-title">Reflect</h2>
+<p>库也可以通过导入的方式来使用：</p>
 
-                
-              </a>
+<pre><code class="language-cmake">add_library(foo STATIC IMPORTED)
+set_property(TARGET foo PROPERTY IMPORTED_LOCATION /path/to/libfoo.a)
+add_executable(myexe src1.c src2.c)
+target_link_libraries(myexe foo)
+</code></pre>
 
-              <p class="post-meta">
-                发表于 October 31, 2015
-              </p>
-              <div class="post-entry">
-                
-                  <p>reflect 在golang的开发中，经常会使用到的一个特性，它使golang具有了某些动态语言的特性。本文直接翻译自<a href="(http://blog.golang.org/laws-of-reflection)"><code>官方网站</code></a>，对<code>reflect</code>的三条规则进行阐述。</p>
+<p>最终的生成包含类似下面的内容：</p>
 
-<p></p>
-                  <a href="https://blog.ucatch.me/post/golang/reflect/" class="post-read-more">[阅读全文]</a>
-                
-              </div>
+<pre><code class="language-cmake">... -o myexe /path/to/libfoo.a ...
+</code></pre>
 
-              
-                <span class="post-meta">
-                  
-                    #<a href="https://blog.ucatch.me/tags/golang/">golang</a>&nbsp;
-                  
-                    #<a href="https://blog.ucatch.me/tags/golang-reflect/">golang-reflect</a>&nbsp;
-                  
-                </span>
-              
+<p>在windows系统是以<code>.dll</code>和它的<code>.libs</code>库来链接到<code>myexe</code></p>
 
-            </article>
-          
-        </div>
+<pre><code class="language-cmake"> add_library(bar SHARED IMPORTED)
+ set_property(TARGET bar PROPERTY IMPORTED_LOCATION c:/path/to/bar.dll)
+ set_property(TARGET bar PROPERTY IMPORTED_IMPLIB c:/path/to/bar.lib)
+ add_executable(myexe src1.c src2.c)
+ target_link_libraries(myexe bar)
+</code></pre>
+      </article>
+
+      <ul class="pager blog-pager">
         
-          <ul class="pager main-pager">
-            
-              <li class="previous">
-                <a href="https://blog.ucatch.me/post/page/2">&larr; 上一页</a>
-              </li>
-            
-            
-              <li class="next">
-                <a href="https://blog.ucatch.me/post/page/4">下一页 &rarr;</a>
-              </li>
-            
-          </ul>
+          <li class="previous">
+            <a href="https://blog.ucatch.me/post/build-system/cmake-path/" data-toggle="tooltip" data-placement="top" title="cmake 路径检索">&larr; 前一篇</a>
+          </li>
         
-      </div>
+        
+          <li class="next">
+            <a href="https://blog.ucatch.me/post/typescript/classesvsinterfaces/" data-toggle="tooltip" data-placement="top" title="Classes VS Interfaces">后一篇 &rarr;</a>
+          </li>
+        
+      </ul>
+
+      
+        
+          <div class="disqus-comments">
+            <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "seanchann" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+          </div>
+        
+      
+
     </div>
   </div>
+</div>
 
     <footer>
   <div class="container">
