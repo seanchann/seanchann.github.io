@@ -132,7 +132,7 @@
     
       <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.ucatch.me/post/mongodb/mongodb-read/">mongodb的读说明</a></h1>
+    <h1 class="post-title"><a class="post-link" href="https://blog.ucatch.me/post/mongodb/mongodb-install/">mongodb安装说明</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2016-07-31 </span>
       <div class="post-category">
@@ -148,19 +148,23 @@
 
 <p><strong>mongodb版本： 3.0.2</strong></p>
 
-<p>mongodb与读操作相关的内容，比如find以及query操作</p>
+<p>本文的安装是采用docker的方式，而不是在os上安装package的方式。</p>
+
+<p><a href="http://docs.mongoing.com/manual/tutorial/">package的安装方式</a></p>
+
+<p>在开始前，假定用户已经完成了基础环境的配置，这里主要是指docker的运行环境</p>
 
 <p></p>
     </div>
     <div class="read-more">
-      <a href="https://blog.ucatch.me/post/mongodb/mongodb-read/" class="read-more-link">阅读更多</a>
+      <a href="https://blog.ucatch.me/post/mongodb/mongodb-install/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
     
       <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.ucatch.me/post/mongodb/mongodb-problems-summary/">mongodb问题汇总</a></h1>
+    <h1 class="post-title"><a class="post-link" href="https://blog.ucatch.me/post/mongodb/mongodb-go-concurrently/">mongodb客户端并发 --- Golang</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2016-07-31 </span>
       <div class="post-category">
@@ -176,34 +180,27 @@
 
 <p><strong>mongodb版本： 3.0.2</strong></p>
 
-<h2 id="warning-sys-kernel-mm-transparent-hugepage-enabled-or-sys-kernel-mm-transparent-hugepage-defrag-is-always">WARNING:/sys/kernel/mm/transparent_hugepage/enabled or /sys/kernel/mm/transparent_hugepage/defrag is &lsquo;always&rsquo;.</h2>
+<p><a href="http://blog.mongodb.org/post/80579086742/running-mongodb-queries-concurrently-with-go"><code>原文的地址</code></a>, pla，pla的一堆作者的铺垫介绍略过，但是还是感谢下作者。</p>
 
-<pre><code class="language-text">    这个问题的原因是由于内核的某些参数的配置造成的mongodb产生了警告，基于docker环境，在docker运行的host主机上：
+<h2 id="介绍">介绍</h2>
 
-    1. echo never &gt; /sys/kernel/mm/transparent_hugepage/enabled
-    2. echo never &gt; /sys/kernel/mm/transparent_hugepage/defrag
-
-    or
-
-    1. echo never | sudo tee /sys/kernel/mm/transparent_hugepage/enabled
-    2. echo never | sudo tee /sys/kernel/mm/transparent_hugepage/defrag
-</code></pre>
+<p>mongodb支持很多不同的编程语言，感谢编写驱动程序的人员。一个mongoDB的go语言的驱动叫做mgo。这个驱动是由Gustavo Niemeyer和一些的MongoDB公司的同事一起开发的。团队的负责人是Gustavo以及Steve Francia，他们在2014年的“GopherCon”上分享了“使用Go语言在mongodb中存储数据”。分享内容描述了mgo驱动如何使得mongodb和go更好的协同工作去构建高度可扩展的软件。</p>
 
 <p></p>
     </div>
     <div class="read-more">
-      <a href="https://blog.ucatch.me/post/mongodb/mongodb-problems-summary/" class="read-more-link">阅读更多</a>
+      <a href="https://blog.ucatch.me/post/mongodb/mongodb-go-concurrently/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
     
       <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.ucatch.me/post/golang/reflect/">Reflect</a></h1>
+    <h1 class="post-title"><a class="post-link" href="https://blog.ucatch.me/post/mongodb/mongodb-shell-cmd/">mongodb的命令</a></h1>
     <div class="post-meta">
-      <span class="post-time"> 2015-10-31 </span>
+      <span class="post-time"> 2016-07-31 </span>
       <div class="post-category">
-          <a href="https://blog.ucatch.me/categories/golang/">golang</a>
+          <a href="https://blog.ucatch.me/categories/mongodb/">mongodb</a>
         </div>
       
     </div>
@@ -211,12 +208,18 @@
   
   <div class="post-content">
     <div class="post-summary">
-      <p>reflect 在golang的开发中，经常会使用到的一个特性，它使golang具有了某些动态语言的特性。本文直接翻译自<a href="(http://blog.golang.org/laws-of-reflection)"><code>官方网站</code></a>，对<code>reflect</code>的三条规则进行阐述。</p>
+      <p>本文主要汇总mongodb的命令行。</p>
+
+<p><strong>系统：CentOS7 + docker 1.6</strong></p>
+
+<p><strong>mongodb版本： 3.0.2</strong></p>
+
+<p><strong>mongo shell版本：3.0.4</strong></p>
 
 <p></p>
     </div>
     <div class="read-more">
-      <a href="https://blog.ucatch.me/post/golang/reflect/" class="read-more-link">阅读更多</a>
+      <a href="https://blog.ucatch.me/post/mongodb/mongodb-shell-cmd/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>呼叫驻留 - seanchann</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="seanchann" /><meta name="description" content="asterisk呼叫驻留部分的说明以及配置使用" />
+
+  <meta name="keywords" content="seanchann, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.26-DEV" />
+
+
+<link rel="canonical" href="https://blog.ucatch.me/post/asterisk/call_parking/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.ucatch.me/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.ucatch.me/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.ucatch.me/favicon-16x16.png">
+<link rel="icon" href="https://blog.ucatch.me/favicon.ico" />
+<link rel="manifest" href="https://blog.ucatch.me/manifest.json">
+<link rel="mask-icon" href="https://blog.ucatch.me/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="https://blog.ucatch.me/dist/even.min.css?v=2.6.1" rel="stylesheet">
+<link href="https://blog.ucatch.me/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+<meta property="og:title" content="呼叫驻留" />
+<meta property="og:description" content="asterisk呼叫驻留部分的说明以及配置使用" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.ucatch.me/post/asterisk/call_parking/" />
+
+
+
+<meta property="article:published_time" content="2017-10-07T10:36:14&#43;00:00"/>
+<meta property="article:modified_time" content="2017-10-07T10:36:14&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="呼叫驻留">
+<meta itemprop="description" content="asterisk呼叫驻留部分的说明以及配置使用">
+
+
+<meta itemprop="dateModified" content="2017-10-07T10:36:14&#43;00:00" />
+<meta itemprop="wordCount" content="4032">
+
+
+
+<meta itemprop="keywords" content="asterisk,VOIP," />
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="呼叫驻留"/>
+<meta name="twitter:description" content="asterisk呼叫驻留部分的说明以及配置使用"/>
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js" integrity="sha256-9uAoNWHdszsUDhSXf/rVcWOqKPfi5/8V5R4UdbZle2A=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js" crossorigin="anonymous"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.ucatch.me/" class="logo">seanchann</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.ucatch.me/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="https://blog.ucatch.me/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="https://blog.ucatch.me/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="https://blog.ucatch.me/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="https://blog.ucatch.me/about/">
+        <li class="mobile-menu-item">About me</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="https://blog.ucatch.me/" class="logo">seanchann</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="https://blog.ucatch.me/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://blog.ucatch.me/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://blog.ucatch.me/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://blog.ucatch.me/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://blog.ucatch.me/about/">About me</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">呼叫驻留</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-10-07 </span>
+        <div class="post-category">
+            <a href="https://blog.ucatch.me/categories/asterisk/">asterisk</a>
+          </div>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+      <nav id="TableOfContents">
+<ul>
+<li><a href="#概要">概要</a></li>
+<li><a href="#呼叫驻留配置文件以及模块">呼叫驻留配置文件以及模块</a></li>
+<li><a href="#配置示例">配置示例</a>
+<ul>
+<li><a href="#基本的呼叫驻留-检索情景">基本的呼叫驻留/检索情景</a></li>
+<li><a href="#处理呼叫驻留超时">处理呼叫驻留超时</a></li>
+<li><a href="#自定义的呼叫驻留超时">自定义的呼叫驻留超时</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      <h1 id="概要">概要</h1>
+
+<p>有些公司需要一种可以灵活的在将电话转接给办公室的其他人或者那些不经常在自己的办公位置上的人。在asterisk中，允许将一个呼叫保持，然后我们使用在别的位置的其他的应答设备重新接听这个保持的电话。这个概念就是呼叫驻留。</p>
+
+<p>呼叫驻留特性允许呼叫中的一方将另一方进行呼叫保持，然后他们挂断电话。当启动了呼叫驻留，呼叫驻留的发起者会被告知当前所剩的驻留空间，这个类似于标准的分机的配置。这些配置好的分机，或者叫做驻留空间，它们为呼叫驻留提供服务。基于这一点，驻留的空间是已知的，因此可以检索到未使用的位置来驻留呼叫</p>
+
+<p></p>
+
+<h1 id="呼叫驻留配置文件以及模块">呼叫驻留配置文件以及模块</h1>
+
+<p>在Asterisk12之前的版本，呼叫驻留被作为asterisk的core feature的一部分，在<code>features.conf</code>中配置。然而，asterisk 12进行了重大的框架修改，这部分功能通过call parking模块支持。</p>
+
+<p>简而言之，就是asterisk 12讲呼叫驻留部分分离出去成为了单独的模块：<code>res_parking</code>。因此，呼叫驻留的配置迁移到<code>res_parking.conf</code>,在asterisk 12中通过<code>features.conf</code>来配置的方式不会有持续性的支持了。另外，<code>ParkAndAnnounce</code>被整合到了<code>res_parking</code>模块，并且<code>app_parkandannounce</code>模块已经被删除</p>
+
+<p><em>res_parking使用了内置的配置框架。如果配置中存在无效的配置项，那么模块会加载失败。之前无效的配置是被允许的，会给出一个严重的错误并且逐一禁止这些驻留位</em></p>
+
+<p>现在我们已经涵盖相关的所有点，开始看一些例子</p>
+
+<h1 id="配置示例">配置示例</h1>
+
+<h2 id="基本的呼叫驻留-检索情景">基本的呼叫驻留/检索情景</h2>
+
+<p>这里是一个最基本的情景，我们需要修改下面的配置文件:<code>res_parking.conf</code>, <code>features.conf</code>, <code>extensions.conf</code></p>
+
+<p>在这个情景里，拨号方案包含一个分机可以接听外部呼叫。假定，主叫的呼叫号码是<code>5555001</code>，呼叫是给Alice的分机的，使用<code>k</code>选项。</p>
+
+<p>alice的分机接听了这个呼叫，并且立即说，&rdquo;Hello workd!&ldquo;，发送了DTMF数字串，请求了驻留，没有给主叫任何的说话机会。alice的分机使用<code>GoTo</code>应用转到了呼叫驻留的<code>context</code>中的<code>701</code>分机来检索驻留呼叫。接下来，alice的分机直接挂断了呼叫，因此应该是alice的分机现在不想被打扰。</p>
+
+<p>总结：</p>
+
+<ul>
+<li>外部呼叫者拨号<code>5555001</code></li>
+<li>Alice接听了电话并且说了句<code>hello world</code></li>
+<li>Alice发送了DTMF数字串</li>
+<li>Alice呼叫了一个分机，准备驻留通话到701</li>
+<li>Alice说， <code>再见</code>，挂断了主叫的这个电话</li>
+</ul>
+
+<p>res_parking.conf</p>
+
+<pre><code>[general]
+parkext =&gt; 700                           ; Sets the default extension used to park calls. Note: This option
+                                         ; can take any alphanumeric string.
+ 
+parkpos =&gt; 701-709                       ; Sets the range of extensions used as the parking lot. Parked calls
+                                         ; may be retrieved by dialing the numbers in this range. Note: These
+                                         ; need to be numeric, as Asterisk starts from the start position and
+                                         ; increments with one for the next parked call.
+ 
+context =&gt; parkedcalls                   ; Sets the default dialplan context where the parking extension and
+                                         ; the parking lot extensions are created. These will be automatically
+                                         ; generated since we have specified a value for the 'parkext' option
+                                         ; above. If you need to use this in your dialplan (extensions.conf),
+                                         ; just include it like: include =&gt; parkedcalls.
+ 
+parkingtime =&gt; 300                       ; Specifies the number of seconds a call will wait in the parking
+                                         ; lot before timing out. In this example, a parked call will time out
+                                         ; if it is not un-parked before 300 seconds (5 minutes) elapses.
+ 
+findslot =&gt; next                         ; Configures the parking slot selection behavior. For this example,
+                                         ; the next free slot will be selected when a call is parked.
+</code></pre>
+
+<p>features.conf</p>
+
+<pre><code>[featuremap]
+parkcall =&gt; #72                          ; Parks the call (one-step parking). For this example, a call will be
+                                         ; automatically parked when an allowed party presses the DTMF digits,
+                                         ; #·7·2. A party is able to make use of this when the the K/k options
+                                         ; are used when invoking the Dial() application. For convenience, the
+                                         ; values of this option are defined below:
+                                         ; K - Allow the calling party to enable parking of the call.
+                                         ; k - Allow the called party to enable parking of the call.
+</code></pre>
+
+<p>extensions.conf</p>
+
+<pre><code>[globals]
+; Extension Maps
+5001=alice                               ; Maps 5001 to a local extension that will emulate
+                                         ; a party pressing DTMF digits from a device.
+;5001=PJSIP/sip:alice@127.0.0.1:5060     ; What a realistc mapping for the alice device would look like.
+ 
+; Realistically, 'alice' would map to a channel for a local device that would receive the call, therefore
+; rendering this extension unnecessary. However, for the purposes of this demonstration, the extension is
+; presented to you to show that sending the sequence of DTMF digits defined in the 'parkcall' option in
+; 'features.conf' is the trigger that invokes the one-step parking feature.
+ 
+[parking-example]
+include =&gt; parkedcalls
+ 
+exten =&gt; alice,1,NoOp(Handles calls to alice.)
+  same =&gt; n,Answer()
+  same =&gt; n,Playback(hello-world)
+  same =&gt; n,SendDTMF(#72w)
+  same =&gt; n,Goto(parkedcalls,701,1)
+  same =&gt; n,Playback(vm-goodbye)
+  same =&gt; n,Hangup()
+ 
+[from-outside]
+exten =&gt; 5555001,1,NoOp(Route to a local extension.)
+  ; Dials the device that is mapped to the local resource, alice, giving the recipient of the call the ability
+  ; to park it. Assuming the value of LocalExtension is 5001, the Dial() command will look like: Dial(alice,,k)
+  same =&gt; n,Dial(PJSIP/alice)
+  same =&gt; n,Hangup()
+</code></pre>
+
+<h2 id="处理呼叫驻留超时">处理呼叫驻留超时</h2>
+
+<p>接下来我们解释下如何处理当一个当呼叫已经驻留，但是没有去检索空位在指定的<code>parkingtime</code>超期的情形。正如上面的情节，只需要稍微修改配置文件: <code>res_parking.conf</code>， <code>features.conf</code>, <code>extensions.conf</code></p>
+
+<p>在这个情景里，拨号方案包含一个分机可以接听外部呼叫。假定，主叫的呼叫号码是<code>5555001</code>，呼叫是给Alice的分机的，使用<code>k</code>选项。</p>
+
+<p>alice的分机接听了这个呼叫，并且发送了DTMF数字串，请求了驻留，没有给主叫任何的说话机会。不像之前的情形，alice分机没有进行检索空闲的驻留位。</p>
+
+<p>在<code>300s</code>或者<code>5分钟</code>后， 这个呼叫会超时。由于我们指定了超时，那么在超时后会重新呼叫发起呼叫驻留的分机（<code>comebacktoorigin=yes</code>）,asterisk会尝试去呼叫alice，使用自动创建的名为<code>park-dial</code>的context。</p>
+
+<p>不幸的是，Alice分机没有时间，不想被打扰，因此这个回呼不会被应答。在20s后（<code>comebackdialtime</code>选项），asterisk最终会放弃呼叫，并且指定<code>park-dial</code>context中的<code>t</code>语句。我们主叫在被挂断前会听到再见。</p>
+
+<p>总结：</p>
+
+<ul>
+<li>外部呼叫者拨号<code>5555001</code></li>
+<li>Alice接听了电话并且说了句<code>hello world</code></li>
+<li>Alice发送了DTMF数字串</li>
+<li>驻留呼叫会在300s后超时</li>
+<li>asterisk对alice发起呼叫</li>
+<li>呼叫在20s内没有被应答</li>
+<li>asterisk开始执行<code>park-dial</code>中的t行</li>
+<li>主叫听到再见的声音，然后呼叫被挂断</li>
+</ul>
+
+<p>res_parking.conf</p>
+
+<pre><code>[general]
+parkext =&gt; 700                           ; Sets the default extension used to park calls. Note: This option
+                                         ; can take any alphanumeric string.
+ 
+parkpos =&gt; 701-709                       ; Sets the range of extensions used as the parking lot. Parked calls
+                                         ; may be retrieved by dialing the numbers in this range. Note: These
+                                         ; need to be numeric, as Asterisk starts from the start position and
+                                         ; increments with one for the next parked call.
+ 
+context =&gt; parkedcalls                   ; Sets the default dialplan context where the parking extension and
+                                         ; the parking lot extensions are created. These will be automatically
+                                         ; generated since we have specified a value for the 'parkext' option
+                                         ; above. If you need to use this in your dialplan (extensions.conf),
+                                         ; just include it like: include =&gt; parkedcalls.
+ 
+parkingtime =&gt; 300                       ; Specifies the number of seconds a call will wait in the parking
+                                         ; lot before timing out. In this example, a parked call will time out
+                                         ; if it is not un-parked before 300 seconds (5 minutes) elapses.
+ 
+findslot =&gt; next                         ; Configures the parking slot selection behavior. For this example,
+                                         ; the next free slot will be selected when a call is parked.
+ 
+comebackdialtime=20                      ; When a parked call times out, this is the number of seconds to dial
+                                         ; the device that originally parked the call, or the PARKER
+                                         ; channel variable. The value of 'comebackdialtime' is available as
+                                         ; the channel variable 'COMEBACKDIALTIME' after a parked call has
+                                         ; timed out. For this example, when a parked call times out, Asterisk
+                                         ; will attempt to call the PARKER for 20 seconds, using an extension
+                                         ; it will automatically create in the 'park-dial' context. If the
+                                         ; party does not answer the call during this period, Asterisk will
+                                         ; continue executing any remaining priorities in the dialplan.
+ 
+comebacktoorigin=yes                     ; Determines what should be done with a parked call if it is not
+                                         ; retrieved before the time specified in the 'parkingtime' option
+                                         ; elapses. In the case of this example where 'comebacktoorigin=yes',
+                                         ; Asterisk will attempt to return the parked call to the party that
+                                         ; originally parked the call, or the PARKER channel variable, using
+                                         ; an extension it will automatically create in the 'park-dial'
+                                         ; context.
+</code></pre>
+
+<p>features.conf</p>
+
+<pre><code>[featuremap]
+parkcall =&gt; #72                          ; Parks the call (one-step parking). For this example, a call will be
+                                         ; automatically parked when an allowed party presses the DTMF digits,
+                                         ; #·7·2. A party is able to make use of this when the the K/k options
+                                         ; are used when invoking the Dial() application. For convenience, the
+                                         ; values of this option are defined below:
+                                         ; K - Allow the calling party to enable parking of the call.
+                                         ; k - Allow the called party to enable parking of the call.
+</code></pre>
+
+<p>extensions.conf</p>
+
+<pre><code>[globals]
+; Extension Maps
+5001=alice                               ; Maps 5001 to a local extension that will emulate
+                                         ; a party pressing DTMF digits from a device.
+;5001=PJSIP/sip:alice@127.0.0.1:5060     ; What a realistc mapping for the alice device would look like.
+ 
+; Realistically, 'alice' would map to a channel for a local device that would receive the call, therefore
+; rendering this extension unnecessary. However, for the purposes of this demonstration, the extension is
+; presented to you to show that sending the sequence of DTMF digits defined in the 'parkcall' option in
+; 'features.conf' is the trigger that invokes the one-step parking feature.
+ 
+[parking-example]
+include =&gt; parkedcalls
+ 
+exten =&gt; alice,1,NoOp(Handles calls to alice.)
+  same =&gt; n,Answer()
+  same =&gt; n,Playback(hello-world)
+  same =&gt; n,SendDTMF(#72w)
+  same =&gt; n,Wait(300)
+  same =&gt; n,Hangup()
+ 
+[from-outside]
+exten =&gt; 5555001,1,NoOp(Route to a local extension.)
+  ; Dials the device that is mapped to the local resource, alice, giving the recipient of the call the ability
+  ; to park it. Assuming the value of LocalExtension is 5001, the Dial() command will look like: Dial(alice,,k)
+  same =&gt; n,Dial(PJSIP/alice)
+  same =&gt; n,Hangup()
+ 
+[park-dial]
+; Route here if the party that initiated the call parking cannot be reached after a period of time equaling the
+; value specified in the 'comebackdialtime' option elapses.
+exten =&gt; t,1,NoOp(End of the line for a timed-out parked call.)
+  same =&gt; n,Playback(vm-goodbye)
+  same =&gt; n,Hangup()
+</code></pre>
+
+<h2 id="自定义的呼叫驻留超时">自定义的呼叫驻留超时</h2>
+
+<p>最后，我们来看下如何处理上文中提到的呼叫驻留超时，但是又不想呼叫驻留发起者。跟之前的例子类似，只需要稍微修改配置文件: <code>res_parking.conf</code>， <code>features.conf</code>, <code>extensions.conf</code></p>
+
+<p>在这个情景里，拨号方案包含一个分机可以接听外部呼叫。假定，主叫的呼叫号码是<code>5555001</code>，呼叫是给Alice的分机的，使用<code>k</code>选项。</p>
+
+<p>alice的分机接听了这个呼叫，并且发送了DTMF数字串，请求了驻留，没有给主叫任何的说话机会。alice的拨号方案中没有检索当前呼叫驻留空位。</p>
+
+<p>在300s或者5分钟后，呼叫将会超时。由于我们给asterisk配置了<code>parkedcallstimeout</code>context（comebacktoorigin=no），我们忽略了默认的逻辑，直接让asterisk将呼叫返回给驻留发起者。在我们的例子里，当驻留的呼叫进入到<code>parkedcallstimeout</code>所指定的context的时候，我们只是播放了一个声音给主叫，然后挂断了呼叫。但是，你可以定义你自己的逻辑。</p>
+
+<p>总结：</p>
+
+<ul>
+<li>外部呼叫者拨号<code>5555001</code></li>
+<li>Alice接听了电话并且说了句<code>hello world</code></li>
+<li>Alice发送了DTMF数字串</li>
+<li>呼叫驻留在300s后超时</li>
+<li>asterisk开始执行<code>parkedcallstimeout</code>的逻辑</li>
+<li>主叫听见再见，并且呼叫被挂断</li>
+</ul>
+
+<p>res_parking.conf</p>
+
+<pre><code class="language-conf">[general]
+ 
+[default]
+parkext =&gt; 700                           ; Sets the default extension used to park calls. Note: This option
+                                         ; can take any alphanumeric string.
+ 
+parkpos =&gt; 701-709                       ; Sets the range of extensions used as the parking lot. Parked calls
+                                         ; may be retrieved by dialing the numbers in this range. Note: These
+                                         ; need to be numeric, as Asterisk starts from the start position and
+                                         ; increments with one for the next parked call.
+ 
+context =&gt; parkedcalls                   ; Sets the default dialplan context where the parking extension and
+                                         ; the parking lot extensions are created. These will be automatically
+                                         ; generated since we have specified a value for the 'parkext' option
+                                         ; above. If you need to use this in your dialplan (extensions.conf),
+                                         ; just include it like: include =&gt; parkedcalls.
+ 
+parkingtime =&gt; 300                       ; Specifies the number of seconds a call will wait in the parking
+                                         ; lot before timing out. In this example, a parked call will time out
+                                         ; if it is not un-parked before 300 seconds (5 minutes) elapses.
+ 
+findslot =&gt; next                         ; Configures the parking slot selection behavior. For this example,
+                                         ; the next free slot will be selected when a call is parked.
+ 
+comebacktoorigin=no                      ; Determines what should be done with a parked call if it is not
+                                         ; retrieved before the time specified in the 'parkingtime' option
+                                         ; elapses.
+                                         ;
+                                         ; Setting 'comebacktoorigin=no' (like in this example) is for cases
+                                         ; when you want to perform custom dialplan logic to gracefully handle
+                                         ; the remainder of the parked call when it times out.
+ 
+comebackcontext=parkedcallstimeout       ; The context that a parked call will be routed to in the event it
+                                         ; times out. Asterisk will first attempt to route the call to an
+                                         ; extension in this context that matches the flattened peer name. If
+                                         ; no such extension exists, Asterisk will next attempt to route the
+                                         ; call to the 's' extension in this context. Note: If you set
+                                         ; 'comebacktoorigin=no' in your configuration but do not define this
+                                         ; value, Asterisk will route the call to the 's' extension in the
+                                         ; default context.
+</code></pre>
+
+<p>features.conf</p>
+
+<pre><code class="language-conf">[featuremap]
+parkcall =&gt; #72                          ; Parks the call (one-step parking). For this example, a call will be
+                                         ; automatically parked when an allowed party presses the DTMF digits,
+                                         ; #·7·2. A party is able to make use of this when the the K/k options
+                                         ; are used when invoking the Dial() application. For convenience, the
+                                         ; values of this option are defined below:
+                                         ; K - Allow the calling party to enable parking of the call.
+                                         ; k - Allow the called party to enable parking of the call.
+</code></pre>
+
+<p>extensions.conf</p>
+
+<pre><code class="language-conf">[globals]
+; Extension Maps
+5001=alice                               ; Maps 5001 to a local extension that will emulate
+                                         ; a party pressing DTMF digits from a device.
+;5001=PJSIP/sip:alice@127.0.0.1:5060     ; What a realistc mapping for the alice device would look like.
+ 
+; Realistically, 'alice' would map to a channel for a local device that would receive the call, therefore
+; rendering this extension unnecessary. However, for the purposes of this demonstration, the extension is
+; presented to you to show that sending the sequence of DTMF digits defined in the 'parkcall' option in
+; 'features.conf' is the trigger that invokes the one-step parking feature.
+ 
+[parking-example]
+include =&gt; parkedcalls
+ 
+exten =&gt; alice,1,NoOp(Handles calls to alice.)
+  same =&gt; n,Answer()
+  same =&gt; n,Playback(hello-world)
+  same =&gt; n,SendDTMF(#72w)
+  same =&gt; n,Wait(300)
+  same =&gt; n,Hangup()
+ 
+[from-outside]
+exten =&gt; 5555001,1,NoOp(Route to a local extension.)
+  ; Dials the device that is mapped to the local resource, alice, giving the recipient of the call the ability
+  ; to park it. Assuming the value of LocalExtension is 5001, the Dial() command will look like: Dial(alice,,k)
+  same =&gt; n,Dial(PJSIP/alice)
+  same =&gt; n,Hangup()
+ 
+[parkedcallstimeout]
+exten =&gt; s,1,NoOp(This is all that happens to parked calls if they time out.)
+  same =&gt; n,Playback(vm-goodbye)
+  same =&gt; n,Hangup()
+</code></pre>
+    </div>
+
+    
+    
+
+    
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="https://blog.ucatch.me/img/reward/wechat.png">
+        <span>微信打赏</span>
+      </label>
+    
+  </div>
+</div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="https://blog.ucatch.me/tags/asterisk/">asterisk</a>
+          
+          <a href="https://blog.ucatch.me/tags/voip/">VOIP</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="https://blog.ucatch.me/post/asterisk/call_transfers/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">呼叫转移</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+          <a class="next" href="https://blog.ucatch.me/post/openwrt/%E7%BC%96%E8%AF%91%E7%B3%BB%E7%BB%9F%E5%8F%98%E9%87%8F/">
+            <span class="next-text nav-default">OpenWrt编译系统变量整理</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+        
+        
+        if (window.location.hostname === 'localhost') return;
+
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'seanchann';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com/" class="dsq-brlink" target="_blank">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  
+      </div>  
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:seanchann@foxmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/seanchann" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.ucatch.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy; 
+    2017
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">seanchann</span>
+    <p class="credits theme-by text-muted">Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>    
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="https://blog.ucatch.me/lib/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="https://blog.ucatch.me/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.ucatch.me/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.ucatch.me/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+<script type="text/javascript" src="https://blog.ucatch.me/dist/even.min.js?v=2.6.1"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-62644170-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+</body>
+</html>

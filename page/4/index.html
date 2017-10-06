@@ -50,7 +50,7 @@
 
 
 
-<meta property="og:updated_time" content="2016-07-31T08:49:41&#43;08:00"/>
+<meta property="og:updated_time" content="2016-07-31T08:49:41&#43;00:00"/>
 
 
 
@@ -132,11 +132,11 @@
     
       <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.ucatch.me/post/mongodb/mongodb-go-concurrently/">mongodb客户端并发 --- Golang</a></h1>
+    <h1 class="post-title"><a class="post-link" href="https://blog.ucatch.me/post/scm/redmine-install/">redmine的安装</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2016-07-31 </span>
       <div class="post-category">
-          <a href="https://blog.ucatch.me/categories/mongodb/">mongodb</a>
+          <a href="https://blog.ucatch.me/categories/scm/">scm</a>
         </div>
       
     </div>
@@ -144,57 +144,21 @@
   
   <div class="post-content">
     <div class="post-summary">
-      <p><strong>系统：CentOS7 + docker 1.6</strong></p>
-
-<p><strong>mongodb版本： 3.0.2</strong></p>
-
-<p><a href="http://blog.mongodb.org/post/80579086742/running-mongodb-queries-concurrently-with-go"><code>原文的地址</code></a>, pla，pla的一堆作者的铺垫介绍略过，但是还是感谢下作者。</p>
-
-<h2 id="介绍">介绍</h2>
-
-<p>mongodb支持很多不同的编程语言，感谢编写驱动程序的人员。一个mongoDB的go语言的驱动叫做mgo。这个驱动是由Gustavo Niemeyer和一些的MongoDB公司的同事一起开发的。团队的负责人是Gustavo以及Steve Francia，他们在2014年的“GopherCon”上分享了“使用Go语言在mongodb中存储数据”。分享内容描述了mgo驱动如何使得mongodb和go更好的协同工作去构建高度可扩展的软件。</p>
-
-<p></p>
-    </div>
-    <div class="read-more">
-      <a href="https://blog.ucatch.me/post/mongodb/mongodb-go-concurrently/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.ucatch.me/post/mongodb/mongodb-shell-cmd/">mongodb的命令</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2016-07-31 </span>
-      <div class="post-category">
-          <a href="https://blog.ucatch.me/categories/mongodb/">mongodb</a>
-        </div>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      <p>本文主要汇总mongodb的命令行。</p>
+      <p>本文主要就是基于docker来构建我们的redmine环境，方便数据的迁移以及redmine的升级。</p>
 
 <p><strong>系统：CentOS7 + docker 1.6</strong></p>
 
-<p><strong>mongodb版本： 3.0.2</strong></p>
-
-<p><strong>mongo shell版本：3.0.4</strong></p>
-
 <p></p>
     </div>
     <div class="read-more">
-      <a href="https://blog.ucatch.me/post/mongodb/mongodb-shell-cmd/" class="read-more-link">阅读更多</a>
+      <a href="https://blog.ucatch.me/post/scm/redmine-install/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
     
       <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.ucatch.me/post/mongodb/mongodb-user/">mongodb的用户管理说明</a></h1>
+    <h1 class="post-title"><a class="post-link" href="https://blog.ucatch.me/post/mongodb/mongodb-index/">mongodb index说明</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2016-07-31 </span>
       <div class="post-category">
@@ -210,12 +174,44 @@
 
 <p><strong>mongodb版本： 3.0.2</strong></p>
 
-<p>安装工作完成后，整个的mongodb运行起来后，在开始工作前，首先应该为我们的mongodb配置适当的用户以及其权限。</p>
+<p>mongo 的索引可以加快数据的查询，并且可以有效的避免重复键值对。</p>
+
+<h2 id="mongo的索引类型">mongo的索引类型</h2>
+
+<p>MongoDB提供了不同类型的indexes，这些indexes针对不同的目的以及各种不同类型的内容。</p>
 
 <p></p>
     </div>
     <div class="read-more">
-      <a href="https://blog.ucatch.me/post/mongodb/mongodb-user/" class="read-more-link">阅读更多</a>
+      <a href="https://blog.ucatch.me/post/mongodb/mongodb-index/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="https://blog.ucatch.me/post/mongodb/mongodb-wirte/">mongodb 写操作</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2016-07-31 </span>
+      <div class="post-category">
+          <a href="https://blog.ucatch.me/categories/mongodb/">mongodb</a>
+        </div>
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      <p><strong>系统：CentOS7 + docker 1.6</strong></p>
+
+<p><strong>mongodb版本： 3.0.2</strong></p>
+
+<p>mongodb与写操作相关的内容，比如insert、update、delete操作</p>
+
+<p></p>
+    </div>
+    <div class="read-more">
+      <a href="https://blog.ucatch.me/post/mongodb/mongodb-wirte/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

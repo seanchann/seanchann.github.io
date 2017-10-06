@@ -50,7 +50,7 @@
 
 
 
-<meta property="og:updated_time" content="2017-09-17T12:51:40&#43;00:00"/>
+<meta property="og:updated_time" content="2017-10-07T10:38:56&#43;00:00"/>
 
 
 
@@ -132,11 +132,11 @@
     
       <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.ucatch.me/post/typescript/classesvsinterfaces/">TypeScript的Classes 与 Interfaces</a></h1>
+    <h1 class="post-title"><a class="post-link" href="https://blog.ucatch.me/post/asterisk/call_transfers/">呼叫转移</a></h1>
     <div class="post-meta">
-      <span class="post-time"> 2017-09-17 </span>
+      <span class="post-time"> 2017-10-07 </span>
       <div class="post-category">
-          <a href="https://blog.ucatch.me/categories/typescript/">typescript</a>
+          <a href="https://blog.ucatch.me/categories/asterisk/">asterisk</a>
         </div>
       
     </div>
@@ -144,31 +144,36 @@
   
   <div class="post-content">
     <div class="post-summary">
-      <p><em><a href="https://jameshenry.blog/typescript-classes-vs-interfaces/">本文原文地址</a>，翻译如有问题请指正</em></p>
+      <h1 id="概要">概要</h1>
 
-<p>我们现在已经可以在JavaScript中使用类了，在TypeScript中类早已经支持了。但是在TypeScript中我们有一个<code>interface</code>的概念，那么当我们添加<code>type annotations</code>的时候，经常会有疑问：</p>
+<p>呼叫转移是指正在通话中的其中一方指示<code>asterisk</code>去呼叫其他的用户，并在系统上建立呼叫关系。</p>
 
-<blockquote>
-<p>这个<code>type annotations</code>应该使用<code>interface</code>还是<code>class</code></p>
-</blockquote>
+<p><code>asterisk</code>内部支持了两种类型的呼叫转移</p>
 
-<p>本文将会对比1<code>TypeScript</code>中的<code>classes</code>和<code>interfaces</code>的区别，来解答这个问题。</p>
+<ul>
+<li>盲转(Blind transfer)</li>
+<li>咨询转接(Attended transfer)
+
+<ul>
+<li>参与转接行为的流程</li>
+</ul></li>
+</ul>
 
 <p></p>
     </div>
     <div class="read-more">
-      <a href="https://blog.ucatch.me/post/typescript/classesvsinterfaces/" class="read-more-link">阅读更多</a>
+      <a href="https://blog.ucatch.me/post/asterisk/call_transfers/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
     
       <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.ucatch.me/post/build-system/cmake-exporting-importing-target/">cmake exporting and importing target</a></h1>
+    <h1 class="post-title"><a class="post-link" href="https://blog.ucatch.me/post/asterisk/call_parking/">呼叫驻留</a></h1>
     <div class="post-meta">
-      <span class="post-time"> 2017-08-30 </span>
+      <span class="post-time"> 2017-10-07 </span>
       <div class="post-category">
-          <a href="https://blog.ucatch.me/categories/build-system/">build-system</a>
+          <a href="https://blog.ucatch.me/categories/asterisk/">asterisk</a>
         </div>
       
     </div>
@@ -176,23 +181,27 @@
   
   <div class="post-content">
     <div class="post-summary">
-      <p>使用<code>cmake</code>编译生成的库或者可执行程序，我们都称为<code>target</code>。如果其他的工程中想使用这些<code>target</code>的话，就需要本文所描述的技术，来将<code>target</code>导出，然后在其他的工程的cmake中再导入使用。</p>
+      <h1 id="概要">概要</h1>
+
+<p>有些公司需要一种可以灵活的在将电话转接给办公室的其他人或者那些不经常在自己的办公位置上的人。在asterisk中，允许将一个呼叫保持，然后我们使用在别的位置的其他的应答设备重新接听这个保持的电话。这个概念就是呼叫驻留。</p>
+
+<p>呼叫驻留特性允许呼叫中的一方将另一方进行呼叫保持，然后他们挂断电话。当启动了呼叫驻留，呼叫驻留的发起者会被告知当前所剩的驻留空间，这个类似于标准的分机的配置。这些配置好的分机，或者叫做驻留空间，它们为呼叫驻留提供服务。基于这一点，驻留的空间是已知的，因此可以检索到未使用的位置来驻留呼叫</p>
 
 <p></p>
     </div>
     <div class="read-more">
-      <a href="https://blog.ucatch.me/post/build-system/cmake-exporting-importing-target/" class="read-more-link">阅读更多</a>
+      <a href="https://blog.ucatch.me/post/asterisk/call_parking/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
     
       <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.ucatch.me/post/build-system/cmake-path/">cmake 路径检索</a></h1>
+    <h1 class="post-title"><a class="post-link" href="https://blog.ucatch.me/post/openwrt/%E7%BC%96%E8%AF%91%E7%B3%BB%E7%BB%9F%E5%8F%98%E9%87%8F/">OpenWrt编译系统变量整理</a></h1>
     <div class="post-meta">
-      <span class="post-time"> 2017-08-18 </span>
+      <span class="post-time"> 2017-10-07 </span>
       <div class="post-category">
-          <a href="https://blog.ucatch.me/categories/build-system/">build-system</a>
+          <a href="https://blog.ucatch.me/categories/openwrt/">openwrt</a>
         </div>
       
     </div>
@@ -200,12 +209,14 @@
   
   <div class="post-content">
     <div class="post-summary">
-      <p>在实际的开发过程中，经常需要配置库的检索路径，头文件的检索路径，工程的<code>*Config.cmake</code>检索路径，自定义的<code>FindProject.cmake</code>路径等等。因此，cmake的路径检索以及优先级策略等等，都是编写cmake工程文件所必需的知识，本文整理了cmake的路径检索知识，希望对大家有所帮助。</p>
+      <p>本文是针对在<code>Makefile</code>中会经常遇到的一些变量的说明，对于我们自己写<code>Makefile</code>或者理解别的package的<code>Makefile</code>都会有帮助。</p>
+
+<p>下文所描述的大部分的变量，我们都可以在文件<code>rootdir/rules.mk</code>以及<code>rootdir/include/*.mk</code>中找到定义，以及对这些变量的赋值。</p>
 
 <p></p>
     </div>
     <div class="read-more">
-      <a href="https://blog.ucatch.me/post/build-system/cmake-path/" class="read-more-link">阅读更多</a>
+      <a href="https://blog.ucatch.me/post/openwrt/%E7%BC%96%E8%AF%91%E7%B3%BB%E7%BB%9F%E5%8F%98%E9%87%8F/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

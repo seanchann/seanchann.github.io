@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Openwrt on seanchann</title>
+    <link>https://blog.ucatch.me/categories/openwrt/</link>
+    <description>Recent content in Openwrt on seanchann</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 07 Oct 2017 10:29:38 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.ucatch.me/categories/openwrt/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>OpenWrt编译系统变量整理</title>
+      <link>https://blog.ucatch.me/post/openwrt/%E7%BC%96%E8%AF%91%E7%B3%BB%E7%BB%9F%E5%8F%98%E9%87%8F/</link>
+      <pubDate>Sat, 07 Oct 2017 10:29:38 +0000</pubDate>
+      
+      <guid>https://blog.ucatch.me/post/openwrt/%E7%BC%96%E8%AF%91%E7%B3%BB%E7%BB%9F%E5%8F%98%E9%87%8F/</guid>
+      <description>&lt;p&gt;本文是针对在&lt;code&gt;Makefile&lt;/code&gt;中会经常遇到的一些变量的说明，对于我们自己写&lt;code&gt;Makefile&lt;/code&gt;或者理解别的package的&lt;code&gt;Makefile&lt;/code&gt;都会有帮助。&lt;/p&gt;
+
+&lt;p&gt;下文所描述的大部分的变量，我们都可以在文件&lt;code&gt;rootdir/rules.mk&lt;/code&gt;以及&lt;code&gt;rootdir/include/*.mk&lt;/code&gt;中找到定义，以及对这些变量的赋值。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>OpenWrt平台开发入门指引</title>
+      <link>https://blog.ucatch.me/post/openwrt/openwrt%E5%B9%B3%E5%8F%B0%E5%BC%80%E5%8F%91%E6%8C%87%E5%BC%95/</link>
+      <pubDate>Sat, 07 Oct 2017 10:24:10 +0000</pubDate>
+      
+      <guid>https://blog.ucatch.me/post/openwrt/openwrt%E5%B9%B3%E5%8F%B0%E5%BC%80%E5%8F%91%E6%8C%87%E5%BC%95/</guid>
+      <description>&lt;p&gt;本文主要翻译自官方网站的入门文章，涵盖了openwrt平台开发所涉及的方方面面，其中重点章节为镜像的构建，package的编译，打补丁的方法等等。&lt;/p&gt;
+
+&lt;p&gt;本文的各章节都可以独立进行阅读。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -3,6 +3,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.ucatch.me/post/asterisk/call_transfers/</loc>
+    <lastmod>2017-10-07T10:38:56+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.ucatch.me/post/asterisk/call_parking/</loc>
+    <lastmod>2017-10-07T10:36:14+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.ucatch.me/post/openwrt/%E7%BC%96%E8%AF%91%E7%B3%BB%E7%BB%9F%E5%8F%98%E9%87%8F/</loc>
+    <lastmod>2017-10-07T10:29:38+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.ucatch.me/post/openwrt/openwrt%E5%B9%B3%E5%8F%B0%E5%BC%80%E5%8F%91%E6%8C%87%E5%BC%95/</loc>
+    <lastmod>2017-10-07T10:24:10+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.ucatch.me/about/</loc>
     <lastmod>2017-09-17T16:44:47+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -157,6 +185,20 @@
   </url>
   
   <url>
+    <loc>https://blog.ucatch.me/tags/asterisk/</loc>
+    <lastmod>2017-10-07T10:38:56+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.ucatch.me/categories/asterisk/</loc>
+    <lastmod>2017-10-07T10:38:56+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.ucatch.me/categories/build-system/</loc>
     <lastmod>2017-08-30T16:49:41+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -165,7 +207,7 @@
   
   <url>
     <loc>https://blog.ucatch.me/categories/</loc>
-    <lastmod>2017-08-30T16:49:41+08:00</lastmod>
+    <lastmod>2017-10-07T10:38:56+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -241,8 +283,22 @@
   </url>
   
   <url>
+    <loc>https://blog.ucatch.me/tags/openwrt/</loc>
+    <lastmod>2017-10-07T10:29:38+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.ucatch.me/categories/openwrt/</loc>
+    <lastmod>2017-10-07T10:29:38+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.ucatch.me/post/</loc>
-    <lastmod>2017-09-17T10:57:08+00:00</lastmod>
+    <lastmod>2017-10-07T10:38:56+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -263,7 +319,7 @@
   
   <url>
     <loc>https://blog.ucatch.me/tags/</loc>
-    <lastmod>2017-08-30T16:49:41+08:00</lastmod>
+    <lastmod>2017-10-07T10:38:56+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -283,8 +339,22 @@
   </url>
   
   <url>
+    <loc>https://blog.ucatch.me/tags/voip/</loc>
+    <lastmod>2017-10-07T10:38:56+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.ucatch.me/</loc>
-    <lastmod>2017-09-17T16:44:47+00:00</lastmod>
+    <lastmod>2017-10-07T10:38:56+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.ucatch.me/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/</loc>
+    <lastmod>2017-10-07T10:29:38+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

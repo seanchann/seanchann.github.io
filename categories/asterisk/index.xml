@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Asterisk on seanchann</title>
+    <link>https://blog.ucatch.me/categories/asterisk/</link>
+    <description>Recent content in Asterisk on seanchann</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 07 Oct 2017 10:38:56 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.ucatch.me/categories/asterisk/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>呼叫转移</title>
+      <link>https://blog.ucatch.me/post/asterisk/call_transfers/</link>
+      <pubDate>Sat, 07 Oct 2017 10:38:56 +0000</pubDate>
+      
+      <guid>https://blog.ucatch.me/post/asterisk/call_transfers/</guid>
+      <description>&lt;h1 id=&#34;概要&#34;&gt;概要&lt;/h1&gt;
+
+&lt;p&gt;呼叫转移是指正在通话中的其中一方指示&lt;code&gt;asterisk&lt;/code&gt;去呼叫其他的用户，并在系统上建立呼叫关系。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;asterisk&lt;/code&gt;内部支持了两种类型的呼叫转移&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;盲转(Blind transfer)&lt;/li&gt;
+&lt;li&gt;咨询转接(Attended transfer)
+
+&lt;ul&gt;
+&lt;li&gt;参与转接行为的流程&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>呼叫驻留</title>
+      <link>https://blog.ucatch.me/post/asterisk/call_parking/</link>
+      <pubDate>Sat, 07 Oct 2017 10:36:14 +0000</pubDate>
+      
+      <guid>https://blog.ucatch.me/post/asterisk/call_parking/</guid>
+      <description>&lt;h1 id=&#34;概要&#34;&gt;概要&lt;/h1&gt;
+
+&lt;p&gt;有些公司需要一种可以灵活的在将电话转接给办公室的其他人或者那些不经常在自己的办公位置上的人。在asterisk中，允许将一个呼叫保持，然后我们使用在别的位置的其他的应答设备重新接听这个保持的电话。这个概念就是呼叫驻留。&lt;/p&gt;
+
+&lt;p&gt;呼叫驻留特性允许呼叫中的一方将另一方进行呼叫保持，然后他们挂断电话。当启动了呼叫驻留，呼叫驻留的发起者会被告知当前所剩的驻留空间，这个类似于标准的分机的配置。这些配置好的分机，或者叫做驻留空间，它们为呼叫驻留提供服务。基于这一点，驻留的空间是已知的，因此可以检索到未使用的位置来驻留呼叫&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

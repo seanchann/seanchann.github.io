@@ -1,0 +1,2379 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>OpenWrt平台开发入门指引 - seanchann</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="seanchann" /><meta name="description" content="openwrt平台开发的入门指南" />
+
+  <meta name="keywords" content="seanchann, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.26-DEV" />
+
+
+<link rel="canonical" href="https://blog.ucatch.me/post/openwrt/openwrt%E5%B9%B3%E5%8F%B0%E5%BC%80%E5%8F%91%E6%8C%87%E5%BC%95/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.ucatch.me/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.ucatch.me/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.ucatch.me/favicon-16x16.png">
+<link rel="icon" href="https://blog.ucatch.me/favicon.ico" />
+<link rel="manifest" href="https://blog.ucatch.me/manifest.json">
+<link rel="mask-icon" href="https://blog.ucatch.me/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="https://blog.ucatch.me/dist/even.min.css?v=2.6.1" rel="stylesheet">
+<link href="https://blog.ucatch.me/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+<meta property="og:title" content="OpenWrt平台开发入门指引" />
+<meta property="og:description" content="openwrt平台开发的入门指南" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.ucatch.me/post/openwrt/openwrt%E5%B9%B3%E5%8F%B0%E5%BC%80%E5%8F%91%E6%8C%87%E5%BC%95/" />
+
+
+
+<meta property="article:published_time" content="2017-10-07T10:24:10&#43;00:00"/>
+<meta property="article:modified_time" content="2017-10-07T10:24:10&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="OpenWrt平台开发入门指引">
+<meta itemprop="description" content="openwrt平台开发的入门指南">
+
+
+<meta itemprop="dateModified" content="2017-10-07T10:24:10&#43;00:00" />
+<meta itemprop="wordCount" content="22883">
+
+
+
+<meta itemprop="keywords" content="openwrt,嵌入式," />
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="OpenWrt平台开发入门指引"/>
+<meta name="twitter:description" content="openwrt平台开发的入门指南"/>
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js" integrity="sha256-9uAoNWHdszsUDhSXf/rVcWOqKPfi5/8V5R4UdbZle2A=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js" crossorigin="anonymous"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.ucatch.me/" class="logo">seanchann</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.ucatch.me/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="https://blog.ucatch.me/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="https://blog.ucatch.me/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="https://blog.ucatch.me/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="https://blog.ucatch.me/about/">
+        <li class="mobile-menu-item">About me</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="https://blog.ucatch.me/" class="logo">seanchann</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="https://blog.ucatch.me/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://blog.ucatch.me/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://blog.ucatch.me/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://blog.ucatch.me/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://blog.ucatch.me/about/">About me</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">OpenWrt平台开发入门指引</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-10-07 </span>
+        <div class="post-category">
+            <a href="https://blog.ucatch.me/categories/openwrt/">openwrt</a>
+          </div>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+      <nav id="TableOfContents">
+<ul>
+<li><a href="#openwrt开发指南">OpenWRT开发指南</a>
+<ul>
+<li><a href="#image-generator-image-builder">Image Generator（Image Builder）</a>
+<ul>
+<li><a href="#配置package-repositories">配置Package Repositories</a></li>
+<li><a href="#用法">用法</a></li>
+</ul></li>
+<li><a href="#使用sdk">使用SDK</a>
+<ul>
+<li><a href="#编译sdk">编译SDK</a></li>
+<li><a href="#用法-1">用法</a></li>
+<li><a href="#获取定义">获取定义</a></li>
+<li><a href="#编译packages">编译packages</a>
+<ul>
+<li><a href="#例子">例子</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><a href="#如何编译-firmware">如何编译（firmware）</a>
+<ul>
+<li><a href="#netgear-wndr3700-firmware的编译">Netgear WNDR3700 firmware的编译</a>
+<ul>
+<li><a href="#前提">前提</a></li>
+<li><a href="#配置">配置</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#安装openwrt">安装OpenWrt</a>
+<ul>
+<li><a href="#四种安装方法">四种安装方法</a>
+<ul>
+<li><a href="#方法1-通过oem-firmware">方法1：通过OEM firmware</a></li>
+<li><a href="#方法2-通过bootloader-以及一个网口">方法2：通过Bootloader 以及一个网口</a></li>
+<li><a href="#方法3-通过bootloader以及串口">方法3：通过bootloader以及串口</a></li>
+<li><a href="#方法4-通过jtag">方法4：通过JTAG</a></li>
+<li><a href="#安装ramdisk-image到main-memory">安装ramdisk-image到main memory</a></li>
+</ul></li>
+<li><a href="#安装清单">安装清单</a></li>
+</ul></li>
+<li><a href="#developing">developing</a>
+<ul>
+<li><a href="#debugging">Debugging</a>
+<ul>
+<li><a href="#串口">串口</a></li>
+<li><a href="#jtag">JTAG</a></li>
+<li><a href="#gdb">GDB</a></li>
+<li><a href="#perf-oprofile-cpu-profiling">perf/oprofile cpu profiling</a></li>
+<li><a href="#wireless">Wireless</a>
+<ul>
+<li><a href="#capture-management-流量">capture Management 流量</a></li>
+<li><a href="#修改hostapd日志的配置">修改hostapd日志的配置</a></li>
+</ul></li>
+<li><a href="#添加或者修改编译器的debug-flags">添加或者修改编译器的debug flags</a></li>
+</ul></li>
+<li><a href="#使用build的环境变量">使用Build的环境变量</a></li>
+<li><a href="#software-libraries-links-to-libraries">Software Libraries(Links to libraries)</a></li>
+<li><a href="#crosscompile-cross-compile">Crosscompile （Cross Compile）</a>
+<ul>
+<li><a href="#流程">流程</a></li>
+</ul></li>
+<li><a href="#packages-creating-packages">Packages （Creating packages）</a>
+<ul>
+<li><a href="#buildpackage-variables">BuildPackage variables</a></li>
+<li><a href="#pkg-fixup">PKG_FIXUP</a>
+<ul>
+<li><a href="#autoreconf">autoreconf</a></li>
+<li><a href="#patch-libtool">patch-libtool</a></li>
+<li><a href="#gettext-version">gettext-version</a></li>
+<li><a href="#提示">提示</a></li>
+</ul></li>
+<li><a href="#package-sourcecode">Package Sourcecode</a>
+<ul>
+<li><a href="#使用打包的源码文件">使用打包的源码文件</a></li>
+<li><a href="#使用仓库">使用仓库</a></li>
+<li><a href="#在openwrt的makefile中绑定源码">在openwrt的Makefile中绑定源码</a></li>
+<li><a href="#下载覆盖">下载覆盖</a></li>
+</ul></li>
+<li><a href="#buildpackage-的定义">BuildPackage 的定义</a>
+<ul>
+<li><a href="#package">Package/</a></li>
+<li><a href="#package-conffiles-可选的">Package/conffiles(可选的)</a></li>
+<li><a href="#package-description">Package/description</a></li>
+<li><a href="#build-prepare-可选">Build/Prepare(可选)</a></li>
+<li><a href="#build-configure-可选">Build/Configure(可选)</a></li>
+<li><a href="#build-compile-可选">Build/Compile(可选)</a></li>
+<li><a href="#build-install-可选">Build/Install(可选)</a></li>
+<li><a href="#build-installdev-可选">Build/InstallDev(可选)</a></li>
+<li><a href="#package-install">Package/install</a></li>
+<li><a href="#package-preinst">Package/preinst</a></li>
+<li><a href="#package-postinst">Package/postinst</a></li>
+<li><a href="#package-prerm">Package/prerm</a></li>
+<li><a href="#package-postrm">Package/postrm</a></li>
+</ul></li>
+<li><a href="#依赖类型">依赖类型</a></li>
+<li><a href="#configure-a-package-source">configure a package source</a>
+<ul>
+<li><a href="#需要host-tools">需要host tools</a>
+<ul>
+<li><a href="#注意">注意</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#添加configuration选项">添加configuration选项</a></li>
+<li><a href="#本地应用程序源码">本地应用程序源码</a>
+<ul>
+<li><a href="#config-src-tree-override">CONFIG_SRC_TREE_OVERRIDE</a></li>
+<li><a href="#use-source-dir">USE_SOURCE_DIR</a></li>
+</ul></li>
+<li><a href="#给kernel模块创建packages">给kernel模块创建packages</a></li>
+<li><a href="#文件安装的宏">文件安装的宏</a></li>
+<li><a href="#打包一个服务">打包一个服务</a></li>
+</ul></li>
+<li><a href="#feeds-openwrt-feeds">Feeds（OpenWrt Feeds）</a>
+<ul>
+<li><a href="#working-with-feeds">Working with Feeds</a>
+<ul>
+<li><a href="#feed配置">Feed配置</a></li>
+</ul></li>
+<li><a href="#feed-commands">Feed Commands</a>
+<ul>
+<li><a href="#clean">clean</a></li>
+<li><a href="#install">Install</a></li>
+<li><a href="#list">List</a></li>
+<li><a href="#search">Search</a></li>
+<li><a href="#uninstall">Uninstall</a></li>
+<li><a href="#update">Update</a></li>
+</ul></li>
+<li><a href="#自定义feeds">自定义Feeds</a>
+<ul>
+<li><a href="#创建一个package目录">创建一个package目录</a>
+<ul>
+<li><a href="#添加你的package到一个已经存在的feed">添加你的package到一个已经存在的feed</a></li>
+<li><a href="#创建你自己的feed">创建你自己的feed</a></li>
+<li><a href="#使用feed">使用feed</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#说明">说明</a></li>
+</ul></li>
+<li><a href="#dependencies-using-dependencies-for-packages">Dependencies（Using dependencies for packages）</a>
+<ul>
+<li><a href="#主题">主题</a>
+<ul>
+<li><a href="#dependency-类型">Dependency 类型</a></li>
+</ul></li>
+<li><a href="#特别提示">特别提示</a></li>
+<li><a href="#注意事项">注意事项</a></li>
+</ul></li>
+<li><a href="#patches-working-with-patches">Patches（Working with patches）</a>
+<ul>
+<li><a href="#准备配置quilt">准备配置quilt</a></li>
+<li><a href="#添加一个新的patch">添加一个新的patch</a></li>
+<li><a href="#编辑一个存在的补丁">编辑一个存在的补丁</a></li>
+<li><a href="#添加或者编辑kernel补丁">添加或者编辑kernel补丁</a></li>
+<li><a href="#添加或者编辑toolchain的补丁">添加或者编辑toolchain的补丁</a></li>
+<li><a href="#命名补丁">命名补丁</a></li>
+<li><a href="#刷新补丁">刷新补丁</a></li>
+<li><a href="#可以反复的修改补丁-而不用去clean源码树">可以反复的修改补丁，而不用去clean源码树。</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      <p>本文主要翻译自官方网站的入门文章，涵盖了openwrt平台开发所涉及的方方面面，其中重点章节为镜像的构建，package的编译，打补丁的方法等等。</p>
+
+<p>本文的各章节都可以独立进行阅读。</p>
+
+<p></p>
+
+<h1 id="openwrt开发指南">OpenWRT开发指南</h1>
+
+<h2 id="image-generator-image-builder">Image Generator（Image Builder）</h2>
+
+<p>Image Generator用来生成OpenWRT镜像，我们可以来自定义镜像，而不需要去编译。</p>
+
+<p>Image Gernerator 不能运行在32Bit的平台上，比如i686。必须运行在64bit的系统上，比如amd64。当然你也可以在一个32位的系统上运行一个64位的虚拟机来生成镜像。</p>
+
+<p>Image Generator是一个可以创建OpenWrt的firmware镜像文件的程序。在OpenWrt的编译过程中，Image Generator会强制创建，因为最终它需要输出镜像文件，可以在firmware文件夹中找到，在编译过程中你可以从packeages创建很多的镜像文件。</p>
+
+<h3 id="配置package-repositories">配置Package Repositories</h3>
+
+<p>Image Generator可以配置从官方的或者自定义的源中下载缺失的packages。换句话说，镜像会生成失败当缺失packages的时候。packages的源码包可以在repositories.conf文件中配置。源是特定的opkg的格式。它们可以是官方的源或者自定义的源</p>
+
+<p>例如：</p>
+
+<pre><code>## Place your custom repositories here, they must match the architecture and version.
+# src/gz chaos_calmer http://downloads.openwrt.org/chaos_calmer/15.05/ar71xx/generic/packages
+# src custom file:///usr/src/openwrt/bin/ar71xx/packages
+src/gz chaos_calmer_base http://downloads.openwrt.org/chaos_calmer/15.05/ar71xx/generic/packages/base
+src/gz chaos_calmer_luci http://downloads.openwrt.org/chaos_calmer/15.05/ar71xx/generic/packages/luci
+src/gz chaos_calmer_management http://downloads.openwrt.org/chaos_calmer/15.05/ar71xx/generic/packages/management
+src/gz chaos_calmer_packages http://downloads.openwrt.org/chaos_calmer/15.05/ar71xx/generic/packages/packages
+src/gz chaos_calmer_routing http://downloads.openwrt.org/chaos_calmer/15.05/ar71xx/generic/packages/routing
+src/gz chaos_calmer_telephony http://downloads.openwrt.org/chaos_calmer/15.05/ar71xx/generic/packages/telephony
+## This is the local package repository, do not remove!
+src imagebuilder file:packages
+</code></pre>
+
+<h3 id="用法">用法</h3>
+
+<p>make image命令将会创建一个最小的镜像，包含一些必要的package，它支持三个变量作为参数：</p>
+
+<pre><code>PROFILE - specifies the target image to build
+PACKAGES - a list of packages to embed into the image
+FILES - directory with custom files to include
+</code></pre>
+
+<p>依赖于make</p>
+
+<pre><code>apt-get install subversion build-essential libncurses5-dev zlib1g-dev gawk git ccache gettext libssl-dev xsltproc
+</code></pre>
+
+<p>语法：</p>
+
+<pre><code>$ make image PROFILE=XXX PACKAGES=&quot;pkg1 pkg2 pkg3 -pkg4 -pkg5 -pkg6&quot; FILES=files/
+</code></pre>
+
+<h2 id="使用sdk">使用SDK</h2>
+
+<p>SDK可以重定位，可针对特定的目标系统交叉编译OpenWrt的工具链，而不用重新编译整个系统。</p>
+
+<p>使用SDK的原因:</p>
+
+<ul>
+<li>编译自定义软件的特定版本，同时确保二进制文件和功能的兼容性。</li>
+<li>编译某些包的新版本</li>
+<li>重新编译自定义了一些patch或者不同特性的已经存在的包</li>
+</ul>
+
+<h3 id="编译sdk">编译SDK</h3>
+
+<p>在安装完编译系统，运行configuration并且选择你的目标系统，然后选择：</p>
+
+<pre><code>[x] Build the OpenWrt SDK
+</code></pre>
+
+<p>在编译后，你会在<build root>/bin/<arch>/下找到。</p>
+
+<h3 id="用法-1">用法</h3>
+
+<p>默认情况下SDK没有附带包的定义。Packages编译的Makefiles必须检出从OpenWrt的repository中并且放置到package/ 目录。</p>
+
+<h3 id="获取定义">获取定义</h3>
+
+<p>使用SVN export命令来获取包的定义。OpenWrt的Trunk包的feed位于svn:svn.openwrt.org/openwrt/packages,通过浏览器可以检索它的子目录</p>
+
+<p>下面的示例检出了nano editor从仓库中：</p>
+
+<pre><code>| $ svn export svn:svn.openwrt.org/openwrt/packages/utils/nano package/nano
+A    package/nano
+A    package/nano/Makefile
+Exported revision 20365. |
+</code></pre>
+
+<p>很多的包需要附加的依赖包，可以在package的makefile中找到：</p>
+
+<pre><code>$ grep DEPENDS package/nano/Makefile 
+  DEPENDS:=+libncurses
+</code></pre>
+
+<p>如果有附加的依赖项，那就需要获取这些包并且编译它们</p>
+
+<h3 id="编译packages">编译packages</h3>
+
+<p>通常在makefile中有这些命令：</p>
+
+<ul>
+<li>make package/example/download - download the soures of example</li>
+<li>make package/example/prepare - extract the sources, apply patches and download if necessary</li>
+<li>make package/example/compile - compile example, prepare and download if necessary</li>
+<li>make package/example/clean - clean the sourcecode</li>
+<li>make package/index - build a repository index to make the output directory usable as local opkg source</li>
+</ul>
+
+<p>一些包也会基于host来构建：</p>
+
+<pre><code>$ make package/example/host/{clean,compile} V=99
+</code></pre>
+
+<p>重编译一个package example以及使能verbose输出的命令是：</p>
+
+<pre><code>$ make package/example/{clean,compile} V=99
+</code></pre>
+
+<p>编译完成后，生成的.ipk文件会被放置在bin目录。</p>
+
+<p>make可能会输出包含一些WARNING：</p>
+
+<pre><code>your configuration is out of sync. Please run make menuconfig, oldconfig or defconfig!
+</code></pre>
+
+<p>这个警告会被误解为sdk有问题。但是其原因是一切都是由预编译完成的，你不能运行oldconfig</p>
+
+<h4 id="例子">例子</h4>
+
+<p>下面的例子是重编译nano：</p>
+
+<pre><code>$ svn export svn://svn.openwrt.org/openwrt/packages/utils/nano package/nano
+A    package/nano
+A    package/nano/Makefile
+Exported revision 20365.
+$ grep DEPENDS package/nano/Makefile 
+  DEPENDS:=+libncurses
+$ svn export svn://svn.openwrt.org/openwrt/trunk/package/libs/ncurses package/ncurses
+A    package/ncurses
+A    package/ncurses/patches
+A    package/ncurses/patches/100-ncurses-5.6-20080112-urxvt.patch
+A    package/ncurses/patches/900-terminfo.patch
+A    package/ncurses/patches/101-ncurses-5.6-20080628-kbs.patch
+A    package/ncurses/patches/500-cross.patch
+A    package/ncurses/Makefile
+Exported revision 20365.
+$ make package/ncurses/compile
+Collecting package info: done
+ make[1] package/ncurses/compile
+ make[2] -C package/ncurses compile
+$ make package/nano/compile
+ make[1] package/nano/compile
+ make[2] -C package/ncurses compile
+ make[2] -C package/nano compile
+$ make package/index
+ make[1] package/index
+$ ls bin/packages/mipsel/
+libncurses_5.7-2_mipsel.ipk  nano_2.2.3-1_mipsel.ipk  Packages	Packages.gz
+</code></pre>
+
+<h1 id="如何编译-firmware">如何编译（firmware）</h1>
+
+<h2 id="netgear-wndr3700-firmware的编译">Netgear WNDR3700 firmware的编译</h2>
+
+<p>到目前为止，本章会给出一个从零开始关于如何构建WNDR3700的firmware的细节，包含了无线的2.4GHZ和5GHZ波段。本章节假定您熟悉软件的构建以及kernel风格的makefile的系统，还有另外的，此页面描述怎样起始构建系统</p>
+
+<p>此页也描述了用于unbrick WNDR3700（它不需要一个串口），通常针对生产来说串口是可选的。</p>
+
+<p>这些指令在修订版本19064以及相近的版本上运行是可靠的。</p>
+
+<h3 id="前提">前提</h3>
+
+<ul>
+<li>openwrt 编译系统已经准备就绪</li>
+<li>了解openwrt buildroot的用法</li>
+</ul>
+
+<p>直到WNDR3700提供了整合到下一个release版本，在之前需要执行下面的命令来拉取最近的代码：</p>
+
+<pre><code>cd ~
+mkdir openwrt
+cd openwrt
+git clone git://git.openwrt.org/openwrt.git trunk
+</code></pre>
+
+<p>如果你想要检出额外的package，它们会被按照到你的系统（比如包含有用的ntpclient以及WebUI luci），你可以运行这个：</p>
+
+<pre><code>cd ~/openwrt/trunk
+./scripts/feeds update packages luci
+./scripts/feeds install -a -p luci
+./scripts/feeds install &lt;package_name&gt;
+</code></pre>
+
+<h3 id="配置">配置</h3>
+
+<p>运行OpenWrt的buildRoot的menu configure：</p>
+
+<pre><code>cd ~/openwrt/trunk
+make menuconfig
+</code></pre>
+
+<p>选择下面的选项进行配置。你可以想要构建一些模块为kernel module而不是built-in的方式，但是这个是没有经过测试的。</p>
+
+<ul>
+<li>Target System：Atheros AR71xx/AR7240/AR913x</li>
+<li>Target Profile: NETGEAR WNDR3700</li>
+<li>Target Images:如果你想要构建一个ramdisk的镜像，选择“ramdisk”并且确保LZMA压缩在列表中。否则，就配置默认值（可以是jffs2，squashfs以及tgz）。修改此参数，你需要重新构建一切，除了工具链，当你从ramdisk镜像切换到一个firmware，反之亦然</li>
+<li>Image Configuration:使用此配置来设置路由器上的LAN口的默认值。如果你没有串口连接到路由器，你就需要去配置下，以便可以访问路由器当其启动的时候。建议输入DNS server，LAN网络掩码，以及LAN IP地址（路由器上的内网IP地址）
+
+<ul>
+<li>例如，LAN DNS=(网络上的DNS)，LAN network mask=255.255.255.0，LAN IP地址=192.168.0.1</li>
+<li>注意：pfk3不用配置这些，已经内置了默认值192.168.1.1 &amp; 255.255.255.0</li>
+<li>注意：始终给一个“*”给此配置项当路由器在网络上的时候，当你不需要设置的时候</li>
+<li>注意：不能设置此特性在最新的调整过的版本上，详情参见邮件列表</li>
+</ul></li>
+<li>Network &ndash;&gt; CRDA = YES（配置“*”，编译为built-in，而不是作为module）</li>
+<li>Kernel Modules &ndash;&gt; LED Modules &ndash;&gt; kmod-led-wndr3700-usb = YES</li>
+<li>Kernel Modules → Wireless Drivers → kmod-ath → Configuration → Force Atheros drivers to respect the user&rsquo;s regdomain settings = YES</li>
+</ul>
+
+<p>如果你想要在你的允许支持USB，请阅读USB章节</p>
+
+<p>执行命令开始编译：</p>
+
+<pre><code>make
+</code></pre>
+
+<p>这个编译可能会执行半个小时或者更多。当完成后，会在~/openwrt/trunk/bin/ar71xx。自从版本25119后，将为WNDR3700v1和WNDR3700v2创建独立的二进制文件</p>
+
+<h1 id="安装openwrt">安装OpenWrt</h1>
+
+<p>OpenWrt的安装是基于特定的设备的。这些设备的具体的程序可以在wiki上找到。阅览可用的程序的硬件列表。如果你的设备没有被罗列出来，在本节的信息中可能会很有帮助</p>
+
+<p><em>警告：本节中的描述的内容可能会损坏你的设备或者固件。请格外小心</em></p>
+
+<p>本指南是非常通用的。因此不会适应所有的情况，如果你有一些跟设备相关的值。请查看设备页面了解详细的信息。</p>
+
+<p>在大多数的情形下；你有下面三个选项：</p>
+
+<ul>
+<li>选项1：安装OpenWrt到路由器的非易失存储器中</li>
+<li>选项2：按照OpenWrt到RAM中</li>
+<li>选项3：引导OpenWrt从网络：但是网络启动并没有在所有的bootloaders里面支持</li>
+</ul>
+
+<h2 id="四种安装方法">四种安装方法</h2>
+
+<p>有四种方式来安装OpenWrt到一个设备上：</p>
+
+<h3 id="方法1-通过oem-firmware">方法1：通过OEM firmware</h3>
+
+<p>使用Web浏览器打开OEM固件页面，并且安装OpenWrt工厂固件文件使用“Firmware Upgrade”选项。设备在安装完成后需要重启</p>
+
+<p>注意：有时OEM的固件将只允许你的设备使用一个特定的固件。如果是这样，你将不能安装OpenWrt使用这个方法。</p>
+
+<h3 id="方法2-通过bootloader-以及一个网口">方法2：通过Bootloader 以及一个网口</h3>
+
+<p>大多数情况下，但是也不是所有的bootloaders提供built-in的引导作为内置功能。一些使用TFTP-client，一些使用TFTP-Server，还有一些使用FTP-client，一些使用FTP-Server，web server以及XMODEM-protocol</p>
+
+<p>在开始安装前，你需要确认下面的事情：</p>
+
+<ul>
+<li>预设bootloader的IP地址（不一定要完全相同的IP地址，当从原始固件启动的时候）</li>
+<li>协议以及是否bootloader作为一个client或者server</li>
+<li>正确的端口号码</li>
+<li>可以去连接的网口</li>
+<li>用户名以及登录密码</li>
+<li>有可以让你去启动设备去完成一个连接的等待时间</li>
+</ul>
+
+<p>一旦你了解到了上面所有的参数，你可以执行下面的步骤</p>
+
+<ul>
+<li>安装合适的软件在你的PC上（例如，如果bootloader使用一个FTP-server，那么你需要一个FTP-client）</li>
+<li>阅读合适的帮助手册</li>
+<li>配置一个静态IP地址给你的PC的网口，与bootload上预配置在统一网段</li>
+<li>从PC连接到设备</li>
+<li>断电重启设备</li>
+<li>使用你所选择的软件连接到bootloader</li>
+<li>安装OpenWrt固件文件</li>
+<li>不要覆盖或者改变bootloader直到你确实需要这么做</li>
+</ul>
+
+<p>注意：有时候bootloader会防止你去刷新一个OEM的固件。如果你有一个非常短时间窗口，在设备与你的主机之间需要快速的启动。为了让此连接更快些，你可以禁止自动协商在你的NIC and/or 禁止media sensing</p>
+
+<h3 id="方法3-通过bootloader以及串口">方法3：通过bootloader以及串口</h3>
+
+<p><a href="http://wiki.openwrt.org/doc/howto/generic.flashing.serial" title="generic.flashing.serial">http://wiki.openwrt.org/doc/howto/generic.flashing.serial</a></p>
+
+<h3 id="方法4-通过jtag">方法4：通过JTAG</h3>
+
+<p><a href="http://wiki.openwrt.org/doc/hardware/port.jtag" title="port.jtag">http://wiki.openwrt.org/doc/hardware/port.jtag</a></p>
+
+<h3 id="安装ramdisk-image到main-memory">安装ramdisk-image到main memory</h3>
+
+<p>此步骤阐述如何上传一个新的ramdisk的镜像到设备。flash上现有的固件不吃不变。你需要一个串口来完成ramdisk的上传。</p>
+
+<ul>
+<li>OpenWrt buildroot配置RAMDISK选项来创建一个ramdisk镜像</li>
+<li>将你的电脑与路由器的LAN口连接</li>
+<li>通过串口连接到WNDR3700并且设置你的terminal程序：
+
+<ul>
+<li>115200 bps 8N1</li>
+<li>no software flow control</li>
+<li>no hardware flow control</li>
+</ul></li>
+<li>配置你的电脑的网口使用IP地址192.168.0.<sup>10</sup>&frasl;<sub>24</sub></li>
+<li>配置一个TFTPserver在你的本地电脑上，来应答在192.168.0.10接口上的请求。确保ramdisk镜像在TFTP server的目录中</li>
+
+<li><p>修正ramdisk镜像的头，让它称为u-boot的格式。使用wndr3700.c程序，它被发布在了<a href="http://aorlinsk2.free.fr/openwrt/wndr3700/，运行它从TFTP">http://aorlinsk2.free.fr/openwrt/wndr3700/，运行它从TFTP</a> server的目录：</p>
+
+<pre><code>./wndr3700 openwrt-ar71xx-uImage-lzma.bin openwrt-fixed.out
+</code></pre></li>
+
+<li><p>给设备上电。当看到询问你是否按任意键中断正常的启动的时候，在串口上按下任意键（或者按住enter键，从启动的时候直到你看到一个提示符）：</p></li>
+
+<li><p>输入下面的到串口</p></li>
+</ul>
+
+<pre><code>setenv ipaddr 192.168.0.1
+setenv serverip 192.168.0.10
+setenv bootargs 'board=WNDR3700'
+tftpboot 80800000 openwrt-fixed.out
+bootm
+</code></pre>
+
+<p>（如果你忘记这些启动参数，板子也会正常的启动，但是它不会启动任何的网络接口）</p>
+
+<p>-系统开始启动</p>
+
+<h2 id="安装清单">安装清单</h2>
+
+<p><em>此清单没有覆盖所有的OpenWrt的安装方式</em></p>
+
+<ul>
+<li>Pre-Installation
+
+<ul>
+<li>Say hello in #openwrt channel at freenode.</li>
+<li>Make sure that the router has currently stock/original firmware installed.</li>
+<li>Configure your computer to use static IP address.</li>
+<li>Connect to the router with wire, not WiFi.</li>
+<li>Do your own research and read all the resources about installing OpenWRT on your router:
+
+<ul>
+<li>FAQ before installation</li>
+<li>Table of Hardware</li>
+<li>OpenWRT forum</li>
+</ul></li>
+<li>Print or save those pages for offline reading:
+
+<ul>
+<li>First login</li>
+<li>Failsafe</li>
+<li>(optional) Backup flash of your router.</li>
+</ul></li>
+</ul></li>
+<li>Installation
+
+<ul>
+<li>Reboot router.</li>
+<li>Download OpenWRT image in proper location.
+
+<ul>
+<li>In case of upgrading existing OpenWrt system, the proper location is RAM (usually /tmp).</li>
+</ul></li>
+<li>Verify MD5 checksum of the OpenWRT image you downloaded.</li>
+<li>Make sure that there is at least as much free RAM as the size of OpenWRT image you have downloaded.</li>
+</ul></li>
+<li>Post-Installation
+
+<ul>
+<li>Do First login and set root password.</li>
+<li>Backup flash of your router.</li>
+<li>Make yourself comfortable with the Failsafe mode.</li>
+<li>Configure your device</li>
+</ul></li>
+</ul>
+
+<h1 id="developing">developing</h1>
+
+<h2 id="debugging">Debugging</h2>
+
+<p>调试硬件是非常棘手的事情，尤其是当内核的开发和驱动程序的开发。因此，可能需要添加一些额外的设备，比如使用串口，或者JTAG来调试你的代码</p>
+
+<h3 id="串口">串口</h3>
+
+<p><a href="http://wiki.openwrt.org/doc/hardware/port.serial" title="port.serial">http://wiki.openwrt.org/doc/hardware/port.serial</a></p>
+
+<h3 id="jtag">JTAG</h3>
+
+<p><a href="http://wiki.openwrt.org/doc/hardware/port.jtag" title="port.jtag">http://wiki.openwrt.org/doc/hardware/port.jtag</a></p>
+
+<h3 id="gdb">GDB</h3>
+
+<p><a href="http://wiki.openwrt.org/doc/devel/gdb" title="gdb">http://wiki.openwrt.org/doc/devel/gdb</a></p>
+
+<h3 id="perf-oprofile-cpu-profiling">perf/oprofile cpu profiling</h3>
+
+<p><a href="http://false.ekta.is/2012/11/cpu-profiling-applications-on-openwrt-with-perf-or-oprofile/" title="perf/oprofile">http://false.ekta.is/2012/11/cpu-profiling-applications-on-openwrt-with-perf-or-oprofile/</a></p>
+
+<h3 id="wireless">Wireless</h3>
+
+<p>当遇到无线的bug，比如连接数下降或者wpa密钥更新问题，可以去远程运行tcpdump来捕获报文，来分析导致问题的原因</p>
+
+<h4 id="capture-management-流量">capture Management 流量</h4>
+
+<p>下面的命令将会监听mac80211，启动一个tcpdump，保存报文到/tmp下</p>
+
+<pre><code>ssh root@192.168.1.1 'grep -q mon0 /proc/net/dev || /usr/sbin/iw phy phy0 interface add mon0 type monitor;
+    /sbin/ifconfig mon0 up; /usr/sbin/tcpdump -s 0 -i mon0 -y IEEE802_11_RADIO -w -' &gt; /tmp/wifi.pcap
+</code></pre>
+
+<p>一个轻量级的程序iwcap可以用来代替tcpdump。它的MIPS二进制文件只有大约5KB的大小，并且它不需要libpcap库的支持。它还支持对数据帧的筛选通过-D开关来截断大量的数据包</p>
+
+<pre><code>ssh root@192.168.1.1 'grep -q mon0 /proc/net/dev || /usr/sbin/iw phy phy0 interface add mon0 type monitor;
+    /sbin/ifconfig mon0 up; /usr/sbin/iwcap -i mon0 -s' &gt; /tmp/wifi.pcap
+</code></pre>
+
+<h4 id="修改hostapd日志的配置">修改hostapd日志的配置</h4>
+
+<p>注意在最近的openwrt所包含的hostapd的版本，它的verbose的debug消息是被禁止的为了节省空间。</p>
+
+<p>增加hostapd的日志等级：</p>
+
+<pre><code># Levels (minimum value for logged events):
+#  0 = verbose debugging
+#  1 = debugging
+#  2 = informational messages
+#  3 = notification
+#  4 = warning&quot;
+</code></pre>
+
+<p>默认值是“informational messages”. 下面的例子会展示如何更改这个“debugging”</p>
+
+<p>检查当前使用的log等级：</p>
+
+<pre><code>root@OpenWrt:~# ps | grep hostapd
+ 6948 root      1784 S    /usr/sbin/hostapd -P /var/run/wifi-phy1.pid -B /var/run/hostapd-phy1.conf
+ 6987 root      1784 S    /usr/sbin/hostapd -P /var/run/wifi-phy0.pid -B /var/run/hostapd-phy0.conf
+ 7019 root      1448 S    grep hostapd
+</code></pre>
+
+<p>让我们来关注下你所感兴趣的比如phy0的hostapd，首先检查此hostapd的当前级别</p>
+
+<pre><code>root@OpenWrt:~# grep _level /var/run/hostapd-phy0.conf 
+logger_syslog_level=2
+logger_stdout_level=2
+</code></pre>
+
+<p>log level 为2，让我们改变它：</p>
+
+<pre><code>root@OpenWrt:~# uci set wireless.radio0.log_level=1
+root@OpenWrt:~# uci commit wireless
+root@OpenWrt:~# wifi up
+root@OpenWrt:~# grep _level /var/run/hostapd-phy0.conf 
+logger_syslog_level=1
+logger_stdout_level=1
+</code></pre>
+
+<p>随后我们可以看见日志等级被改变了。logread命令可以显示log的debug信息：</p>
+
+<pre><code>Tue Apr 22 11:35:41 2014 daemon.debug hostapd: wlan0: STA 20:16:d8:db:aa:56 MLME: MLME-REASSOCIATE.indication(20:16:d8:db:aa:56)
+Tue Apr 22 11:35:41 2014 daemon.debug hostapd: wlan0: STA 20:16:d8:db:aa:56 MLME: MLME-DELETEKEYS.request(20:16:d8:db:aa:56)
+Tue Apr 22 11:35:41 2014 daemon.debug hostapd: wlan0: STA 20:16:d8:db:aa:56 WPA: event 1 notification
+Tue Apr 22 11:35:41 2014 daemon.debug hostapd: wlan0: STA 20:16:d8:db:aa:56 WPA: start authentication
+Tue Apr 22 11:35:41 2014 daemon.debug hostapd: wlan0: STA 20:16:d8:db:aa:56 IEEE 802.1X: unauthorizing port
+Tue Apr 22 11:35:41 2014 daemon.debug hostapd: wlan0: STA 20:16:d8:db:aa:56 WPA: sending 1/4 msg of 4-Way Handshake
+Tue Apr 22 11:35:41 2014 daemon.debug hostapd: wlan0: STA 20:16:d8:db:aa:56 WPA: received EAPOL-Key frame (2/4 Pairwise)
+Tue Apr 22 11:35:41 2014 daemon.debug hostapd: wlan0: STA 20:16:d8:db:aa:56 WPA: sending 3/4 msg of 4-Way Handshake
+Tue Apr 22 11:35:41 2014 daemon.debug hostapd: wlan0: STA 20:16:d8:db:aa:56 WPA: received EAPOL-Key frame (4/4 Pairwise)
+</code></pre>
+
+<p>你可能随后需要设置remote logging通过syslog到其他的主机通过设置一个logfile（警告，这里将不会支持自动的rotated，因此确保你的文件系统有足够的空间）</p>
+
+<pre><code>uci set system.@system[0].log_file=[path-to-my-logfile]
+uci commit
+[reboot required]
+</code></pre>
+
+<p>或者，你能使用system.@system[0].log_ip来登录到远程的计算机（必须依赖于比如rsyslogd程序：<a href="https://forum.openwrt.org/viewtopic.php?id=11912）">https://forum.openwrt.org/viewtopic.php?id=11912）</a></p>
+
+<p>如果你想要通过命令行调试，你可能需要运行下面的命令：</p>
+
+<pre><code>kill `cat /var/run/wifi-phy0.pid` ; /usr/sbin/hostapd -dd -P /var/run/wifi-phy0.pid  /var/run/hostapd-phy0.conf
+</code></pre>
+
+<p>使用上面的ps命令的输出，创建一个必要的命令行 - 删除&rsquo;-B&rsquo;参数禁止hostapd 切换后台模式运行，并且添加&rsquo;-dd&rsquo;详细的verbose到stdout</p>
+
+<p>依赖于你的硬件以及接口的状态，是有必要去创建或者重新创建一个相关的wlan设备在启动hostapd之前：</p>
+
+<pre><code>iw dev wlan0 del
+iw phy phy0 interface add wlan0 type managed
+</code></pre>
+
+<h3 id="添加或者修改编译器的debug-flags">添加或者修改编译器的debug flags</h3>
+
+<ul>
+<li>编译推荐的编译选项是“-g3”选项</li>
+<li>也必须禁止__sstrip_to来保证debug信息</li>
+</ul>
+
+<p>请注意，如果你只是想生成单个未strip的package，可以尝试使用 “make package/foo/compile STRIP=false”，未被strip的二进制放置在&rdquo;stagin_dir/target-<em>/root-</em>/&ldquo;，主机侧的工具可以使用它们。（请记住，gdbserver可以attach到strip过的二进制，虽然gdb加载unstripped的二进制）</p>
+
+<p>另外：你也可以添加修改“Custom Target Options” 比如添加“-g3 -ggdb3”</p>
+
+<ul>
+<li>通常默认是的编译选项定义在include/target.mk总</li>
+<li>一些package可能会重写或者不使用这个flags，检查编译日志</li>
+</ul>
+
+<h2 id="使用build的环境变量">使用Build的环境变量</h2>
+
+<p>OpenWrt提供了多个配置在构建镜像的时候，可以在一个单独的检出的代码中，生成多个目标镜像。这些环境都存在一个.config的副本，生成通过make menuconfig以及./files文件夹的内容。脚本./scripts/env用来管理这些环境，它使用git作为后端的版本控制。</p>
+
+<p>配置git</p>
+
+<pre><code> git config --global user.name &quot;Your Name&quot;
+ git config --global user.email &quot;user@email.com&quot;
+</code></pre>
+
+<p>git 需要上面的这些配置。</p>
+
+<p>命令：</p>
+
+<pre><code> ./scripts/env help
+</code></pre>
+
+<p>执行一个help获取到整个命令列表</p>
+
+<p>创建一个新的名为name的环境变量，运行下面的命令：</p>
+
+<pre><code>./scripts/env new current
+</code></pre>
+
+<p>这个命令将移动你的.config文件以及./files（如果它存在）到env/ 子目录并且创建symlinks在base 文件夹</p>
+
+<p>当运行完make menuconfig或者在files/ 中改变了一些内容，你的当期状态可能会不同于之前的，可以使用下面的命令显示这些差异：</p>
+
+<pre><code>./scripts/env diff
+</code></pre>
+
+<p>如果你想要保存这些变化，运行：</p>
+
+<pre><code>./scripts/env save
+</code></pre>
+
+<p>如果你想回到之前的版本，运行：</p>
+
+<pre><code>./scripts/env revert
+</code></pre>
+
+<p>如果你想要，你可以现在创建第二个环境变量使用new命令。它将会询问你是否想要创建一个当前的配置的clone或者如果你想重新开始一个干净的版本（比如选择一个新的target）</p>
+
+<p>去切换到不同的环境变量，使用：</p>
+
+<pre><code>./scripts/env switch test1
+</code></pre>
+
+<p>给命令分支的名字：</p>
+
+<pre><code>./scripts/env rename test2
+</code></pre>
+
+<p>如果你想要获取一个最新的初始的环境变量，恢复在base目录中的一切，使用：</p>
+
+<pre><code> ./scripts/env clear
+</code></pre>
+
+<h2 id="software-libraries-links-to-libraries">Software Libraries(Links to libraries)</h2>
+
+<p>本节罗列了一些库，可以参考下面的链接</p>
+
+<p><a href="http://wiki.openwrt.org/doc/devel/links.software.libraries">http://wiki.openwrt.org/doc/devel/links.software.libraries</a></p>
+
+<h2 id="crosscompile-cross-compile">Crosscompile （Cross Compile）</h2>
+
+<p>如果你想要使用一个程序，在OpenWrt的仓库中没有包含，你可能也不能找到你的CPU所对应的二进制文件。如果代码是开源的，你可以下载代码并且编译它使用OpenWrt的buildroot</p>
+
+<p>注意并不是所有的代码都可以针对每个CPU的架构进行编译。此外，在嵌入式系统上的性能也不能跟普通的计算机相比</p>
+
+<h3 id="流程">流程</h3>
+
+<ul>
+<li>首先完成<a href="http://wiki.openwrt.org/doc/howto/build" title="OpenWrt Buildroot">http://wiki.openwrt.org/doc/howto/build</a></li>
+<li>找到toolchain的二进制在stagin_dir/toolchain-architecture_gcc-complierver_uClibc-libcver/bin/ 目录</li>
+<li>添加此目录到PATH环境变量中：
+
+<ul>
+<li>PATH=$PATH:(你的toolchain/bin目录)</li>
+<li>export PATH</li>
+</ul></li>
+<li>设置STAGING_DIR环境变量使用上面的toolchain目录并且export它：
+
+<ul>
+<li>STAGING_DIR=(你的toolchain的目录)</li>
+<li>export STAGING_DIR</li>
+</ul></li>
+<li>下载和解压代码，进入到解压的目录</li>
+<li>传入host以及build变量给package的编译，来触发交叉编译
+
+<ul>
+<li>针对GNU的configure，使用 &ndash;build=architecture-unknow-linux-gnu &ndash;host=architecture-openwrt-linux-ulibc（例如：./configure &ndash;build=x86_64-unkown-linux-gnu  –host=mips-openwrt-linux-uclibc）
+
+<ul>
+<li>运行 ./config.guess来获取&ndash;build=option</li>
+<li>检查输出并且确保&rsquo;checking whether we are cross compiliing&hellip;yes&rsquo; 是yes</li>
+</ul></li>
+<li>针对GNU的make，覆盖CC以及LD环境变量（通常不需要如果GNU的configure已经执行过）
+
+<ul>
+<li>make CC=architecture-openwrt-linux-uclibc-gcc LD=architecture-openwrt-linux-uclibc-ld</li>
+</ul></li>
+</ul></li>
+<li>编译完成的程序，一般会在执行./configure以及make所在的目录，执行find -iname <em>program</em></li>
+<li>在目标机上运行程序，确保编译无误</li>
+<li>如果由于缺少头文件或者共享库导致编译中断，你可能需要覆盖CFLAGS以及LDFLAGS指向到staging_dir/target-architecture_uClibc-libcver/usr/include以及../usr/lib目录</li>
+<li>调试需要在toolchain中存在gdb。默认的配置是不包含它的。通过make menuconfig. [Advanced configuration options-&gt;Toolchain Options-&gt;build gdb] 包含它</li>
+<li>远程调试可以通过使用脚本./scripts/remote-gdb</li>
+</ul>
+
+<p>当编译完成后，复制二进制文件以及相关的库到target设备来测试它。可能需要设置LD_LIBRARY_PATH在taget上指向二进制文件所需要的库在非标准的路径上。</p>
+
+<p>如果程序运行没有问题，你可能想要去创建一个真正的opkg的package来管理，并且可以让所有人很容易的编译它。请查阅Creating your own package以及Using Dependencies来进一步的学习。</p>
+
+<h2 id="packages-creating-packages">Packages （Creating packages）</h2>
+
+<p>我们已经尝试在做关于OpenWrt的模板系统的一件事情就是非常容易引入软件到OpenWrt。如果你去查看一个典型的package的目录在OpenWrt中，你会发现三件事情：</p>
+
+<ul>
+<li>package/Makefile</li>
+<li>package/patches</li>
+<li>package/files</li>
+</ul>
+
+<p>patches目录是可选的，并且包含了对bug的修正或者优化可执行文件的大小。files目录也是可选的，它包含了默认的配置或者init文件</p>
+
+<p>package的makefile是非常重要的条目，因为它给出了一些步骤去下载并且编译package</p>
+
+<p>看一个package的makefiles，你几乎可能不会认为它是一个makefile文件。makefile已经变成了对象导向模板，它可以简化整个的难度。</p>
+
+<p>这里有一个例子，是package/bridge/Makefile:</p>
+
+<pre><code>include $(TOPDIR)/rules.mk
+
+PKG_NAME:=bridge
+PKG_VERSION:=1.0.6
+PKG_RELEASE:=1
+
+PKG_BUILD_DIR:=$(BUILD_DIR)/bridge-utils-$(PKG_VERSION)
+PKG_SOURCE:=bridge-utils-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=@SF/bridge
+PKG_MD5SUM:=9b7dc52656f5cbec846a7ba3299f73bd
+PKG_CAT:=zcat
+
+include $(INCLUDE_DIR)/package.mk
+
+define Package/bridge
+  SECTION:=base
+  CATEGORY:=Network
+  TITLE:=Ethernet bridging configuration utility
+  #DESCRIPTION:=This variable is obsolete. use the Package/name/description define instead!
+  URL:=http://bridge.sourceforge.net/
+endef
+
+define Package/bridge/description
+ Ethernet bridging configuration utility
+ Manage ethernet bridging; a way to connect networks together to
+ form a larger network.
+endef
+
+define Build/Configure
+  $(call Build/Configure/Default,--with-linux-headers=$(LINUX_DIR))
+endef
+
+define Package/bridge/install
+        $(INSTALL_DIR) $(1)/usr/sbin
+        $(INSTALL_BIN) $(PKG_BUILD_DIR)/brctl/brctl $(1)/usr/sbin/
+endef
+
+$(eval $(call BuildPackage,bridge))
+</code></pre>
+
+<h3 id="buildpackage-variables">BuildPackage variables</h3>
+
+<p>正如你所看到的，这儿没有太多的工作需要做；所有的细节都被隐藏在其它的makefiles以及抽象出来的需要去配置的一些变量</p>
+
+<ul>
+<li>PKG_NAME：package的名字，通过在menuconfig和ipkg我们见到的</li>
+<li>PKG_VERSION：我们下载的软件包的版本号</li>
+<li>PKG_RELEASE：这个package的发布的版本号，一般来说每次的发布，此版本号会变化</li>
+<li>PKG_LICENSE：许可证书，package在SPDX的方式下可用</li>
+<li>PKG_LICENSE_FILE：包含license文本信息的文件</li>
+<li>PKG_BUILD_DIR：在哪里去编译package</li>
+<li>PKG_SOURCE：源码的文件名</li>
+<li>PKG_SOURCE_URL：从哪里可以下载到源码（目录）</li>
+<li>PKG_MD5SUM：一个校验和用来验证下载的文件的完整性。</li>
+<li>PKG_CAT：解压源码包的方式（zcat，bzcat，unzip）</li>
+<li>PKG_BUILD_DEPENDS：在编译此package之前旧需要编译的，但是在运行时是不需要的。</li>
+<li>PKG_INSTALL：设置为1，将会调用package的‘make install’，并且以PKG_INSTALL_DIR的值为前缀进行安装</li>
+<li>PKG_INSTALL_DIR：&rdquo;make install&rdquo;将复制编译后的文件在此配置的目录</li>
+<li>PKG_FIXUP：下文介绍</li>
+<li>PKG_SOURCE_PROTO：用来获取到源码的协议（git,svn）</li>
+<li>PKG_REV:使用svn的那个校订版本，协议必须是&rdquo;svn&rdquo;</li>
+<li>PKG_SOURCE_SUBDIR：必须制定协议是&rdquo;svn&rdquo;或者&rdquo;git&rdquo;，例如 &ldquo;PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)&rdquo;</li>
+<li>PKG_SOURCE_VERSION:如果协议是“git”，必须指定，它会根据commit的hash值检出代码</li>
+<li>PKG_CONFIG_DEPENDS：指定当此package被选择的时候，有哪些配置选项依赖</li>
+</ul>
+
+<p>PKG_*变量定义在哪里可以下载到包；@SF是一个特殊的关键字，从sourceforge上下载包。md5sum被用来验证软件包是否被正确的下载，PKG_BUILD_DIR定义哪里可以找到被解压到$(BUILD_DIR)下的包。PKG_INSTALL_DIR定义哪里的文件将会复制在调用“make install”时（使用PKG_INSTALL变量），并且随后你可能打包它们在一个install段</p>
+
+<p>在整个文件的最后，是真正的魔法发生的地方，&rdquo;BuildPackage&rdquo;是一个宏，通过早先include语句来配置。BuildPackage只直接传入了一个参数&mdash;将要被构建的package的名字，在我们的例子中就是“bridge”。所有的其他信息都是取自前面的定义块。这是一种提供详细信息级别的方式，它的作用就是清楚的描述在Package/bridge中的变量，这就是我们没有直接将这些参数传递给BuildPackage的原因。</p>
+
+<h3 id="pkg-fixup">PKG_FIXUP</h3>
+
+<p>一些/很多的package认为autotools是一个好的注意，来“修复”package，autotools是一个比较好的工具并且使用主机工具来代替交叉编译链中的工具。OpenWrt定义了一些PKG_FIXUP规则来让此工作更好的完成。但是这个可能不是必须需要的。</p>
+
+<pre><code>PKG_FIXUP:=autoreconf
+PKG_FIXUP:=patch-libtool
+PKG_FIXUP:=gettext-version
+</code></pre>
+
+<p>正如你在上面所看到的，它们是一些简单的别名</p>
+
+<h4 id="autoreconf">autoreconf</h4>
+
+<p>这个修复会执行</p>
+
+<ul>
+<li>autoreconf -f -i</li>
+<li>创建需要的，但是可能不存在的文件</li>
+<li>确保openwrt-libtool已经被链接</li>
+<li>禁止autopoint/gettext</li>
+</ul>
+
+<h4 id="patch-libtool">patch-libtool</h4>
+
+<p>如果automake的处理被打断，更好的处理方式是修复一下，然后简单的查找下libtool的实例，检测它们的版本并且让openwrt修复这个补丁</p>
+
+<h4 id="gettext-version">gettext-version</h4>
+
+<p>这个修复会禁止automake的gettext的特性无法匹配到版本的错误</p>
+
+<h4 id="提示">提示</h4>
+
+<p>Packages 如果使用了Autotools，那么应该配置“PKG_FIXUP:=autoreconf”。然后，这里可能会有要求的版本的问题</p>
+
+<p><em>用一个修订过的./configure 文件来替代由autotools：configure.ac生成的./configure(或者configure.in,在有些比较久远的package中)。另一个重要的文件是Makefile.am，它被用来生成Makefile</em></p>
+
+<h3 id="package-sourcecode">Package Sourcecode</h3>
+
+<p>OpenWrt Buildroot提供了很多的不同的方式来下载额外的源码包。</p>
+
+<h4 id="使用打包的源码文件">使用打包的源码文件</h4>
+
+<p>很多package使用.tar.gz,.tar.bz2,.tar.xz或者类似的源码文件</p>
+
+<h4 id="使用仓库">使用仓库</h4>
+
+<p>PKG_SOURCE_PROTO提供从很多不同种类的源码仓库中下载代码</p>
+
+<pre><code>PKG_SOURCE_PROTO:=bzr
+PKG_SOURCE_PROTO:=cvs
+PKG_SOURCE_PROTO:=darcs
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_PROTO:=hg
+PKG_SOURCE_PROTO:=svn
+</code></pre>
+
+<h4 id="在openwrt的makefile中绑定源码">在openwrt的Makefile中绑定源码</h4>
+
+<p>也有可能在package/<packagename>目录有源码存在。通常./src/子目录被使用</p>
+
+<pre><code>Examples: px5g, px5g-standalone
+</code></pre>
+
+<h4 id="下载覆盖">下载覆盖</h4>
+
+<p>绑定代码但是不需要去覆盖。</p>
+
+<p>你可以下载附加的数据从外部的源。</p>
+
+<pre><code>USB_IDS_VERSION:=2013-01-16
+USB_IDS_MD5SUM:=2a2344907b6344f0935c86efaf9de620
+USB_IDS_FILE:=usb.ids.$(USB_IDS_VERSION).gz
+
+[...parts missing...]
+
+define Download/usb_ids
+  FILE:=$(USB_IDS_FILE)
+  URL:=http://mirror2.openwrt.org/sources
+  MD5SUM:=$(USB_IDS_MD5SUM)
+endef
+$(eval $(call Download,usb_ids))
+</code></pre>
+
+<p>并且解压它或者将它直接放置在编译过程中</p>
+
+<pre><code>define Build/Prepare
+        $(Build/Prepare/Default)
+        echo '#!/bin/sh' &gt; $(PKG_BUILD_DIR)/update-usbids.sh.in
+        echo 'cp $(DL_DIR)/$(USB_IDS_FILE) usb.ids.gz' &gt;&gt; $(PKG_BUILD_DIR)/update-usbids.sh.in
+endef
+</code></pre>
+
+<p>你可以手动的修改UNPACK_CMD或者调用/修改PKG_UNPACK在Build/Prepare段中：</p>
+
+<pre><code>UNPACK_CMD=ar -p &quot;$(DL_DIR)/$(PKG_SOURCE)&quot; data.tar.xz | xzcat | tar -C $(1) -xf -
+</code></pre>
+
+<pre><code>define Build/Prepare
+        $(PKG_UNPACK)
+#       we have to download additional stuff before patching
+        (cd $(PKG_BUILD_DIR) &amp;&amp; ./contrib/download_prerequisites)
+        $(Build/Patch)
+endef
+</code></pre>
+
+<pre><code>Examples: px5g, px5g-standalone, usbutils, debootstrap, gcc,
+</code></pre>
+
+<h3 id="buildpackage-的定义">BuildPackage 的定义</h3>
+
+<h4 id="package">Package/</h4>
+
+<p>匹配的参数会被透传给buildroot，这些会描述package，menuconfig以及ipkg的条目。在Package/ 你可以定义下面的变量：</p>
+
+<ul>
+<li>SECTION : package的类型（当前未使用）</li>
+<li>CATEGORY：在menuconfig中出现的菜单</li>
+<li>TITLE：package的一个简短的描述</li>
+<li>DESCRIPTION：（不推荐的做法）package的详细描述</li>
+<li>URL：可以在哪里找到原始的软件</li>
+<li>MAINTAINER：（针对的新的package需要）可以联系谁关于这个package</li>
+<li>DEPENDS：（可选的）在这个包之前什么package必须已经编译并且安装</li>
+<li>PKGARCH：（可选的）设置这个为“all”，支持所有的硬件架构</li>
+<li>USERID：（可选的）一个用户名：组名在package安装的时候被创建</li>
+</ul>
+
+<h4 id="package-conffiles-可选的">Package/conffiles(可选的)</h4>
+
+<p>这个package需要安装的配置文件列表，一个文件占一行</p>
+
+<h4 id="package-description">Package/description</h4>
+
+<p>这个package的文本描述信息</p>
+
+<h4 id="build-prepare-可选">Build/Prepare(可选)</h4>
+
+<p>设置解压和定位源码的命令集。你可能需要让它保持默认也就是不去定义它</p>
+
+<h4 id="build-configure-可选">Build/Configure(可选)</h4>
+
+<p>你可以不去定义它，如果源码没有使用configure或者有一个配置脚本，否则你可以在这里定义自己的命令或者使用&rdquo;$(call Build/Configure/Default)&ldquo;作为参数传递附加的参数给标准的configure脚本</p>
+
+<h4 id="build-compile-可选">Build/Compile(可选)</h4>
+
+<p>配置如何编译源码；大多数情况下你不用定义它，因为会使用默认的配置，当调用make的时候。如果你想要传递一些参数给make，使用：&rdquo;$(call Build/Compile/Default, FOO=bar)&rdquo;</p>
+
+<h4 id="build-install-可选">Build/Install(可选)</h4>
+
+<p>如何去安装编译后的文件。默认的行为是调用make install。你也可以透传一些参数，使用$(call Build/Install/Default,install install-foo) 注意你需要放置所有需要的make参数在这里。如果你只需要添加一些参数给“install”，那么别忘了&rdquo;install&rdquo;自己。</p>
+
+<h4 id="build-installdev-可选">Build/InstallDev(可选)</h4>
+
+<p>针对一些需要编译的包（static libs，header files），但是这些文件不会再目标设备上使用</p>
+
+<h4 id="package-install">Package/install</h4>
+
+<p>一组命令集用来复制文件到ipkg，通过$(1)所指向的目录。在源码中你可以使用相对路径从解压包以及编译后的文件的进行安装，或者在Build/Install阶段$(PKG_INSTALL_DIR)变量所指向的文件路径</p>
+
+<h4 id="package-preinst">Package/preinst</h4>
+
+<p>这个脚本的真实的行为是在安装前执行。不要忘了包含 &ldquo;#!/bin/sh&rdquo;.如果你需要中断安装，那么脚本返回false即可。</p>
+
+<h4 id="package-postinst">Package/postinst</h4>
+
+<p>这脚本会在安装完成后执行。不要忘记包含&rdquo;#!/bin/sh&rdquo;</p>
+
+<h4 id="package-prerm">Package/prerm</h4>
+
+<p>这脚本会在删除前执行。不要忘记包含&rdquo;#!/bin/sh&rdquo;。如果你需要中断删除操作，脚本需要返回false</p>
+
+<h4 id="package-postrm">Package/postrm</h4>
+
+<p>这个脚本会在删除后执行。不要忘记包含&rdquo;#!/bin/sh&rdquo;</p>
+
+<p>一些定义以前缀&rdquo;Package&rdquo;以及一些以&rdquo;Build&rdquo;为前缀的原始是，可能在一个源文件中需要去生成多个package。OpenWrt假定每一个source对应一个package的makefile，因此你可以将它们分离到不同的包。因为你只需要编译一次源码，并且这里有一个全局的&rdquo;Build&rdquo;的定义，但是你可以添加很多的&rdquo;Package/&ldquo;定义来调用Buildpakcage&mdash;可以查看dropbear包中的例子</p>
+
+<h3 id="依赖类型">依赖类型</h3>
+
+<p>可以指定很多的不同的依赖类型，这里需要来阐述下他们的不同</p>
+
+<ul>
+<li>+<code>&lt;foo&gt;</code>  : package将会依赖于package<foo>，并且如果选择foo包当此包被选择的时候</li>
+<li><code>&lt;foo&gt;</code>   : package将会依赖于package<foo>，并且将会被忽略直到<foo>并选择</li>
+<li>@FOO      :package依赖于配置符号CONFIG_FOO，并且会不可见除非CONFIG_FOO被设置了。这个通常被用来当package依赖于某个linux版本或者target，例如@TARGET_foo将会只可用于targe foo。你也可以使用boolean来解决负载的依赖关系，例如@(!TARGET_foo &amp;&amp; !TARGET_bar)，那么package将会针对foo和bar不可用</li>
+<li>+FOO:<code>&lt;bar&gt;</code> :package将会依赖于<bar>如果CONFIG_FOO被设置了，并且当选择package的时候也会选择<bar>.典型的用例是针对此package可以在编译时刻指定选项来指定其依赖的外部库</li>
+<li><code>&lt;bar&gt;</code>   : 依赖于前一个配置，package将依赖于<bar>如果CONFIG_FOO设置，并且它会不可见直到CONFIG_FOO被设置才会选择</li>
+</ul>
+
+<p>一些依赖关系的典型的配置语法：</p>
+
+<ul>
+<li>TARGET_<code>&lt;foo&gt;</code> : <code>target&lt;foo&gt;</code>被选择</li>
+<li>TARGET<em><code>&lt;foo&gt;</code></em><code>&lt;bar&gt;</code> : 如果<code>target&lt;foo&gt;</code>有子target，子<code>target&lt;bar&gt;</code>被选择，如果没有，那么<code>&lt;foo&gt;</code>被选择。这是<code>TARGET_&lt;foo&gt;</code>的附加语法</li>
+<li>TARGET<em><code>&lt;foo&gt;</code></em><code>&lt;bar&gt;</code>_<code>&lt;baz&gt;</code> :<code>Target&lt;foo&gt;</code>以及子target<code>&lt;bar&gt;</code>以及profile<code>&lt;baz&gt;</code>被选择</li>
+<li>LINUX_3_X :linux版本使用3.x.*</li>
+<li>LINUX_2_6_X :linux版本使用2.6.x.*</li>
+<li>LINUX_2_4 :linux版本使用2.4</li>
+<li>USE_UCLIBC,USE_GLIBC,USE_EGLIBC :依赖的libc</li>
+<li>BROKEN :package将不会被编译或者工作，只有当“Show broken targets/packages”被选择。防止无意中选择了此包，导致失败的编译</li>
+<li>IPV6 :    IPv6的支持在包被选择的时候</li>
+</ul>
+
+<h3 id="configure-a-package-source">configure a package source</h3>
+
+<p>例子：</p>
+
+<pre><code>CONFIGURE_ARGS += \
+        --disable-native-affinity \
+        --disable-unicode \
+        --enable-hwloc
+
+CONFIGURE_VARS += \
+        ac_cv_file__proc_stat=yes \
+        ac_cv_file__proc_meminfo=yes \
+        ac_cv_func_malloc_0_nonnull=yes \
+        ac_cv_func_realloc_0_nonnull=yes
+</code></pre>
+
+<p>若要设置变量（autoconfig 内部的或者CPPFLAGS，CFLAGS，CXXFLAGS，LDFLAGS）或者配置参数。设置configure 的参数是常见的。设置VARS当configure.ac autoconf源码脚本不能再交叉编译环境下正常工作或者找到库</p>
+
+<h4 id="需要host-tools">需要host tools</h4>
+
+<p>如果你的package需要一些私有的工具在host上，你可以使用下面的片段来找到更多的信息</p>
+
+<pre><code>HOST_BUILD_DEPENDS:=&lt;packagename&gt;/host
+PKG_BUILD_DEPENDS:=&lt;packagename&gt;/host
+include $(INCLUDE_DIR)/host-build.mk
+ 
+define Host/Compile
+define Host/Install
+ 
+$(eval $(call HostBuild))
+</code></pre>
+
+<h5 id="注意">注意</h5>
+
+<p>所有的变量在你的pre/post install/removal脚本中都应当是（$$）代替($)。这将告诉make不要将这个值作为变量，只是忽略字符串并且替换$$为$</p>
+
+<p>您已经创建了你的package的Makefile，新的package将会自动的出现当你下次执行&rdquo;make menuconfig&rdquo;的时候，并且如果选择package，将会自动的编译当“make”运行的时候</p>
+
+<p>DESCRIPTION是过时的，使用Package/PKG_NAME/description</p>
+
+<h3 id="添加configuration选项">添加configuration选项</h3>
+
+<p>如果你想要配置你的package的installation/compilation在menuconfig中，你可以这样做：Add menu：=1到你的package的definition像这样：</p>
+
+<pre><code>define Package/mjpg-streamer
+  SECTION:=multimedia
+  CATEGORY:=Multimedia
+  TITLE:=MJPG-streamer
+  DEPENDS:=@!LINUX_2_4 +libpthread-stubs +jpeg
+  URL:=http://mjpg-streamer.wiki.sourceforge.net/
+  MENU:=1
+endef
+</code></pre>
+
+<p>创建一个config key在Makefile：</p>
+
+<pre><code>define Package/mjpg-streamer/config
+	source &quot;$(SOURCE)/Config.in&quot;
+endef
+</code></pre>
+
+<p>创建一个Config.in文件，在Makefile文件所在的目录，内容可能是这样的:</p>
+
+<pre><code># Mjpg-streamer configuration
+	menu &quot;Configuration&quot;
+		depends on PACKAGE_mjpg-streamer
+
+	config MJPEG_STREAMER_AUTOSTART
+		bool &quot;Autostart enabled&quot;
+		default n
+
+		menu &quot;Input plugins&quot;
+			depends on PACKAGE_mjpg-streamer
+			config MJPEG_STREAMER_INPUT_FILE
+				bool &quot;File input plugin&quot;
+				help 
+					You can stream pictures from jpg files on the filesystem
+				default n
+		
+			config MJPEG_STREAMER_INPUT_UVC
+				bool &quot;UVC input plugin&quot;
+				help
+					You can stream pictures from an Universal Video Class compatible webcamera
+				default y
+		
+			config MJPEG_STREAMER_FPS
+				depends MJPEG_STREAMER_INPUT_UVC
+				int &quot;Maximum FPS&quot;
+				default 15
+
+			config MJPEG_STREAMER_PICT_HEIGHT
+				depends MJPEG_STREAMER_INPUT_UVC
+				int &quot;Picture height&quot;
+				default 640
+
+			config MJPEG_STREAMER_PICT_WIDTH
+				depends MJPEG_STREAMER_INPUT_UVC
+				int &quot;Picture width&quot;
+				default 480
+
+
+			config MJPEG_STREAMER_DEVICE
+				depends MJPEG_STREAMER_INPUT_UVC
+				string &quot;Device&quot;
+				default /dev/video0
+	
+			config MJPEG_STREAMER_INPUT_GSPCA
+				bool &quot;GSPCA input plugin&quot;
+				help
+					You can stream pictures from a gspca supported webcamera Note this module is deprecated, use the UVVC plugin instead
+				default n
+		endmenu
+	
+		# ......
+	
+	endmenu
+</code></pre>
+
+<p>以上你看到了各种类型的配置参数的例子。</p>
+
+<p>最后，你可以检查你的配置参数在Makefile使用下面的方式：（注意你需要添加CONFIG_的前缀当你引用参数的值的时候）</p>
+
+<pre><code>ifeq ($(CONFIG_MJPEG_STREAMER_INPUT_UVC),y)
+	$(CP) $(PKG_BUILD_DIR)/input_uvc.so $(1)/usr/lib
+endif
+</code></pre>
+
+<h3 id="本地应用程序源码">本地应用程序源码</h3>
+
+<p>如果你仍然在处理你自己的应用程序，同时你也正在将这些应用处理成package的方式，它可以是非常的有益的让OpenWrt来帮你构建正在开发中的代码，而不是由version+md5sum组合检出的代码，或者下载的是你最后的release版本。这里有几种方法来做这件事</p>
+
+<h4 id="config-src-tree-override">CONFIG_SRC_TREE_OVERRIDE</h4>
+
+<p>这是一个选项在menuconfig中。查看“Advanced configuration options（for developers）”&mdash;&gt;&ldquo;Enable package source tree override&rdquo;</p>
+
+<p>这个允许你可以指向一个本地的git仓库。（只能是git）指明你的package的定义在my_cool_feed/awesome_app</p>
+
+<pre><code>ln -s /path/to/local/awesome_app_tree/.git feeds/my_cool_feed/awesome_app/git-src
+make package/awesome_app/{clean,compile} V=s
+</code></pre>
+
+<p>这种方法的好处就是你不需要任何的特别的命令在你的package的makefiles中，他们保持一致直至最终的生成。缺点是：它只能生成当前仓库的当前的commit（不是master分支，这可能是一个比较私有的测试分支，但是它必须是提交过的，否则不会包含这些变化，也就是必须是提交后的代码，才会去编译）这也会使用一个分离的目录来编译和检出代码。因此所有的编译生成的中间文件都会在你的本地的git仓库，它将会是独立的，确定你的HEAD而无论是否检出了此分支</p>
+
+<h4 id="use-source-dir">USE_SOURCE_DIR</h4>
+
+<p>package-version-override.mk是极力反对的一个方法，它可以直接指向到本地源码并引入</p>
+
+<pre><code>make package/awesome_app/clean V=s
+make package/awesome_app/prepare USE_SOURCE_DIR=~/src/awesome_src V=s
+make package/awesome_app/clean V=s
+</code></pre>
+
+<p>(V=s在上面的是可选的)</p>
+
+<p>这个不需要任何的配置更改来启用规则，也不需要你本地有一个git仓库，也不需要任何的文件被提交</p>
+
+<p>至少目前，这会存在下面的问题：</p>
+
+<ul>
+<li>make clean不能清除掉源码link的目录，但是确实看上去是删除了一个link</li>
+<li>make prepare需要每次都运行</li>
+<li>make package/awesome_app/{clean,compile} USE_SOURCE_DIR=~blah不能工作</li>
+<li>看上去有很多的不好的影响在不使用USE_SOURCE_DIR的设置给其他的包</li>
+</ul>
+
+<h3 id="给kernel模块创建packages">给kernel模块创建packages</h3>
+
+<p>一个kernel模块是一个可安装的程序，它可以扩展linux内部的行为。kernel模块被加载在kernel自身加载后（使用insmod）</p>
+
+<p>很多的kernel程序被包含在了linux的源码发行包中；一般kernel build可以配置它们，针对每一个程序</p>
+
+<ul>
+<li>编译它为kernel的一部分，也就是作为built-in</li>
+<li>编译它为可加载的内核模块，或者</li>
+<li>忽略它</li>
+</ul>
+
+<p>查看FIX：Customizingthekerneloptions customizing the kernel options来包含它在kernel里</p>
+
+<p>包含这些程序中的一个作为可加载的模块，配置相应的内核选项在OpenWrt的配置中（查看build configuration）。如果你想要的内核模块没有出现在OpenWrt的配置菜单中，你必须添加一个在package/kernel/linux/modules目录。这里有一个实例，提取自../modules/block.mk:</p>
+
+<pre><code>define KernelPackage/loop
+  SUBMENU:=$(BLOCK_MENU)
+  TITLE:=Loopback device support
+  KCONFIG:= \
+        CONFIG_BLK_DEV_LOOP \
+        CONFIG_BLK_DEV_CRYPTOLOOP=n
+  FILES:=$(LINUX_DIR)/drivers/block/loop.ko
+  AUTOLOAD:=$(call AutoLoad,30,loop)
+endef
+
+define KernelPackage/loop/description
+ Kernel module for loopback device support
+endef
+
+$(eval $(call KernelPackage,loop))
+</code></pre>
+
+<p>任何对*.mk文件的修改不会自动的被编译系统识别到。需要强制的重新读取元数据或者touch kernel package的makefile使用 touch package/kernel/linux/Makefile(在比较旧的版本上 touch package/kernel/Makefile)或者删除掉buildroot的tmp/目录</p>
+
+<p>你也可以添加不是linux源码发行包中的kernel模块。在这种情况下，内核模块出现在package/ 目录，就像其他的package所做的。package/Makefile使用：</p>
+
+<pre><code>KernelPackage/xxx
+</code></pre>
+
+<p>定义为：</p>
+
+<pre><code>Package/xxx
+</code></pre>
+
+<p>这里有一个package/madwifi/Makefile:</p>
+
+<pre><code>#
+# Copyright (C) 2006 OpenWrt.org
+#
+# This is free software, licensed under the GNU General Public License v2.
+# See /LICENSE for more information.
+#
+# $Id$
+
+include $(TOPDIR)/rules.mk
+include $(INCLUDE_DIR)/kernel.mk
+
+PKG_NAME:=madwifi
+PKG_VERSION:=0.9.2
+PKG_RELEASE:=1
+
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_SOURCE_URL:=@SF/$(PKG_NAME)
+PKG_MD5SUM:=a75baacbe07085ddc5cb28e1fb43edbb
+PKG_CAT:=bzcat
+
+PKG_BUILD_DIR:=$(KERNEL_BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
+
+include $(INCLUDE_DIR)/package.mk
+
+RATE_CONTROL:=sample
+
+ifeq ($(ARCH),mips)
+  HAL_TARGET:=mips-be-elf
+endif
+ifeq ($(ARCH),mipsel)
+  HAL_TARGET:=mips-le-elf
+endif
+ifeq ($(ARCH),i386)
+  HAL_TARGET:=i386-elf
+endif
+ifeq ($(ARCH),armeb)
+  HAL_TARGET:=xscale-be-elf
+endif
+ifeq ($(ARCH),powerpc)
+  HAL_TARGET:=powerpc-be-elf
+endif
+
+BUS:=PCI
+ifneq ($(CONFIG_LINUX_2_4_AR531X),)
+  BUS:=AHB
+endif
+ifneq ($(CONFIG_LINUX_2_6_ARUBA),)
+  BUS:=PCI AHB	# no suitable HAL for AHB yet.
+endif
+
+BUS_MODULES:=
+ifeq ($(findstring AHB,$(BUS)),AHB)
+  BUS_MODULES+=$(PKG_BUILD_DIR)/ath/ath_ahb.$(LINUX_KMOD_SUFFIX)
+endif
+ifeq ($(findstring PCI,$(BUS)),PCI)
+  BUS_MODULES+=$(PKG_BUILD_DIR)/ath/ath_pci.$(LINUX_KMOD_SUFFIX)
+endif
+
+MADWIFI_AUTOLOAD:= \
+	wlan \
+	wlan_scan_ap \
+	wlan_scan_sta \
+	ath_hal \
+	ath_rate_$(RATE_CONTROL) \
+	wlan_acl \
+	wlan_ccmp \
+	wlan_tkip \
+	wlan_wep \
+	wlan_xauth
+
+ifeq ($(findstring AHB,$(BUS)),AHB)
+	MADWIFI_AUTOLOAD += ath_ahb
+endif
+ifeq ($(findstring PCI,$(BUS)),PCI)
+	MADWIFI_AUTOLOAD += ath_pci
+endif
+
+define KernelPackage/madwifi
+  SUBMENU:=Wireless Drivers
+  DEFAULT:=y if LINUX_2_6_BRCM |  LINUX_2_6_ARUBA |  LINUX_2_4_AR531X |  LINUX_2_6_XSCALE, m if ALL
+  TITLE:=Driver for Atheros wireless chipsets
+  DESCRIPTION:=\
+	This package contains a driver for Atheros 802.11a/b/g chipsets.
+  URL:=http://madwifi.org/
+  VERSION:=$(LINUX_VERSION)+$(PKG_VERSION)-$(BOARD)-$(PKG_RELEASE)
+  FILES:= \
+		$(PKG_BUILD_DIR)/ath/ath_hal.$(LINUX_KMOD_SUFFIX) \
+		$(BUS_MODULES) \
+		$(PKG_BUILD_DIR)/ath_rate/$(RATE_CONTROL)/ath_rate_$(RATE_CONTROL).$(LINUX_KMOD_SUFFIX) \
+		$(PKG_BUILD_DIR)/net80211/wlan*.$(LINUX_KMOD_SUFFIX)
+  AUTOLOAD:=$(call AutoLoad,50,$(MADWIFI_AUTOLOAD))
+endef
+
+MADWIFI_MAKEOPTS= -C $(PKG_BUILD_DIR) \
+		PATH=&quot;$(TARGET_PATH)&quot; \
+		ARCH=&quot;$(LINUX_KARCH)&quot; \
+		CROSS_COMPILE=&quot;$(TARGET_CROSS)&quot; \
+		TARGET=&quot;$(HAL_TARGET)&quot; \
+		TOOLPREFIX=&quot;$(KERNEL_CROSS)&quot; \
+		TOOLPATH=&quot;$(KERNEL_CROSS)&quot; \
+		KERNELPATH=&quot;$(LINUX_DIR)&quot; \
+		LDOPTS=&quot; &quot; \
+		ATH_RATE=&quot;ath_rate/$(RATE_CONTROL)&quot; \
+		DOMULTI=1
+
+ifeq ($(findstring AHB,$(BUS)),AHB)
+  define Build/Compile/ahb
+	$(MAKE) $(MADWIFI_MAKEOPTS) BUS=&quot;AHB&quot; all
+  endef
+endif
+
+ifeq ($(findstring PCI,$(BUS)),PCI)
+  define Build/Compile/pci
+	$(MAKE) $(MADWIFI_MAKEOPTS) BUS=&quot;PCI&quot; all
+  endef
+endif
+
+define Build/Compile
+	$(call Build/Compile/ahb)
+	$(call Build/Compile/pci)
+endef
+
+define Build/InstallDev
+	$(INSTALL_DIR) $(STAGING_DIR)/usr/include/madwifi
+	$(CP) $(PKG_BUILD_DIR)/include $(STAGING_DIR)/usr/include/madwifi/
+	$(INSTALL_DIR) $(STAGING_DIR)/usr/include/madwifi/net80211
+	$(CP) $(PKG_BUILD_DIR)/net80211/*.h $(STAGING_DIR)/usr/include/madwifi/net80211/
+endef
+
+define KernelPackage/madwifi/install
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_DIR) $(1)/lib/modules/$(LINUX_VERSION)
+	$(INSTALL_DIR) $(1)/usr/sbin
+	$(INSTALL_BIN) ./files/madwifi.init $(1)/etc/init.d/madwifi
+	$(CP) $(PKG_BUILD_DIR)/tools/{madwifi_multi,80211debug,80211stats,athchans,athctrl,athdebug,athkey,athstats,wlanconfig} $(1)/usr/sbin/
+endef
+
+$(eval $(call KernelPackage,madwifi))
+</code></pre>
+
+<h3 id="文件安装的宏">文件安装的宏</h3>
+
+<p>INSTALL_DIR,INSTALL_BIN,INSTALL_DATA通常被用来创建目录，复制可执行文件，或者一个数据文件，+x会配置目标文件给INSTALL_BIN，这将于它在host主机上的权限无关</p>
+
+<p>从一个大的文档：</p>
+
+<p>Package/<code>&lt;name&gt;</code>/install:</p>
+
+<p>一组命令会被用来复制编译生成的文件并且安装到ipkg中，它会通过$(1)变量所指向的目录。请注意，目前有四个安装宏：</p>
+
+<pre><code>INSTALL_DIR 
+install -d -m0755
+INSTALL_BIN 
+install -m0755
+INSTALL_DATA 
+install -m0644
+INSTALL_CONF 
+install -m0600
+</code></pre>
+
+<h3 id="打包一个服务">打包一个服务</h3>
+
+<p>如果你想要安装一个服务，（有些进程需要start/stop在启动的时候，一般会有/etc/init.d/blah脚本），你应当确保init.d脚本可以在host上正确的运行。在镜像构建阶段，所有的init.d脚本都会运行在host上，查找下START=20/STOP=99行。</p>
+
+<p>也会在/etc/rc.d目录创建一个symlinks，因此他们只会被创建当你重新编译整个镜像的时候。如果你想要symlink被创建在一个package被安装的时候，比如通过opkg，你应当添加一个postinstall的脚本在运行的时</p>
+
+<pre><code>/etc/init.d/foo enable
+</code></pre>
+
+<p>如果$IPKG_INSTROOT是空的。</p>
+
+<p>当$IPKG_INSTROOT被定义了，你可以在buildroot上运行，如果它是空的，在target上运行。</p>
+
+<p>install/remove symlinks在makefile中的代码片段</p>
+
+<pre><code>define Package/mrelay/postinst
+#!/bin/sh
+# check if we are on real system
+if [ -z &quot;$${IPKG_INSTROOT}&quot; ]; then
+        echo &quot;Enabling rc.d symlink for mrelay&quot;
+        /etc/init.d/mrelay enable
+fi
+exit 0
+endef
+
+define Package/mrelay/prerm
+#!/bin/sh
+# check if we are on real system
+if [ -z &quot;$${IPKG_INSTROOT}&quot; ]; then
+        echo &quot;Removing rc.d symlink for mrelay&quot;
+        /etc/init.d/mrelay disable
+fi
+exit 0
+endef
+</code></pre>
+
+<p>一个非常合适的init.d脚本的例子</p>
+
+<pre><code>#!/bin/sh /etc/rc.common
+# &quot;new(er)&quot; style init script
+# Look at /lib/functions/service.sh on a running system for explanations of what other SERVICE_
+# options you can use, and when you might want them.
+
+START=80
+APP=mrelay
+SERVICE_WRITE_PID=1
+SERVICE_DAEMONIZE=1
+
+start() {
+        service_start /usr/bin/$APP
+}
+
+stop() {
+        service_stop /usr/bin/$APP
+}
+</code></pre>
+
+<pre><code>#!/bin/sh /etc/rc.common
+###########################################
+# NOTE - this is an old style init script #
+###########################################
+
+START=80
+APP=mrelay
+PID_FILE=/var/run/$APP.pid
+
+start() {
+        start-stop-daemon -S -x $APP -p $PID_FILE -m -b
+}
+
+stop() {
+        start-stop-daemon -K -n $APP -p $PID_FILE -s TERM
+        rm -rf $PID_FILE
+}
+</code></pre>
+
+<h2 id="feeds-openwrt-feeds">Feeds（OpenWrt Feeds）</h2>
+
+<p>在OpenWrt中，一个&rdquo;feeds&rdquo;是一组package的集合，这些集合共享一个公共的位置。Feeds可能位于一个远程的server上，在一个版本控制系统中，在本地的文件系统中，或者在任何其他的可以使用协议通过一个简单的name（path/URL）定位寻址，一般都必须是feed所支持的方法</p>
+
+<p>Feeds是OpenWrt的buildroot的一个附加预定义的package的方法</p>
+
+<h3 id="working-with-feeds">Working with Feeds</h3>
+
+<h4 id="feed配置">Feed配置</h4>
+
+<p>从feeds.conf文件可以配置一个可用的feeds列表（或者feeds.conf.default当feeds.conf不存在的时候）。这个文件包含了一个feeds列表，每行一个，以及任意数量的空行。以 “#”起始的行为注释，并且会被扩展到行尾，在此之间的内容会被忽略。每一个feed行由3个空格分隔的内容组成：feed的方法，feed的名字，以及feed的源</p>
+
+<p>例子<code>&lt;buildroot dir&gt;/feeds.conf.default</code>：</p>
+
+<pre><code>src-git packages https://github.com/openwrt/packages.git
+src-git luci http://git.openwrt.org/project/luci.git
+src-git routing https://github.com/openwrt-routing/packages.git
+src-git telephony http://git.openwrt.org/feed/telephony.git
+src-git management https://github.com/openwrt-management/packages.git
+#src-git oldpackages http://git.openwrt.org/packages.git
+#src-svn xwrt http://x-wrt.googlecode.com/svn/trunk/package
+#src-svn phone svn://svn.openwrt.org/openwrt/feeds/phone
+#src-svn efl svn://svn.openwrt.org/openwrt/feeds/efl
+#src-svn xorg svn://svn.openwrt.org/openwrt/feeds/xorg
+#src-svn desktop svn://svn.openwrt.org/openwrt/feeds/desktop
+#src-svn xfce svn://svn.openwrt.org/openwrt/feeds/xfce
+#src-svn lxde svn://svn.openwrt.org/openwrt/feeds/lxde
+#src-link custom /usr/src/openwrt/custom-feed
+</code></pre>
+
+<pre><code>src-git packages https://github.com/reponame/packages.git;special_branch
+src-git packages https://github.com/reponame/packages.git^commithash
+</code></pre>
+
+<p>正如上面的例子看到的，下面的这些方法是feed所支持的：</p>
+
+<ul>
+<li>src-bzr ： 数据被下载使用bzr从path/URL</li>
+<li>src-cpy  : 数据被copy从源路径</li>
+<li>src-darcs ： 数据被下载使用darcs从path/URL</li>
+<li>src-git :  数据被下载使用git从path/URL</li>
+<li>src-gitsvn 数据被下载使用git或者svn从path/URL</li>
+<li>src-hg ： 数据被下载使用hg从path/URL</li>
+<li>src-link ： 到源码路径的symlink被创建</li>
+<li>src-svn ： 数据被下载使用svn从path/URL</li>
+</ul>
+
+<p>Feed的name被用来作为标识feeds以及作为一系列的文件和目录的名称，它会被创建来保存这些信息在这个目录内。feed的源是用来定位下载数据的位置</p>
+
+<p>对于上面所罗列的列表，依赖于版本控制系统的可能有些选项会支持的有限（例如git &ndash;depth 以及bzr的&ndash;lightweight）。这是一个好的默认，但是开发者，真正的提交代码到feed and/or 使用提交历史的可能想要变更这个行为。这可以通过适当编辑scripts/feeds或者通过检出feed而不使用scripts/feeds</p>
+
+<h3 id="feed-commands">Feed Commands</h3>
+
+<p>Feeds可以使用通过scripts/feeds脚本。通过请求scripts/feeds不携带任何的参数可以罗列出一个可用的命令列表。大多数命令需要feed的信息可以用于本地，因此首先运行update通常是需要的。在下面的讨论中“application packages”通常是引用package的名字给命令行或者所有的在feed中的package，使用-a选项</p>
+
+<h4 id="clean">clean</h4>
+
+<p>clean命令删除本地存储的feed数据，针对在feed中的所有的package的feed indexes，数据（但是通过install命令被创建的symlink不包括，它将会被悬挂知道feed重新下载通过update命令）。删除feeds目录以及所有的子目录通过这个命令就完成了。</p>
+
+<h4 id="install">Install</h4>
+
+<p>install命令安装合适的package以及这些包的依赖（包括直接依赖项和编译依赖项）。安装过程包括创建一个符号链接从package/feeds/$feed_name/$package_name 到 feeds/$feed_name/$package_name因此包将会被包含在配置过程中当目录继承在packages被搜索时。</p>
+
+<ul>
+<li>./scripts/feeds install -a ： 安装所有的packages（不推荐的做法，只安装你需要的package）</li>
+<li>./scripts/feeds install luci : 只安装package Luci</li>
+<li>./scripts/feed install -a -p luci: 安装完整的LuCI WebUI，通过安装所有的包，优先feed luci</li>
+</ul>
+
+<h4 id="list">List</h4>
+
+<p>list 命令读取并且显示出index file中的可用的feeds中的每一个feed的package的列表。index文件被存储在feeds目录，并以.index作为后缀。这个文件由update命令生成。</p>
+
+<h4 id="search">Search</h4>
+
+<p>查找命令通过读取feed的元数据并且罗列package列表，然后检索是否匹配到需要查找的内容</p>
+
+<h4 id="uninstall">Uninstall</h4>
+
+<p>卸载命令是与install命令相反的操作(尽管它不能以任何的方式寻找到依赖关系)。它只是简单的删除package的symlink从package/feeds的子目录中。</p>
+
+<h4 id="update">Update</h4>
+
+<p>当scripts/feeds update命令请求，每一个可用的feeds都会去下载源码到feeds的子目录，并且以feed的名字命名。虽然解析package的信息从feed写入到一个index文件，这个文件会被list以及search命令用到。</p>
+
+<ul>
+<li>./scripts/feeds update packages luci : 检出packages以及luci feeds</li>
+</ul>
+
+<p>注意update命令也会在feeds/$feed_name.tmp/location存储feed配置的位置信息（其实就是feed的url），这样的话改变配置可以被正确的检测到并得到妥善的处理。</p>
+
+<p>在检索完下载的package需要去“installed”，只有在安装后，才会在配置接口上可用。</p>
+
+<h3 id="自定义feeds">自定义Feeds</h3>
+
+<p>现在你可能已经开发了自己的包，并且现在你想要使用它通过make menuconfig，或者你正在开发一个package，并且你想要测试它是否可以编译在你包含它到OpenWrt的之前。</p>
+
+<p>解决方案就是自定义feed。你可以整个的来创建一个新的feed，或者使用一个标准的feed来做修改。</p>
+
+<h4 id="创建一个package目录">创建一个package目录</h4>
+
+<h5 id="添加你的package到一个已经存在的feed">添加你的package到一个已经存在的feed</h5>
+
+<p>在这个例子里，我们假定你的工作目录是/home/user/openwrt</p>
+
+<ul>
+<li>创建你的工程的目录： project</li>
+<li>然后在/home/user/openwrt/project中
+
+<ul>
+<li>snv co svn:svn.openwrt.org/openwrt/trunk openwrt
+
+<ul>
+<li>svn co svn:svn.openwrt.org/openwrt/packages packages (for the packages feed)</li>
+</ul></li>
+</ul></li>
+<li>添加你的package在合适的子目录在/home/user/openwrt/project/pakcages下</li>
+</ul>
+
+<h5 id="创建你自己的feed">创建你自己的feed</h5>
+
+<ul>
+<li>创建你的project目录并且获取到主干，就像上面所做的</li>
+<li>创建你的package目录并且复制你的package到里面（例如<code>cp packagedir /home/user/openwrt/project/customefeed/</code>），因此你的package位于/home/user/openwrt/project/customfeed/packagedir</li>
+</ul>
+
+<h5 id="使用feed">使用feed</h5>
+
+<ul>
+<li>编译你的feeds.conf(例如，/home/user/openwrt/project/openwrt/feeds.conf)</li>
+<li>添加一个新的行到feed</li>
+<li>例如：
+<code>
+#srv-svn packages svn://svn.openwrt.org/openwrt/packages
+src-link customfeed /home/user/openwrt/project/packages
+</code>
+或者第二种例子：</li>
+</ul>
+
+<pre><code>src-link customfeed /home/user/openwrt/project/customfeed
+</code></pre>
+
+<ul>
+<li>更新feed：从buildroot dir(例如：/home/user/openwrt/project/openwrt):</li>
+</ul>
+
+<pre><code>./scripts/feeds update customfeed
+</code></pre>
+
+<ul>
+<li>安装它</li>
+</ul>
+
+<pre><code>./scripts/feeds install -p customfeed
+</code></pre>
+
+<ul>
+<li>现在你的package应该是可用的当你执行：</li>
+</ul>
+
+<pre><code>make menuconfig
+</code></pre>
+
+<h3 id="说明">说明</h3>
+
+<p>已下载的源码不在哪里&hellip;下载首先到<code>&lt;buildroot&gt;/dl</code>作为gzipped.gz文件。并且那里它们会被存放并且随后将被解压到/build_dir。一个例子就是<code>&lt;buildroot&gt;/build_dir/target-*</code>，在它的子文件夹下面会发现每一个package的源码</p>
+
+<h2 id="dependencies-using-dependencies-for-packages">Dependencies（Using dependencies for packages）</h2>
+
+<h3 id="主题">主题</h3>
+
+<p>一般package的Makefile将会包含一个段像这样：</p>
+
+<pre><code>define Package/tcpdump/default
+  SECTION:=net
+  CATEGORY:=Network
+  DEPENDS:=+libpcap
+  TITLE:=Network monitoring and data acquisition tool
+  URL:=http://www.tcpdump.org/
+endef
+</code></pre>
+
+<p>本节将会阐述DEPENDS:=行</p>
+
+<h4 id="dependency-类型">Dependency 类型</h4>
+
+<ul>
+<li>如果你指定一个package的名字没有任何的修饰，那么这个意思是当前的package不能被选择除非这个依赖的package被选择使能。例如 in tcpdump</li>
+</ul>
+
+<pre><code>DEPENDS:=libpcap
+</code></pre>
+
+<p>&emsp;&emsp; 这个的意思是tcpdump将不会被展示为可用于去选择的状态，除非libpcap已经被选择使能。</p>
+
+<ul>
+<li>如果你给出了+package，那么意思是如果当前的包被选择了，它将会导致被依赖的包也被选择。针对tcpdump的情况，就是如果tcpdump被选择了，那么选择libpcap，例如：</li>
+</ul>
+
+<pre><code>DEPENDS:=+libpcap
+</code></pre>
+
+<ul>
+<li>如果给出+PACKAGE_packageb:packagec，它的意思是如果package被使能，将只会针对当前的package(例如tcpdump)被选择。例如：</li>
+</ul>
+
+<pre><code>DEPENDS:=+PACKAGE_arpd:libpcap
+</code></pre>
+
+<p>&emsp;&emsp; 上面的含义就是如果tcpdump被选择了，然后，如果arpd也被选择了，就将libpcap也选择上。</p>
+
+<ul>
+<li>否定是非常有用的，只选择一个package如果它没有被编译进busybox：</li>
+</ul>
+
+<pre><code>DEPENDS:=+!BUSYBOX_CONFIG_HOSTNAME:net-tools-hostname
+</code></pre>
+
+<p>&emsp;&emsp;这个的意思是选择net-tools-hostname只有当hostname没有被编译进busybox的时候。</p>
+
+<ul>
+<li>如果给出了@SYMBOL 那么它的意思是CONFIG_SYMBOL必须通过OpenWrt被定义，从而让package使能被选择。</li>
+</ul>
+
+<pre><code>DEPENDS:=@USB_SUPPORT
+</code></pre>
+
+<p>&emsp;&emsp;这个的意思是这个package将不会出现除非配置符号CONFIG_USB_SUPPORT被定义了。这是一个usb-core的package的例子</p>
+
+<ul>
+<li>如果给出了+@SYMBOL，它的意思是如果当前的包被选择，会导致CONFIG_SYMBOL被选择。</li>
+</ul>
+
+<pre><code>DEPENDS:=+@KERNEL_DEBUG_FS
+</code></pre>
+
+<p>&emsp;&emsp;它的意思是如果选择了package，它将会自动的设置一个配置符号CONFIG_KERNEL_DEBUG_FS.注意：这个会在编译你的镜像的时候工作。如果你以opkg的方式安装了这个package在一个运行的盒子上，这个依赖是没有被检查的。</p>
+
+<ul>
+<li>不要聪明的混合了一切</li>
+</ul>
+
+<pre><code>DEPENDS:=+@!PACKAGE_net-tools-hostname:BUSYBOX_CONFIG_HOSTNAME
+</code></pre>
+
+<p>上面的这种是不明确的。</p>
+
+<p>应该是这样做，busybox从来不会去可以扩展到工作的盒子上，那么总是去选择安装这个package当一个busybox applet没有被选择。</p>
+
+<pre><code>DEPENDS:=+!BUSYBOX_CONFIG_HOSTNAME:net-tools-hostname
+</code></pre>
+
+<h3 id="特别提示">特别提示</h3>
+
+<p>也是有可能去选择并且依赖package，不使用通常的DEPENDS来定义。如果，在package的Makefile中，你有下面的定义：</p>
+
+<pre><code>define Package/package-name/config
+    ...config stuff
+endef
+</code></pre>
+
+<p>那么你可以包含下面的指令：</p>
+
+<ul>
+<li>select package : Selects a package if this package is selected</li>
+<li>select package if packageb：Selects a package if packageb is selected as well as this package</li>
+<li>select package if SYMBOL：Selects a package if CONFIG_SYMBOL is defined</li>
+<li>depends packageb：This package depends on packageb (i.e. won&rsquo;t even show up, unless packageb is selected)</li>
+<li>depends packageb if packagec：This package depends on packageb if packagec is selected</li>
+<li>select SYMBOL：Sets a symbol to y if this package is selected (.e.g. select BUSYBOX_FEATURE_MKSWAP_UUID)</li>
+<li>select SYMBOL if packageb：Like select SYMBOL but only if packageb is selected</li>
+<li>select SYMBOL if SYMBOL2：Like select SYMBOL but only if SYMBOL2 is defined</li>
+</ul>
+
+<p>注意如果指令中包含了&amp;&amp;，||，！，以及使用了（）来进行逻辑操作，那么这个操作顺序由（&rsquo;()&lsquo;）决定</p>
+
+<p>这里SYMBOL指令的默认值总是‘y’</p>
+
+<h3 id="注意事项">注意事项</h3>
+
+<p>依赖项不能是闭环的（例如，package A可能不能依赖于B，反过来取决于A），如果一个闭环的依赖被创建（无论是直接还是通过另一个包的依赖），那么make menuconfig可能会有一些奇怪的结果</p>
+
+<h2 id="patches-working-with-patches">Patches（Working with patches）</h2>
+
+<p>OpenWrt的buildroot整合了<code>quilt</code>来便于对patch进行管理。本文档概述了一些常见的补丁的方法，比如添加一个新的补丁或者编辑一个现有的补丁。</p>
+
+<h3 id="准备配置quilt">准备配置quilt</h3>
+
+<p>为了让<code>quilt</code>创建一个openwrts所偏爱的格式的补丁，那么在本地的home目录创建一个配置文件.quiltrc，包含一些diff以及patch选项</p>
+
+<pre><code>cat &gt; ~/.quiltrc &lt;&lt;EOF
+QUILT_DIFF_ARGS=&quot;--no-timestamps --no-index -p ab --color=auto&quot;
+QUILT_REFRESH_ARGS=&quot;--no-timestamps --no-index -p ab&quot;
+QUILT_PATCH_OPTS=&quot;--unified&quot;
+QUILT_DIFF_OPTS=&quot;-p&quot;
+EDITOR=&quot;nano&quot;
+EOF
+</code></pre>
+
+<ul>
+<li>EDITOR被指定为了可交互的补丁编辑器 nano</li>
+<li>其他的变量控制补丁的格式，比如a/,b/属性，以及没有时间戳</li>
+<li>FreeBSD没有提供&ndash;color=auto选项以及-pab必须写成-p ab</li>
+<li>&rdquo;-p ab&rdquo;选项在linux平台上的quilt的0.63版本上可用，文档可以查看帮助页面</li>
+</ul>
+
+<h3 id="添加一个新的patch">添加一个新的patch</h3>
+
+<p>去添加一个完整的新补丁到一个已经存在的package的例子，我们从准备一个源码目录开始：</p>
+
+<pre><code>make package/example/{clean,prepare} V=s QUILT=1
+</code></pre>
+
+<p>针对主机侧的packages，你可以想要更多的细节来make target：</p>
+
+<pre><code>make package/example/host/{clean,prepare} V=s QUILT=1
+</code></pre>
+
+<p>这个会解压源码包，并准备将已经存在的补丁作为quilt的补丁输入序列（如果有）。详细输出将显示源在哪里被提取的。</p>
+
+<p>进入到准备好的源码目录：</p>
+
+<pre><code>cd build_dir/target-*/example-*
+</code></pre>
+
+<p>注意：它可能发生一些，需要一个级别较低的作为源来提取在build_dir/target-<em>/BUILD_VARIANT/example-</em>.发生这种情况是当一个package有多个编译变量被定义在Makefile。没看懂 后续再修正。</p>
+
+<p>应用所有的已经存在的补丁使用quilt push</p>
+
+<pre><code>quilt push -a
+</code></pre>
+
+<p>创建一个新的，使用quilt new命令创建一个空的补丁文件</p>
+
+<pre><code>quilt new 010-main_code_fix.patch
+</code></pre>
+
+<ul>
+<li>名字应该以数字开头，紧跟着一个连字符以及一个简短的关于变更的描述</li>
+<li>这个被选择的数字应该大于目前已经存在的patch的-使用quilt series来查看当前的补丁的列表</li>
+<li>补丁文件的名字应当是简短的以及描述的</li>
+</ul>
+
+<p>创建完一个空的补丁后，文件的编辑必须与这个文件相关联。quilt add命令可以用被用来编辑这个文件&mdash;一旦文件被添加，就可以正常的被编辑了。</p>
+
+<p>一个短命令来添加文件，打开文件，并且编辑它就是quilt edit命令：</p>
+
+<pre><code>quilt edit src/main.c
+</code></pre>
+
+<ul>
+<li>src/main.c 会被添加到010-main_code_fix.patch</li>
+<li>在编辑器中文件被打开。</li>
+</ul>
+
+<p>需要被编辑的文件去重复这个动作</p>
+
+<p>当变更完成后，它们可以被预览通过quilt diff命令</p>
+
+<pre><code>quilt diff
+</code></pre>
+
+<p>如果diff命令看起来都正常的，运行quilt refresh来更新变更到010-main_code_fix.patch文件</p>
+
+<pre><code>quilt refresh
+</code></pre>
+
+<p>重新回到buildroot的顶层目录</p>
+
+<pre><code>cd ../../../
+</code></pre>
+
+<p>将新的补丁文件移动到buildroot，针对这个package运行 update</p>
+
+<pre><code>make package/example/update V=s
+</code></pre>
+
+<p>最后，重新编译package来测试变更：</p>
+
+<pre><code>make package/example/{clean,compile} package/index V=s
+</code></pre>
+
+<p>如果出错，那么补丁需要被重新编辑来解决问题。编辑补丁可以参考下节的描述</p>
+
+<h3 id="编辑一个存在的补丁">编辑一个存在的补丁</h3>
+
+<p>首先准备一个源码目录：</p>
+
+<pre><code>make package/example/{clean,prepare} V=s QUILT=1
+</code></pre>
+
+<p>进入到准备好的源码目录：</p>
+
+<pre><code>cd build_dir/target-*/example-*
+</code></pre>
+
+<p>罗列可用的patches</p>
+
+<pre><code>quilt series
+</code></pre>
+
+<p>选择需要被编辑的patch：</p>
+
+<pre><code>quilt push 010-main_code_fix.patch
+</code></pre>
+
+<ul>
+<li>当传入一个有效的补丁文件名给push后，quilt将会执行series直到它找到这个补丁</li>
+<li>如果不确定，使用quilt series来查看当前已经存在的补丁，并且使用quilt top来查看该当前的位置</li>
+<li>如果当前的位置越过了我们将要编辑的补丁，使用quilt pop以相反的顺序删除补丁</li>
+</ul>
+
+<p>编辑补丁文件使用quilt edit命令，重复的执行这个命令如果有文件需要变更。</p>
+
+<pre><code>quilt edit src/main.c
+</code></pre>
+
+<p>检查那个文件被包含在了补丁中：</p>
+
+<pre><code>quilt files
+</code></pre>
+
+<p>使用quilt diff来预览</p>
+
+<pre><code>quilt diff
+</code></pre>
+
+<p>如果diff命令看起来都正常的，运行quilt refresh来更新变更到当前的补丁</p>
+
+<pre><code>quilt refresh
+</code></pre>
+
+<p>重新回到buildroot的顶层目录</p>
+
+<pre><code>cd ../../../
+</code></pre>
+
+<p>将新的补丁文件移动到buildroot，针对这个package运行 update</p>
+
+<pre><code>make package/example/update V=s
+</code></pre>
+
+<p>最后，重新编译package来测试变更：</p>
+
+<pre><code>make package/example/{clean,compile} package/index V=s
+</code></pre>
+
+<h3 id="添加或者编辑kernel补丁">添加或者编辑kernel补丁</h3>
+
+<p>修正内核的补丁的过程与修正package的是一样的，只是make target和目录有所不同。</p>
+
+<p><em>针对kernel，使用附加的子目录针对补丁，<code>generic/</code> 包含了共有的补丁针对所有的架构的，<code>platform/</code>包含了针对某个特定的平台的补丁</em></p>
+
+<p>准备一个kernel，使用：</p>
+
+<pre><code>make target/linux/{clean,prepare} V=s QUILT=1
+</code></pre>
+
+<p>目录调整为在linux-architecture子目录：</p>
+
+<pre><code>cd build_dir/linux-*/linux-3.*
+</code></pre>
+
+<p>针对barrier breaker（trunk），源码目录在target-architecture子目录（有可能还有一个子体系）：</p>
+
+<pre><code>cd build_dir/target-*/linux-*/linux-3.*
+</code></pre>
+
+<p>转移所有的更改从build 代码树到buildroot代码树(你需要回到trunk来做这个)</p>
+
+<pre><code>make target/linux/update package/index V=s
+</code></pre>
+
+<p><em>补丁应该被命令为正确的前缀，platform/000-abc.patch 或者 generic/000-abc.patch. 如果没有update可能会工作不正常</em></p>
+
+<p>之后，如果我们想要检查我们的补丁是否生效，我们可以进入到顶层目录：</p>
+
+<pre><code>cd ../../../../
+</code></pre>
+
+<p>并且再次准备linux文件夹针对其他的修改</p>
+
+<pre><code>make target/linux/{clean,prepare} V=s QUILT=1
+</code></pre>
+
+<p>在此过程中所有的被应用到的补丁都会被显示出来，我们的补丁也会在其中，根据generic/ 或者 platform/ 这个取决于我们将补丁放在哪里。另外一种检索的方式是通过：</p>
+
+<pre><code>quilt series
+</code></pre>
+
+<p>正确前面的章节所解释的，随后执行 make target/linux/{clean,prepare}&hellip;</p>
+
+<h3 id="添加或者编辑toolchain的补丁">添加或者编辑toolchain的补丁</h3>
+
+<p>例如，gcc：</p>
+
+<p>准备好tool 源码树，使用：</p>
+
+<pre><code>make toolchain/gcc/{clean,prepare} V=99 QUILT=1
+</code></pre>
+
+<p>源码树依赖于所选择的lib和gcc：</p>
+
+<pre><code>cd build_dir/toolchain-mips_r2_gcc-4.3.3+cs_uClibc-0.9.30.1/gcc-4.3.3
+</code></pre>
+
+<p>更新补丁通过：</p>
+
+<pre><code>make toolchain/gcc/update V=99
+</code></pre>
+
+<h3 id="命名补丁">命名补丁</h3>
+
+<p>有效的target/linux/generic以及<code>&lt;arch&gt;</code>：</p>
+
+<pre><code>The patches-* subdirectories contain the kernel patches applied for every
+OpenWrt target. All patches should be named 'NNN-lowercase_shortname.patch'
+and sorted into the following categories:
+
+0xx - upstream backports
+1xx - code awaiting upstream merge
+2xx - kernel build / config / header patches
+3xx - architecture specific patches
+4xx - mtd related patches (subsystem and drivers)
+5xx - filesystem related patches
+6xx - generic network patches
+7xx - network / phy driver patches
+8xx - other drivers
+9xx - uncategorized other patches
+
+ALL patches must be in a way that they are potentially upstreamable, meaning:
+
+- they must contain a proper subject
+- they must contain a proper commit message explaining what they change
+- they must contain a valid Signed-off-by line
+</code></pre>
+
+<h3 id="刷新补丁">刷新补丁</h3>
+
+<p>当一个打过补丁的package（或者kernel）被更新到一个新的版本时，现有的补丁可能不能完全的适用，补丁也会在重新应用它们的时候变得混乱了。重新打上这些补丁，make a target使用：</p>
+
+<pre><code>
+make package/example/refresh V=s
+</code></pre>
+
+<p>针对kernel，使用：</p>
+
+<pre><code>make target/linux/refresh V=s
+</code></pre>
+
+<h3 id="可以反复的修改补丁-而不用去clean源码树">可以反复的修改补丁，而不用去clean源码树。</h3>
+
+<p>让新的变更生效的时候，它往往需要多次的编辑补丁。为了加快这个过程，它可能需要在之前准备好的源码树之间进行编辑操作</p>
+
+<ul>
+<li>正如上文已经准备好的源码树</li>
+<li>进入到准备好的源码目录</li>
+<li>进入到需要打补丁的程序目录</li>
+<li>编辑文件并刷新补丁</li>
+<li>应用所有的补丁使用<code>quilt push -a（如果有）</code></li>
+<li>从顶层目录，运行 <code>make package/example/{compile,install}</code>或者针对kernel<code>make target/linux/{compile,install}</code></li>
+<li>测试二进制程序</li>
+<li>如果需要进一步的修改，返回到步骤2</li>
+<li>最后运行<code>make package/example/update</code>或者<code>make target/linux/update</code>来将更改复制回buildroot</li>
+</ul>
+    </div>
+
+    
+    
+
+    
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="https://blog.ucatch.me/img/reward/wechat.png">
+        <span>微信打赏</span>
+      </label>
+    
+  </div>
+</div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="https://blog.ucatch.me/tags/openwrt/">openwrt</a>
+          
+          <a href="https://blog.ucatch.me/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/">嵌入式</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="https://blog.ucatch.me/post/openwrt/%E7%BC%96%E8%AF%91%E7%B3%BB%E7%BB%9F%E5%8F%98%E9%87%8F/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">OpenWrt编译系统变量整理</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+          <a class="next" href="https://blog.ucatch.me/post/typescript/classesvsinterfaces/">
+            <span class="next-text nav-default">TypeScript的Classes 与 Interfaces</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+        
+        
+        if (window.location.hostname === 'localhost') return;
+
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'seanchann';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com/" class="dsq-brlink" target="_blank">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  
+      </div>  
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:seanchann@foxmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/seanchann" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.ucatch.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy; 
+    2017
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">seanchann</span>
+    <p class="credits theme-by text-muted">Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>    
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="https://blog.ucatch.me/lib/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="https://blog.ucatch.me/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.ucatch.me/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.ucatch.me/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+<script type="text/javascript" src="https://blog.ucatch.me/dist/even.min.js?v=2.6.1"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-62644170-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+</body>
+</html>
