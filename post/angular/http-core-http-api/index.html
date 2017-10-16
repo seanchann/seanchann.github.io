@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Angular4-HTTP  core http api - seanchann</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="seanchann" /><meta name="description" content="angular开发中的http请求处理" />
+
+  <meta name="keywords" content="seanchann, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.26-DEV" />
+
+
+<link rel="canonical" href="https://blog.ucatch.me/post/angular/http-core-http-api/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.ucatch.me/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.ucatch.me/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.ucatch.me/favicon-16x16.png">
+<link rel="icon" href="https://blog.ucatch.me/favicon.ico" />
+<link rel="manifest" href="https://blog.ucatch.me/manifest.json">
+<link rel="mask-icon" href="https://blog.ucatch.me/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="https://blog.ucatch.me/dist/even.min.css?v=2.6.1" rel="stylesheet">
+<link href="https://blog.ucatch.me/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+<meta property="og:title" content="Angular4-HTTP  core http api" />
+<meta property="og:description" content="angular开发中的http请求处理" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.ucatch.me/post/angular/http-core-http-api/" />
+
+
+
+<meta property="article:published_time" content="2017-10-12T11:53:29&#43;00:00"/>
+<meta property="article:modified_time" content="2017-10-12T11:53:29&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Angular4-HTTP  core http api">
+<meta itemprop="description" content="angular开发中的http请求处理">
+
+
+<meta itemprop="dateModified" content="2017-10-12T11:53:29&#43;00:00" />
+<meta itemprop="wordCount" content="3230">
+
+
+
+<meta itemprop="keywords" content="angular,http," />
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Angular4-HTTP  core http api"/>
+<meta name="twitter:description" content="angular开发中的http请求处理"/>
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js" integrity="sha256-9uAoNWHdszsUDhSXf/rVcWOqKPfi5/8V5R4UdbZle2A=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js" crossorigin="anonymous"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.ucatch.me/" class="logo">seanchann</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.ucatch.me/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="https://blog.ucatch.me/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="https://blog.ucatch.me/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="https://blog.ucatch.me/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="https://blog.ucatch.me/about/">
+        <li class="mobile-menu-item">About me</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="https://blog.ucatch.me/" class="logo">seanchann</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="https://blog.ucatch.me/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://blog.ucatch.me/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://blog.ucatch.me/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://blog.ucatch.me/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://blog.ucatch.me/about/">About me</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Angular4-HTTP  core http api</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-10-12 </span>
+        <div class="post-category">
+            <a href="https://blog.ucatch.me/categories/angular/">angular</a>
+          </div>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#学习目标">学习目标</a></li>
+<li><a href="#providing-the-http-dependencies">Providing the Http dependencies</a></li>
+<li><a href="#demo-api-sample-app">Demo API &amp; sample app</a></li>
+<li><a href="#http-verbs">HTTP Verbs</a>
+<ul>
+<li><a href="#get">GET</a>
+<ul>
+<li><a href="#get-的请求参数">GET 的请求参数</a></li>
+</ul></li>
+<li><a href="#delete">DELETE</a></li>
+<li><a href="#post-数据">POST 数据</a></li>
+<li><a href="#put-数据">PUT 数据</a></li>
+</ul></li>
+<li><a href="#promises">Promises</a></li>
+<li><a href="#处理错误">处理错误</a></li>
+<li><a href="#headers">Headers</a></li>
+<li><a href="#总结">总结</a></li>
+<li><a href="#代码清单">代码清单</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      <h2 id="学习目标">学习目标</h2>
+
+<ul>
+<li>如何在程序中使用inject以及HTTP的客户端库</li>
+<li>如何发送各种类型的HTTP请求</li>
+<li>如何在HTTP的请求中添加自定义的Header</li>
+<li>如何处理错误</li>
+</ul>
+
+<p></p>
+
+<h2 id="providing-the-http-dependencies">Providing the Http dependencies</h2>
+
+<p>http客户端是一个服务，因此我们需要注入到你的类中，例如:</p>
+
+<pre><code class="language-typescript">class MyClass {
+  constructor(private http:Http) {
+  }
+}
+</code></pre>
+
+<p>我们还需要导入<code>@angular/http</code>模块：</p>
+
+<pre><code class="language-typescript">import {Http, Response, RequestOptions, Headers} from '@angular/http';
+</code></pre>
+
+<p>导入这些类还远远不够。类似其他注入的服务一样，这些都是依赖关系，需要在DI框架上通过<code>provider</code>来配置</p>
+
+<p>我们想配置到我们的root <code>NgModule</code>里，因为可能我们会在很多地方使用http客户端。代码如下：</p>
+
+<pre><code class="language-typescript">@NgModule({
+  providers: [Http]
+})
+</code></pre>
+
+<p>然而<code>provider</code>的配置没有那么直截了当，因此Angular的开发团队了提供另外一种方式来配置<code>NgModule</code>中的Http模块</p>
+
+<pre><code class="language-typescript">import {HttpModule} from '@angular/http';
+
+@NgModule({
+  imports:[
+    HttpModule
+  ]
+})
+</code></pre>
+
+<h2 id="demo-api-sample-app">Demo API &amp; sample app</h2>
+
+<p>为了演示http客户端lib，我们将需要一个我们可以使用的测试API，一个这样的API是<code>http://httpbin.org</code>，它有一些API端点，我们可以测试不同的HTTP操作。</p>
+
+<p>下面的例子是一系列按钮，它们调用组件上的函数，每个函数使用http客户端lib执行不同的操作</p>
+
+<pre><code class="language-typescript">@Component({
+ selector: 'app',
+ template: `
+ &lt;div class=&quot;row&quot;&gt;
+  &lt;div class=&quot;m-t-1&quot;&gt;
+  	&lt;button class=&quot;btn btn-primary&quot; (click)=&quot;doGET()&quot;&gt;GET&lt;/button&gt;
+  	&lt;button class=&quot;btn btn-primary&quot; (click)=&quot;doPOST()&quot;&gt;POST&lt;/button&gt;
+  	&lt;button class=&quot;btn btn-primary&quot; (click)=&quot;doPUT()&quot;&gt;PUT&lt;/button&gt;
+  	&lt;button class=&quot;btn btn-primary&quot; (click)=&quot;doDELETE()&quot;&gt;DELETE&lt;/button&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;row&quot;&gt;
+  &lt;div class=&quot;m-t-1&quot;&gt;
+  	&lt;button class=&quot;btn btn-secondary&quot; (click)=&quot;doGETAsPromise()&quot;&gt;As Promise&lt;/button&gt;
+  	&lt;button class=&quot;btn btn-secondary&quot; (click)=&quot;doGETAsPromiseError()&quot;&gt;Error as Promise&lt;/button&gt;
+  	&lt;button class=&quot;btn btn-secondary&quot; (click)=&quot;doGETAsObservableError()&quot;&gt;Error as Observable&lt;/button&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;row&quot;&gt;
+  &lt;div class=&quot;m-t-1&quot;&gt;
+  	&lt;button class=&quot;btn btn-danger&quot; (click)=&quot;doGETWithHeaders()&quot;&gt;With Headers&lt;/button&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+ `
+})
+class AppComponent {
+  apiRoot: string = &quot;http://httpbin.org&quot;;
+
+  constructor(private http: Http) { }
+
+  doGET() {
+    console.log(&quot;GET&quot;);
+  }
+
+  doPOST() {
+    console.log(&quot;POST&quot;);
+  }
+
+  doPUT() {
+    console.log(&quot;PUT&quot;);
+  }
+
+  doDELETE() {
+    console.log(&quot;DELETE&quot;);
+  }
+
+  doGETAsPromise() {
+    console.log(&quot;GET AS PROMISE&quot;);
+  }
+
+  doGETAsPromiseError() {
+    console.log(&quot;GET AS PROMISE ERROR&quot;);
+  }
+
+  doGETAsObservableError() {
+    console.log(&quot;GET AS OBSERVABLE ERROR&quot;);
+  }
+
+  doGETWithHeaders() {
+    console.log(&quot;GET WITH HEADERS&quot;);
+  }
+}
+</code></pre>
+
+<p>在例程中，保存了请求链接在类中，方便在函数中调用。并且<code>inject</code>了<code>Http</code>服务到组件中，并且保存为私有属性。</p>
+
+<h2 id="http-verbs">HTTP Verbs</h2>
+
+<p>现在我们可以在类的函数内部来发起http的请求了。</p>
+
+<p>在HTTP的协议规范中，我们可以发起<code>GET</code>,<code>PUT</code>,<code>POST</code>,<code>DELETE</code>,<code>HEAD</code>,<code>OPTIONS</code>请求</p>
+
+<p>下文会依次来完成这些请求。</p>
+
+<h3 id="get">GET</h3>
+
+<p>通过调用http client中的<code>get</code>方法来实现这个请求。它会返回一个<code>Observable</code>,我们可以去<code>subscribe</code>来在终端打印出应答，例如：</p>
+
+<pre><code class="language-typescript">doGET(){
+  console.log(&quot;GET&quot;);
+  let url = `${this.apiRoot}/get`;
+  this.http.get(url).subscribe(res=&gt;console.log(res.text()));
+}
+</code></pre>
+
+<p><code>res.text()</code>是从服务器返回的HTTP应答的body部分。如果我们在界面上点击<code>GET</code>按钮，我们可以看见下面的打印。</p>
+
+<pre><code class="language-json">GET
+{
+  &quot;args&quot;: {},
+  &quot;headers&quot;: {
+    &quot;Accept&quot;: &quot;*/*&quot;,
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, sdch&quot;,
+    &quot;Accept-Language&quot;: &quot;en-US,en;q=0.8&quot;,
+    &quot;Cache-Control&quot;: &quot;no-cache&quot;,
+    &quot;Host&quot;: &quot;httpbin.org&quot;,
+    &quot;Origin&quot;: &quot;http://evil.com/&quot;,
+    &quot;Pragma&quot;: &quot;no-cache&quot;,
+    &quot;Referer&quot;: &quot;http://run.plnkr.co/ODORtE0cj708R2eO/&quot;,
+    &quot;User-Agent&quot;: &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.80 Safari/537.36&quot;
+  },
+  &quot;origin&quot;: &quot;2.139.81.90&quot;,
+  &quot;url&quot;: &quot;http://httpbin.org/get&quot;
+}
+</code></pre>
+
+<p>我们的服务返回了一个json串，尽管看上去我们的打印的是一个对象，其实它是一个json格式的字符串</p>
+
+<p>转换JSON格式的字符串为一个对象。我们只需调用<code>res.json()</code>来替代<code>res.text()</code>。例如：</p>
+
+<pre><code class="language-typescript">this.http.get(url).subscribe(res=&gt;console.log(res.json()))
+</code></pre>
+
+<p>这样的话，就会将JSON串转换成对象，因此我们的打印也会变化:</p>
+
+<pre><code class="language-json">GET
+Object {args: Object, headers: Object, origin: &quot;2.139.81.90&quot;, url: &quot;http://httpbin.org/get&quot;}
+</code></pre>
+
+<h4 id="get-的请求参数">GET 的请求参数</h4>
+
+<p>我们可以传入一组可选的请求参数作为<code>get</code>函数的第二个参数。</p>
+
+<p>通常我们使用一个辅助类来完成<code>URLSearchParams</code>，例如：</p>
+
+<pre><code class="language-typescript">import {URLSearchParams} from '@angular/http'
+
+
+doGET(){
+  console.log(&quot;GET&quot;);
+  let url = `${this.apiRoot}/get`;
+  let search = new URLSearchParams();
+  search.set('foo','moo');
+  search.set('limit', 25);
+  this.http.get(url,{search: search}).subscribe(res =&gt; console.log(res.json()));
+}
+</code></pre>
+
+<p>我们给<code>get</code>传入了第二个参数。</p>
+
+<p>我们可以利用ES6中的解构。如果对象的键和值相同，那么可以将{search：search}缩短为{search}，如下所示：</p>
+
+<pre><code class="language-typescript">doGET() {
+  console.log(&quot;GET&quot;);
+  let url = `${this.apiRoot}/get`;
+  let search = new URLSearchParams();
+  search.set('foo', 'moo');
+  search.set('limit', 25);
+  this.http.get(url, {search}).subscribe(res =&gt; console.log(res.json()));
+}
+</code></pre>
+
+<h3 id="delete">DELETE</h3>
+
+<p>通过调用<code>delete</code>函数，我们来实现<code>DELETE</code>请求。同上文提供的<code>get</code>一样，我们也可以来添加请求参数，例如：</p>
+
+<pre><code class="language-typescript">doDELETE() {
+  console.log(&quot;DELETE&quot;);
+  let url = `${this.apiRoot}/delete`;
+  let search = new URLSearchParams();
+  search.set('foo', 'moo');
+  search.set('limit', 25);
+  this.http.delete(url, {search}).subscribe(res =&gt; console.log(res.json()));
+}
+</code></pre>
+
+<h3 id="post-数据">POST 数据</h3>
+
+<p>通过<code>post</code>函数来实现<code>POST</code>的请求</p>
+
+<p><code>post</code>函数类似于<code>get</code>，但是当执行<code>POST</code>请求的时候，通常我们会携带数据。</p>
+
+<p>因此<code>post</code>的第二个参数不是请求参数，而是传入一个对象作为请求的<code>payload</code>，例如：</p>
+
+<pre><code class="language-typescript">doPOST() {
+  console.log(&quot;POST&quot;);
+  let url = `${this.apiRoot}/post`;
+  this.http.post(url, {moo:&quot;foo&quot;,goo:&quot;loo&quot;}).subscribe(res =&gt; console.log(res.json()));
+}
+</code></pre>
+
+<p>应答是:</p>
+
+<pre><code class="language-json">POST
+Object {args: Object, data: &quot;{↵  &quot;moo&quot;: &quot;foo&quot;,↵  &quot;goo&quot;: &quot;loo&quot;↵}&quot;, files: Object, form: Object, headers: Object…}
+</code></pre>
+
+<p>如果我们想要在url中添加请求参数，这与我们在<code>get</code>中方法一样。只是参数作为函数的第三个参数。</p>
+
+<pre><code class="language-typescript">doPOST() {
+  console.log(&quot;POST&quot;);
+  let url = `${this.apiRoot}/post`;
+  let search = new URLSearchParams();
+  search.set('foo', 'moo');
+  search.set('limit', 25);
+  this.http.post(url, {moo:&quot;foo&quot;,goo:&quot;loo&quot;}, {search}).subscribe(res =&gt; console.log(res.json()));
+}
+</code></pre>
+
+<h3 id="put-数据">PUT 数据</h3>
+
+<p><code>put</code>函数来实现<code>PUT</code>操作。它与上文中的<code>post</code>类似。</p>
+
+<pre><code class="language-typescript">doPUT() {
+  console.log(&quot;PUT&quot;);
+  let url = `${this.apiRoot}/put`;
+  let search = new URLSearchParams();
+  search.set('foo', 'moo');
+  search.set('limit', 25);
+  this.http.put(url, {moo:&quot;foo&quot;,goo:&quot;loo&quot;}, {search}).subscribe(res =&gt; console.log(res.json()));
+}
+</code></pre>
+
+<h2 id="promises">Promises</h2>
+
+<p>如果你偏好于使用<code>promises</code>而不是<code>obervables</code>，那么它们二者是非常容易转化的。</p>
+
+<p>我们只需要给<code>get</code>函数的返回值调用<code>.toPromise()</code>，就会得到一个promise，例如</p>
+
+<pre><code class="language-typescript">doGETAsPromise() {
+  console.log(&quot;GET AS PROMISE&quot;);
+  let url = `${this.apiRoot}/get`;
+  this.http.get(url)
+    .toPromise()
+    .then(res =&gt; console.log(res.json()));
+}
+</code></pre>
+
+<p>如果你运行上面的程序，你会得到下面的错误：</p>
+
+<pre><code class="language-text">this.http.get(...).toPromise is not a function
+</code></pre>
+
+<p>这是因为<code>toPromise()</code>函数是一个<code>obervable</code>的操作，为了减少你的程序的大小，angular开发组默认不会去引入所有的<code>obervable</code>，我们必须显式的导入每一个操作所对应的模块，例如：</p>
+
+<pre><code class="language-typescript">import 'rxjs/add/operator/toPromise';
+</code></pre>
+
+<p>运行上面的程序，会得到相同跟之前相同的打印信息。</p>
+
+<h2 id="处理错误">处理错误</h2>
+
+<p>我们可以模拟错误从我们的test server，例如</p>
+
+<pre><code class="language-typescript">doGETAsPromiseError() {
+  console.log(&quot;GET AS PROMISE ERROR&quot;);
+  let url = `${this.apiRoot}/post`; 
+  this.http.get(url)
+    .toPromise()
+    .then(res =&gt; console.log(res.json()));
+}
+</code></pre>
+
+<p>上面的API是一个POST的请求，但是我们却是实现了GET的请求。</p>
+
+<p>无论我们以<code>Observable</code>或者<code>Promise</code>来处理我们的应答，我们都能添加一个错误处理函数作为第二个参数，例如：</p>
+
+<pre><code class="language-typescript">doGETAsPromiseError() {
+  console.log(&quot;GET AS PROMISE ERROR&quot;);
+  let url = `${this.apiRoot}/post`;
+  this.http.get(url)
+    .toPromise()
+    .then(
+      res =&gt; console.log(res.json()),
+      msg =&gt; console.error(`Error: ${msg.status} ${msg.statusText}`)
+    );
+}
+</code></pre>
+
+<p>Error 处理作为<code>then</code>的第二个参数</p>
+
+<p>上面的输出会是<code>Error: 405 METHOD NOT ALLOWED</code></p>
+
+<p>针对<code>obervable</code>的方式，可能是这样的:</p>
+
+<pre><code class="language-typescript">doGETAsObservableError() {
+  console.log(&quot;GET AS OBSERVABLE ERROR&quot;);
+  let url = `${this.apiRoot}/post`;
+  this.http.get(url).subscribe(
+    res =&gt; console.log(res.json()),
+    msg =&gt; console.error(`Error: ${msg.status} ${msg.statusText}`)
+  );
+}
+</code></pre>
+
+<h2 id="headers">Headers</h2>
+
+<p>HTTP headers是作为元数据，浏览器加到HTTP请求中，当发送这个请求到服务器时。就像你的IP地址，你所使用的浏览器的类型等等，都会被添加到http的头中。</p>
+
+<p>某些API需要我们发送一些自定义的头在我们的请求中，在Angular中我们可以很容易的通过http client来添加。</p>
+
+<p>首先我们导入必须的模块</p>
+
+<pre><code class="language-typescript">import {Headers, RequestOptions} from '@angular/http';
+</code></pre>
+
+<p>我们的例子是添加一个<code>Authorization</code>的头。这是一个<code>Authorization</code>的头以及将用户名和密码转化成base64的值组成。</p>
+
+<p>下面的是一个添加http头的例子:</p>
+
+<pre><code class="language-typescript">doGETWithHeaders() {
+  console.log(&quot;GET WITH HEADERS&quot;);
+  let headers = new Headers();
+  headers.append('Authorization', btoa('username:password'));
+  let opts = new RequestOptions();
+  opts.headers = headers;
+  let url = `${this.apiRoot}/get`;
+  this.http.get(url, opts).subscribe(
+    res =&gt; console.log(res.json()),
+    msg =&gt; console.error(`Error: ${msg.status} ${msg.statusText}`)
+  );
+}
+</code></pre>
+
+<p>我们首先创建了一个headers的实例，然后添加了一个头：</p>
+
+<pre><code class="language-typescript">let headers = new Headers();
+headers.append('Authorzation', btoa('username:password'));
+</code></pre>
+
+<p>随后创建了一个request options，并且将创建好的header给它的属性<code>headers</code>赋值</p>
+
+<pre><code class="language-typescript">let opts = new RequestOptions();
+opts.headers = headers;
+</code></pre>
+
+<p>最终我们把这个options传入给http的函数。在本例中是给<code>get</code>函数的第二个参数传入了options，针对<code>put</code>和<code>post</code>是第三个参数。</p>
+
+<h2 id="总结">总结</h2>
+
+<p>我们注入了http client库到我们的类中。这是一个依赖关系需要在Angular的DI框架中进行配置。</p>
+
+<p>为了不在每个模块都配置<code>provider</code>。我们将<code>HttpModule</code>添加到了<code>NgModule</code>的列表中。</p>
+
+<p>我们基本上对HTTP verb所对应的http client库中的函数进行了介绍。</p>
+
+<p>默认情况下，请求会返回<code>obervable</code>，我们可以直接<code>subscribe</code>。我们也可以将返回类型转化为<code>promises</code>，来异步的处理的应答。</p>
+
+<p>我们处理error使用典型的<code>obervable</code>或者<code>promises</code>的error handlers</p>
+
+<p>我们发送带有自定义头的HTTP请求，通过<code>RequestOptions</code>对象传入给http函数。</p>
+
+<p>这篇文章涵盖了基本的http client库的使用。下一章节，我们会详细介绍使用<code>promises</code>.</p>
+
+<h2 id="代码清单">代码清单</h2>
+
+<pre><code class="language-typescript">import {NgModule, Component} from '@angular/core';
+import {HttpModule, Http, URLSearchParams, Headers, RequestOptions} from '@angular/http';
+import {BrowserModule} from '@angular/platform-browser';
+import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+// import 'rxjs/add/operator/toPromise';
+import 'rxjs/Rx';
+
+
+@Component({
+  selector: 'app',
+  template: `
+ &lt;div class=&quot;row&quot;&gt;
+  &lt;div class=&quot;m-t-1&quot;&gt;
+  	&lt;button class=&quot;btn btn-primary&quot; (click)=&quot;doGET()&quot;&gt;GET&lt;/button&gt;
+  	&lt;button class=&quot;btn btn-primary&quot; (click)=&quot;doPOST()&quot;&gt;POST&lt;/button&gt;
+  	&lt;button class=&quot;btn btn-primary&quot; (click)=&quot;doPUT()&quot;&gt;PUT&lt;/button&gt;
+  	&lt;button class=&quot;btn btn-primary&quot; (click)=&quot;doDELETE()&quot;&gt;DELETE&lt;/button&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;row&quot;&gt;
+  &lt;div class=&quot;m-t-1&quot;&gt;
+  	&lt;button class=&quot;btn btn-secondary&quot; (click)=&quot;doGETAsPromise()&quot;&gt;As Promise&lt;/button&gt;
+  	&lt;button class=&quot;btn btn-secondary&quot; (click)=&quot;doGETAsPromiseError()&quot;&gt;Error as Promise&lt;/button&gt;
+  	&lt;button class=&quot;btn btn-secondary&quot; (click)=&quot;doGETAsObservableError()&quot;&gt;Error as Observable&lt;/button&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;row&quot;&gt;
+  &lt;div class=&quot;m-t-1&quot;&gt;
+  	&lt;button class=&quot;btn btn-danger&quot; (click)=&quot;doGETWithHeaders()&quot;&gt;With Headers&lt;/button&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+ `
+})
+class AppComponent {
+  apiRoot: string = &quot;http://httpbin.org&quot;;
+
+  constructor(private http: Http) {
+  }
+
+  doGET() {
+    console.log(&quot;GET&quot;);
+    let url = `${this.apiRoot}/get`;
+    let search = new URLSearchParams();
+    search.set('foo', 'moo');
+    search.set('limit', 25);
+    this.http.get(url, {search}).subscribe(res =&gt; console.log(res.json()));
+  }
+
+  doPOST() {
+    console.log(&quot;POST&quot;);
+    let url = `${this.apiRoot}/post`;
+    let search = new URLSearchParams();
+    search.set('foo', 'moo');
+    search.set('limit', 25);
+    this.http.post(url, {moo: &quot;foo&quot;, goo: &quot;loo&quot;}, {search}).subscribe(res =&gt; console.log(res.json()));
+  }
+
+  doPUT() {
+    console.log(&quot;PUT&quot;);
+    let url = `${this.apiRoot}/put`;
+    let search = new URLSearchParams();
+    search.set('foo', 'moo');
+    search.set('limit', 25);
+    this.http.put(url, {moo: &quot;foo&quot;, goo: &quot;loo&quot;}, {search}).subscribe(res =&gt; console.log(res.json()));
+  }
+
+  doDELETE() {
+    console.log(&quot;DELETE&quot;);
+    let url = `${this.apiRoot}/delete`;
+    let search = new URLSearchParams();
+    search.set('foo', 'moo');
+    search.set('limit', 25);
+    this.http.delete(url, {search}).subscribe(res =&gt; console.log(res.json()));
+  }
+
+  doGETAsPromise() {
+    console.log(&quot;GET AS PROMISE&quot;);
+    let url = `${this.apiRoot}/get`;
+    this.http.get(url)
+        .toPromise()
+        .then(res =&gt; console.log(res.json()));
+  }
+
+  doGETAsPromiseError() {
+    console.log(&quot;GET AS PROMISE ERROR&quot;);
+    let url = `${this.apiRoot}/post`;
+    this.http.get(url)
+        .toPromise()
+        .then(
+            res =&gt; console.log(res.json()),
+            msg =&gt; console.error(`Error: ${msg.status} ${msg.statusText}`)
+        );
+  }
+
+  doGETAsObservableError() {
+    console.log(&quot;GET AS OBSERVABLE ERROR&quot;);
+    let url = `${this.apiRoot}/post`;
+    this.http.get(url).subscribe(
+        res =&gt; console.log(res.json()),
+        msg =&gt; console.error(`Error: ${msg.status} ${msg.statusText}`)
+    );
+  }
+
+  doGETWithHeaders() {
+    console.log(&quot;GET WITH HEADERS&quot;);
+    let headers: Headers = new Headers();
+    headers.append('Authorization', btoa('username:password'));
+    let opts: RequestOptions = new RequestOptions();
+    opts.headers = headers;
+    let url = `${this.apiRoot}/get`;
+    this.http.get(url, opts).subscribe(
+        res =&gt; console.log(res.json()),
+        msg =&gt; console.error(`Error: ${msg.status} ${msg.statusText}`)
+    );
+  }
+}
+
+
+@NgModule({
+  imports: [BrowserModule, HttpModule],
+  declarations: [AppComponent],
+  bootstrap: [AppComponent]
+})
+class AppModule {
+
+}
+
+platformBrowserDynamic().bootstrapModule(AppModule);
+</code></pre>
+
+<div>
+<a  href='../../angular/http-overview'>上一章 Angular HTTP 概要</a>
+</div>
+<div>
+<a href='../../angular/http-example-promise'>下一章 Angular HTTP Promise</a>
+</div>
+    </div>
+
+    
+    
+
+    
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="https://blog.ucatch.me/img/reward/wechat.png">
+        <span>微信打赏</span>
+      </label>
+    
+  </div>
+</div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="https://blog.ucatch.me/tags/angular/">angular</a>
+          
+          <a href="https://blog.ucatch.me/tags/http/">http</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="https://blog.ucatch.me/post/docker/images-multi-stage/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">使用multi-stage构建docker image</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+          <a class="next" href="https://blog.ucatch.me/post/angular/http-example-promise/">
+            <span class="next-text nav-default">Angular4-HTTP  基于promise的例子</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+        
+        
+        if (window.location.hostname === 'localhost') return;
+
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'seanchann';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com/" class="dsq-brlink" target="_blank">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  
+      </div>  
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:seanchann@foxmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/seanchann" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.ucatch.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy; 
+    2017
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">seanchann</span>
+    <p class="credits theme-by text-muted">Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>    
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="https://blog.ucatch.me/lib/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="https://blog.ucatch.me/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.ucatch.me/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.ucatch.me/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+<script type="text/javascript" src="https://blog.ucatch.me/dist/even.min.js?v=2.6.1"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-62644170-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+</body>
+</html>

@@ -3,8 +3,43 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.ucatch.me/post/angular/http-example-jsonp-observables/</loc>
+    <lastmod>2017-10-16T17:43:42+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.ucatch.me/post/angular/http-example-observables/</loc>
+    <lastmod>2017-10-16T10:43:51+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.ucatch.me/post/docker/images-multi-stage/</loc>
     <lastmod>2017-10-14T12:07:02+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.ucatch.me/post/angular/http-core-http-api/</loc>
+    <lastmod>2017-10-12T11:53:29+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.ucatch.me/post/angular/http-example-promise/</loc>
+    <lastmod>2017-10-12T11:53:29+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.ucatch.me/post/angular/http-overview/</loc>
+    <lastmod>2017-10-12T11:34:53+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -192,6 +227,20 @@
   </url>
   
   <url>
+    <loc>https://blog.ucatch.me/tags/angular/</loc>
+    <lastmod>2017-10-16T17:43:42+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.ucatch.me/categories/angular/</loc>
+    <lastmod>2017-10-16T17:43:42+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.ucatch.me/tags/asterisk/</loc>
     <lastmod>2017-10-07T10:38:56+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -214,7 +263,7 @@
   
   <url>
     <loc>https://blog.ucatch.me/categories/</loc>
-    <lastmod>2017-10-07T10:38:56+00:00</lastmod>
+    <lastmod>2017-10-16T17:43:42+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -283,6 +332,13 @@
   </url>
   
   <url>
+    <loc>https://blog.ucatch.me/tags/http/</loc>
+    <lastmod>2017-10-16T17:43:42+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.ucatch.me/tags/jenkins/</loc>
     <lastmod>2015-03-31T08:49:41+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -319,7 +375,7 @@
   
   <url>
     <loc>https://blog.ucatch.me/post/</loc>
-    <lastmod>2017-10-14T12:07:02+00:00</lastmod>
+    <lastmod>2017-10-16T17:43:42+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -340,7 +396,7 @@
   
   <url>
     <loc>https://blog.ucatch.me/tags/</loc>
-    <lastmod>2017-10-07T10:38:56+00:00</lastmod>
+    <lastmod>2017-10-16T17:43:42+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -368,7 +424,7 @@
   
   <url>
     <loc>https://blog.ucatch.me/</loc>
-    <lastmod>2017-10-14T12:07:02+00:00</lastmod>
+    <lastmod>2017-10-16T17:43:42+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

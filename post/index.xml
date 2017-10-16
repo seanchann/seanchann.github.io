@@ -6,10 +6,39 @@
     <description>Recent content in Posts on seanchann</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 14 Oct 2017 12:07:02 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 16 Oct 2017 17:43:42 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.ucatch.me/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Angular4-HTTP  JSONP</title>
+      <link>https://blog.ucatch.me/post/angular/http-example-jsonp-observables/</link>
+      <pubDate>Mon, 16 Oct 2017 17:43:42 +0000</pubDate>
+      
+      <guid>https://blog.ucatch.me/post/angular/http-example-jsonp-observables/</guid>
+      <description>&lt;h2 id=&#34;学习目标&#34;&gt;学习目标&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;JSONP是什么以及它如何客服CORS&lt;/li&gt;
+&lt;li&gt;在Angular中如果发起JSONP的请求&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Angular4-HTTP  基于observable的例子</title>
+      <link>https://blog.ucatch.me/post/angular/http-example-observables/</link>
+      <pubDate>Mon, 16 Oct 2017 10:43:51 +0000</pubDate>
+      
+      <guid>https://blog.ucatch.me/post/angular/http-example-observables/</guid>
+      <description>&lt;p&gt;在之前的章节中,应用程序已经可以发起HTTP请求,并且使用&lt;code&gt;Promises&lt;/code&gt;来处理异步请求.&lt;/p&gt;
+
+&lt;p&gt;在本章中,我们使用&lt;code&gt;Observables&lt;/code&gt;来实现相同的程序.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>使用multi-stage构建docker image</title>
@@ -20,6 +49,64 @@
       <description>&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://docs.docker.com/engine/userguide/eng-image/multistage-build/&#34;&gt;原文地址&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;Multi-stage&lt;/code&gt;构建是一个新的特性,需要&lt;code&gt;docker 17.05&lt;/code&gt;或者更高的版本.&lt;code&gt;Multistage&lt;/code&gt;的构建方式对于想要优化&lt;code&gt;Dockerfiles&lt;/code&gt;同时保持它的可读性和可维护性来说是非常有用的.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Angular4-HTTP  core http api</title>
+      <link>https://blog.ucatch.me/post/angular/http-core-http-api/</link>
+      <pubDate>Thu, 12 Oct 2017 11:53:29 +0000</pubDate>
+      
+      <guid>https://blog.ucatch.me/post/angular/http-core-http-api/</guid>
+      <description>&lt;h2 id=&#34;学习目标&#34;&gt;学习目标&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;如何在程序中使用inject以及HTTP的客户端库&lt;/li&gt;
+&lt;li&gt;如何发送各种类型的HTTP请求&lt;/li&gt;
+&lt;li&gt;如何在HTTP的请求中添加自定义的Header&lt;/li&gt;
+&lt;li&gt;如何处理错误&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Angular4-HTTP  基于promise的例子</title>
+      <link>https://blog.ucatch.me/post/angular/http-example-promise/</link>
+      <pubDate>Thu, 12 Oct 2017 11:53:29 +0000</pubDate>
+      
+      <guid>https://blog.ucatch.me/post/angular/http-example-promise/</guid>
+      <description>&lt;p&gt;在这篇文章中，我们会创建一个搜索iTunes上的音乐的应用&lt;/p&gt;
+
+&lt;p&gt;我们会使用到免费的API:&lt;code&gt;https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;学习目标&#34;&gt;学习目标&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;CORS是什么，如何在浏览器中临时的旁路这个安全特性。&lt;/li&gt;
+&lt;li&gt;如何创建一个中间服务，来处理我们的到API端点的HTTP请求&lt;/li&gt;
+&lt;li&gt;如何提供一个服务并且在组件中使用&lt;/li&gt;
+&lt;li&gt;如何将应答转化为一个&lt;code&gt;domain model&lt;/code&gt;的实例&lt;/li&gt;
+&lt;li&gt;如何通过使用promise来处理异步的任务&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Angular4-HTTP-概要</title>
+      <link>https://blog.ucatch.me/post/angular/http-overview/</link>
+      <pubDate>Thu, 12 Oct 2017 11:34:53 +0000</pubDate>
+      
+      <guid>https://blog.ucatch.me/post/angular/http-overview/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://codecraft.tv/courses/angular/http/overview/&#34;&gt;原文地址&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;概要&#34;&gt;概要&lt;/h2&gt;
+
+&lt;p&gt;完成一个完整的web程序，我们需要很多的针对HTTP APIs的调用。&lt;/p&gt;
+
+&lt;p&gt;Angular自带了HTTP客户端库，我们可以使用这个库来完成HTTP的请求。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
     </item>

@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Angular4-HTTP  基于observable的例子 - seanchann</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="seanchann" /><meta name="description" content="angular开发中，http observable的例子" />
+
+  <meta name="keywords" content="seanchann, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.26-DEV" />
+
+
+<link rel="canonical" href="https://blog.ucatch.me/post/angular/http-example-observables/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.ucatch.me/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.ucatch.me/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.ucatch.me/favicon-16x16.png">
+<link rel="icon" href="https://blog.ucatch.me/favicon.ico" />
+<link rel="manifest" href="https://blog.ucatch.me/manifest.json">
+<link rel="mask-icon" href="https://blog.ucatch.me/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="https://blog.ucatch.me/dist/even.min.css?v=2.6.1" rel="stylesheet">
+<link href="https://blog.ucatch.me/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+<meta property="og:title" content="Angular4-HTTP  基于observable的例子" />
+<meta property="og:description" content="angular开发中，http observable的例子" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.ucatch.me/post/angular/http-example-observables/" />
+
+
+
+<meta property="article:published_time" content="2017-10-16T10:43:51&#43;00:00"/>
+<meta property="article:modified_time" content="2017-10-16T10:43:51&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Angular4-HTTP  基于observable的例子">
+<meta itemprop="description" content="angular开发中，http observable的例子">
+
+
+<meta itemprop="dateModified" content="2017-10-16T10:43:51&#43;00:00" />
+<meta itemprop="wordCount" content="3685">
+
+
+
+<meta itemprop="keywords" content="angular,http," />
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Angular4-HTTP  基于observable的例子"/>
+<meta name="twitter:description" content="angular开发中，http observable的例子"/>
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js" integrity="sha256-9uAoNWHdszsUDhSXf/rVcWOqKPfi5/8V5R4UdbZle2A=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js" crossorigin="anonymous"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.ucatch.me/" class="logo">seanchann</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.ucatch.me/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="https://blog.ucatch.me/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="https://blog.ucatch.me/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="https://blog.ucatch.me/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="https://blog.ucatch.me/about/">
+        <li class="mobile-menu-item">About me</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="https://blog.ucatch.me/" class="logo">seanchann</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="https://blog.ucatch.me/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://blog.ucatch.me/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://blog.ucatch.me/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://blog.ucatch.me/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://blog.ucatch.me/about/">About me</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Angular4-HTTP  基于observable的例子</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-10-16 </span>
+        <div class="post-category">
+            <a href="https://blog.ucatch.me/categories/angular/">angular</a>
+          </div>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#学习目标">学习目标</a></li>
+<li><a href="#从服务返回一个observable">从服务返回一个Observable</a></li>
+<li><a href="#使用-async-管道">使用<code>async</code>管道</a></li>
+<li><a href="#observables-继续深入">Observables 继续深入</a></li>
+<li><a href="#将两个observables链接在一起">将两个observables链接在一起</a></li>
+<li><a href="#结果渲染">结果渲染</a></li>
+<li><a href="#加载指示">加载指示</a></li>
+<li><a href="#总结">总结</a></li>
+<li><a href="#代码清单">代码清单</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      <p>在之前的章节中,应用程序已经可以发起HTTP请求,并且使用<code>Promises</code>来处理异步请求.</p>
+
+<p>在本章中,我们使用<code>Observables</code>来实现相同的程序.</p>
+
+<p></p>
+
+<h2 id="学习目标">学习目标</h2>
+
+<p>我们目标是把<code>Promises</code>替换成<code>Observables</code>,但是我们会更加深入的了解更多的关于<code>Observable</code>链的细节.</p>
+
+<p>使用Observables，需要使用不同的思考方式来理解程序,下文我们会使用<code>RxJS</code>的observables来解决问题.</p>
+
+<h2 id="从服务返回一个observable">从服务返回一个Observable</h2>
+
+<p>在promise的例子里,在service类的results的属性存储了返回的结果.</p>
+
+<p>在observable的例子中,我们替换成<code>search</code>函数返回一个observable,然后在AppComponent中订阅,例如:</p>
+
+<pre><code class="language-typescript">import {Observable} from 'rxjs';
+.
+.
+.
+search(term:string): Observable&lt;SearchItem[]&gt; { .. }
+</code></pre>
+
+<p>返回值类型是<code>Observable&lt;SearchItem[]&gt;</code>,它返回了一个observable,在<code>SearchItem[]</code>中存储着每个条目.</p>
+
+<p>我们现在实现了一个最小的目标,我们继续修正我们的函数:</p>
+
+<pre><code class="language-typescript">search(term:string): Observable&lt;SearchItem[]&gt;{
+  let apiURL = `${this.apiRoot}?item=${term}&amp;media=music&amp;limit=20`;
+  return this.http.get(apiURL);
+}
+</code></pre>
+
+<p>我们删除了Promise相关的代码,直接返回了<code>http.get(...)</code>的返回<code>Observable</code>, 明确的来说,是一个<code>Response</code>类型的<code>Observable</code>,因此返回类型是<code>Observable&lt;Response&gt;</code></p>
+
+<p>然而,上面的存在两个问题:</p>
+
+<ul>
+<li><code>http.get(...)</code>的返回类型是<code>Observable&lt;Response&gt;</code>而不是<code>Observable&lt;SearchItem[]&gt;</code></li>
+<li>缺失了将原始的json转换为我们的<code>SearchItem</code>的domain model.</li>
+</ul>
+
+<p>看来,我们需要一个将<code>Response</code>转换成<code>SearchItem[]</code></p>
+
+<p>我们可以通过在Observable上执行<code>map</code>操作来完成:</p>
+
+<pre><code class="language-typescript">import 'rxjs/add/operator/map';
+.
+.
+.
+search(term: string): Observable&lt;SearchItem[]&gt; {
+  let apiURL = `${this.apiRoot}?term=${term}&amp;media=music&amp;limit=20&amp;callback=JSONP_CALLBACK`;
+  return this.http.get(apiURL)
+      .map(res =&gt; {
+        return res.json().results.map(item =&gt; {
+          return new SearchItem(
+              item.trackName,
+              item.artistName,
+              item.trackViewUrl,
+              item.artworkUrl30,
+              item.artistId
+          );
+        });
+      });
+}
+</code></pre>
+
+<ul>
+<li>首先<code>this.http.get(apiURL)</code>返回了一个<code>Observable</code>.</li>
+<li><code>map</code>是observable的一个方法.作用是针对每一个输入的条目进行修改然后将修改的结果作为输出.在本例中输入的条目是<code>Response</code>对象.</li>
+<li>接着遍历<code>Response</code>对象的results属性,通过一个函数来转化它们.</li>
+<li>最后返回<code>SearchItem</code></li>
+</ul>
+
+<p>最终,我们可以看到从<code>this.http.get(...)</code>返回的<code>Observable&lt;Response&gt;</code>被转化成了<code>Observable&lt;SearchItem[]&gt;</code>,然后返回给了调用者.</p>
+
+<p>在我们的例子中,<code>AppComponent</code>是调用者,因此我们修改下这个组件的实现.</p>
+
+<p>在<code>AppComponent</code>中使用这个<code>Observable</code>有个方法就是订阅它然后将结果存储在本地,例如:</p>
+
+<pre><code class="language-typescript">class AppComponent {
+  private loading: boolean = false;
+  private results: SearchItem[];
+
+  constructor(private itunes:SearchService) { }
+
+  doSearch(term:string) {
+    this.loading = true;
+    this.itunes.search(term).subscribe( data =&gt; {
+      this.loading = false;
+      this.results = data
+    });
+  }
+}
+</code></pre>
+
+<p>我们通过<code>subscribe</code>函数订阅了从服务模块返回的<code>Observable&lt;SearchItem[]&gt;</code>,然后把<code>SearchItem[]</code>存储在本地属性<code>results</code>中.</p>
+
+<p>我们也需要去修改下我们的模版,替换成当前的属性</p>
+
+<pre><code class="language-html">&lt;div  *ngFor=&quot;let item of results&quot;&gt; ... &lt;/div&gt;
+</code></pre>
+
+<p>运行上面的程序,我们基本上实现了使用Observables来发起HTTP请求,但是我们还要继续深入了解.</p>
+
+<h2 id="使用-async-管道">使用<code>async</code>管道</h2>
+
+<p>上面的部分是一个非常好的开始,但是我们没有真正的完全的使用到<code>Observable</code>的特性,例如我们订阅了observable并且在本地的组件的属性中存储了结果,其实我们可以使用<code>async</code>管道在我们的模版中.</p>
+
+<pre><code class="language-typescript">class AppComponent {
+  private loading: boolean = false;
+  private results: Observable&lt;SearchItem[]&gt;;
+
+  constructor(private itunes:SearchService) { }
+
+  doSearch(term:string) {
+    this.loading = true;
+    this.results = this.itunes.search(term); 
+  }
+}
+</code></pre>
+
+<p><code>results</code>现在存储了<code>Observable</code>而不是<code>SearchItem</code>的数组.我们也不需要去订阅了,只是简单的调用<code>itunes.search</code>将返回值存储在result中.</p>
+
+<p>接着我们修改我们的模版,使用<code>async</code>管道,例如</p>
+
+<pre><code class="language-html">&lt;&lt;div *ngFor=&quot;let item of results | async&quot;&gt;..
+&lt;/div&gt;&gt;
+</code></pre>
+
+<h2 id="observables-继续深入">Observables 继续深入</h2>
+
+<p>每次按下<code>Search</code>按钮,我们都想要发起一个搜索,我们可以更改我们的应用程序，因此使用反应式表单，并在输入时执行搜索。
+我们已经覆盖了被动形式，所以我们只需要改变我们的AppComponent来添加一个搜索字段，就像这样：</p>
+
+<pre><code class="language-html">&lt;form class=&quot;form-inline&quot;&gt;
+  &lt;div class=&quot;form-group&quot;&gt;
+    &lt;input type=&quot;search&quot;
+           class=&quot;form-control&quot;
+           placeholder=&quot;Enter search string&quot;
+           [formControl]=&quot;searchField&quot;&gt;
+  &lt;/div&gt;
+&lt;/form&gt;
+</code></pre>
+
+<p>也需要去更新下组件实现,例如:</p>
+
+<pre><code class="language-typescript">class AppComponent {
+  private loading: boolean = false;
+  private results: Observable&lt;SearchItem[]&gt;;
+  private searchField: FormControl;
+
+  constructor(private itunes:SearchService) { }
+
+  ngOnInit() {
+    this.searchField = new FormControl();
+    this.searchField.valueChanges
+      .debounceTime(400)
+      .distinctUntilChanged()
+      .subscribe(); // Need to call subscribe to make it hot!
+  }
+
+  doSearch(term:string) {
+    this.itunes.search(term)
+  }
+}
+</code></pre>
+
+<p>总结下我们的更改:</p>
+
+<ol>
+<li>给<code>AppComponent</code>的属性增加了<code>searchField</code></li>
+</ol>
+
+<pre><code class="language-typescript">private searchField: FormControl;
+</code></pre>
+
+<ol>
+<li>使用<code>[formControl]</code>命令链接<code>searchField</code>到我们的模版元素上.</li>
+</ol>
+
+<pre><code class="language-html">[formControl]=&quot;searchField&quot;
+</code></pre>
+
+<ol>
+<li>导入依赖到我们的<code>NgModules</code>中.</li>
+</ol>
+
+<pre><code class="language-typescript">import {ReactiveFormsModule, FormControl, FormsModule} from '@angular/forms';
+
+@NgModule({
+  imports: [
+    BrowserModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpModule,
+  ],
+  declarations: [AppComponent],
+  bootstrap: [AppComponent],
+  providers: [SearchService]
+})
+</code></pre>
+
+<ol>
+<li>我们也实现了<code>ngOnInit</code>函数,因此一旦它被链接到表单的元素上,我们的搜索控制就可以工作.</li>
+</ol>
+
+<pre><code class="language-typescript">ngOnInit(){...}
+</code></pre>
+
+<ol>
+<li>现在我们通过<code>valueChanges</code>属性订阅<code>searchField</code>,我们使用<code>debounceTime</code>和<code>distinctUntilChanged</code>,因此,只有当用户真正的想要发起一个搜索的时候,我们才会收到通知.</li>
+</ol>
+
+<pre><code class="language-typescript">this.searchField.valueChanges
+  .debounceTime(400)
+  .distinctUntilChanged()
+  .subscribe(); // Need to call subscribe to make it hot!
+</code></pre>
+
+<ol>
+<li>导入我们的依赖包</li>
+</ol>
+
+<pre><code class="language-typescript">import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+</code></pre>
+
+<h2 id="将两个observables链接在一起">将两个observables链接在一起</h2>
+
+<p>现在在<code>AppComponent</code>中有一个<code>Observable</code>,它负责发起一个搜索当我们想要执行搜索的时候.</p>
+
+<p>同时,search函数中由<code>SearchService</code>也返回了一个<code>Observable</code></p>
+
+<p>怎样来将这两个组合在一起?</p>
+
+<p><code>searchField</code>的属性<code>valueChanges</code>的类型是<code>Observable&lt;string&gt;</code></p>
+
+<p>我们想要通过一个链式操作将<code>Observable&lt;string&gt;</code>转换为<code>Observable&lt;SearchItem[]&gt;</code></p>
+
+<p>可以使用<code>map</code>操作来完成,例如:</p>
+
+<pre><code class="language-typescript">ngOnInit(){
+  this.searchField = new FormControl();
+  this.searchField.valueChanges
+    .debounceTime(400)
+    .distinctUntilChanged()
+    .map(term =&gt; this.itunes.search(term))
+    .subscribe(value =&gt; console.log(value))
+}
+</code></pre>
+
+<p>在输入流上,当每次发射search关键字的时候,我们就调用搜索服务.</p>
+
+<p>如果我们运行上面的程序,我们会发现输出的好像是一个<code>Observable</code>,例如:</p>
+
+<pre><code class="language-text">Observable {_isScalar: false, source: Observable, operator: MapOperator}
+</code></pre>
+
+<p>这是因为,<code>itunes.search(term)</code>没有返回<code>SearchItem[]</code>,它返回的是<code>Observable&lt;SearchItem[]&gt;</code>.</p>
+
+<p>在我们的map的操作中没有转换<code>string</code>为<code>SearchItem[]</code>,而是转换<code>string</code>为<code>Observable&lt;SearchItem[]&gt;</code></p>
+
+<p>因此subscribe函数接收到的是<code>Observable&lt;SearchItem[]&gt;</code>而不是<code>SearchItem[]</code></p>
+
+<p>一个解决方法就是调用两次subscribe,例如</p>
+
+<pre><code class="language-typescript">ngOnInit() {
+    this.searchField = new FormControl();
+    this.searchField.valueChanges
+      .debounceTime(400)
+      .distinctUntilChanged()
+      .map( term =&gt; this.itunes.search(term))
+      .subscribe( value =&gt; {
+        value.subscribe( other =&gt; console.log(other) ) 
+      });
+  }
+</code></pre>
+
+<p>第一个<code>subscribe</code>收到的是<code>Observable&lt;SearchItem[]&gt;</code>,第二个再次调用<code>subscribe</code>,获取到<code>SearchItem[]</code></p>
+
+<p>这是<code>Observable</code>的常见问题,我们可以通过<code>switch</code>来解决.</p>
+
+<p><code>switch</code>预期一个<code>Observable</code>的<code>stream</code>,当它收到<code>Observable</code>的推送到它的输入流后,它会取消订阅之前任何的<code>Observable</code>并且订阅到这个新的上,然后发射这个<code>Observable</code>包含的任何的值到它的输出流上.</p>
+
+<p>另外一种方法是转换<code>Observable&lt;Observable&lt;SearchItem[]&gt;&gt;</code>为<code>Observable&lt;SearchItem[]&gt;</code>,我们上面使用两个<code>subscribe</code>就是这种方式</p>
+
+<p><code>switch</code>和<code>map</code>联合使用,我们一般可以直接使用<code>switchMap</code>:</p>
+
+<pre><code class="language-typescript">import 'rxjs/add/operator/switchMap';
+.
+.
+.
+
+ngOnInit() {
+  this.searchField = new FormControl();
+  this.searchField.valueChanges
+    .debounceTime(400)
+    .distinctUntilChanged()
+    .switchMap( term =&gt; this.itunes.search(term))
+    .subscribe( value =&gt; console.log(value));
+}
+</code></pre>
+
+<h2 id="结果渲染">结果渲染</h2>
+
+<p>现在我们的observable链返回了<code>Observable&lt;SearchItem[]&gt;</code>,我们可以直接把它保存在我们的results属性中,例如:</p>
+
+<pre><code class="language-typescript">ngOnInit() {
+  this.searchField = new FormControl();
+  this.results = this.searchField.valueChanges 
+    .debounceTime(400)
+    .distinctUntilChanged()
+    .switchMap( term =&gt; this.itunes.search(term));
+}
+</code></pre>
+
+<p>注意,这里我们去掉了subscribe,因为我们在模版中使用async.</p>
+
+<h2 id="加载指示">加载指示</h2>
+
+<p>最后,我们需要去添加我们的<code>loading</code>布尔值,正确的设置它的值在正确的时间,我们可以使用<code>do</code>操作来完成</p>
+
+<blockquote>
+<p>我们使用do来在我们的应用程序中添加额外的操作,一般不会使用到,
+在我们的例子中,我们可以在链式操作的某些位置中来设置状态</p>
+</blockquote>
+
+<pre><code class="language-typescript">import 'rxjs/add/operator/do';
+.
+.
+.
+
+ngOnInit() {
+  this.searchField = new FormControl();
+  this.results = this.searchField.valueChanges
+    .debounceTime(400)
+    .distinctUntilChanged()
+    .do( () =&gt; this.loading = true)
+    .switchMap( term =&gt; this.itunes.search(term))
+    .do( () =&gt; this.loading = false )
+}
+</code></pre>
+
+<h2 id="总结">总结</h2>
+
+<p>在本章中,我们深入的学习了如何使用observables来发起HTTP的请求.</p>
+
+<p>你可以灵活的在你的程序中使用这些规则.</p>
+
+<h2 id="代码清单">代码清单</h2>
+
+<pre><code class="language-typescript">import {NgModule, Component, Injectable} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+import {HttpModule, Http, Response} from '@angular/http';
+import {ReactiveFormsModule, FormControl, FormsModule} from '@angular/forms';
+import {Observable} from 'rxjs';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/do';
+
+class SearchItem {
+  constructor(public track: string,
+              public artist: string,
+              public link: string,
+              public thumbnail: string,
+              public artistId: string) {
+  }
+}
+
+@Injectable()
+export class SearchService {
+  apiRoot: string = 'https://itunes.apple.com/search';
+
+  constructor(private http: Http) {
+  }
+
+  search(term: string): Observable&lt;SearchItem[]&gt; {
+    let apiURL = `${this.apiRoot}?term=${term}&amp;media=music&amp;limit=20`;
+    return this.http.get(apiURL)
+        .map(res =&gt; {
+          return res.json().results.map(item =&gt; {
+            return new SearchItem(
+                item.trackName,
+                item.artistName,
+                item.trackViewUrl,
+                item.artworkUrl30,
+                item.artistId
+            );
+          });
+        });
+  }
+}
+
+@Component({
+  selector: 'app',
+  template: `
+&lt;form class=&quot;form-inline&quot;&gt;
+  &lt;div class=&quot;form-group&quot;&gt;
+    &lt;input type=&quot;search&quot;
+           class=&quot;form-control&quot;
+           placeholder=&quot;Enter search string&quot;
+           [formControl]=&quot;searchField&quot;&gt;
+  &lt;/div&gt;
+&lt;/form&gt;
+
+&lt;div class=&quot;text-center&quot;&gt;
+  &lt;p class=&quot;lead&quot; *ngIf=&quot;loading&quot;&gt;Loading...&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;ul class=&quot;list-group&quot;&gt;
+  &lt;li class=&quot;list-group-item&quot;
+      *ngFor=&quot;let track of results | async&quot;&gt;
+    &lt;img src=&quot;{{track.thumbnail}}&quot;&gt;
+    &lt;a target=&quot;_blank&quot;
+       href=&quot;{{track.link}}&quot;&gt;{{ track.track }}
+    &lt;/a&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+ `
+})
+class AppComponent {
+  private loading: boolean = false;
+  private results: Observable&lt;SearchItem[]&gt;;
+  private searchField: FormControl;
+
+  constructor(private itunes: SearchService) {
+  }
+
+  ngOnInit() {
+    this.searchField = new FormControl();
+    this.results = this.searchField.valueChanges
+        .debounceTime(400)
+        .distinctUntilChanged()
+        .do(_ =&gt; this.loading = true)
+        .switchMap(term =&gt; this.itunes.search(term))
+        .do(_ =&gt; this.loading = false)
+  }
+
+  doSearch(term: string) {
+    this.itunes.search(term)
+  }
+}
+
+@NgModule({
+  imports: [
+    BrowserModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpModule
+  ],
+  declarations: [AppComponent],
+  bootstrap: [AppComponent],
+  providers: [SearchService]
+})
+class AppModule {
+}
+
+platformBrowserDynamic().bootstrapModule(AppModule);
+</code></pre>
+
+<div>
+<a href='../../angular/http-example-promise'>上一章 Angular HTTP Promise</a>
+</div>
+<div>
+<a href='../../angular/http-example-jsonp-observables'>下一章 Angular HTTP JSONP</a>
+</div>
+    </div>
+
+    
+    
+
+    
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="https://blog.ucatch.me/img/reward/wechat.png">
+        <span>微信打赏</span>
+      </label>
+    
+  </div>
+</div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="https://blog.ucatch.me/tags/angular/">angular</a>
+          
+          <a href="https://blog.ucatch.me/tags/http/">http</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="https://blog.ucatch.me/post/angular/http-example-jsonp-observables/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Angular4-HTTP  JSONP</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+          <a class="next" href="https://blog.ucatch.me/post/docker/images-multi-stage/">
+            <span class="next-text nav-default">使用multi-stage构建docker image</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+        
+        
+        if (window.location.hostname === 'localhost') return;
+
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'seanchann';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com/" class="dsq-brlink" target="_blank">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  
+      </div>  
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:seanchann@foxmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/seanchann" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.ucatch.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy; 
+    2017
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">seanchann</span>
+    <p class="credits theme-by text-muted">Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>    
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="https://blog.ucatch.me/lib/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="https://blog.ucatch.me/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.ucatch.me/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.ucatch.me/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+<script type="text/javascript" src="https://blog.ucatch.me/dist/even.min.js?v=2.6.1"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-62644170-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+</body>
+</html>

@@ -50,7 +50,7 @@
 
 
 
-<meta property="og:updated_time" content="2015-03-31T08:49:41&#43;08:00"/>
+<meta property="og:updated_time" content="2016-07-31T08:49:41&#43;08:00"/>
 
 
 
@@ -132,11 +132,11 @@
     
       <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.ucatch.me/post/ci-cd/jenkins-problem/">jenkins使用问题汇总</a></h1>
+    <h1 class="post-title"><a class="post-link" href="https://blog.ucatch.me/post/mongodb/mongodb-user/">mongodb的用户管理说明</a></h1>
     <div class="post-meta">
-      <span class="post-time"> 2015-03-31 </span>
+      <span class="post-time"> 2016-07-31 </span>
       <div class="post-category">
-          <a href="https://blog.ucatch.me/categories/ci-cd/">ci-cd</a>
+          <a href="https://blog.ucatch.me/categories/mongodb/">mongodb</a>
         </div>
       
     </div>
@@ -146,25 +146,25 @@
     <div class="post-summary">
       <p><strong>系统：CentOS7 + docker 1.6</strong></p>
 
-<p><strong>Jenkins: ver. 1.609.1</strong></p>
+<p><strong>mongodb版本： 3.0.2</strong></p>
 
-<p>jenkins在使用中碰到的问题的汇总，以备查阅。</p>
+<p>安装工作完成后，整个的mongodb运行起来后，在开始工作前，首先应该为我们的mongodb配置适当的用户以及其权限。</p>
 
 <p></p>
     </div>
     <div class="read-more">
-      <a href="https://blog.ucatch.me/post/ci-cd/jenkins-problem/" class="read-more-link">阅读更多</a>
+      <a href="https://blog.ucatch.me/post/mongodb/mongodb-user/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
     
       <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.ucatch.me/post/ci-cd/jenkins-docker-build/">jenkins的docker编译</a></h1>
+    <h1 class="post-title"><a class="post-link" href="https://blog.ucatch.me/post/mongodb/mongodb-read/">mongodb的读说明</a></h1>
     <div class="post-meta">
-      <span class="post-time"> 2015-03-31 </span>
+      <span class="post-time"> 2016-07-31 </span>
       <div class="post-category">
-          <a href="https://blog.ucatch.me/categories/ci-cd/">ci-cd</a>
+          <a href="https://blog.ucatch.me/categories/mongodb/">mongodb</a>
         </div>
       
     </div>
@@ -174,29 +174,25 @@
     <div class="post-summary">
       <p><strong>系统：CentOS7 + docker 1.6</strong></p>
 
-<p><strong>Jenkins: ver. 1.609.1</strong></p>
+<p><strong>mongodb版本： 3.0.2</strong></p>
 
-<p>前提条件：</p>
-
-<ul>
-<li>jenkins的任意node已经安装docker或者docker-build-step插件已经安装</li>
-</ul>
+<p>mongodb与读操作相关的内容，比如find以及query操作</p>
 
 <p></p>
     </div>
     <div class="read-more">
-      <a href="https://blog.ucatch.me/post/ci-cd/jenkins-docker-build/" class="read-more-link">阅读更多</a>
+      <a href="https://blog.ucatch.me/post/mongodb/mongodb-read/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
     
       <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="https://blog.ucatch.me/post/ci-cd/jenkins-docker-slave/">jenkins的docker节点配置</a></h1>
+    <h1 class="post-title"><a class="post-link" href="https://blog.ucatch.me/post/mongodb/mongodb-problems-summary/">mongodb问题汇总</a></h1>
     <div class="post-meta">
-      <span class="post-time"> 2015-03-31 </span>
+      <span class="post-time"> 2016-07-31 </span>
       <div class="post-category">
-          <a href="https://blog.ucatch.me/categories/ci-cd/">ci-cd</a>
+          <a href="https://blog.ucatch.me/categories/mongodb/">mongodb</a>
         </div>
       
     </div>
@@ -206,20 +202,25 @@
     <div class="post-summary">
       <p><strong>系统：CentOS7 + docker 1.6</strong></p>
 
-<p><strong>Jenkins：ver. 1.609.1</strong></p>
+<p><strong>mongodb版本： 3.0.2</strong></p>
 
-<p><a href="../../ci-cd/jenkins-gitlab">前面的章节已经成功的通过git push触发job</a>，本章我们配置一个job，在docker cloud中执行这些job</p>
+<h2 id="warning-sys-kernel-mm-transparent-hugepage-enabled-or-sys-kernel-mm-transparent-hugepage-defrag-is-always">WARNING:/sys/kernel/mm/transparent_hugepage/enabled or /sys/kernel/mm/transparent_hugepage/defrag is &lsquo;always&rsquo;.</h2>
 
-<p>前提条件：</p>
+<pre><code class="language-text">    这个问题的原因是由于内核的某些参数的配置造成的mongodb产生了警告，基于docker环境，在docker运行的host主机上：
 
-<ul>
-<li>jenkins的docker-plugin插件已经安装</li>
-</ul>
+    1. echo never &gt; /sys/kernel/mm/transparent_hugepage/enabled
+    2. echo never &gt; /sys/kernel/mm/transparent_hugepage/defrag
+
+    or
+
+    1. echo never | sudo tee /sys/kernel/mm/transparent_hugepage/enabled
+    2. echo never | sudo tee /sys/kernel/mm/transparent_hugepage/defrag
+</code></pre>
 
 <p></p>
     </div>
     <div class="read-more">
-      <a href="https://blog.ucatch.me/post/ci-cd/jenkins-docker-slave/" class="read-more-link">阅读更多</a>
+      <a href="https://blog.ucatch.me/post/mongodb/mongodb-problems-summary/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

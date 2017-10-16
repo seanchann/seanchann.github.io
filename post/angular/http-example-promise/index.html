@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Angular4-HTTP  基于promise的例子 - seanchann</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="seanchann" /><meta name="description" content="angular开发中，http promise的例子" />
+
+  <meta name="keywords" content="seanchann, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.26-DEV" />
+
+
+<link rel="canonical" href="https://blog.ucatch.me/post/angular/http-example-promise/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.ucatch.me/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.ucatch.me/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.ucatch.me/favicon-16x16.png">
+<link rel="icon" href="https://blog.ucatch.me/favicon.ico" />
+<link rel="manifest" href="https://blog.ucatch.me/manifest.json">
+<link rel="mask-icon" href="https://blog.ucatch.me/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="https://blog.ucatch.me/dist/even.min.css?v=2.6.1" rel="stylesheet">
+<link href="https://blog.ucatch.me/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+<meta property="og:title" content="Angular4-HTTP  基于promise的例子" />
+<meta property="og:description" content="angular开发中，http promise的例子" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.ucatch.me/post/angular/http-example-promise/" />
+
+
+
+<meta property="article:published_time" content="2017-10-12T11:53:29&#43;00:00"/>
+<meta property="article:modified_time" content="2017-10-12T11:53:29&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Angular4-HTTP  基于promise的例子">
+<meta itemprop="description" content="angular开发中，http promise的例子">
+
+
+<meta itemprop="dateModified" content="2017-10-12T11:53:29&#43;00:00" />
+<meta itemprop="wordCount" content="3024">
+
+
+
+<meta itemprop="keywords" content="angular,http," />
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Angular4-HTTP  基于promise的例子"/>
+<meta name="twitter:description" content="angular开发中，http promise的例子"/>
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js" integrity="sha256-9uAoNWHdszsUDhSXf/rVcWOqKPfi5/8V5R4UdbZle2A=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js" crossorigin="anonymous"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="https://blog.ucatch.me/" class="logo">seanchann</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="https://blog.ucatch.me/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="https://blog.ucatch.me/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="https://blog.ucatch.me/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="https://blog.ucatch.me/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="https://blog.ucatch.me/about/">
+        <li class="mobile-menu-item">About me</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="https://blog.ucatch.me/" class="logo">seanchann</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="https://blog.ucatch.me/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://blog.ucatch.me/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://blog.ucatch.me/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://blog.ucatch.me/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="https://blog.ucatch.me/about/">About me</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Angular4-HTTP  基于promise的例子</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-10-12 </span>
+        <div class="post-category">
+            <a href="https://blog.ucatch.me/categories/angular/">angular</a>
+          </div>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#学习目标">学习目标</a></li>
+<li><a href="#跨域资源共享">跨域资源共享</a>
+<ul>
+<li><a href="#chrome">Chrome</a></li>
+<li><a href="#firefox">Firefox</a></li>
+</ul></li>
+<li><a href="#创建app组件">创建APP组件</a></li>
+<li><a href="#创建一个搜索服务">创建一个搜索服务</a>
+<ul>
+<li><a href="#使用promises">使用promises</a></li>
+</ul></li>
+<li><a href="#使用search服务">使用search服务</a></li>
+<li><a href="#添加加载指示">添加加载指示</a></li>
+<li><a href="#使用-domail-model">使用 domail model</a></li>
+<li><a href="#总结">总结</a></li>
+<li><a href="#代码清单">代码清单</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      <p>在这篇文章中，我们会创建一个搜索iTunes上的音乐的应用</p>
+
+<p>我们会使用到免费的API:<code>https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/</code></p>
+
+<h2 id="学习目标">学习目标</h2>
+
+<ul>
+<li>CORS是什么，如何在浏览器中临时的旁路这个安全特性。</li>
+<li>如何创建一个中间服务，来处理我们的到API端点的HTTP请求</li>
+<li>如何提供一个服务并且在组件中使用</li>
+<li>如何将应答转化为一个<code>domain model</code>的实例</li>
+<li>如何通过使用promise来处理异步的任务</li>
+</ul>
+
+<p></p>
+
+<h2 id="跨域资源共享">跨域资源共享</h2>
+
+<p>为了使用这个API我们需要去处理CORS的问题，也就是跨域共享。</p>
+
+<p>这是一个所有的浏览器都支持的安全措施，来避免你可能直接的访问API，当然包括iTunes api，都是通过这个方式来保护。</p>
+
+<p>由于CORS的原因如果我们尝试去发起请求到iTunes API。浏览器将会报CORS的错误。</p>
+
+<h3 id="chrome">Chrome</h3>
+
+<p>针对Chrome，我偏好使用插件来控制CORS的开关。安装这个插件<code>https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi</code></p>
+
+<p>这个插件将会添加一个按钮到chrome上，我们可以点击按钮来切换是否开启或者关闭CORS</p>
+
+<h3 id="firefox">Firefox</h3>
+
+<p>如果使用FireFox安装这个插件<code>https://addons.mozilla.org/en-Gb/firefox/addon/cors-everywhere/</code></p>
+
+<h2 id="创建app组件">创建APP组件</h2>
+
+<p>首先来创建一个简单的带有search功能的APP组件</p>
+
+<pre><code class="language-typescript">@Component({
+  selector: 'app',
+  template: `
+&lt;form class=&quot;form-inline&quot;&gt;
+  &lt;div class=&quot;form-group&quot;&gt;
+    &lt;input type=&quot;search&quot;
+           class=&quot;form-control&quot;
+           placeholder=&quot;Enter search string&quot;
+           #search&gt; 
+  &lt;/div&gt;
+  &lt;button class=&quot;btn btn-primary&quot;
+          (click)=&quot;doSearch(search.value)&quot;&gt; 
+          Search
+  &lt;/button&gt;
+&lt;/form&gt;
+ `
+})
+class AppComponent {
+  constructor() { }
+
+  doSearch(term:string) {
+  }
+}
+</code></pre>
+
+<p>input的组件中有一个引用变量<code>search</code>
+按下<code>Search</code>会调用<code>doSearch()</code>函数并且传入了这个引用变量。</p>
+
+<p>我们有一个input和search button。当某人按下button，我们会执行<code>doSearch</code>函数，来搜索iTunes数据库。</p>
+
+<h2 id="创建一个搜索服务">创建一个搜索服务</h2>
+
+<p>到目前为止，我们已经知道了如何注入http到组件的构造函数中，然后直接使用http client库来发起请求。</p>
+
+<p>然后推荐的方法是创建一个中间服务层来使用HTTP client库来发起请求。取代原先返回的原始json数据为转换过的类实例，我们也称之为<code>domain model</code></p>
+
+<p>这大大的方便了我们去测试组件。我们没有模拟原始的HTTP请求，我们定义了<code>domain model</code>实例的测试数据来进行测试。</p>
+
+<p>因此，我们创建了我们的中间层服务，我们称之为<code>SearchService</code></p>
+
+<pre><code class="language-typescript">@Injectable() 
+class SearchService {
+  apiRoot:string = 'https://itunes.apple.com/search';
+  results:Object[];
+  loading:boolean;
+
+  constructor(private http:Http) { 
+    this.results = [];
+    this.loading = false;
+  }
+
+  search(term:string) {
+  }
+}
+</code></pre>
+
+<p>我们使用<code>@Injectable</code>来装饰了我们的类，因此Angular会知道，需要注入Http的服务到我们的构造函数中。可以看到构造函数中对http的注入。</p>
+
+<h3 id="使用promises">使用promises</h3>
+
+<p><code>search</code>函数用来完成一个异步的调用，使用http client库来发起到iTunes API的请求。</p>
+
+<p>在前面的章节我们知道，有两种方式来处理异步函数，<code>Promises</code>和<code>Observables</code></p>
+
+<p>在本章节中，我们使用<code>Promises</code>，在下一个章节中，我们使用<code>Observables</code></p>
+
+<p>由于我们使用promise，因此需要<code>search</code>函数来返回一个<code>promise</code>，例如：</p>
+
+<pre><code class="language-typescript">search(term:string) {
+  let promise = new Promise((resolve, reject) =&gt; {
+    //TODO
+  });
+  return promise;
+}
+</code></pre>
+
+<p>当从iTunes API获取到了http的应答，我们完成了我们的处理调用<code>resolve()</code>函数。这使得我们可以明确异步任务完成，并执行任何后续任务。</p>
+
+<p>如果http的应答返回了的错误,我们调用<code>reject()</code>,这个明确的指出这里发生了错误.</p>
+
+<p>因此让我们来完善下面的<code>get</code>请求,例如:</p>
+
+<pre><code class="language-typescript">let promise = new Promise((resolve, reject)=&gt;{
+  let apiURL = `${this.apiRoot}?term=${term}&amp;media=music&amp;limit=20`;
+  this.http.get(apiURL)
+    .toPromise()
+    .then(
+      res =&gt;{
+        console.log(res.json());
+        resolve();
+      }
+    );
+});
+</code></pre>
+
+<p>首先我们构建了请求的URL,例如:</p>
+
+<pre><code class="language-typescript">let apiURL = `${this.apiRoot}?term=${term}&amp;media=music&amp;limit=20`;
+</code></pre>
+
+<p>然后发起了get请求:</p>
+
+<pre><code class="language-typescript">this.http.get(apiURL)
+</code></pre>
+
+<p>它会返回一个<code>Observable</code>,所以我们将其转换为<code>Promise</code></p>
+
+<pre><code class="language-typescript">.toPromise()
+</code></pre>
+
+<p>然后我们打印出应答对象:</p>
+
+<pre><code class="language-typescript">.then(
+  res =&gt; { // Success
+  console.log(res.json());
+  }
+);
+</code></pre>
+
+<h2 id="使用search服务">使用search服务</h2>
+
+<p>需要配置<code>SearchService</code>作为一个provider在我们的<code>NgModule</code></p>
+
+<pre><code class="language-typescript">@NgModule({
+  imports: [
+    BrowserModule,
+    HttpModule,
+  ],
+  declarations: [AppComponent],
+  bootstrap: [AppComponent],
+  providers: [SearchService]
+})
+class AppModule { }
+</code></pre>
+
+<p>也需要去注入我们的search服务到<code>AppComponent</code>,然后当用户按下按钮的时候,调用<code>itunes.search()</code></p>
+
+<pre><code class="language-typescript">class AppComponent {
+  constructor(private itunes:SearchService) { }
+
+  doSearch(term:string) {
+    this.itunes.search(term)
+  }
+}
+</code></pre>
+
+<p>我们只对请求的结果感兴趣,它是一个搜索返回结果列表.</p>
+
+<p>不用将搜索结果返回到组件，而是将搜索结果存储在SearchService里，以便更轻松地在组件之间共享结果，同时添加错误处理程序，如下所示：</p>
+
+<pre><code class="language-typescript">search(term:string) {
+  let promise = new Promise((resolve, reject) =&gt; {
+    let apiURL = `${this.apiRoot}?term=${term}&amp;media=music&amp;limit=20`;
+    this.http.get(apiURL)
+      .toPromise()
+      .then(
+        res =&gt; { // Success
+        this.results = res.json().results;
+        resolve();
+        },
+        msg =&gt; { // Error
+        reject(msg);
+        }
+      );
+  });
+  return promise;
+}
+}
+</code></pre>
+
+<p>我们调用了<code>resolve()</code>以及<code>reject()</code>函数来完成这个异步的调用当获得从服务器返回应答的时候.</p>
+
+<p>现在让我们渲染这些结果到我们的组件上.</p>
+
+<p>数据保存在iTunes服务中,我们使用<code>NgFor</code>命令来遍历结果</p>
+
+<pre><code class="language-html">&lt;ul&gt;
+  &lt;li *ngFor=&quot;let track of itunes.results&quot;&gt;
+    {{track.trackName}}
+  &lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+
+<p>只显示名字显得单调了些,让我们显示一些图片上去</p>
+
+<pre><code class="language-html">&lt;ul class=&quot;list-group&quot;&gt;
+  &lt;li class=&quot;list-group-item&quot;
+      *ngFor=&quot;let track of itunes.results&quot;&gt;
+    &lt;img src=&quot;{{track.artworkUrl30}}&quot;&gt;
+    &lt;a target=&quot;_blank&quot;
+       href=&quot;{{track.trackViewUrl}}&quot;&gt;{{ track.trackName }}
+    &lt;/a&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+
+<h2 id="添加加载指示">添加加载指示</h2>
+
+<p>现在基本上工作都已经完成,只有在异步请求的时候,我们需要一个加载指示器给终端用户,以表示当前程序运行中而不是程序异常了.</p>
+
+<p>让我们显示<code>Loading...</code>字符,但我们等待请求应答结果的时候.</p>
+
+<p>我们创建一个<code>loading</code>的布尔变量载我们的组件内,然后有条件的显示<code>p</code>tag如果<code>loading</code>是true,例如:</p>
+
+<pre><code class="language-typescript">&lt;div class=&quot;text-center&quot;&gt;
+  &lt;p class=&quot;lead&quot; *ngIf=&quot;loading&quot;&gt;Loading...&lt;/p&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p>我们将loading初始化为false,当调用<code>doSearch()</code>的时候,设置为true.</p>
+
+<pre><code class="language-typescript">class AppComponent {
+  private loading: boolean = false;
+
+  constructor(private itunes:SearchService) { }
+
+  doSearch(term:string) {
+    this.loading = true;
+    this.itunes.search(term)
+  }
+}
+</code></pre>
+
+<p>当处理完成后,我们重新将loading置为false</p>
+
+<pre><code class="language-typescript">doSearch(term:string) {
+  this.loading = true;
+  this.itunes.search(term).then( () =&gt; this.loading = false)
+}
+</code></pre>
+
+<h2 id="使用-domail-model">使用 domail model</h2>
+
+<p>我们现在已经有了一个完整功能的APP</p>
+
+<p>然而我们存储的数据现在还是一个文本的json对象,一个好的做法是解析这些原始的数据到一个类实例,也叫做 domain model</p>
+
+<p>首先,我们创建一个类叫做<code>SearchItem</code></p>
+
+<pre><code class="language-typescript">class SearchItem {
+  constructor(public name: string,
+              public artist: string,
+              public link: string,
+              public thumbnail: string,
+              public artistId: string) {
+  }
+}
+</code></pre>
+
+<p>然后在<code>SearchService</code>中我们将数据解析到这个类的实例中.</p>
+
+<p>我们使用map来完成这个操作</p>
+
+<pre><code class="language-typescript">this.results = res.json().results.map(item =&gt; { 
+  return new SearchItem(
+      item.trackName,
+      item.artistName,
+      item.trackViewUrl,
+      item.artworkUrl30,
+      item.artistId
+  );
+});
+</code></pre>
+
+<p>完整的<code>SearchService</code>代码清单如下:</p>
+
+<pre><code class="language-typescript">@Injectable()
+export class SearchService {
+  apiRoot: string = 'https://itunes.apple.com/search';
+  results: SearchItem[];
+  loading: boolean;
+
+  constructor(private http: Http) {
+    this.results = [];
+    this.loading = false;
+  }
+
+  search(term: string) {
+    let promise = new Promise((resolve, reject) =&gt; {
+      let apiURL = `${this.apiRoot}?term=${term}&amp;media=music&amp;limit=20`;
+      this.http.get(apiURL)
+          .toPromise()
+          .then(
+              res =&gt; { // Success
+                this.results = res.json().results.map(item =&gt; {
+                  return new SearchItem(
+                      item.trackName,
+                      item.artistName,
+                      item.trackViewUrl,
+                      item.artworkUrl30,
+                      item.artistId
+                  );
+                });
+                // this.results = res.json().results;
+                resolve();
+              },
+              msg =&gt; { // Error
+                reject(msg);
+              }
+          );
+    });
+    return promise;
+  }
+}
+</code></pre>
+
+<p>results属性现在就是<code>SearchItem</code>的数组</p>
+
+<p>更新下我们的显示逻辑</p>
+
+<pre><code class="language-html">&lt;ul class=&quot;list-group&quot;&gt;
+  &lt;li class=&quot;list-group-item&quot;
+      *ngFor=&quot;let track of itunes.results&quot;&gt;
+    &lt;img src=&quot;{{track.thumbnail}}&quot;&gt;
+    &lt;a target=&quot;_blank&quot;
+       href=&quot;{{track.link}}&quot;&gt;{{ track.name }}
+    &lt;/a&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+
+<h2 id="总结">总结</h2>
+
+<p>推荐的方式是构建一个中间服务层来完成所有的http请求,然后将返回结果从原始数据转换为domain models</p>
+
+<p>在本章中,我们使用promise来除了异步的请求.并且通过我们自己的<code>SearchService</code>返回了一个promise</p>
+
+<p>下章我们将实现<code>Observables</code></p>
+
+<h2 id="代码清单">代码清单</h2>
+
+<pre><code class="language-typescript">import {NgModule, Component, Injectable} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+import {HttpModule, Http, Response} from '@angular/http';
+import 'rxjs/Rx';
+
+class SearchItem {
+  constructor(public track: string,
+              public artist: string,
+              public link: string,
+              public thumbnail: string,
+              public artistId: string) {
+  }
+}
+
+
+@Injectable()
+export class SearchService {
+  apiRoot: string = 'https://itunes.apple.com/search';
+  results: SearchItem[];
+  loading: boolean;
+
+  constructor(private http: Http) {
+    this.results = [];
+    this.loading = false;
+  }
+
+  search(term: string) {
+    let promise = new Promise((resolve, reject) =&gt; {
+      let apiURL = `${this.apiRoot}?term=${term}&amp;media=music&amp;limit=20`;
+      this.http.get(apiURL)
+          .toPromise()
+          .then(
+              res =&gt; { // Success
+                this.results = res.json().results.map(item =&gt; {
+                  return new SearchItem(
+                      item.trackName,
+                      item.artistName,
+                      item.trackViewUrl,
+                      item.artworkUrl30,
+                      item.artistId
+                  );
+                });
+                // this.results = res.json().results;
+                resolve();
+              },
+              msg =&gt; { // Error
+                reject(msg);
+              }
+          );
+    });
+    return promise;
+  }
+}
+
+
+@Component({
+  selector: 'app',
+  template: `
+&lt;form class=&quot;form-inline&quot;&gt;
+	&lt;div class=&quot;form-group&quot;&gt;
+		&lt;input type=&quot;search&quot;
+		       class=&quot;form-control&quot;
+		       placeholder=&quot;Enter search string&quot;
+		       #search&gt;
+	&lt;/div&gt;
+	&lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; (click)=&quot;doSearch(search.value)&quot;&gt;Search&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;hr/&gt;
+
+&lt;div class=&quot;text-center&quot;&gt;
+  &lt;p class=&quot;lead&quot; *ngIf=&quot;loading&quot;&gt;Loading...&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;ul class=&quot;list-group&quot;&gt;
+	&lt;li class=&quot;list-group-item&quot;
+	    *ngFor=&quot;let track of itunes.results&quot;&gt;
+		&lt;img src=&quot;{{track.thumbnail}}&quot;&gt;
+		&lt;a target=&quot;_blank&quot;
+		   href=&quot;{{track.link}}&quot;&gt;{{ track.track }}
+		&lt;/a&gt;
+	&lt;/li&gt;
+&lt;/ul&gt;
+ `
+})
+class AppComponent {
+  private loading: boolean = false;
+
+  constructor(private itunes: SearchService) {
+  }
+
+  doSearch(term: string) {
+    this.loading = true;
+    this.itunes.search(term).then(_ =&gt; this.loading = false)
+  }
+}
+
+@NgModule({
+  imports: [
+    BrowserModule,
+    HttpModule,
+  ],
+  declarations: [AppComponent],
+  bootstrap: [AppComponent],
+  providers: [SearchService]
+})
+class AppModule {
+}
+
+platformBrowserDynamic().bootstrapModule(AppModule);
+</code></pre>
+
+<div>
+<a  href='../../angular/http-core-http-api'>上一章 Angular HTTP Core API</a>
+</div>
+<div>
+<a href='../../angular/http-example-observables'>下一章 Angular HTTP Observable</a>
+</div>
+    </div>
+
+    
+    
+
+    
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="https://blog.ucatch.me/img/reward/wechat.png">
+        <span>微信打赏</span>
+      </label>
+    
+  </div>
+</div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="https://blog.ucatch.me/tags/angular/">angular</a>
+          
+          <a href="https://blog.ucatch.me/tags/http/">http</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="https://blog.ucatch.me/post/angular/http-core-http-api/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Angular4-HTTP  core http api</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+          <a class="next" href="https://blog.ucatch.me/post/angular/http-overview/">
+            <span class="next-text nav-default">Angular4-HTTP-概要</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+        
+        
+        if (window.location.hostname === 'localhost') return;
+
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'seanchann';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com/" class="dsq-brlink" target="_blank">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  
+      </div>  
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:seanchann@foxmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/seanchann" class="iconfont icon-github" title="github"></a>
+  <a href="https://blog.ucatch.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy; 
+    2017
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">seanchann</span>
+    <p class="credits theme-by text-muted">Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>    
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="https://blog.ucatch.me/lib/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="https://blog.ucatch.me/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.ucatch.me/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="https://blog.ucatch.me/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+<script type="text/javascript" src="https://blog.ucatch.me/dist/even.min.js?v=2.6.1"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-62644170-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+</body>
+</html>
